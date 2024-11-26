@@ -10,3 +10,4 @@ docs/
 .Rdata
 .httr-oauth
 .quarto/
+.history/
