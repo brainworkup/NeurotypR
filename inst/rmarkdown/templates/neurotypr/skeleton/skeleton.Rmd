@@ -1,0 +1,47 @@
+---
+title: "Neurotypical Research Report"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Brief introduction to your neurotypical research study.
+
+## Methods
+
+### Participants
+
+Describe your participant recruitment and demographics.
+
+### Materials
+
+List and describe the materials and measures used.
+
+### Procedure
+
+Detail the experimental procedure.
+
+## Results
+
+```{r analysis, echo=FALSE}
+# Your analysis code here
+```
+
+## Discussion
+
+Discuss your findings and their implications.
+
+## References
+
+List your references here.

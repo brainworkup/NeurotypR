@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.md$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.git$
+^data-raw$
+^\.Rhistory$
+^\.RData$
+^\.DS_Store$
