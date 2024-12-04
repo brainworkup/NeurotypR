@@ -5,7 +5,7 @@ title: |
 date: "`r Sys.Date()`"
 params:
   patient:
-    value: Edward
+    value: Biggie
     label: "Patient's first name:"
     input: text
   test_name:
