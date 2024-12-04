@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables BASC-3 SRP Adolescent"
 params:
-  patient: "{{< var patient >}}"
+  patient: Biggie
   test: basc3_srp_adolescent
   test_name: "BASC-3 SRP"
   file:

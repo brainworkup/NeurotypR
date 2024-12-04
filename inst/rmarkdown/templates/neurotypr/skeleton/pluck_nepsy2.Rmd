@@ -1,7 +1,7 @@
 ---
 title: "Merge NEPSY-2 scores with lookup table"
 params:
-  patient: "{{< var patient >}}"
+  patient: Biggie
   test: nepsy2
   test_name: "NEPSY-2"
   version: "NEPSY-2 Ages 2-3"

@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables BASC-3 SRP Adolescent"
 params:
-  patient: "{{< var patient >}}"
+  patient: Biggie
   test: basc3_srp_adolescent
   test_name: "BASC-3 SRP"
   file:
@@ -249,7 +249,7 @@ table2 <-
       scale == "Self-Reliance" ~ "Personal Adjustment",
       TRUE ~ as.character(subdomain)
     )
-)
+  )
 
 ```
 
@@ -267,7 +267,7 @@ table1 <-
       scale == "Personal Adjustment" ~ "Personality",
       TRUE ~ as.character(narrow)
     )
-)
+  )
 
 table2 <-
   table2 |>
@@ -291,7 +291,7 @@ table2 <-
       scale == "Self-Reliance" ~ "Personality",
       TRUE ~ as.character(narrow)
     )
-)
+  )
 ```
 
 ### Scale descriptions
@@ -310,7 +310,7 @@ table1 <-
       scale == "Personal Adjustment" ~ "Personal Adjustment composite scale",
       TRUE ~ as.character(description)
     )
-)
+  )
 table2 <-
   table2 |>
   mutate(
@@ -324,7 +324,7 @@ table2 <-
       scale == "Anxiety" ~ "tendency to be nervous, fearful, or worried about real or imagined problems",
       scale == "Depression" ~ "excessive feelings of unhappiness, sadness, or stress",
       scale == "Sense of Inadequacy" ~ "tendency to feel unsuccessful or generally inadequate",
-      scale == "Somatization" ~ "tendency to be overly sensitive or to complain about relatively minor physical problems/discomfort",       scale == "Attention Problems" ~ "tendency to be easily distracted and unable to concentrate for an extended period of time",
+      scale == "Somatization" ~ "tendency to be overly sensitive or to complain about relatively minor physical problems/discomfort", scale == "Attention Problems" ~ "tendency to be easily distracted and unable to concentrate for an extended period of time",
       scale == "Hyperactivity" ~ "tendency to be overly active, rush through work or activities, and act without thinking",
       scale == "Relations with Parents" ~ "tendency to feel valued and supported by parents",
       scale == "Interpersonal Relations" ~ "feeling liked and respected by peers",
@@ -344,7 +344,7 @@ df <- bind_rows(table1, table2)
 ## Glue results
 
 ```{r result}
-df <- df |> 
+df <- df |>
   rowwise() |>
   mutate(result = glue::glue("{patient}'s self-reported {description} was {range}.\n"))
 ```
@@ -357,10 +357,10 @@ df <- df |>
 test <- params$test
 readr::write_csv(
   df,
-  here::here(patient, "csv", paste0(test, ".csv")), 
-  col_names = TRUE, 
+  here::here(patient, "csv", paste0(test, ".csv")),
+  col_names = TRUE,
   na = ""
-  )
+)
 ```
 
 ## Pluck Text
@@ -371,7 +371,6 @@ file <- fs::fs_path(params$file)
 
 # BASC-3 SRP Child
 if (params$test == "basc3_srp_child") {
-  
   ## extract text
   get_text <- function(file) {
     txt <- pdftools::pdf_text(file) |>
@@ -391,23 +390,24 @@ if (params$test == "basc3_srp_child") {
 
   # save as markdown
   readr::write_lines(
-    basc3_srp_squished, 
-    here::here(patient, "basc3_srp_text.md"), 
-    sep = "\n")
+    basc3_srp_squished,
+    here::here(patient, "basc3_srp_text.md"),
+    sep = "\n"
+  )
   # save as quarto
   readr::write_lines(
-    basc3_srp_squished, 
-    here::here(patient, "basc3_srp_text.qmd"), 
-    sep = "\n")
-  # save as text
-  readr::write_lines(basc3_srp_squished, 
-    here::here(patient, "basc3_srp_text.txt"), 
+    basc3_srp_squished,
+    here::here(patient, "basc3_srp_text.qmd"),
     sep = "\n"
-    )
+  )
+  # save as text
+  readr::write_lines(basc3_srp_squished,
+    here::here(patient, "basc3_srp_text.txt"),
+    sep = "\n"
+  )
 
-# BASC-3 SRP Adolescent
+  # BASC-3 SRP Adolescent
 } else if (params$test == "basc3_srp_adolescent") {
-
   ## extract text
   get_text <- function(file) {
     txt <- pdftools::pdf_text(file) |>
@@ -424,22 +424,22 @@ if (params$test == "basc3_srp_child") {
     stringr::str_replace_all(basc3_srp_adolescent_txt, "\\s{2,}", "- ") |>
     stringr::str_remove_all(",")
   basc3_srp_adolescent_squished
-  
+
   # save as markdown
-  readr::write_lines(basc3_srp_adolescent_squished, 
+  readr::write_lines(basc3_srp_adolescent_squished,
     here::here(patient, "basc3_srp_adolescent_text.md"),
     sep = "\n"
-    )
+  )
   # save as quarto
-  readr::write_lines(basc3_srp_adolescent_squished, 
+  readr::write_lines(basc3_srp_adolescent_squished,
     here::here(patient, "basc3_srp_adolescent_text.qmd"),
     sep = "\n"
-    )
+  )
   # save as text
-  readr::write_lines(basc3_srp_adolescent_squished, 
-    here::here(patient, "basc3_srp_adolescent_text.txt"), 
+  readr::write_lines(basc3_srp_adolescent_squished,
+    here::here(patient, "basc3_srp_adolescent_text.txt"),
     sep = "\n"
-    )
+  )
 }
 ```
 
@@ -511,21 +511,21 @@ library(tibble)
 parse_extracted_text <- function(text) {
   # Split text by lines
   lines <- unlist(strsplit(text, split = "\n"))
-  
+
   # Filter lines containing scores
   score_lines <- lines[str_detect(lines, "-")]
-  
+
   # Extract names, raw values, and T scores using regex
   names <- str_extract(score_lines, ".*(?=\\s*-\\s*)")
   values <- str_extract_all(score_lines, "(?<=-\\s*)[^-]*")
-  
+
   # Convert to data.frame
   df <- tibble(
     Name = names,
     RawValue = sapply(values, function(x) x[1]),
     TScore = sapply(values, function(x) x[2])
   )
-  
+
   return(df)
 }
 
@@ -558,21 +558,21 @@ library(tibble)
 parse_extracted_text <- function(text) {
   # Split text by lines
   lines <- unlist(strsplit(text, split = "\n"))
-  
+
   # Filter lines containing scores
   score_lines <- lines[str_detect(lines, "-")]
-  
+
   # Split by hyphen and trim whitespace
   split_values <- str_split(score_lines, "-")
   trimmed_values <- lapply(split_values, str_trim)
-  
+
   # Convert to data.frame
   df <- tibble(
     Name = sapply(trimmed_values, `[[`, 1),
     RawValue = sapply(trimmed_values, `[[`, 2),
     TScore = sapply(trimmed_values, `[[`, 3)
   )
-  
+
   return(df)
 }
 
