@@ -1,7 +1,7 @@
 ---
 title: "Import CSV file from PAI"
 params:
-  patient: Edward
+  patient: Itamar
   test: pai
   test_name: PAI
   file:
@@ -26,12 +26,14 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(dplyr)
-library(hablar)
+library(fs)
+library(glue)
 library(here)
 library(knitr)
 library(magrittr)
-library(miniUI)
+library(pdftools)
 library(readr)
+library(rlang)
 library(rmarkdown)
 library(rmdformats)
 library(shiny)
@@ -40,6 +42,8 @@ library(tabulapdf)
 library(tibble)
 library(tidyr)
 library(vroom)
+library(xfun)
+library(yaml)
 library(bwu)
 ```
 
@@ -64,8 +68,6 @@ test_name <- params$test_name
 file <- file.path(params$file)
 saveRDS(file, "pai.rds")
 # file <- readRDS("pai.rds")
-test <- params$test
-test_name <- params$test_name
 ```
 
 ## Import PAI CSV file from PARiConnect
@@ -290,10 +292,11 @@ pai <-
     test_type = "rating_scale",
     score_type = "t_score",
     absort = paste0(
-      tolower(test), "_", tolower(scale), "_", seq_len(nrow(pai))),
+      tolower(test), "_", tolower(scale), "_", seq_len(nrow(pai))
+    ),
     description = "",
     result = ""
-    )
+  )
 
 
 df_clinical <-
@@ -725,8 +728,8 @@ df_validity <-
 
 ```{r slice}
 slice_clinical <- c(1:51)
-df_clinical <- 
-  df_clinical |> 
+df_clinical <-
+  df_clinical |>
   dplyr::slice(slice_clinical)
 ```
 

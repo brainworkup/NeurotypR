@@ -4,7 +4,7 @@ patient <- "Biggie"
 
 test <- "nab"
 test_name <- "NAB"
-pages <- c(2, 3, 6, 9, 10, 10, 11, 13)
+pages <- c(2, 3, 6, 9, 10, 10, 11, 13) # no spatial
 extract_columns <- c(1, 2, 3, 4, 5)
 
 # test <- "nab_index"

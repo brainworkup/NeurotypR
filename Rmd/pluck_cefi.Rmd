@@ -4,7 +4,7 @@ title: |
   <center> Self and Observer Reports </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Biggie
+  patient: Itamar
   test:
     label: "CEFI"
     value: cefi_sr
@@ -48,7 +48,7 @@ Sys.setenv(
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = TRUE,
+  echo = FALSE,
   message = FALSE,
   warning = TRUE,
   error = TRUE,
@@ -61,6 +61,7 @@ library(hablar)
 library(here)
 library(knitr)
 library(magrittr)
+library(miniUI)
 library(pdftools)
 library(rJava)
 library(rmarkdown)
