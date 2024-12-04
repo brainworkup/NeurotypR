@@ -1,0 +1,1 @@
+/Users/joey/pfc/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/skeleton.Rmd
