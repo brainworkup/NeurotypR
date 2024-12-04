@@ -1,9 +1,9 @@
 Package: NeurotypR
-Title: R Markdown Template for Neurotypical Research
+Title: R Markdown Template for Neuropsychological Report Writing
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: Provides R Markdown templates for neurotypical research reports and analysis.
+    person("Joey", "Trampush", , "joey.trampush@brainworkup.org", role = c("aut", "cre"))
+Description: Provides R Markdown templates for neuropsychological research reports and analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

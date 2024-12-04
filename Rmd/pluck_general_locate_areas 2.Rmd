@@ -4,7 +4,7 @@ title: |
   <center> Any Test </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Biggie
+  patient: Edward
   test:
     label: "Test"
     value: test
@@ -14,7 +14,6 @@ params:
       - wais4
       - wais5
       - wrat5
-      - nab
   test_name:
     label: "Test Name"
     value: test_name
@@ -24,7 +23,6 @@ params:
       - WAIS-IV
       - WAIS-5
       - WRAT-5
-      - NAB
   file:
     label: "No file selected"
     value: file
@@ -48,7 +46,7 @@ params:
       - z_score
       - sem
       - ref_group_ss
-  # extract_columns: [1,2,3,4,5]
+  extract_columns: [1,2,3,4,5]
   extract_columns_label:
     label: "Columns to keep"
     value: [scale, raw_score, score, ci_95, percentile]
@@ -70,7 +68,7 @@ params:
       - validity_indicator
   score_type:
     label: "Score type"
-    value: "t_score"
+    value: "standard_score"
     input: radio
     choices:
       - standard_score
@@ -137,6 +135,95 @@ saveRDS(file, paste0(test, ".rds")) # eventually update to data directory
 # file <- readRDS(paste0(test, ".rds"))
 ```
 
+## Locate areas
+
+```{r eval = FALSE}
+# file <- file.path(file.choose())
+areas <- tabulapdf::locate_areas(
+  file = file,
+  pages = pages
+)
+```
+
+```{r}
+# Saves areas as text files in df or list
+# Convert the list to a data frame
+areas_df <- do.call(rbind, lapply(areas, function(x) as.data.frame(t(x))))
+
+# Write the data frame to a text file
+write.table(areas_df,
+  file = paste0("areas_", test, ".txt"),
+  sep = "\t",
+  row.names = FALSE,
+  col.names = TRUE,
+  quote = FALSE
+)
+
+# Save the list structure to a text file
+dput(areas, file = "areas_test.txt")
+
+# Read the list back into R
+areas_test <- dget("areas_test.txt")
+```
+
+## Locate areas
+
+```{r areas-known, eval = FALSE}
+# if known
+if (params$version == "full") {
+  area <- list(
+    index = c(133, 50, 196, 560),
+    vci = c(303, 50, 338, 560),
+    pri = c(388, 50, 421, 560),
+    wmi = c(473, 50, 507, 560),
+    psi = c(560, 50, 576, 560),
+    bd = c(411, 50, 431, 560),
+    ds = c(491, 50, 510, 560)
+  )
+} else if (params$version == "brief") {
+  area <- list(
+    vci = c(168, 50, 189, 560),
+    pri = c(238, 50, 260, 560),
+    wmi = c(308, 50, 329, 560),
+    psi = c(376, 50, 402, 560)
+  )
+}
+# with FSIQ
+# index = c(132, 50, 227, 560),
+# vci = c(364, 50, 398, 560),
+# pri = c(450, 50, 484, 560),
+# wmi = c(535, 50, 570, 560),
+# psi = c(620, 50, 656, 560),
+# bd = c(355, 50, 375, 560),
+# ds = c(436, 50, 533, 560)
+```
+
+## Extract tables
+
+Extract tables from the PDF file using `tabulapdf`
+
+```{r eval = F}
+plucked_tables <- tabulapdf::extract_tables(
+  file = file,
+  pages = pages,
+  area = areas,
+  guess = NULL,
+  method = "decide",
+  output = "matrix"
+)
+
+# Save the list of data frames to a file
+saveRDS(plucked_tables, file = "plucked_tables.rds")
+```
+
+```{r}
+# Load the list of data frames from the file
+plucked_tables <- readRDS("plucked_tables.rds")
+
+# Verify that the list is loaded correctly
+str(plucked_tables)
+```
+
 ## Extract areas with `tabulapdf`
 
 NOTE: Do this in R first in `params.R` file, not here
@@ -166,31 +253,10 @@ saveRDS(extracted_areas, paste0(test, ".rds")) # eventually update to data direc
 
 ```{r}
 # To read the extracted areas back in
-# extracted_areas <- readRDS(paste0(test, ".rds"))
+extracted_areas <- readRDS(paste0(test, ".rds"))
 ```
 
 ## Functions
-
-### Function to convert specified columns to integer, double, and factor types
-
-```{r}
-# Function to convert specified columns to integer, double, and factor types
-convert_columns <- function(df, to_integer, to_double, to_factor) {
-  df <- df %>%
-    mutate(across(all_of(to_integer), as.integer, .names = "{.col}")) %>%
-    mutate(across(all_of(to_double), as.double, .names = "{.col}")) %>%
-    mutate(across(all_of(to_factor), as.factor, .names = "{.col}"))
-  return(df)
-}
-
-# Specify the columns to be converted
-to_integer <- c("raw_score", "score")
-to_double <- c("percentile")
-to_factor <- c("category")
-
-# Use the function to convert the columns
-df <- convert_columns(df, to_integer, to_double, to_factor = NULL)
-```
 
 ### Function to merge subtests
 
@@ -258,6 +324,27 @@ df <- df |>
 # Step 3: Remove rows where 'score' or 'percentile' are missing
 df <- df |>
   filter(!is.na(score) & !is.na(percentile))
+```
+
+### Function to convert specified columns to integer, double, and factor types
+
+```{r}
+# Function to convert specified columns to integer, double, and factor types
+convert_columns <- function(df, to_integer, to_double, to_factor) {
+  df <- df %>%
+    mutate(across(all_of(to_integer), as.integer, .names = "{.col}")) %>%
+    mutate(across(all_of(to_double), as.double, .names = "{.col}")) %>%
+    mutate(across(all_of(to_factor), as.factor, .names = "{.col}"))
+  return(df)
+}
+
+# Specify the columns to be converted
+to_integer <- c("raw_score", "score")
+to_double <- c("percentile")
+to_factor <- c("category")
+
+# Use the function to convert the columns
+df <- convert_columns(df, to_integer, to_double, to_factor = NULL)
 ```
 
 ### Function to handle percentile conversion

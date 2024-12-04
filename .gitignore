@@ -12,3 +12,7 @@ docs/
 .quarto/
 .history/
 .vscode/settings.json
+Rmd/improve_code.md
+Rmd/cars2.xlsx
+Rmd/cars2_hf.xlsx
+Rmd/cars2_hf.csv

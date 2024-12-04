@@ -14,7 +14,6 @@ params:
       - wais4
       - wais5
       - wrat5
-      - nab
   test_name:
     label: "Test Name"
     value: test_name
@@ -24,7 +23,6 @@ params:
       - WAIS-IV
       - WAIS-5
       - WRAT-5
-      - NAB
   file:
     label: "No file selected"
     value: file
@@ -48,7 +46,7 @@ params:
       - z_score
       - sem
       - ref_group_ss
-  # extract_columns: [1,2,3,4,5]
+  extract_columns: [1,2,3,4,5]
   extract_columns_label:
     label: "Columns to keep"
     value: [scale, raw_score, score, ci_95, percentile]
@@ -70,7 +68,7 @@ params:
       - validity_indicator
   score_type:
     label: "Score type"
-    value: "t_score"
+    value: "standard_score"
     input: radio
     choices:
       - standard_score
@@ -166,31 +164,10 @@ saveRDS(extracted_areas, paste0(test, ".rds")) # eventually update to data direc
 
 ```{r}
 # To read the extracted areas back in
-# extracted_areas <- readRDS(paste0(test, ".rds"))
+extracted_areas <- readRDS(paste0(test, ".rds"))
 ```
 
 ## Functions
-
-### Function to convert specified columns to integer, double, and factor types
-
-```{r}
-# Function to convert specified columns to integer, double, and factor types
-convert_columns <- function(df, to_integer, to_double, to_factor) {
-  df <- df %>%
-    mutate(across(all_of(to_integer), as.integer, .names = "{.col}")) %>%
-    mutate(across(all_of(to_double), as.double, .names = "{.col}")) %>%
-    mutate(across(all_of(to_factor), as.factor, .names = "{.col}"))
-  return(df)
-}
-
-# Specify the columns to be converted
-to_integer <- c("raw_score", "score")
-to_double <- c("percentile")
-to_factor <- c("category")
-
-# Use the function to convert the columns
-df <- convert_columns(df, to_integer, to_double, to_factor = NULL)
-```
 
 ### Function to merge subtests
 
@@ -258,6 +235,27 @@ df <- df |>
 # Step 3: Remove rows where 'score' or 'percentile' are missing
 df <- df |>
   filter(!is.na(score) & !is.na(percentile))
+```
+
+### Function to convert specified columns to integer, double, and factor types
+
+```{r}
+# Function to convert specified columns to integer, double, and factor types
+convert_columns <- function(df, to_integer, to_double, to_factor) {
+  df <- df %>%
+    mutate(across(all_of(to_integer), as.integer, .names = "{.col}")) %>%
+    mutate(across(all_of(to_double), as.double, .names = "{.col}")) %>%
+    mutate(across(all_of(to_factor), as.factor, .names = "{.col}"))
+  return(df)
+}
+
+# Specify the columns to be converted
+to_integer <- c("raw_score", "score")
+to_double <- c("percentile")
+to_factor <- c("category")
+
+# Use the function to convert the columns
+df <- convert_columns(df, to_integer, to_double, to_factor = NULL)
 ```
 
 ### Function to handle percentile conversion
