@@ -1,5 +1,5 @@
 ---
-title: "Create table and csv for DKEFS"
+title: "Create table and csv for D-KEFS"
 params:
   patient: Biggie
   test:
@@ -67,7 +67,7 @@ knitr::opts_chunk$set(
   error = TRUE
 )
 library(tidyverse)
-library(tabulizer)
+library(tabulapdf)
 library(rJava)
 library(shiny)
 library(here)
@@ -119,45 +119,46 @@ pluck_dkefs_cwi <- function(input_file_path,
     # locale = locale(encoding = "UTF-16LE"),
     skip = 1
   )
-  
+
   # Rename the columns
-  names(df) <- c("Subtest",
-                 "Raw score",
-                 "Scaled score",
-                 "Percentile rank",
-                 "95% CI")
-  
+  names(df) <- c(
+    "Subtest",
+    "Raw score",
+    "Scaled score",
+    "Percentile rank",
+    "95% CI"
+  )
+
   # Remove the fifth column
   df <- df |> select(Subtest, `Raw score`, `Scaled score`, `Percentile rank`)
-  
+
   # Find the start of the "CWI" section
   start_line <- which(df == "D-KEFS Color-Word Interference Test") + 1
-  
+
   # Find the stop of the "CWI" section
   stop_line <- which(df == "Inhibition/Switching Total Errors")
-  
+
   # Read from the "CWI" section
   df_cwi <- df |>
     dplyr::slice(start_line:stop_line)
-  
+
   # Keep only rows with the specified prefix in the first column
   # df_raw <- df_raw |> filter(str_starts(Subtest, test_name_prefix))
-  
+
   # Your new names stored in a character vector (ensure it matches the number of columns in `df`)
   vars <- c("scale", "raw_score", "score", "percentile")
-  
+
   # Use `set_names()` to rename the columns
   df_cwi <- df_cwi |> set_names(vars)
   df_cwi$scale <- as.character(df_cwi$scale)
   df_cwi$raw_score <- as.numeric(df_cwi$raw_score)
   df_cwi$score <- as.numeric(df_cwi$score)
   df_cwi$percentile <- as.numeric(df_cwi$percentile)
-  
+
   # Write the combined data to a CSV file
   write_excel_csv(df_cwi, output_file_path, na = "")
-  
+
   return(df_cwi)
-  
 }
 
 df_cwi <- pluck_dkefs_cwi(input_file_path, output_file_path = output_file_path, test_name_prefix)
@@ -168,13 +169,13 @@ df_cwi <- pluck_dkefs_cwi(input_file_path, output_file_path = output_file_path, 
 ## Create percentile
 
 ```{r percentile, eval = TRUE}
-#TODO: Add percentile calculation ONLY if NA
-df_cwi <- df_cwi |> 
+# TODO: Add percentile calculation ONLY if NA
+df_cwi <- df_cwi |>
   dplyr::mutate(z = (score - 10) / 3) |>
   dplyr::mutate(percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)) |>
   dplyr::select(-z)
 
-# df_cwi <- df_cwi |> 
+# df_cwi <- df_cwi |>
 #   dplyr::mutate(z = (score - 10) / 3) |>
 #   dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
 #   dplyr::select(-z)
@@ -237,7 +238,7 @@ dkefs <- bwu::gpluck_make_score_ranges(
 
 ```{r domain}
 dkefs <-
-  dkefs |> 
+  dkefs |>
   dplyr::mutate(
     domain = dplyr::case_when(
       scale == "Color Naming" ~ "Verbal/Language",

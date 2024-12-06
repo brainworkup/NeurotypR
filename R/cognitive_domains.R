@@ -20,7 +20,7 @@ library(vroom)
 #' pheno <- "memory"
 #' scales <- c("Scale1", "Scale2")
 #' prepare_data(domains, pheno, scales)
-prepare_data <- function(domains, pheno, scales, type = "neurocog.csv") {
+prepare_data <- function(domains, pheno, scales, type = NULL) {
   # Check if required arguments are provided
   if (missing(domains) || missing(pheno) || missing(scales)) {
     stop("All arguments (domains, pheno, scales) must be provided.")
@@ -97,19 +97,19 @@ prepare_data <- function(domains, pheno, scales, type = "neurocog.csv") {
   invisible(NULL)
 }
 
-# Define the variables for domains, phenotype, and scales of interest
-domains <- c("General Cognitive Ability")
-pheno <- "iq"
-scales <- c(
-  "Animal Coding",
-  "Arithmetic",
-  "Attention Domain",
-  "Attention Index (ATT)",
-  "Attention Index"
-)
+# # Define the variables for domains, phenotype, and scales of interest
+# domains <- c("General Cognitive Ability")
+# pheno <- "iq"
+# scales <- c(
+#   "Animal Coding",
+#   "Arithmetic",
+#   "Attention Domain",
+#   "Attention Index (ATT)",
+#   "Attention Index"
+# )
 
 # Call the function with the specified domains, phenotype, and scales
-data <- prepare_data(domains, pheno, scales)
+# data <- prepare_data(domains, pheno, scales)
 
 # Second function
 library(ggplot2)
@@ -209,20 +209,20 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
 }
 
 # Define the variables for domains, phenotype, and scales of interest
-domains <- c("General Cognitive Ability")
-pheno <- "iq"
-scales_to_keep <- c(
-  "Animal Coding",
-  "Arithmetic",
-  "Attention Domain",
-  "Attention Index (ATT)",
-  "Attention Index"
-)
-grp_pheno <- list(
-  scaled_score = c("WAIS-IV", "D-KEFS", "NEPSY-2", "WISC-5", "WISC-V", "WPPSI-IV", "RBANS"),
-  standard_score = c("NAB", "NAB-S", "WISC-5", "WISC-V", "WAIS-IV", "WPPSI-IV", "WASI-II", "RBANS", "NAB Executive Functions", "NAB Attention"),
-  t_score = c("NAB", "NAB-S", "NIH EXAMINER", "Trail Making Test", "Daily Living", "NAB Executive Functions", "NAB Attention")
-)
-
-
-data_vis <- visualize_data(prepare_data(your_data))
+# domains <- c("General Cognitive Ability")
+# pheno <- "iq"
+# scales_to_keep <- c(
+#   "Animal Coding",
+#   "Arithmetic",
+#   "Attention Domain",
+#   "Attention Index (ATT)",
+#   "Attention Index"
+# )
+# grp_pheno <- list(
+#   scaled_score = c("WAIS-IV", "D-KEFS", "NEPSY-2", "WISC-5", "WISC-V", "WPPSI-IV", "RBANS"),
+#   standard_score = c("NAB", "NAB-S", "WISC-5", "WISC-V", "WAIS-IV", "WPPSI-IV", "WASI-II", "RBANS", "NAB Executive Functions", "NAB Attention"),
+#   t_score = c("NAB", "NAB-S", "NIH EXAMINER", "Trail Making Test", "Daily Living", "NAB Executive Functions", "NAB Attention")
+# )
+#
+#
+# data_vis <- visualize_data(prepare_data(your_data))

@@ -126,7 +126,7 @@ NOTE: moved to params.R ...
 can use those
 
 ```{r eval = FALSE}
-source("params.R")
+# source("params.R")
 patient <- (params$patient)
 test <- (params$test)
 test_name <- (params$test_name)
@@ -283,7 +283,7 @@ convert_percentile <- function(df, column_name) {
 df <- convert_percentile(df, "percentile")
 ```
 
-## Function to calculate 95% CI if needed
+### Function to calculate 95% CI if needed
 
 ```{r eval = params$compute_ci95}
 # Assuming df is your data.frame and calc_ci_95 is your function
@@ -307,13 +307,16 @@ df <- df |>
 
 ## Match with lookup table
 
-```{r eval = TRUE}
+```{r lookup eval = TRUE}
 # Load the lookup table
 lookup_table <- readr::read_csv("~/reports/neuropsych_lookup_table_combined.csv")
 
+# df <- vroom::vroom("data/csv/nab.csv")
+
 # Merge the data with the lookup table
-df_merged <- dplyr::mutate(df, test = test) |>
-  dplyr::left_join(lookup_table, by = c("test" = "test", "scale" = "scale")) |>
+df_merged <- df |>
+  dplyr::left_join(lookup_table, by = c("test" = "test", "test_name" = "test_name", "scale" = "scale")) |>
+  dplyr::arrange(test, test_name, scale) |> # Sort by test and scale
   dplyr::relocate(c(test, test_name), .before = scale)
 
 # add missing columns

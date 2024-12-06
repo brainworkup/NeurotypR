@@ -1,1 +1,0 @@
-/Users/joey/pfc/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/pluck_basc3_srp_adolescent copy.Rmd

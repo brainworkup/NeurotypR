@@ -1,8 +1,3 @@
-library(tidyverse)
-library(vroom)
-library(ggplot2)
-library(gt)
-
 # To extract the R code from the provided Quarto `.qmd` document and convert it into a reusable R function, I'll take the relevant code blocks and encapsulate them in functions with appropriate documentation and error checking. Below is the conversion:
 
 ### 1. **Prepare and Export Spatial Data**
@@ -30,7 +25,6 @@ library(gt)
 #' scales <- c("Arrows", "Bicycle Drawing")
 #' data_spatial <- prepare_and_export_spatial_data(domains, pheno, scales)
 prepare_and_export_spatial_data <- function(domains, pheno, scales, input_file = c("neurocog.csv", "neurobehav.csv"), output_file = NULL) {
-
   # Check for required arguments
   if (missing(domains) || missing(pheno) || missing(scales)) {
     stop("All arguments (domains, pheno, scales) must be provided.")
@@ -140,7 +134,7 @@ scales <- c(
   "Map Reading"
 )
 
-data <- prepare_and_export_spatial_data(c("Visual Perception/Construction"), "spatial", scales = scales, input_file = "neurocog.csv", output_file = "spatial.csv")
+# data <- prepare_and_export_spatial_data(c("Visual Perception/Construction"), "spatial", scales = scales, input_file = "neurocog.csv", output_file = "spatial.csv")
 
 ### 2. **Generate Spatial Data Table**
 
@@ -164,7 +158,6 @@ data <- prepare_and_export_spatial_data(c("Visual Perception/Construction"), "sp
 #' # Assuming `data_spatial` is the result from `prepare_and_export_spatial_data`
 #' table <- generate_spatial_data_table(data_spatial, "spatial", "table_spatial", grp_spatial)
 generate_spatial_data_table <- function(data, pheno, table_name, grp_spatial, vertical_padding = 0, multiline = TRUE) {
-
   # Footnotes and source notes
   fn_scaled_score <- gt::md("Score = Scaled score (Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰])")
   fn_standard_score <- gt::md("Score = Index score (Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰])")
@@ -199,13 +192,13 @@ grp_spatial <- list(
 )
 
 generate_spatial_data_table(
-    data,
-    pheno,
-    table_name,
-    grp_spatial,
-    vertical_padding = 0,
-    multiline = TRUE
-    )
+  data,
+  pheno,
+  table_name,
+  grp_spatial,
+  vertical_padding = 0,
+  multiline = TRUE
+)
 
 
 ### 3. **Create Spatial Dot Plot**
@@ -230,7 +223,6 @@ generate_spatial_data_table(
 #' # Assuming `data_spatial` is the result from `prepare_and_export_spatial_data`
 #' plot <- create_spatial_dotplot(data_spatial, data_spatial$z_mean_subdomain, data_spatial$subdomain, "fig_spatial.svg")
 create_spatial_dotplot <- function(data, x, y, filename, colors = NULL, return_plot = TRUE) {
-
   # Create the dot plot using bwu::dotplot
   dotplot <- bwu::dotplot(
     data = data,
@@ -246,12 +238,12 @@ create_spatial_dotplot <- function(data, x, y, filename, colors = NULL, return_p
 }
 
 # Arguments
-filename <- "fig_spatial.svg"
-x <- data$z_mean_subdomain
-y <- data$subdomain
+# filename <- "fig_spatial.svg"
+# x <- data$z_mean_subdomain
+# y <- data$subdomain
 
 # Call function
-create_spatial_dotplot(data, x, y, filename)
+# create_spatial_dotplot(data, x, y, filename)
 
 
 ### 4. **Generate Neuropsychology Results**
@@ -272,7 +264,6 @@ create_spatial_dotplot(data, x, y, filename)
 #' # Assuming `data_spatial` is the result from `prepare_and_export_spatial_data`
 #' generate_neuropsych_results(data_spatial, "_02-04_spatial_text.qmd")
 generate_neuropsych_results <- function(data, file) {
-
   # Generate the neuropsychology results text and write to file
   bwu::cat_neuropsych_results(data = data, file = file)
 
@@ -280,7 +271,7 @@ generate_neuropsych_results <- function(data, file) {
 }
 
 # Call function
-generate_neuropsych_results(data, "_02-04_spatial_text.qmd")
+# generate_neuropsych_results(data, "_02-04_spatial_text.qmd")
 
 ### Summary
 # The extracted R functions above encapsulate the main steps from the `.qmd` file, making the workflow modular and reusable in other contexts. Each function is documented with Roxygen comments and includes error handling where necessary.
@@ -327,46 +318,46 @@ generate_neuropsych_results(data, "_02-04_spatial_text.qmd")
 # ```
 
 # Save Typst code to a file
-typst_code <- '
-#let domain(title: none, file_qtbl, file_fig) = {
-let font = (font: "Roboto Slab", size: 0.5em)
-set text(..font)
-pad(top: 0.5em)[]
-grid(
-  columns: (50%, 50%),
-  gutter: 8pt,
-  figure([#image(file_qtbl)],
-    caption: figure.caption(position: top, [#title]),
-    kind: "qtbl",
-    supplement: [*Table*],
-  ),
-  figure([#image(file_fig)],
-    caption: figure.caption(position: bottom, [
-      Perception, construction, and visuospatial processing refer to
-      abilities such as mentally visualizing how objects should look from
-      different angles, visualizing how to put objects together so that
-      they fit correctly, and being able to accurately and efficiently
-      copy and/or reproduce visual-spatial information onto paper.
-    ]),
-    placement: none,
-    kind: "image",
-    supplement: [*Figure*],
-    gap: 0.5em,
-  ),
-)
-}
+# typst_code <- '
+# #let domain(title: none, file_qtbl, file_fig) = {
+# let font = (font: "Roboto Slab", size: 0.5em)
+# set text(..font)
+# pad(top: 0.5em)[]
+# grid(
+#   columns: (50%, 50%),
+#   gutter: 8pt,
+#   figure([#image(file_qtbl)],
+#     caption: figure.caption(position: top, [#title]),
+#     kind: "qtbl",
+#     supplement: [*Table*],
+#   ),
+#   figure([#image(file_fig)],
+#     caption: figure.caption(position: bottom, [
+#       Perception, construction, and visuospatial processing refer to
+#       abilities such as mentally visualizing how objects should look from
+#       different angles, visualizing how to put objects together so that
+#       they fit correctly, and being able to accurately and efficiently
+#       copy and/or reproduce visual-spatial information onto paper.
+#     ]),
+#     placement: none,
+#     kind: "image",
+#     supplement: [*Figure*],
+#     gap: 0.5em,
+#   ),
+# )
+# }
 
-#let title = "Visual Perception/Construction"
-#let file_qtbl = "table_spatial.png"
-#let file_fig = "fig_spatial.svg"
-#domain(
-title: [#title Scores],
-file_qtbl,
-file_fig
-'
-
-# Write the Typst code to a file
-writeLines(typst_code, "document.typ")
-
-# Run the Typst command to compile the file (assuming Typst is installed and in your PATH)
-system("typst compile document.typ")
+# let title = "Visual Perception/Construction"
+# let file_qtbl = "table_spatial.png"
+# let file_fig = "fig_spatial.svg"
+# domain(
+# title: [#title Scores],
+# file_qtbl,
+# file_fig
+# '
+#
+# # Write the Typst code to a file
+# writeLines(typst_code, "document.typ")
+#
+# # Run the Typst command to compile the file (assuming Typst is installed and in your PATH)
+# system("typst compile document.typ")
