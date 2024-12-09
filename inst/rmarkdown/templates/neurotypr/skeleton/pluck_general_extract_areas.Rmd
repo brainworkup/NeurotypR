@@ -305,9 +305,9 @@ df <- df |>
   dplyr::relocate(ci_95, .after = score)
 ```
 
-## Match with lookup table
+# JOIN WITH LOOKUP TABLE
 
-```{r lookup eval = TRUE}
+```{r eval = TRUE}
 # Load the lookup table
 lookup_table <- readr::read_csv("~/reports/neuropsych_lookup_table_combined.csv")
 

@@ -58,17 +58,17 @@ process_and_save_results <- function(file_path, output_path) {
   readr::write_lines(df$summary, output_path, sep = "\n\n")
 }
 
-# # Process all datasets and write summaries
-# datasets <- list(
-#   executive = list(file = "{{< var patient >}}/executive.csv", output = "{{< var patient >}}/_02-05_executive_text.txt"),
-#   verbal = list(file = "verbal.csv", output = "_02-03_verbal_text.txt"),
-#   spatial = list(file = "spatial.csv", output = "_02-04_spatial_text.txt"),
-#   memory = list(file = "memory.csv", output = "_02-06_memory_text.txt"),
-#   adhd = list(file = "adhd.csv", output = "_02-09_adhd_text.txt")
-# )
+# Process all datasets and write summaries
+datasets <- list(
+  executive = list(file = "{{< var patient >}}/executive.csv", output = "{{< var patient >}}/_02-05_executive_text.txt"),
+  verbal = list(file = "verbal.csv", output = "_02-03_verbal_text.txt"),
+  spatial = list(file = "spatial.csv", output = "_02-04_spatial_text.txt"),
+  memory = list(file = "memory.csv", output = "_02-06_memory_text.txt"),
+  adhd = list(file = "adhd.csv", output = "_02-09_adhd_text.txt")
+)
 
 # Loop through each dataset and process
-# for (name in names(datasets)) {
-#   dataset <- datasets[[name]]
-#   process_and_save_results(dataset$file, dataset$output)
-# }
+for (name in names(datasets)) {
+  dataset <- datasets[[name]]
+  process_and_save_results(dataset$file, dataset$output)
+}

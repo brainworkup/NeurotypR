@@ -4,7 +4,7 @@ title: |
   <center> Self and Observer Reports </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Itamar
+  patient: Biggie
   test:
     label: "CEFI"
     value: cefi_sr

@@ -1,7 +1,7 @@
 ---
 title: "Import CSV file from PAI"
 params:
-  patient: Itamar
+  patient: Biggie
   test: pai
   test_name: PAI
   file:
