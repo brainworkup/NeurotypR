@@ -16,3 +16,4 @@
 ^\.qmd$
 ^\.sh$
 ^quarto$
+^\.vscode$
