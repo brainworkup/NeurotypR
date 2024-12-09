@@ -13,3 +13,6 @@
 ^\.RData$
 ^\.DS_Store$
 ^\.history$
+^\.qmd$
+^\.sh$
+^quarto$

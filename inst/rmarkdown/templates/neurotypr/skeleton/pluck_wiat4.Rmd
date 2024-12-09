@@ -255,7 +255,7 @@ plucked_table <- bwu::gpluck_extract_table(
 library(dplyr)
 library(purrr)
 
-patient <- "Edward"
+patient <- "Biggie"
 file <- fs::fs_path(file.choose())
 
 df1 <- plucked_tables[[1]]

@@ -4,7 +4,7 @@ title: |
   <center> Any Test </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Edward
+  patient: Biggie
   test:
     label: "Test"
     value: test
@@ -167,7 +167,7 @@ areas_test <- dget("areas_test.txt")
 ### extract areas
 
 ```{r eval = TRUE}
-# pdf <- file.path("/Users/joey/reports/Edward/pdf/Edward_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
+# pdf <- file.path("/Users/joey/reports/Biggie/pdf/Edward_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
 
 # pdf <- file.path(file.choose(""))
 
@@ -273,7 +273,7 @@ tidy_data <- function(df) {
 
 ```{r eval = FALSE}
 
-f <- file.path("/Users/joey/reports/Edward/pdf/Edward_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
+f <- file.path("/Users/joey/reports/Biggie/pdf/Edward_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
 
 # f <- file.path(file.choose(""))
 

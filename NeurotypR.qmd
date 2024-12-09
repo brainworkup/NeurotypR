@@ -5,3 +5,11 @@ title: "NeurotypR"
 ## Introduction
 
 Moving `bwu` package to here
+
+## R functions
+
+describe ...
+
+## Rmd files
+
+describe ...

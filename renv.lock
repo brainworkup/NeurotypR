@@ -588,14 +588,14 @@
     },
     "data.table": {
       "Package": "data.table",
-      "Version": "1.16.2",
+      "Version": "1.16.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "2e00b378fc3be69c865120d9f313039a"
+      "Hash": "38bbf05fc2503143db4c734a7e5cab66"
     },
     "dbplyr": {
       "Package": "dbplyr",
@@ -653,14 +653,9 @@
     },
     "dplyr": {
       "Package": "dplyr",
-      "Version": "1.1.4.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "dplyr",
-      "RemoteUsername": "tidyverse",
-      "RemotePkgRef": "tidyverse/dplyr",
-      "RemoteSha": "1d17672a54305170dc75c251f8ae69a85c0bea37",
+      "Version": "1.1.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -677,7 +672,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "63fb61aa2db704f951823070fb86bf2c"
+      "Hash": "fedd9d00c2944ff00a0e2696ccf048ec"
     },
     "dtplyr": {
       "Package": "dtplyr",
@@ -1207,7 +1202,7 @@
     },
     "igraph": {
       "Package": "igraph",
-      "Version": "2.1.1",
+      "Version": "2.1.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1226,7 +1221,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "c03878b48737a0e2da3b772d7b2e22da"
+      "Hash": "9a93b743b2461ba06ba3b5df12011145"
     },
     "isoband": {
       "Package": "isoband",
@@ -1455,18 +1450,16 @@
     },
     "lubridate": {
       "Package": "lubridate",
-      "Version": "1.9.3.9000",
+      "Version": "1.9.4",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/lubridate",
-      "RemoteSha": "2f3ab321511ac28ab95f729c8fa36fb9170994ea",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "generics",
         "methods",
         "timechange"
       ],
-      "Hash": "77778d7c6a58ec25c9e9be32965a819d"
+      "Hash": "be38bc740fc51783a78edb5a157e4104"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -2422,16 +2415,16 @@
     },
     "textshaping": {
       "Package": "textshaping",
-      "Version": "0.4.0.9000",
+      "Version": "0.4.1",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cpp11",
         "lifecycle",
         "systemfonts"
       ],
-      "Hash": "d634a4ff458a529b7b4b03bce4621c67"
+      "Hash": "573e0d015b7fc3e555f83e254cad7533"
     },
     "tibble": {
       "Package": "tibble",
@@ -2514,11 +2507,9 @@
     },
     "tidyverse": {
       "Package": "tidyverse",
-      "Version": "2.0.0.9000",
+      "Version": "2.0.0",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/tidyverse",
-      "RemoteSha": "62f32d43e1e0650e4c05632dbfbe06977d1f292f",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "broom",
@@ -2552,7 +2543,7 @@
         "tidyr",
         "xml2"
       ],
-      "Hash": "dee7a801319d99427e93ff9df8dacd3f"
+      "Hash": "c328568cd14ea89a83bd4ca7f54ae07e"
     },
     "timechange": {
       "Package": "timechange",
