@@ -1,1 +1,0 @@
-/Users/joey/pfc/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/pluck_nepsy2_scales_ages2-16.R
