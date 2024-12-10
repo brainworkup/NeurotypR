@@ -1,6 +1,3 @@
-library(tidyverse)
-library(vroom)
-
 #' Prepare Data for Analysis
 #'
 #' This function prepares data for analysis by reading a CSV file, filtering the data based on the specified domains and scales,
@@ -110,10 +107,6 @@ prepare_data <- function(domains, pheno, scales, type = NULL) {
 
 # Call the function with the specified domains, phenotype, and scales
 # data <- prepare_data(domains, pheno, scales)
-
-# Second function
-library(ggplot2)
-library(gt)
 
 #' Visualize Data with Table and Dot Plot
 #'

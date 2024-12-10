@@ -18,18 +18,14 @@
     },
     "DBI": {
       "Package": "DBI",
-      "Version": "1.2.3.9013",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "DBI",
-      "RemoteUsername": "r-dbi",
-      "RemoteSha": "2c4a1661ddba9f8c306b29dbb42f4e91ce38ff0f",
+      "Version": "1.2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "71395bb3b4baf2ef0333ba8ec57041cd"
+      "Hash": "065ae649b05f1ff66bb0c793107508f5"
     },
     "MASS": {
       "Package": "MASS",
@@ -52,7 +48,7 @@
       "Source": "Repository",
       "Repository": "https://r-forge.r-universe.dev",
       "RemoteUrl": "https://github.com/r-forge/matrix",
-      "RemoteSha": "71f218d9a856815dda4936554e3f47cf0d1b3b85",
+      "RemoteSha": "b65089d9b41d370980c12725c373bf6a809e6551",
       "Requirements": [
         "R",
         "grDevices",
@@ -121,15 +117,13 @@
     },
     "R6": {
       "Package": "R6",
-      "Version": "2.5.1.9000",
+      "Version": "2.5.1",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/r6",
-      "RemoteSha": "507867875fdeaffbe7f7038291256b798f6bb042",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "df544affad348e5e1984e38b5af4ca29"
+      "Hash": "470851b6d5d0ac559e9d01bb352b4021"
     },
     "RApiSerialize": {
       "Package": "RApiSerialize",
@@ -248,15 +242,13 @@
     },
     "bigD": {
       "Package": "bigD",
-      "Version": "0.3.0.9000",
+      "Version": "0.3.0",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/bigd",
-      "RemoteSha": "617741d5d8ada98f714c098e27b60902f222c371",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "13aa3c0701d0d5f11d48779f11fc86de"
+      "Hash": "78dfe2b21e523358871eea1601b04b56"
     },
     "bit": {
       "Package": "bit",
@@ -291,25 +283,21 @@
     },
     "blob": {
       "Package": "blob",
-      "Version": "1.2.4.9013",
+      "Version": "1.2.4",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/blob",
-      "RemoteSha": "1efef9d2967b7beef6704b605c26dfc26ada12b4",
+      "Repository": "CRAN",
       "Requirements": [
         "methods",
         "rlang",
         "vctrs"
       ],
-      "Hash": "75f6e4fd7dc2142a0ad621a6e02db69c"
+      "Hash": "40415719b5a479b87949f3aa0aee737c"
     },
     "bookdown": {
       "Package": "bookdown",
-      "Version": "0.41.1",
+      "Version": "0.41",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/bookdown",
-      "RemoteSha": "e2fb165a7e6d3b5bcaf85ea3d98ce156c2989f47",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "htmltools",
@@ -320,7 +308,7 @@
         "xfun",
         "yaml"
       ],
-      "Hash": "a01099b6190eb4edc046782ca98d8ac4"
+      "Hash": "d8b74e267a5774ded5c91786d6d777bb"
     },
     "brew": {
       "Package": "brew",
@@ -331,11 +319,9 @@
     },
     "broom": {
       "Package": "broom",
-      "Version": "1.0.7.9000",
+      "Version": "1.0.7",
       "Source": "Repository",
-      "Repository": "https://tidymodels.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidymodels/broom",
-      "RemoteSha": "7fa26488ab522bf577092e99aad1f2003f21b327",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "backports",
@@ -349,13 +335,13 @@
         "tibble",
         "tidyr"
       ],
-      "Hash": "73ca1a12e1cf2b317f42726c79ab253f"
+      "Hash": "8fcc818f3b9887aebaf206f141437cc9"
     },
     "bslib": {
       "Package": "bslib",
-      "Version": "0.8.0.9000",
+      "Version": "0.8.0",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "base64enc",
@@ -371,7 +357,7 @@
         "rlang",
         "sass"
       ],
-      "Hash": "8512e4e9270be873558ef249182b6b2e"
+      "Hash": "b299c6741ca9746fb227debcb0f9fb6c"
     },
     "bwu": {
       "Package": "bwu",
@@ -382,7 +368,7 @@
       "RemoteRepo": "bwu",
       "RemoteUsername": "brainworkup",
       "RemotePkgRef": "brainworkup/bwu",
-      "RemoteSha": "52cd9c77d987af23c6ec50fee6cf19ddaaa7a500",
+      "RemoteSha": "1373c6d86a90afd3ce8489dd889e665b80df154e",
       "Requirements": [
         "R",
         "bookdown",
@@ -415,7 +401,7 @@
         "tidyselect",
         "xfun"
       ],
-      "Hash": "2629166496ef1266a48602f7e06480f9"
+      "Hash": "3bf30914b2b7610f08868e2edc1d3a4d"
     },
     "cachem": {
       "Package": "cachem",
@@ -430,16 +416,16 @@
     },
     "callr": {
       "Package": "callr",
-      "Version": "3.7.6.9000",
+      "Version": "3.7.6",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
         "processx",
         "utils"
       ],
-      "Hash": "e809516da769fef6730b13f91e7b43e6"
+      "Hash": "d7e13f49c19103ece9e58ad2d83a7354"
     },
     "cellranger": {
       "Package": "cellranger",
@@ -504,11 +490,9 @@
     },
     "colorspace": {
       "Package": "colorspace",
-      "Version": "2.1-2",
+      "Version": "2.1-1",
       "Source": "Repository",
-      "Repository": "https://r-forge.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-forge/colorspace",
-      "RemoteSha": "830b4c5878a4679b56aba073d3160fceed457558",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "grDevices",
@@ -516,30 +500,27 @@
         "methods",
         "stats"
       ],
-      "Hash": "639bb8fc7898706895bf6280f7c338b8"
+      "Hash": "d954cb1c57e8d8b756165d7ba18aa55a"
     },
     "commonmark": {
       "Package": "commonmark",
-      "Version": "1.9.3",
+      "Version": "1.9.2",
       "Source": "Repository",
-      "Repository": "https://ropensci.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/commonmark",
-      "RemoteRef": "main",
-      "RemoteSha": "91237d4fa488146ea8310c10c392a59c7fe9ca18",
-      "Hash": "925fdd40cfaf32811342a08c7311eaa8"
+      "Repository": "CRAN",
+      "Hash": "14eb0596f987c71535d07c3aff814742"
     },
     "conflicted": {
       "Package": "conflicted",
-      "Version": "1.2.0.9000",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
         "memoise",
         "rlang"
       ],
-      "Hash": "4aa8174b831fc849919bd60548bb9af4"
+      "Hash": "bb097fccb22d156624fd07cd2894ddb6"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -553,28 +534,28 @@
     },
     "crayon": {
       "Package": "crayon",
-      "Version": "1.5.3.9000",
+      "Version": "1.5.3",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "grDevices",
         "methods",
         "utils"
       ],
-      "Hash": "766e8dea7d4f9deaea96280f0d2383ad"
+      "Hash": "859d96e65ef198fd43e82b9628d593ef"
     },
     "crosstalk": {
       "Package": "crosstalk",
-      "Version": "1.2.1.9000",
+      "Version": "1.2.1",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R6",
         "htmltools",
         "jsonlite",
         "lazyeval"
       ],
-      "Hash": "c136d7496eaf6f4f36709f2c1d11e6eb"
+      "Hash": "ab12c7b080a57475248a30f4db6298c0"
     },
     "curl": {
       "Package": "curl",
@@ -585,6 +566,20 @@
         "R"
       ],
       "Hash": "e8ba62486230951fcd2b881c5be23f96"
+    },
+    "cyclocomp": {
+      "Package": "cyclocomp",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "callr",
+        "crayon",
+        "desc",
+        "remotes",
+        "withr"
+      ],
+      "Hash": "cdc4a473222b0112d4df0bcfbed12d44"
     },
     "data.table": {
       "Package": "data.table",
@@ -599,11 +594,9 @@
     },
     "dbplyr": {
       "Package": "dbplyr",
-      "Version": "2.5.0.9000",
+      "Version": "2.5.0",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/dbplyr",
-      "RemoteSha": "860bd6adf988a2b039485030d234eba05ee46a3c",
+      "Repository": "CRAN",
       "Requirements": [
         "DBI",
         "R",
@@ -625,20 +618,20 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "f0ab59ea0649b1149079a2fb01029222"
+      "Hash": "39b2e002522bfd258039ee4e889e0fd1"
     },
     "desc": {
       "Package": "desc",
-      "Version": "1.4.3.9000",
+      "Version": "1.4.3",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
         "cli",
         "utils"
       ],
-      "Hash": "0a42d7cf694e8caae8d1a1b892c787a0"
+      "Hash": "99b79fcbd6c4d1ce087f5c5c758b384f"
     },
     "digest": {
       "Package": "digest",
@@ -676,11 +669,9 @@
     },
     "dtplyr": {
       "Package": "dtplyr",
-      "Version": "1.3.1.9000",
+      "Version": "1.3.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/dtplyr",
-      "RemoteSha": "82aee6bb6d4000482a1360204252038d02542228",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -693,19 +684,29 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "6b348aa0d824d4da11a4f8e4c3da52d9"
+      "Hash": "54ed3ea01b11e81a86544faaecfef8e2"
     },
     "evaluate": {
       "Package": "evaluate",
-      "Version": "1.0.1.9000",
+      "Version": "1.0.1",
       "Source": "Repository",
-      "Repository": "https://ropensci.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/evaluate",
-      "RemoteSha": "cededb857aafb646883b048adfa311ad37758c2c",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "79de330d576089ee6181099940d28ff7"
+      "Hash": "3fd29944b231036ad67c3edb32e02201"
+    },
+    "fansi": {
+      "Package": "fansi",
+      "Version": "1.0.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "grDevices",
+        "utils"
+      ],
+      "Hash": "962174cf2aeb5b9eea581522286a911f"
     },
     "farver": {
       "Package": "farver",
@@ -723,25 +724,21 @@
     },
     "fontawesome": {
       "Package": "fontawesome",
-      "Version": "0.5.3.9000",
+      "Version": "0.5.3",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/fontawesome",
-      "RemoteSha": "dab378ea43cc9896466624d9cd30154463a9617c",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "htmltools",
         "rlang"
       ],
-      "Hash": "c59800114edbdafad94ec3fa5acdfd54"
+      "Hash": "bd1297f9b5b1fc1372d19e2c4cd82215"
     },
     "forcats": {
       "Package": "forcats",
-      "Version": "1.0.0.9000",
+      "Version": "1.0.0",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/forcats",
-      "RemoteSha": "6a9bd65915502655a2ac025b93235964fc0d194c",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -751,7 +748,7 @@
         "rlang",
         "tibble"
       ],
-      "Hash": "57df0766526946907e9a5a756eabf6ca"
+      "Hash": "1a0a9a3d5083d0d573c4214576f1e690"
     },
     "fs": {
       "Package": "fs",
@@ -766,9 +763,9 @@
     },
     "gargle": {
       "Package": "gargle",
-      "Version": "1.5.2.9000",
+      "Version": "1.5.2",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -784,42 +781,43 @@
         "utils",
         "withr"
       ],
-      "Hash": "5ca47d53ed97e5d1287add484af83ec0"
+      "Hash": "fc0b272e5847c58cd5da9b20eedbd026"
     },
     "generics": {
       "Package": "generics",
-      "Version": "0.1.3.9000",
+      "Version": "0.1.3",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "f82cb170cb79ede3308f880107b04d25"
+      "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "3.5.1.9000",
+      "Version": "3.5.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/ggplot2",
-      "RemoteSha": "4fbc8575d80e54e1973ac58e979c2300aec21394",
+      "Repository": "CRAN",
       "Requirements": [
         "MASS",
         "R",
         "cli",
+        "glue",
         "grDevices",
         "grid",
         "gtable",
         "isoband",
         "lifecycle",
+        "mgcv",
         "rlang",
         "scales",
         "stats",
+        "tibble",
         "vctrs",
         "withr"
       ],
-      "Hash": "a04ab4affe6a720347770d6a7e1301ff"
+      "Hash": "44c6a2f8202d5b7e878ea274b1092426"
     },
     "ggtext": {
       "Package": "ggtext",
@@ -864,24 +862,20 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.8.0.9000",
+      "Version": "1.8.0",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/glue",
-      "RemoteSha": "a3f80d678274ef634c10c2cb094c939b1543222a",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "cdb2871dc866a504db0c3468b05b2f58"
+      "Hash": "5899f1eaa825580172bb56c08266f37c"
     },
     "googledrive": {
       "Package": "googledrive",
-      "Version": "2.1.1.9000",
+      "Version": "2.1.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/googledrive",
-      "RemoteSha": "ed574d9eb3308619fc3e735251bfd42e6cfdb8e2",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -900,15 +894,13 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "3809a4ec682fa6facaf1e111826e9d78"
+      "Hash": "e99641edef03e2a5e87f0a0b1fcc97f4"
     },
     "googlesheets4": {
       "Package": "googlesheets4",
-      "Version": "1.1.1.9000",
+      "Version": "1.1.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/googlesheets4",
-      "RemoteSha": "4d7f23dcc479b314f96eda11fea695571693697e",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cellranger",
@@ -930,7 +922,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "c645a19fe980f9f352b944d876f90f66"
+      "Hash": "d6db1667059d027da730decdc214b959"
     },
     "gridtext": {
       "Package": "gridtext",
@@ -954,11 +946,9 @@
     },
     "gt": {
       "Package": "gt",
-      "Version": "0.11.1.9000",
+      "Version": "0.11.1",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/gt",
-      "RemoteSha": "4bdbd459faa088bfe60b004d5eac7eeadcd80941",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "base64enc",
@@ -982,7 +972,7 @@
         "vctrs",
         "xml2"
       ],
-      "Hash": "d505d058f667ce8bc466bfa0c312d7ac"
+      "Hash": "3170d1f0f45e531c241179ab57cd30bd"
     },
     "gtExtras": {
       "Package": "gtExtras",
@@ -1036,11 +1026,9 @@
     },
     "haven": {
       "Package": "haven",
-      "Version": "2.5.4.9000",
+      "Version": "2.5.4",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/haven",
-      "RemoteSha": "73c6d4634893ad0c35f5db8c87546bc0bd44073a",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -1055,17 +1043,17 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "b8f07cdc013bdc2672c5352eaa3f9bc3"
+      "Hash": "9171f898db9d9c4c1b2c745adc2c1ef1"
     },
     "here": {
       "Package": "here",
-      "Version": "1.0.1.9018",
+      "Version": "1.0.1",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "rprojroot"
       ],
-      "Hash": "4b06a389be01478529f3ccbea60a963d"
+      "Hash": "24b224366f9c2e7534d2344d10d59211"
     },
     "highcharter": {
       "Package": "highcharter",
@@ -1099,24 +1087,20 @@
     },
     "highr": {
       "Package": "highr",
-      "Version": "0.11.1",
+      "Version": "0.11",
       "Source": "Repository",
-      "Repository": "https://yihui.r-universe.dev",
-      "RemoteUrl": "https://github.com/yihui/highr",
-      "RemoteSha": "967162bfeec97611de81a5125f1af69680495077",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "xfun"
       ],
-      "Hash": "3fac504fc5da08a9084d22bcc082f5e2"
+      "Hash": "d65ba49117ca223614f71b60d85b8ab7"
     },
     "hms": {
       "Package": "hms",
-      "Version": "1.1.3.9010",
+      "Version": "1.1.3",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/hms",
-      "RemoteSha": "4b06c804825e1df1c26f9de00d43920c5778f5b9",
+      "Repository": "CRAN",
       "Requirements": [
         "lifecycle",
         "methods",
@@ -1124,15 +1108,13 @@
         "rlang",
         "vctrs"
       ],
-      "Hash": "898a13d839f6e0ee4343cab7e1283a71"
+      "Hash": "b59377caa7ed00fa41808342002138f9"
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.8.9000",
+      "Version": "0.5.8.1",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/htmltools",
-      "RemoteSha": "487aa0bed7313d7597b6edd5810e53cab0061198",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "base64enc",
@@ -1142,7 +1124,7 @@
         "rlang",
         "utils"
       ],
-      "Hash": "cac0251838f17a08231d2ca95375072a"
+      "Hash": "81d371a9cc60640e74e4ab6ac46dcedc"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
@@ -1161,9 +1143,9 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.15.9000",
+      "Version": "1.6.15",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -1172,13 +1154,13 @@
         "promises",
         "utils"
       ],
-      "Hash": "e8fb1acfb28132bdcb1d72fd66b42d8d"
+      "Hash": "d55aa087c47a63ead0f6fc10f8fa1ee0"
     },
     "httr": {
       "Package": "httr",
-      "Version": "1.4.7.9000",
+      "Version": "1.4.7",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -1187,7 +1169,7 @@
         "mime",
         "openssl"
       ],
-      "Hash": "f58aa050aa796b342575e40a7f95cc62"
+      "Hash": "ac107251d9d9fd72f0ca8049988f1d7f"
     },
     "ids": {
       "Package": "ids",
@@ -1288,15 +1270,13 @@
     },
     "juicyjuice": {
       "Package": "juicyjuice",
-      "Version": "0.1.0.9000",
+      "Version": "0.1.0",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/juicyjuice",
-      "RemoteSha": "a8b71ed4220a209418201ceebe46b484f824a2f5",
+      "Repository": "CRAN",
       "Requirements": [
         "V8"
       ],
-      "Hash": "024c1de8662f226243b9001da648b6c2"
+      "Hash": "3bcd11943da509341838da9399e18bce"
     },
     "kableExtra": {
       "Package": "kableExtra",
@@ -1425,18 +1405,14 @@
     },
     "lintr": {
       "Package": "lintr",
-      "Version": "3.1.2.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "lintr",
-      "RemoteUsername": "r-lib",
-      "RemoteSha": "3419159633067d2e6799854ec3cf5ff31bce15d0",
+      "Version": "3.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "backports",
-        "cli",
         "codetools",
+        "cyclocomp",
         "digest",
         "glue",
         "knitr",
@@ -1446,7 +1422,7 @@
         "xml2",
         "xmlparsedata"
       ],
-      "Hash": "4bee125b3b1c4ac28ae463e871c36fe0"
+      "Hash": "08cff46381a242d44c0d8dd0aabd9f71"
     },
     "lubridate": {
       "Package": "lubridate",
@@ -1463,15 +1439,13 @@
     },
     "magrittr": {
       "Package": "magrittr",
-      "Version": "2.0.3.9000",
+      "Version": "2.0.3",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/magrittr",
-      "RemoteSha": "21093d06e43649a72b865811188e77fc8ad87780",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "01067e706dcb71d12dd234e94bb92634"
+      "Hash": "7ce2733a9826b3aeb1775d56fd305472"
     },
     "manipulateWidget": {
       "Package": "manipulateWidget",
@@ -1510,16 +1484,31 @@
     },
     "memoise": {
       "Package": "memoise",
-      "Version": "2.0.1.9000",
+      "Version": "2.0.1",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/memoise",
-      "RemoteSha": "40db995d57e1790ed2519f5a653ca0f497a53c71",
+      "Repository": "CRAN",
       "Requirements": [
         "cachem",
         "rlang"
       ],
-      "Hash": "dfea0337fbadb746bb09f8ed30004920"
+      "Hash": "e2817ccf4a065c5d9d7f2cfbe7c1d78c"
+    },
+    "mgcv": {
+      "Package": "mgcv",
+      "Version": "1.9-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "R",
+        "graphics",
+        "methods",
+        "nlme",
+        "splines",
+        "stats",
+        "utils"
+      ],
+      "Hash": "110ee9d83b496279960e162ac97764ce"
     },
     "mime": {
       "Package": "mime",
@@ -1545,11 +1534,9 @@
     },
     "modelr": {
       "Package": "modelr",
-      "Version": "0.1.11.9000",
+      "Version": "0.1.11",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/modelr",
-      "RemoteSha": "28e13cab9099e72cd5605d86c5418d587bd2a365",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "broom",
@@ -1561,7 +1548,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "d4ab232f0a1e737f21d9fbb2bb61bf14"
+      "Hash": "4f50122dc256b1b6996a4703fecea821"
     },
     "munsell": {
       "Package": "munsell",
@@ -1573,6 +1560,20 @@
         "methods"
       ],
       "Hash": "4fd8900853b746af55b81fda99da7695"
+    },
+    "nlme": {
+      "Package": "nlme",
+      "Version": "3.1-166",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "graphics",
+        "lattice",
+        "stats",
+        "utils"
+      ],
+      "Hash": "ccbb8846be320b627e6aa2b4616a2ded"
     },
     "openssl": {
       "Package": "openssl",
@@ -1611,11 +1612,12 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.9.0.9021",
+      "Version": "1.9.0",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "cli",
+        "fansi",
         "glue",
         "lifecycle",
         "rlang",
@@ -1623,7 +1625,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "2bdc3eb8a14661327e4c268fa1666454"
+      "Hash": "15da5a8412f317beeee6175fbc76f4bb"
     },
     "pkgbuild": {
       "Package": "pkgbuild",
@@ -1652,11 +1654,9 @@
     },
     "pkgload": {
       "Package": "pkgload",
-      "Version": "1.4.0.9000",
+      "Version": "1.4.0",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/pkgload",
-      "RemoteSha": "a20161ecc5b3645a9555832bd0a02fd14c80be82",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -1672,7 +1672,7 @@
         "utils",
         "withr"
       ],
-      "Hash": "4eb40746fdd745475397ced4297bb5a1"
+      "Hash": "2ec30ffbeec83da57655b850cf2d3e0e"
     },
     "png": {
       "Package": "png",
@@ -1686,13 +1686,13 @@
     },
     "prettyunits": {
       "Package": "prettyunits",
-      "Version": "1.2.0.9000",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "476a0b1c9256c87b21d64e208edb566a"
+      "Hash": "6b01fc98b1e86c4f705ce9dcfd2f57c7"
     },
     "prismatic": {
       "Package": "prismatic",
@@ -1709,22 +1709,22 @@
     },
     "processx": {
       "Package": "processx",
-      "Version": "3.8.4.9000",
+      "Version": "3.8.4",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
         "ps",
         "utils"
       ],
-      "Hash": "4256fa3829b3023ad6e5ced56cf3ef09"
+      "Hash": "0c90a7d71988856bad2a2a45dd871bb9"
     },
     "progress": {
       "Package": "progress",
-      "Version": "1.2.3.9000",
+      "Version": "1.2.3",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -1732,15 +1732,13 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "f47c487b2ca690e1995cb353a245119c"
+      "Hash": "f4625e061cb2865f111b47ff163a5ca6"
     },
     "promises": {
       "Package": "promises",
-      "Version": "1.3.2.9000",
+      "Version": "1.3.2",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/promises",
-      "RemoteSha": "afe4099f79accb7647bbfd8cd42d8af775e3b9e6",
+      "Repository": "CRAN",
       "Requirements": [
         "R6",
         "Rcpp",
@@ -1750,7 +1748,7 @@
         "rlang",
         "stats"
       ],
-      "Hash": "6f96dd52aa24aa96188497c5eca74fcd"
+      "Hash": "c84fd4f75ea1f5434735e08b7f50fbca"
     },
     "ps": {
       "Package": "ps",
@@ -1765,11 +1763,9 @@
     },
     "purrr": {
       "Package": "purrr",
-      "Version": "1.0.2.9000",
+      "Version": "1.0.2",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/purrr",
-      "RemoteSha": "700ce1973aa2dac714b7fbbbc619ead0fe946b0d",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -1778,7 +1774,7 @@
         "rlang",
         "vctrs"
       ],
-      "Hash": "0721f57c30090f9829da7cfb60812431"
+      "Hash": "1cba04a4e9414bdefc9dcaa99649a8dc"
     },
     "qpdf": {
       "Package": "qpdf",
@@ -1901,11 +1897,9 @@
     },
     "readr": {
       "Package": "readr",
-      "Version": "2.1.5.9000",
+      "Version": "2.1.5",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/readr",
-      "RemoteSha": "96ddac314b47402bc63e1f81c149c463cf58e3da",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -1922,15 +1916,13 @@
         "utils",
         "vroom"
       ],
-      "Hash": "598963b8461a2518810b934b1aaa0963"
+      "Hash": "9de96463d2117f6ac49980577939dfb3"
     },
     "readxl": {
       "Package": "readxl",
-      "Version": "1.4.3.9000",
+      "Version": "1.4.3",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/readxl",
-      "RemoteSha": "1eb64a7a002721f98527bd0acaf526bbf52b571a",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cellranger",
@@ -1939,7 +1931,7 @@
         "tibble",
         "utils"
       ],
-      "Hash": "1a4ff9d7ab0d68217eb0cf9a10c83546"
+      "Hash": "8cf9c239b96df1bbb133b74aef77ad0a"
     },
     "rematch": {
       "Package": "rematch",
@@ -1950,19 +1942,34 @@
     },
     "rematch2": {
       "Package": "rematch2",
-      "Version": "2.1.2.9000",
+      "Version": "2.1.2",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "tibble"
       ],
-      "Hash": "65aca8746e74d595943a784a4df78971"
+      "Hash": "76c9e04c712a05848ae7a23d2f170a40"
+    },
+    "remotes": {
+      "Package": "remotes",
+      "Version": "2.5.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "methods",
+        "stats",
+        "tools",
+        "utils"
+      ],
+      "Hash": "3ee025083e66f18db6cf27b56e23e141"
     },
     "renv": {
       "Package": "renv",
       "Version": "1.0.11.9000",
       "Source": "Repository",
       "Repository": "https://rstudio.r-universe.dev",
+      "RemoteType": "repository",
       "RemoteUrl": "https://github.com/rstudio/renv",
       "RemoteSha": "23fcfb2ea7b2425863e7d4a23fe15d2869b753ff",
       "Requirements": [
@@ -1972,11 +1979,9 @@
     },
     "reprex": {
       "Package": "reprex",
-      "Version": "2.1.1.9000",
+      "Version": "2.1.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/reprex",
-      "RemoteSha": "8ea7e064750d81289ab06460965d9b9dfc109fc4",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "callr",
@@ -1992,32 +1997,28 @@
         "utils",
         "withr"
       ],
-      "Hash": "70d05cf2fdb0ed5792092166506faf65"
+      "Hash": "97b1d5361a24d9fb588db7afe3e5bcbf"
     },
     "revealjs": {
       "Package": "revealjs",
-      "Version": "0.9.1.9007",
+      "Version": "0.9",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/revealjs",
-      "RemoteSha": "37782091f88635b00341d708b6311465efe1a444",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "rmarkdown"
       ],
-      "Hash": "258721e1187dc9491613712be3600d6d"
+      "Hash": "08e30caa337e6d335d83df1a05d5b9f3"
     },
     "rex": {
       "Package": "rex",
-      "Version": "1.2.1.9000",
+      "Version": "1.2.1",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/rex",
-      "RemoteSha": "7a8fb36a29919c3d447cc823c672af9b5cf1fd68",
+      "Repository": "CRAN",
       "Requirements": [
-        "withr"
+        "lazyeval"
       ],
-      "Hash": "78df5832fb2cf1754fac0aa7b926b7c2"
+      "Hash": "ae34cd56890607370665bee5bd17812f"
     },
     "rjson": {
       "Package": "rjson",
@@ -2118,30 +2119,26 @@
     },
     "rprojroot": {
       "Package": "rprojroot",
-      "Version": "2.0.4.9005",
+      "Version": "2.0.4",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "52687f11ecd821f0736f256e0c9aa9ba"
+      "Hash": "4c8415e0ec1e29f3f4f6fc108bef0144"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
-      "Version": "0.17.1.9000",
+      "Version": "0.17.1",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/rstudioapi",
-      "RemoteSha": "7afc0671c3bfecde9f9a1c84926c98c4dd53c589",
-      "Hash": "63a6ef5eb70ea85aea7a8a3733155c05"
+      "Repository": "CRAN",
+      "Hash": "5f90cd73946d706cfe26024294236113"
     },
     "rvest": {
       "Package": "rvest",
-      "Version": "1.0.4.9000",
+      "Version": "1.0.4",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/rvest",
-      "RemoteSha": "c9be5b8dd9d672e84dd0dc515e3a37ab5c03111f",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -2154,15 +2151,13 @@
         "tibble",
         "xml2"
       ],
-      "Hash": "02eec7146184079e0973b26213b7d1bc"
+      "Hash": "0bcf0c6f274e90ea314b812a6d19a519"
     },
     "sass": {
       "Package": "sass",
-      "Version": "0.4.9.9000",
+      "Version": "0.4.9",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/sass",
-      "RemoteSha": "9228fcf39deecfe32b7cb90ed40690338a18acba",
+      "Repository": "CRAN",
       "Requirements": [
         "R6",
         "fs",
@@ -2170,13 +2165,13 @@
         "rappdirs",
         "rlang"
       ],
-      "Hash": "a402cb815687d64eb781e88d0c9ba7fe"
+      "Hash": "d53dbfddf695303ea4ad66f86e99b95d"
     },
     "scales": {
       "Package": "scales",
-      "Version": "1.3.0.9000",
+      "Version": "1.3.0",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -2190,7 +2185,7 @@
         "rlang",
         "viridisLite"
       ],
-      "Hash": "53a6be4221c7df3c369bdc7ce2317acc"
+      "Hash": "c19df082ba346b0ffa6f833e92de34d1"
     },
     "selectr": {
       "Package": "selectr",
@@ -2221,13 +2216,9 @@
     },
     "shiny": {
       "Package": "shiny",
-      "Version": "1.9.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "shiny",
-      "RemoteUsername": "rstudio",
-      "RemoteSha": "d84aa94762b4ffaf7533a007b6cb92c40f4f29af",
+      "Version": "1.9.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R6",
@@ -2254,7 +2245,7 @@
         "withr",
         "xtable"
       ],
-      "Hash": "27d9987c0a2e989dec87f18f580e7bb1"
+      "Hash": "6a293995a66e12c48d13aa1f957d09c7"
     },
     "shinyjs": {
       "Package": "shinyjs",
@@ -2318,11 +2309,9 @@
     },
     "stringr": {
       "Package": "stringr",
-      "Version": "1.5.1.9000",
+      "Version": "1.5.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/stringr",
-      "RemoteSha": "a64b8f1ccc2506cfa4b7af7b9fa7766200eb71ac",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -2333,15 +2322,13 @@
         "stringi",
         "vctrs"
       ],
-      "Hash": "db28e3ff50080379538cde6af2ae882c"
+      "Hash": "960e2ae9e09656611e0b8214ad543207"
     },
     "styler": {
       "Package": "styler",
-      "Version": "1.10.3.9000",
+      "Version": "1.10.3",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/styler",
-      "RemoteSha": "445bf3e5f86fc06120dce652c950ac81f7943b8b",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "R.cache",
@@ -2354,7 +2341,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "3ce6369a9dac1c6b856d836c39d382cf"
+      "Hash": "93a2b1beac2437bdcc4724f8bf867e2c"
     },
     "svglite": {
       "Package": "svglite",
@@ -2428,14 +2415,12 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.2.1.9040",
+      "Version": "3.2.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/tibble",
-      "RemoteSha": "7a17e0766ac372b755e6a9361339556376c34045",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
-        "cli",
+        "fansi",
         "lifecycle",
         "magrittr",
         "methods",
@@ -2445,15 +2430,13 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "f1fe9804069c9fd8f8b0ae9cab898ba8"
+      "Hash": "a84e2cc86d07289b3b6f5069df7a004c"
     },
     "tidyr": {
       "Package": "tidyr",
-      "Version": "1.3.1.9000",
+      "Version": "1.3.1",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/tidyr",
-      "RemoteSha": "622afe810825ffb5de750c060778b150c68ba71a",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -2470,13 +2453,13 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "1572230dba0bbc970e914c2fb68551b2"
+      "Hash": "915fb7ce036c22a6a33b5a8adb712eb1"
     },
     "tidyselect": {
       "Package": "tidyselect",
-      "Version": "1.2.1.9000",
+      "Version": "1.2.1",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cli",
@@ -2486,7 +2469,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "eb98fed4c6f7fbbb78e6937a225f0156"
+      "Hash": "829f27b9c4919c16b593794a6344d6c0"
     },
     "tidytable": {
       "Package": "tidytable",
@@ -2558,15 +2541,13 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.54.1",
+      "Version": "0.54",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteUrl": "https://github.com/rstudio/tinytex",
-      "RemoteSha": "f9205b45c5b6bdfea9a9af7d9395a2a76205139b",
+      "Repository": "CRAN",
       "Requirements": [
         "xfun"
       ],
-      "Hash": "e5343225ab21b421466e42dc64f6434e"
+      "Hash": "3ec7e3ddcacc2d34a9046941222bf94d"
     },
     "tzdb": {
       "Package": "tzdb",
@@ -2625,11 +2606,9 @@
     },
     "vroom": {
       "Package": "vroom",
-      "Version": "1.6.5.9000",
+      "Version": "1.6.5",
       "Source": "Repository",
-      "Repository": "https://tidyverse.r-universe.dev",
-      "RemoteUrl": "https://github.com/tidyverse/vroom",
-      "RemoteSha": "73c90c4fe490c0588b20ac527c40fcb1c683683e",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "bit64",
@@ -2649,7 +2628,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "607602f282c53242b7889ce2c9a8413b"
+      "Hash": "390f9315bc0025be03012054103d227c"
     },
     "webshot": {
       "Package": "webshot",
@@ -2701,11 +2680,9 @@
     },
     "xaringan": {
       "Package": "xaringan",
-      "Version": "0.30.1",
+      "Version": "0.30",
       "Source": "Repository",
-      "Repository": "https://yihui.r-universe.dev",
-      "RemoteUrl": "https://github.com/yihui/xaringan",
-      "RemoteSha": "0f942ca1ee772944f23b4bb2f550a376053e4e9a",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "htmltools",
@@ -2714,16 +2691,13 @@
         "servr",
         "xfun"
       ],
-      "Hash": "74379c8ab313b01203ad7577632ac65c"
+      "Hash": "40a1e30d3fb323f249a5e2fbec50c3b1"
     },
     "xaringanExtra": {
       "Package": "xaringanExtra",
-      "Version": "0.8.0.9000",
+      "Version": "0.8.0",
       "Source": "Repository",
-      "Repository": "https://gadenbuie.r-universe.dev",
-      "RemoteUrl": "https://github.com/gadenbuie/xaringanExtra",
-      "RemoteRef": "main",
-      "RemoteSha": "0a4271a6a934e1e2878535342a21283549e0ac22",
+      "Repository": "CRAN",
       "Requirements": [
         "htmltools",
         "jsonlite",
@@ -2731,16 +2705,13 @@
         "utils",
         "uuid"
       ],
-      "Hash": "88a8dbab6d908a13f16389762454058d"
+      "Hash": "e13b6d3cbb08e856fa73a565c074db40"
     },
     "xaringanthemer": {
       "Package": "xaringanthemer",
-      "Version": "0.4.3.9000",
+      "Version": "0.4.3",
       "Source": "Repository",
-      "Repository": "https://gadenbuie.r-universe.dev",
-      "RemoteUrl": "https://github.com/gadenbuie/xaringanthemer",
-      "RemoteRef": "main",
-      "RemoteSha": "51b100a9a42808ae1afc8761dfe262e38845d3e2",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "colorspace",
@@ -2750,7 +2721,7 @@
         "utils",
         "whisker"
       ],
-      "Hash": "ea947fc9d5b73a81bfef395df1c8b0d3"
+      "Hash": "19ff87824d9500f66bf45dc79a0e7640"
     },
     "xfun": {
       "Package": "xfun",
@@ -2780,30 +2751,25 @@
     },
     "xmlparsedata": {
       "Package": "xmlparsedata",
-      "Version": "1.0.5.9000",
+      "Version": "1.0.5",
       "Source": "Repository",
-      "Repository": "https://r-lib.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-lib/xmlparsedata",
-      "RemoteSha": "1598c72053ec84ea25b765d8f8daaddf700b6874",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "0fa004f16a48f204806c72927ff5ca64"
+      "Hash": "45e4bf3c46476896e821fc0a408fb4fc"
     },
     "xtable": {
       "Package": "xtable",
-      "Version": "1.8-6",
+      "Version": "1.8-4",
       "Source": "Repository",
-      "Repository": "https://r-forge.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-forge/xtable",
-      "RemoteSha": "bc09a6378073fd33bc56921e96aaf3caf8faba53",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
-        "methods",
         "stats",
         "utils"
       ],
-      "Hash": "1c0fd518eb1e4a9055f212aa6e9b1eb8"
+      "Hash": "b8acdf8af494d9ec19ccb2481a9b11c2"
     },
     "xts": {
       "Package": "xts",
@@ -2826,11 +2792,9 @@
     },
     "zoo": {
       "Package": "zoo",
-      "Version": "1.8-13",
+      "Version": "1.8-12",
       "Source": "Repository",
-      "Repository": "https://r-forge.r-universe.dev",
-      "RemoteUrl": "https://github.com/r-forge/zoo",
-      "RemoteSha": "1e8071831a1308b678c3b59fb5bd68a81b74daf8",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "grDevices",
@@ -2839,7 +2803,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "324a4eaf3f2b4b0c4a8f1cd10956f632"
+      "Hash": "5c715954112b45499fb1dadc6ee6ee3e"
     }
   }
 }
