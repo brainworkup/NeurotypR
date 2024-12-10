@@ -24,6 +24,7 @@ Imports:
     lubridate,
     purrr,
     qs2,
+    quarto,
     readr,
     readxl,
     rlang,
@@ -39,6 +40,7 @@ Imports:
     utils
 Suggests:
     bwu,
+    pak,
     testthat (>= 3.0.0)
 Depends:
     R (>= 3.5)

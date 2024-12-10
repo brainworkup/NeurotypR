@@ -4,7 +4,7 @@
 \alias{load_data}
 \title{Read/Load Neuropsych Eval CSV Files}
 \usage{
-load_data(file_path, output_dir = here::here(), return_data = FALSE)
+load_data(file_path, output_dir = here::here("data"), return_data = FALSE)
 }
 \arguments{
 \item{file_path}{character, Name of patient file path}

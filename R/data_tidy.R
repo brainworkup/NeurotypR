@@ -91,7 +91,7 @@ read_and_combine_files <- function(files) {
 #' @export
 load_data <- function(
   file_path,
-  output_dir = here::here(),
+  output_dir = here::here("data"),
   return_data = FALSE
 ) {
   # Input validation

@@ -62,7 +62,7 @@ emotion <- emotion |>
 # The file name is derived from the 'pheno' variable
 readr::write_excel_csv(
   emotion,
-  paste0(pheno, ".csv"),
+  here::here("data", paste0(pheno, ".csv")),
   na = "",
   col_names = TRUE,
   append = FALSE

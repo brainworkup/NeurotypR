@@ -40,3 +40,4 @@
 
 ^LICENSE\.md$
 ^nab\.test\.descriptions\.manual\.xlsx$
+^inst/templates/qmd/\.quarto$

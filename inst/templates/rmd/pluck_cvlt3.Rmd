@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CVLT-3/CVLT-3 Brief"
 params:
-  patient: Max
+  patient: Biggie
   test:
     label: "Test"
     value: cvlt3
@@ -219,7 +219,7 @@ if (params$test == "cvlt3") {
 
 ```{r areas-get, eval=FALSE}
 # if unknown
-# patient <- "Max"
+# patient <- "Biggie"
 # file <- file.choose()
 # area <- bwu::gpluck_locate_areas(
 #   file = file,

@@ -19,7 +19,12 @@
 #' scales <- c("Scale1", "Scale2")
 #' prepare_data(domains, pheno, scales)
 #' }
-prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "neurocog.csv", package = "NeurotypR")) {
+prepare_data <- function(
+  domains,
+  pheno,
+  scales,
+  type = system.file("extdata", "neurocog.csv", package = "NeurotypR")
+) {
   # Check if required arguments are provided
   if (missing(domains) || missing(pheno) || missing(scales)) {
     stop("All arguments (domains, pheno, scales) must be provided.")
@@ -30,11 +35,34 @@ prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "
 
   # Ensure required columns are present in the data
   required_columns <- c(
-    "domain", "z_mean_domain", "scale", "test", "test_name", "raw_score", "score", "ci_95",
-    "percentile", "range", "subdomain", "narrow", "pass", "verbal", "timed",
-    "description", "result", "z", "z_mean_subdomain", "z_sd_subdomain",
-    "z_mean_narrow", "z_sd_narrow", "z_mean_pass", "z_sd_pass",
-    "z_mean_verbal", "z_sd_verbal", "z_mean_timed", "z_sd_timed"
+    "domain",
+    "z_mean_domain",
+    "scale",
+    "test",
+    "test_name",
+    "raw_score",
+    "score",
+    "ci_95",
+    "percentile",
+    "range",
+    "subdomain",
+    "narrow",
+    "pass",
+    "verbal",
+    "timed",
+    "description",
+    "result",
+    "z",
+    "z_mean_subdomain",
+    "z_sd_subdomain",
+    "z_mean_narrow",
+    "z_sd_narrow",
+    "z_mean_pass",
+    "z_sd_pass",
+    "z_mean_verbal",
+    "z_sd_verbal",
+    "z_mean_timed",
+    "z_sd_timed"
   )
 
   if (!all(required_columns %in% colnames(data))) {
@@ -86,7 +114,7 @@ prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "
   # Write the filtered data to a CSV file with the phenotype name
   readr::write_csv(
     data,
-    paste0(pheno, ".csv"),
+    here::here("data", paste0(pheno, ".csv")),
     na = "",
     col_names = TRUE,
     append = FALSE
@@ -133,9 +161,22 @@ prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "
 #' pheno <- "example_pheno"
 #' domain <- "example_domain"
 #' visualize_data(data, scales_to_keep, pheno, domain)
-visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL, x = "x", y = "y") {
+visualize_data <- function(
+  data,
+  scales_to_keep,
+  pheno,
+  domain,
+  grp_pheno = NULL,
+  x = "x",
+  y = "y"
+) {
   # Check if required arguments are missing
-  if (missing(data) || missing(scales_to_keep) || missing(pheno) || missing(domain)) {
+  if (
+    missing(data) ||
+      missing(scales_to_keep) ||
+      missing(pheno) ||
+      missing(domain)
+  ) {
     stop("All arguments (data, scales_to_keep, pheno, domain) must be provided")
   }
 
@@ -154,11 +195,21 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
   multiline <- TRUE
 
   # Notes and source information
-  fn_scaled_score <- gt::md("Score = Scaled score (Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030])")
-  fn_standard_score <- gt::md("Score = Index score (Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030])")
-  fn_t_score <- gt::md("Score = T score (Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030])")
-  fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030])")
-  source_note <- gt::md("Score = _T_ score (Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030])")
+  fn_scaled_score <- gt::md(
+    "Score = Scaled score (Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030])"
+  )
+  fn_standard_score <- gt::md(
+    "Score = Index score (Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030])"
+  )
+  fn_t_score <- gt::md(
+    "Score = T score (Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030])"
+  )
+  fn_z_score <- gt::md(
+    "Score = z-score (Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030])"
+  )
+  source_note <- gt::md(
+    "Score = _T_ score (Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030])"
+  )
 
   # Create the table using tbl_gt
   tbl_gt <- tbl_gt(
@@ -170,8 +221,16 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
     fn_standard_score = fn_standard_score,
     fn_t_score = fn_t_score,
     fn_z_score = fn_z_score,
-    grp_scaled_score = if (!is.null(grp_pheno)) grp_pheno[["scaled_score"]] else NULL,
-    grp_standard_score = if (!is.null(grp_pheno)) grp_pheno[["standard_score"]] else NULL,
+    grp_scaled_score = if (!is.null(grp_pheno)) {
+      grp_pheno[["scaled_score"]]
+    } else {
+      NULL
+    },
+    grp_standard_score = if (!is.null(grp_pheno)) {
+      grp_pheno[["standard_score"]]
+    } else {
+      NULL
+    },
     grp_t_score = if (!is.null(grp_pheno)) grp_pheno[["t_score"]] else NULL,
     dynamic_grp = grp_pheno,
     vertical_padding = vertical_padding,

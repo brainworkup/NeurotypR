@@ -1,7 +1,7 @@
 ---
 title: NEUROCOGNITIVE EXAMINATION
-patient: Max
-name: Sperling, Max
+patient: Biggie
+name: Smalls, Biggie
 doe: 2025-05-02
 date_of_report: 2025-06-09
 ---
@@ -94,15 +94,16 @@ patient <- Sys.getenv("PATIENT")
 #| label: data-load
 #| include: false
 
-source("data.R")
+# source("data.R")
 
-file_path <- here::here("data", "csv")
-# bwu::load_data(here::here(file_path))
-load_data(here::here(file_path))
-neurocog <- readr::read_csv("neurocog.csv")
-neurobehav <- readr::read_csv("neurobehav.csv")
-neuropsych <- readr::read_csv("neuropsych.csv")
-validity <- readr::read_csv("validity.csv")
+path_data <- here::here("data")
+path_csv <- here::here("data", "csv")
+NeurotypR::load_data(here::here(path_csv))
+# load_data(here::here(path_csv))
+neurocog <- readr::read_csv("data/neurocog.csv")
+neurobehav <- readr::read_csv("data/neurobehav.csv")
+neuropsych <- readr::read_csv("data/neuropsych.csv")
+validity <- readr::read_csv("data/validity.csv")
 ```
 
 ```{=typst}

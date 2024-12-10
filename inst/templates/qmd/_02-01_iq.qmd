@@ -13,7 +13,7 @@ domains <- c("General Cognitive Ability")
 pheno <- "iq"
 
 # Read the CSV file into a data frame
-iq <- readr::read_csv("neurocog.csv")
+iq <- readr::read_csv("data/neurocog.csv")
 ```
 
 ```{r}
@@ -61,7 +61,7 @@ iq <- iq |>
 # Write the resulting data frame to a new CSV file
 readr::write_excel_csv(
   iq,
-  paste0(pheno, ".csv"),
+  here::here("data", paste0(pheno, ".csv")),
   na = "",
   col_names = TRUE,
   append = FALSE
@@ -74,9 +74,6 @@ readr::write_excel_csv(
 #| eval: true
 
 # Read the data using the read_data function from the bwu library
-# The phenotype is specified by the 'pheno' variable
-data <- iq
-
 # Define the scales of interest
 scales <- c(
   "Auditory Working Memory (AWMI)",
@@ -121,9 +118,7 @@ scales <- c(
 )
 
 # Filter the data using the filter_data function from the bwu library
-# The domain is specified by the 'domains' variable
-# The scale is specified by the 'scales' variable
-data_iq <- bwu::filter_data(data, domain = domains, scale = scales)
+data_iq <- bwu::filter_data(data = iq, domain = domains, scale = scales)
 ```
 
 ```{r}
@@ -212,6 +207,7 @@ grp_iq <- list(
     "Composite Scores",
     "Test of Premorbid Functioning",
     "WAIS-IV",
+    "WAIS-5",
     "WAIS-4",
     "WASI-2",
     "WISC-5",
@@ -226,7 +222,7 @@ grp_iq <- list(
 )
 
 # Create the table using the NeurotypR::tbl_gt2 function from the bwu library
-NeurotypR::tbl_gt2(
+NeurotypR::tbl_gt(
   data = data_iq,
   pheno = pheno,
   table_name = table_name,
@@ -324,7 +320,7 @@ NeurotypR::dotplot2(
       caption: figure.caption(
         position: bottom,
         [
-        _General Ability_ is the overall skill to reason, solve problems, and gain useful knowledge. _Crystallized Knowledge_ involves understanding the world through language and reasoning. _Fluid Reasoning_ is the logical analysis and solution of new problems, identifying underlying patterns, and applying logic. #footnote[In the figures presented here and below, scores have been converted to _z_-scores, where an average score is 0.0 and the standard deviation is 1.0. Any scores below the −1.0 ticks are moderately concerning. Scores at or beyond the −2.0 ticks are clinically significant and a cause for greater concern.]
+        _Premorbid Ability_ is an estimate of an individual's intellectual functioning prior to known or suspected onset of brain disease or dysfunction. _General Ability_ is the overall skill to reason, solve problems, and gain useful knowledge. _Crystallized Knowledge_ involves understanding the world through language and reasoning. _Fluid Reasoning_ is the logical analysis and solution of new problems, identifying underlying patterns, and applying logic. #footnote[All scores in the figures here and below have been standardized as z-scores. In this system: A z-score of 0.0 represents average performance; Each unit represents one standard deviation from the average; Scores between -1.0 and +1.0 fall within the normal range; Scores below -1.0 indicate below-average performance and warrant attention; and Scores at or below -2.0 indicate significantly impaired performance and are clinically concerning.]
         ],
       ),
       placement: none,
@@ -348,6 +344,7 @@ NeurotypR::dotplot2(
 // The title is appended with ' Index Scores'
 #domain(title: [#title Scores], file_qtbl, file_fig)
 ```
+
 ```{=typst}
 // Define the title of the domain
 #let title = "General Cognitive Ability"
