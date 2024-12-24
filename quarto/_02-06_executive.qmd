@@ -333,18 +333,20 @@ vertical_padding <- 0
 multiline <- TRUE
 
 # footnotes
-fn_scaled_score <- gt::md("Score = Scaled score (Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰])")
-fn_standard_score <- gt::md("Score = Index score (Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰])")
-fn_t_score <- gt::md("Score = T score (Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰])")
-fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])")
-source_note <- gt::md("Score = _T_ score (Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰])")
+fn_scaled_score <- gt::md("Scaled score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_z_score <- gt::md("z-score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]")
+
+source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
 # groupings
 grp_executive <- list(
   scaled_score = c("WAIS-IV", "D-KEFS", "NEPSY-2", "WISC-5", "WISC-V", "WPPSI-IV", "RBANS"),
-  standard_score = c("NAB", "NAB-S", "WISC-5", "WISC-V", "WAIS-IV", "WPPSI-IV", "WASI-II", "RBANS", "NAB Executive Functions", "NAB Attention"),
-  t_score = c("NAB", "NAB-S", "NIH EXAMINER", "Trail Making Test", "Daily Living", "NAB Executive Functions", "NAB Attention")
+  standard_score = c("NAB", "NAB-S", "WISC-5", "WISC-V", "WAIS-IV", "WPPSI-IV", "WASI-II", "RBANS", "NAB Executive Functions", "NAB Attention Index"),
+  t_score = c("NAB-S", "NIH EXAMINER", "Trail Making Test", "Daily Living", "NAB Executive", "NAB Attention", "NAB")
 )
+
 
 # make `gt` table
 bwu::tbl_gt(
@@ -368,6 +370,11 @@ bwu::tbl_gt(
 #| label: fig-executive-subdomain
 #| include: false
 #| fig-cap: "Attention and executive functions are essential for successful cognitive functioning, enabling us to perform everyday tasks, handle academic challenges, solve problems, manage our emotions, and interact effectively with others and our environment."
+
+nab <- c("Attention Index (ATT)", "Executive Functions Index (EXE)", "Attention Index", "Executive Index")
+
+data_executive <- data_executive |>
+  dplyr::filter(!scale %in% nab)
 
 # dotplot arguments
 filename <- "fig_executive_subdomain.svg"
@@ -438,10 +445,7 @@ options(warn = 0) # Reset to default behavior
           ),
         figure([#image(file_fig, width: auto)],
           caption: figure.caption(position: bottom, [
-            Attention and executive functions are essential for successful
-            cognitive functioning, enabling us to perform everyday tasks, handle
-            academic challenges, solve problems, manage our emotions, and
-            interact effectively with others and our environment.
+            Attention and executive functions are essential for successful cognitive functioning, enabling us to perform everyday tasks, handle academic challenges, solve problems, manage our emotions, and interact effectively with others and our environment.
             ]),
           placement: none,
           kind: "image",
@@ -461,6 +465,7 @@ options(warn = 0) # Reset to default behavior
   file_fig
   )
 ```
+
 <!-- ```{=typst}
 #let title = "Attention/Executive"
 #let file_qtbl = "table_executive.png"

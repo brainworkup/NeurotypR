@@ -1,0 +1,15 @@
+# TESTS ADMINISTERED {#sec-tests}
+
+- Comprehensive Neuropsychiatric Symptom and History Interview
+- Structured Clinical Interview for DSM-5 Disorders, Clinician Version (SCID-5-CV)
+- Comprehensive Executive Function Inventory, Adult, Self-Report Form (CEFI Adult Self-Report)
+- Dot Counting Test (DCT)
+- NIH Executive Abilities--Measures and Instruments for Neurobehavioral Evaluation and Research (NIH EXAMINER):
+  - Behavioral Rating Scale
+- Neuropsychological Assessment Battery (NAB):
+  - Attention Module 
+  - Language Module
+  - Memory Module
+  - Spatial Module
+  - Executive Functions Module
+- Personality Assessment Inventory (PAI)

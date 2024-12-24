@@ -1,0 +1,20 @@
+The patient's self-reported ratings indicate an average level of perceived executive functioning across various domains.
+
+### Relative Strengths (High-Average Ratings)
+- **Inhibitory Control**: 
+  - Self-perceived ability to regulate impulses
+  - Tendency to consider consequences before acting
+- **Working Memory**: 
+  - Self-reported skill in keeping important information in mind
+
+### Relative Weakness (Lower-than-Average Rating)
+- **Self-Monitoring**: 
+  - Lower self-rated ability in evaluating own behavior when adjustments are necessary
+
+### Potential Real-World Implications
+
+Based on these self-reported ratings, the patient may perceive:
+
+1. Challenges in recognizing when they need assistance
+2. Difficulties in noticing and correcting their own mistakes
+3. Relative ease in controlling impulses and managing information mentally

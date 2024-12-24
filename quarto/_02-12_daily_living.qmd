@@ -1,29 +1,29 @@
-## Daily Living {#sec-dailyliving}
+## Daily Living {#sec-daily-living}
 
-{{< include _02-12_dailyliving_text.qmd >}}
+{{< include _02-12_daily_living_text.qmd >}}
 
 ```{r}
-#| label: setup-dailyliving
+#| label: setup-daily_living
 #| include: false
 
 # domain
 domains <- c("Daily Living")
 
 # phenotype
-pheno <- "dailyliving"
+pheno <- "daily_living"
 ```
 
 ```{r}
-#| label: export-dailyliving
+#| label: export-daily_living
 #| include: false
 
 # Read the CSV file into a data frame
-# dailyliving <- vroom::vroom("neuropsych.csv")
-dailyliving <- vroom::vroom("neurocog.csv")
-# Filter the data frame to keep only rows where 'domain' equals 'domains'
-dailyliving <- dailyliving |> dplyr::filter(domain %in% domains)
+daily_living <- vroom::vroom("neurocog.csv")
 
-dailyliving <- dailyliving |>
+# Filter the data frame to keep only rows where 'domain' equals 'domains'
+daily_living <- daily_living |> dplyr::filter(domain %in% domains)
+
+daily_living <- daily_living |>
   dplyr::select(
     test,
     test_name,
@@ -58,11 +58,11 @@ dailyliving <- dailyliving |>
 
 # Write the resulting data frame to a new CSV file
 # If the file already exists, it is overwritten (not appended)
-readr::write_excel_csv(dailyliving, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+readr::write_excel_csv(daily_living, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
 ```
 
 ```{r}
-#| label: data-dailyliving
+#| label: data-daily_living
 #| include: false
 
 scales <- c(
@@ -85,30 +85,28 @@ scales <- c(
 
 
 # Filter the data using the filter_data function from the bwu library
-# The domain is specified by the 'domains' variable
-# The scale is specified by the 'scales' variable
-data_dailyliving <-
+data_daily_living <-
   bwu::filter_data(
-    data = dailyliving,
+    data = daily_living,
     domain = domains,
     scale = scales
   )
 ```
 
 ```{r}
-#| label: text-dailyliving
+#| label: text-daily_living
 #| cache: true
 #| include: false
 
 # export text
 bwu::cat_neuropsych_results(
-  data = data_dailyliving,
-  file = "_02-12_dailyliving_text.qmd"
+  data = data_daily_living,
+  file = "_02-12_daily_living_text.qmd"
 )
 ```
 
 ```{r}
-#| label: qtbl-dailyliving
+#| label: qtbl-daily_living
 #| dev: tikz
 #| fig-process: pdf2png
 #| include: false
@@ -117,55 +115,81 @@ bwu::cat_neuropsych_results(
 # Set the default engine for tikz to "xetex"
 options(tikzDefaultEngine = "xetex")
 
-data_dailyliving_tbl <- dplyr::filter(data_dailyliving, !is.na(percentile))
+data_daily_living_tbl <- dplyr::filter(data_daily_living, !is.na(percentile))
+
+ordering_list <- c(
+  "Driving Scenes",
+  "Bill Payment",
+  "Daily Living Memory Immediate Recall",
+  "Daily Living Memory Delayed Recall",
+  "Daily Living Memory Retention",
+  "Daily Living Memory Delayed Recognition",
+  # "Daily Living Memory Recall vs. Recognition",
+  "Medication Instructions Immediate Recall",
+  "Medication Instructions Delayed Recall",
+  "Medication Instructions Delayed Recognition",
+  "Name/Address/Phone Immediate Recall",
+  "Name/Address/Phone Delayed Recall",
+  "Name/Address/Phone Delayed Recognition",
+  "Map Reading",
+  "Judgment"
+)
+
+# Process the data
+data_daily_living_tbl <- data_daily_living |>
+  dplyr::filter(scale %in% ordering_list) |>
+  dplyr::mutate(scale = factor(scale, levels = ordering_list)) |>
+  dplyr::arrange(scale)
 
 # args
-table_name <- "table_dailyliving"
+table_name <- "table_daily_living"
 vertical_padding <- 0
 multiline <- TRUE
 
 # footnotes
 fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
+source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+
 # Define the groups for the table
-grp_dailyliving <- list(
+grp_daily_living <- list(
   t_score = c("NAB Daily Living", "NAB", "NAB-S", "NIH EXAMINER", "NAB Language")
 )
 
 # make `gt` table
 bwu::tbl_gt(
-  data = data_dailyliving_tbl,
+  data = data_daily_living_tbl,
   pheno = pheno,
   table_name = table_name,
-  # source_note = source_note,
-  fn_t_score = fn_t_score,
-  grp_t_score = grp_dailyliving[["t_score"]],
-  dynamic_grp = grp_dailyliving,
+  source_note = source_note,
+  # fn_t_score = fn_t_score,
+  # grp_t_score = grp_daily_living[["t_score"]],
+  dynamic_grp = grp_daily_living,
   vertical_padding = vertical_padding,
   multiline = multiline
 )
 ```
 
 ```{r}
-#| label: fig-dailyliving-subdomain
+#| label: fig-daily-living-subdomain
 #| include: false
-#| fig-cap: "dailyliving and language functioning refers to the ability to access and apply acquired word knowledge, to dailylivingize meaningful concepts, to understand complex multistep instructions, to think about dailyliving information, and to express oneself using words."
+#| fig-cap: "Daily Living tests evaluate functional abilities required for independent living through ecologically-valid tasks, including bill payment processing, remembering appointments and medication instructions, map navigation, driving awareness, and everyday judgment. These tasks assess how cognitive abilities translate to real-world performance, providing insight into the patient's daily functioning and independence."
 
 # Arguments
 colors <- NULL
 return_plot <- TRUE
-filename <- "fig_dailyliving_subdomain.svg"
+filename <- "fig_daily_living_subdomain.svg"
 
 # variables to plot
-x <- data_dailyliving$z_mean_subdomain
-y <- data_dailyliving$subdomain
+x <- data_daily_living$z_mean_subdomain
+y <- data_daily_living$subdomain
 
 # Suppress warnings from being converted to errors
 options(warn = 1) # Set warn to 1 to make warnings not halt execution
 
 # Make dotplot
 bwu::dotplot(
-  data = data_dailyliving,
+  data = data_daily_living,
   x = x,
   y = y,
   colors = colors,
@@ -178,38 +202,7 @@ bwu::dotplot(
 options(warn = 0) # Reset to default behavior
 ```
 
-```{r}
-#| label: fig-dailyliving-narrow
-#| include: false
-#| eval: false
-#| fig-cap: "dailyliving and language functioning refers to the ability to access and apply acquired word knowledge, to dailylivingize meaningful concepts, to understand complex multistep instructions, to think about dailyliving information, and to express oneself using words."
 
-# Arguments
-colors <- NULL
-return_plot <- TRUE
-filename <- "fig_dailyliving_narrow.svg"
-
-# variables to plot
-x <- data_dailyliving$z_mean_narrow
-y <- data_dailyliving$narrow
-
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
-# Make dotplot
-bwu::dotplot(
-  data = data_dailyliving,
-  x = x,
-  y = y,
-  colors = colors,
-  return_plot = return_plot,
-  filename = filename,
-  na.rm = TRUE
-)
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
-```
 
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
@@ -226,7 +219,7 @@ options(warn = 0) # Reset to default behavior
           ),
         figure([#image(file_fig)],
           caption: figure.caption(position: bottom, [
-            The Daily Living tests evaluate functional abilities required for independent living through ecologically-valid tasks. These include bill payment processing, remembering appointments and medication instructions, map navigation, driving awareness, and everyday judgment. These tasks assess how cognitive abilities translate to real-world performance across domains of memory, attention, language, spatial skills, and executive functioning.
+            _Daily Living_ tests evaluate functional abilities required for independent living through ecologically-valid tasks, including bill payment processing, remembering appointments and medication instructions, map navigation, driving awareness, and everyday judgment. These tasks assess how cognitive abilities translate to real-world performance, providing insight into the patient's daily functioning and independence. 
             ]),
           placement: none,
           kind: "image",
@@ -239,8 +232,8 @@ options(warn = 0) # Reset to default behavior
 
 ```{=typst}
 #let title = "Daily Living"
-#let file_qtbl = "table_dailyliving.png"
-#let file_fig = "fig_dailyliving_subdomain.svg"
+#let file_qtbl = "table_daily_living.png"
+#let file_fig = "fig_daily_living_subdomain.svg"
 #domain(
   title: [#title Scores],
   file_qtbl,

@@ -11,10 +11,10 @@
   "Packages": {
     "BH": {
       "Package": "BH",
-      "Version": "1.84.0-0",
+      "Version": "1.87.0-1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a8235afbcd6316e6e91433ea47661013"
+      "Hash": "468d9a03ba57f22ebde50060fd13ba9f"
     },
     "DBI": {
       "Package": "DBI",
@@ -1130,7 +1130,7 @@
       "Package": "htmlwidgets",
       "Version": "1.6.4",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "grDevices",
         "htmltools",
@@ -1218,7 +1218,7 @@
     },
     "janitor": {
       "Package": "janitor",
-      "Version": "2.2.0",
+      "Version": "2.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1236,7 +1236,7 @@
         "tidyr",
         "tidyselect"
       ],
-      "Hash": "5baae149f1082f466df9d1442ba7aa65"
+      "Hash": "64f308bf1fbf5f856cdf4b4c7c0ce51b"
     },
     "jpeg": {
       "Package": "jpeg",
@@ -1577,13 +1577,13 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.2.2",
+      "Version": "2.3.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "d413e0fef796c9401a4419485f709ca1"
+      "Hash": "5bfe2927efa9f87766ca9605301ea48f"
     },
     "paletteer": {
       "Package": "paletteer",
@@ -1612,12 +1612,11 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.9.0",
+      "Version": "1.10.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "cli",
-        "fansi",
         "glue",
         "lifecycle",
         "rlang",
@@ -1625,7 +1624,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "15da5a8412f317beeee6175fbc76f4bb"
+      "Hash": "101ca350beea21261a15ba169d7a8513"
     },
     "pkgbuild": {
       "Package": "pkgbuild",
@@ -1966,16 +1965,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.11.9000",
+      "Version": "1.0.11",
       "Source": "Repository",
-      "Repository": "https://rstudio.r-universe.dev",
-      "RemoteType": "repository",
-      "RemoteUrl": "https://github.com/rstudio/renv",
-      "RemoteSha": "23fcfb2ea7b2425863e7d4a23fe15d2869b753ff",
+      "Repository": "CRAN",
       "Requirements": [
         "utils"
       ],
-      "Hash": "1c0b4006b03c5144e80f522f4612bc7d"
+      "Hash": "47623f66b4e80b3b0587bc5d7b309888"
     },
     "reprex": {
       "Package": "reprex",
@@ -2216,7 +2212,7 @@
     },
     "shiny": {
       "Package": "shiny",
-      "Version": "1.9.1",
+      "Version": "1.10.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2245,7 +2241,7 @@
         "withr",
         "xtable"
       ],
-      "Hash": "6a293995a66e12c48d13aa1f957d09c7"
+      "Hash": "4b4477baa9a939c5577e5ddb4bf01f28"
     },
     "shinyjs": {
       "Package": "shinyjs",
@@ -2473,7 +2469,7 @@
     },
     "tidytable": {
       "Package": "tidytable",
-      "Version": "0.11.1",
+      "Version": "0.11.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2486,7 +2482,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "190288a6d7f31f316bff4c641450bc84"
+      "Hash": "a79a7d6075b2f072c308702045f06dd1"
     },
     "tidyverse": {
       "Package": "tidyverse",

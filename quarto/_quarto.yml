@@ -1,0 +1,38 @@
+project:
+  type: default
+  execute-dir: file
+  render:
+    - Itamar.qmd
+
+format:
+  neurotyp-forensic-typst:
+    keep-typ: true
+    keep-md: true
+    papersize: "a4"
+    bodyfont: "Equity B OTF"
+    sansfont: "Work Sans"
+    fontsize: 12pt
+    number-sections: false
+    citeproc: false
+    csl: src/bib/apa.csl
+
+execute:
+  warning: false
+  echo: false
+  message: false
+  freeze: auto
+  cache: true
+
+editor:
+  markdown:
+    wrap: sentence
+    canonical: true
+fig-width: 6
+fig-asp: 0.618
+out-width: 70%
+fig-align: center
+fig-format: svg
+fig-dpi: 270
+df-print: kable
+reference-location: document
+bibliography: src/bib/refs.bib

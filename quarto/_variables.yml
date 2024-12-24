@@ -1,0 +1,31 @@
+version: 0.1.0
+
+# VARIABLES
+case_number: BA516979
+patient: Itamar
+first_name: Itamar
+last_name: Cohen
+dob: 1987-10-31
+doe: 2024-09-08
+doe2: 2024-09-11
+doe3:
+date_of_report: 2024-11-20
+sex: male
+sex_cap: Male
+age: 36
+education: 12
+handedness: right
+referral: Dana Cole
+observer:
+observer_relation:
+attorney: Dana Cole
+mr_mrs: Mr.
+he_she: he
+he_she_cap: He
+his_her: his
+his_her_cap: His
+him_her: him
+him_her_cap: Him
+dx1: epilepsy
+dx2: anxiety
+dx3: depression

@@ -47,59 +47,66 @@ ui <- fluidPage(
         choices = c("examiner", "rocft", "topf", "tmt", "nab", "social_cognition")
       ),
       selectInput("scale", "Scale/Subtest:",
-      choices = list(
-        "Examiner" = c("Unstructured Task", "Letter Fluency", "Category Fluency"),
-        "Rey Complex Figure" = c("ROCFT Copy", "ROCFT Delayed Recall"),
-        "Trail Making Test" = c("TMT, Part A", "TMT, Part B"),
-        "ACS" = c("TOPF Standard Score", "ACS Word Choice", "Affect Naming"),
-        "NAB" = c("Mazes", "Judgment", "Categories", "Word Generation", "Dots",
-                 "Numbers & Letters Part A Efficiency", "Numbers & Letters Part B Efficiency", "Numbers & Letters Part C Efficiency", "Numbers & Letters Part D Efficiency", "Driving Scenes"),
-        "NEPSY-2" = c("Comprehension of Instructions", "Visuomotor Precision", "Word Generation-Semantic", "Word Generation-Initial Letter", "Semantic vs. Initial Letter", "Narrative Memory Free and Cued Recall",
-                     "Narrative Memory Free Recall", "Narrative Memory Recognition", "List Memory"),
-        "DKEFS" = c("D-KEFS Color Naming", "D-KEFS Word Reading", "D-KEFS Inhibition",
-                   "D-KEFS Switching", "D-KEFS Inhibition Total Errors", "D-KEFS Switching Total Errors"),
-        "WMS-IV" = c("Symbol Span", "Spatial Addition"),
-        "Grooved Pegboard" = c("Dominant Hand Time", "Nondominant Hand Time"),
-        "KTEA-3" = c("Decoding Fluency", "Nonsense Word Decoding", "Reading Comprehension"),
-        "Cognitive Estimation" = "Deviation Score",
-        "Ravens 2" = "Raven's 2 Index Score"
+        choices = list(
+          "Examiner" = c("Unstructured Task", "Letter Fluency", "Category Fluency"),
+          "Rey Complex Figure" = c("ROCFT Copy", "ROCFT Delayed Recall"),
+          "Trail Making Test" = c("TMT, Part A", "TMT, Part B"),
+          "ACS" = c("TOPF Standard Score", "ACS Word Choice", "Affect Naming"),
+          "NAB" = c(
+            "Mazes", "Judgment", "Categories", "Word Generation", "Dots",
+            "Numbers & Letters Part A Efficiency", "Numbers & Letters Part B Efficiency", "Numbers & Letters Part C Efficiency", "Numbers & Letters Part D Efficiency", "Driving Scenes"
+          ),
+          "NEPSY-2" = c(
+            "Comprehension of Instructions", "Visuomotor Precision", "Word Generation-Semantic", "Word Generation-Initial Letter", "Semantic vs. Initial Letter", "Narrative Memory Free and Cued Recall",
+            "Narrative Memory Free Recall", "Narrative Memory Recognition", "List Memory"
+          ),
+          "DKEFS" = c(
+            "D-KEFS Color Naming", "D-KEFS Word Reading", "D-KEFS Inhibition",
+            "D-KEFS Switching", "D-KEFS Inhibition Total Errors", "D-KEFS Switching Total Errors"
+          ),
+          "WMS-IV" = c("Symbol Span", "Spatial Addition"),
+          "Grooved Pegboard" = c("Dominant Hand Time", "Nondominant Hand Time"),
+          "KTEA-3" = c("Decoding Fluency", "Nonsense Word Decoding", "Reading Comprehension"),
+          "Cognitive Estimation" = "Deviation Score",
+          "Ravens 2" = "Raven's 2 Index Score"
+        ),
+        numericInput("raw_score", "Raw score:", 10),
+        numericInput("score", "Standardized score:", 50),
+        radioButtons("score_type", "Type of Test Score:",
+          choices = c("z_score", "scaled_score", "t_score", "standard_score")
+        ),
+        selectInput("domain", "Domain:",
+          choices = c(
+            "General Cognitive Ability", "Intelligence/General Ability",
+            "Academic Skills", "Verbal/Language"
+          )
+        ),
+        selectInput("subdomain", "Subdomain:",
+          choices = c("Select Subdomain")
+        ),
+        selectInput("narrow", "Narrow Subdomain:",
+          choices = c("Select Narrow Subdomain")
+        ),
+        radioButtons("pass", "PASS:",
+          choices = c("Planning", "Attention", "Sequential", "Simultaneous")
+        ),
+        radioButtons("verbal", "Verbal or Nonverbal Test:",
+          choices = c("Verbal", "Nonverbal")
+        ),
+        radioButtons("timed", "Timed or Untimed Test:",
+          choices = c("Timed", "Untimed")
+        ),
+        numericInput("mean", "Mean:", 50),
+        numericInput("stdev", "Standard Deviation:", 10),
+        sliderInput("reliability", "Reliability:",
+          min = 0, max = 1, value = 0.81, step = 0.01
+        ),
+        actionButton("submit", "Submit Data")
       ),
-      numericInput("raw_score", "Raw score:", 10),
-      numericInput("score", "Standardized score:", 50),
-      radioButtons("score_type", "Type of Test Score:",
-        choices = c("z_score", "scaled_score", "t_score", "standard_score")
-      ),
-      selectInput("domain", "Domain:",
-        choices = c(
-          "General Cognitive Ability", "Intelligence/General Ability",
-          "Academic Skills", "Verbal/Language"
-        )
-      ),
-      selectInput("subdomain", "Subdomain:",
-        choices = c("Select Subdomain")
-      ),
-      selectInput("narrow", "Narrow Subdomain:",
-        choices = c("Select Narrow Subdomain")
-      ),
-      radioButtons("pass", "PASS:",
-        choices = c("Planning", "Attention", "Sequential", "Simultaneous")
-      ),
-      radioButtons("verbal", "Verbal or Nonverbal Test:",
-        choices = c("Verbal", "Nonverbal")
-      ),
-      radioButtons("timed", "Timed or Untimed Test:",
-        choices = c("Timed", "Untimed")
-      ),
-      numericInput("mean", "Mean:", 50),
-      numericInput("stdev", "Standard Deviation:", 10),
-      sliderInput("reliability", "Reliability:",
-        min = 0, max = 1, value = 0.81, step = 0.01
-      ),
-      actionButton("submit", "Submit Data")
-    ),
-    mainPanel(
-      tableOutput("results_table"),
-      verbatimTextOutput("file_status")
+      mainPanel(
+        tableOutput("results_table"),
+        verbatimTextOutput("file_status")
+      )
     )
   )
 )
