@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WISC-5"
 params:
-  patient: Brooklyn
+  patient: Biggie
   test: wisc5
   test_name: WISC-5
   file:
@@ -172,7 +172,7 @@ pages <- params$pages
 #   file = file,
 #   pages = pages
 # )
-# 
+#
 # areas_wisc5 <- tabulapdf::locate_areas(
 #   file = file,
 #   pages = pages
@@ -180,7 +180,7 @@ pages <- params$pages
 # areas <- areas_wisc5
 # Save the entire list to an R data file
 # qs::qsave(areas, file = "areas_wisc5.rds")
-areas <- qs::qread("~/Brooklyn/src/rmd/areas_wisc5.rds")
+areas <- qs::qread("~/Biggie/src/rmd/areas_wisc5.rds")
 ```
 
 ## Extract tables
@@ -915,7 +915,7 @@ table3 <- table3 |> dplyr::relocate(c(test, test_name), .before = scale)
 ```{r}
 # Table 4
 names(table4) <- params$colnames3
-table4 <- table4[2:8, c(1,3:4)]
+table4 <- table4[2:8, c(1, 3:4)]
 table4[1, 1] <- c("Block Design No Time Bonus")
 table4[2, 1] <- c("Block Design Partial Score")
 table4[3, 1] <- c("Digit Span Forward")
@@ -926,7 +926,7 @@ table4[7, 1] <- c("Cancellation Structured")
 
 # Table 5
 names(table5) <- params$colnames4
-table5 <- table5[2:14, c(1,3:4)]
+table5 <- table5[2:14, c(1, 3:4)]
 table5[1, 1] <- c("Longest Digit Span Forward")
 table5[2, 1] <- c("Longest Digit Span Backward")
 table5[3, 1] <- c("Longest Digit Span Sequence")
@@ -1284,27 +1284,27 @@ table5 <-
       scale == "Coding Rotation Errors" ~ "Visual-motor processing speed (rotation errors)",
       TRUE ~ as.character(description)
     )
-  )  
+  )
 ```
 
 ## Glue result
 
 ```{r}
 table4 <-
-    table4 |> 
-    tidytable::mutate(
-      result = glue::glue(
-        "{description} was {range}."
-      )
+  table4 |>
+  tidytable::mutate(
+    result = glue::glue(
+      "{description} was {range}."
     )
+  )
 
 table5 <-
-    table5 |> 
-    tidytable::mutate(
-      result = glue::glue(
-        "{description} was {range}."
-      )
+  table5 |>
+  tidytable::mutate(
+    result = glue::glue(
+      "{description} was {range}."
     )
+  )
 
 
 ## Relocate variables
