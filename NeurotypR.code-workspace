@@ -4,7 +4,9 @@
       "path": "."
     }
   ],
-  "settings": {},
+  "settings": {
+    "workbench.colorTheme": "Bearded Theme Surprising Watermelon"
+  },
   "extensions": {
     "recommendations": ["atomashevic.vscode-working-memory"]
   }

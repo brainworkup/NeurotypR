@@ -1,1 +1,1 @@
-/Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/pluck_cvlt3.Rmd
+/Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/Rmd/pluck_cvlt3.Rmd

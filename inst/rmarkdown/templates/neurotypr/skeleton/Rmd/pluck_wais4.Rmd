@@ -12,7 +12,7 @@ params:
       - wais5
   test_name:
     label: "Test Name"
-    value: [WAIS-5]
+    value: [WAIS-IV]
     input: select
     multiple: no
     choices:
@@ -30,7 +30,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2, 4]
+  pages: [2,4]
   table1:
     label: "Index Scores"
     value: "Verbal Comprehension (VCI)"
@@ -245,13 +245,6 @@ test_name <- (params$test_name)
 pages <- (params$pages)
 # file <- file.path(file.choose())
 file <- file.path(params$file)
-if (params$test == "conners4_self") {
-  saveRDS(file, "conners4_self.rds")
-} else if (params$test == "conners4_parent") {
-  saveRDS(file, "conners4_parent.rds")
-} else if (params$test == "conners4_teacher") {
-  saveRDS(file, "conners4_teacher.rds")
-}
 ```
 
 

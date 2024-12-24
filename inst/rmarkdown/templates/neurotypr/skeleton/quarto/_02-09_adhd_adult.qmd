@@ -1,0 +1,320 @@
+## ADHD/Executive Functioning {#sec-adhd}
+
+```{r}
+#| label: setup-adhd
+#| include: false
+
+# Suppress warnings from being converted to errors
+options(warn = 1) # Set warn to 1 to make warnings not halt execution
+
+# domain
+domains <- c("ADHD")
+
+# target phenotype
+pheno <- "adhd"
+```
+
+```{r}
+#| label: export-adhd
+#| include: false
+#| eval: true
+
+# Read the CSV file into a data frame
+adhd <- vroom::vroom("neurobehav.csv")
+
+# Filter the data frame based on certain conditions
+# Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA
+adhd <- adhd |>
+  dplyr::filter(domain %in% domains)
+
+# Select specific columns from the data frame
+adhd <- adhd |>
+  dplyr::select(
+    test,
+    test_name,
+    scale,
+    raw_score,
+    score,
+    ci_95,
+    percentile,
+    range,
+    domain,
+    subdomain,
+    narrow,
+    pass,
+    verbal,
+    timed,
+    description,
+    result,
+    z,
+    z_mean_domain,
+    z_sd_domain,
+    z_mean_subdomain,
+    z_sd_subdomain,
+    z_mean_narrow,
+    z_sd_narrow
+  )
+
+# Write the 'adhd' data frame to a CSV file
+# The file name is derived from the 'pheno' variable
+readr::write_excel_csv(adhd, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+```
+
+```{r}
+#| label: data-adhd
+#| include: false
+
+scales <- c(
+  "Activation",
+  "Focus",
+  "Effort",
+  "Emotion",
+  "Memory",
+  "Action",
+  "Total Composite",
+  "Inattention/Memory Problems",
+  "Hyperactivity/Restlessness",
+  "Impulsivity/Emotional Lability",
+  "Problems with Self-Concept",
+  "DSM-5 Inattentive Symptoms",
+  "DSM-5 Hyperactive-Impulsive Symptoms",
+  "DSM-5 ADHD Symptoms Total",
+  "ADHD Index",
+  # CEFI
+  "Full Scale",
+  "Attention",
+  "Emotion Regulation",
+  "Flexibility",
+  "Inhibitory Control",
+  "Initiation",
+  "Organization",
+  "Planning",
+  "Self-Monitoring",
+  "Working Memory",
+  "Inattention/Executive Dysfunction",
+  "Hyperactivity",
+  "Impulsivity",
+  "Emotional Dysregulation",
+  "Negative Self-Concept",
+  "ADHD Inattentive Symptoms",
+  "ADHD Hyperactive/Impulsive Symptoms",
+  "Total ADHD Symptoms",
+  "ADHD Index",
+  "CAARS-OR Inattention/Memory Problems",
+  "CAARS-OR Hyperactivity/Restlessness",
+  "CAARS-OR Impulsivity/Emotional Lability",
+  "CAARS-OR Problems with Self-Concept",
+  "CAARS-OR DSM-5 Inattentive Symptoms",
+  "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms",
+  "CAARS-OR DSM-5 ADHD Symptoms Total",
+  "CAARS-OR ADHD Index",
+  "CAARS-SR Inattention/Memory Problems",
+  "CAARS-SR Hyperactivity/Restlessness",
+  "CAARS-SR Impulsivity/Emotional Lability",
+  "CAARS-SR Problems with Self-Concept",
+  "CAARS-SR DSM-5 Inattentive Symptoms",
+  "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms",
+  "CAARS-SR DSM-5 ADHD Symptoms Total",
+  "CAARS-SR ADHD Index",
+  "CEFI-OR Full Scale",
+  "CEFI-OR Attention",
+  "CEFI-OR Emotion Regulation",
+  "CEFI-OR Flexibility",
+  "CEFI-OR Inhibitory Control",
+  "CEFI-OR Initiation",
+  "CEFI-OR Organization",
+  "CEFI-OR Planning",
+  "CEFI-OR Self-Monitoring",
+  "CEFI-OR Working Memory",
+  "CEFI-SR Full Scale",
+  "CEFI-SR Attention",
+  "CEFI-SR Emotion Regulation",
+  "CEFI-SR Flexibility",
+  "CEFI-SR Inhibitory Control",
+  "CEFI-SR Initiation",
+  "CEFI-SR Organization",
+  "CEFI-SR Planning",
+  "CEFI-SR Self-Monitoring",
+  "CEFI-SR Working Memory"
+)
+
+# Filter the data using the filter_data function from the bwu library
+# The domain is specified by the 'domains' variable
+# The scale is specified by the 'scales' variable
+data_adhd <- bwu::filter_data(data = adhd, domain = domains, scale = scales)
+```
+
+```{r}
+#| label: text-adhd-self
+#| cache: true
+#| eval: true
+#| include: false
+
+# Self-report
+data_adhd_self <-
+  data_adhd |>
+  dplyr::filter(test == "caars_sr" | test == "cefi_sr" | test == "caars2_sr") |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+# Flatten the text
+bwu::cat_neuropsych_results(data = data_adhd_self, file = "_02-09_adhd_adult_text_self.qmd")
+```
+
+
+
+```{r}
+#| label: qtbl-adhd-self
+#| dev: tikz
+#| fig-process: pdf2png
+#| eval: true
+#| include: false
+
+# Set the default engine for tikz to "xetex"
+options(tikzDefaultEngine = "xetex")
+
+# table arguments
+pheno <- "adhd_self"
+table_name <- "table_adhd_self"
+vertical_padding <- 0
+multiline <- TRUE
+
+# variables
+data_adhd_self <-
+  dplyr::mutate(data_adhd_self, scale = stringr::str_remove_all(scale, "CAARS-SR |CEFI-SR |CAARS2 Self "))
+
+# footnotes
+fn_standard_score <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15
+[16th‰, 84th‰].
+
+Lower scores reflect reduced functioning.")
+
+fn_t_score <- gt::md("CAARS T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+Higher scores reflect reduced functioning.")
+
+fn_t_score <- gt::md("CAARS T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+Higher scores reflect reduced functioning.")
+
+# source_note <- gt::md("CAARS T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+# Higher scores reflect reduced functioning.")
+
+source_note <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰].
+
+Lower scores reflect reduced functioning in the given area.")
+
+# groupings
+grp_adhd <- list(
+  standard_score = c("CEFI Self-Report", "CEFI Observer-Report", "CEFI Self", "CEFI Observer"),
+  t_score = c("CAARS Self-Report", "CAARS Observer-Report", "CAARS-2 Self-Report", "CAARS-2 Observer-Report", "CAARS2 Self", "CAARS2 Observer", "CAARS Self")
+)
+
+grp_caars <- list(
+  t_score = c("CAARS Self-Report", "CAARS Observer-Report", "CAARS-2 Self-Report", "CAARS-2 Observer-Report", "CAARS2 Self", "CAARS2 Observer", "CAARS Self")
+)
+
+grp_cefi <- list(
+  standard_score = c("CEFI Self-Report", "CEFI Observer-Report", "CEFI Self", "CEFI Observer")
+)
+
+grp_self <- list(
+  standard_score = c("CEFI Self-Report", "CEFI Self"),
+  t_score = c("CAARS Self-Report", "CAARS-2 Self-Report", "CAARS2 Self", "CAARS Self")
+)
+
+# make `gt` table
+bwu::tbl_gt(
+  data = data_adhd_self,
+  pheno = pheno,
+  table_name = table_name,
+  vertical_padding = vertical_padding,
+  source_note = source_note,
+  # fn_standard_score = fn_standard_score,
+  # fn_t_score = fn_t_score,
+  # grp_standard_score = grp_self[["standard_score"]],
+  # grp_t_score = grp_self[["t_score"]],
+  dynamic_grp = grp_self,
+  multiline = multiline
+)
+```
+
+
+```{r}
+#| label: fig-adhd-self
+#| include: false
+#| fig-hight: 6
+#| out-height: 100%
+#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
+
+# dotplot variables to plot (x, y)
+x <- data_adhd_self$z
+y <- data_adhd_self$scale
+
+# dotplot arguments
+filename <- "fig_adhd_self.svg"
+colors <- NULL
+return_plot <- TRUE
+
+# Suppress warnings from being converted to errors
+options(warn = 1) # Set warn to 1 to make warnings not halt execution
+
+bwu::dotplot(
+  data = data_adhd_self,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename,
+  na.rm = TRUE
+)
+
+# Reset warning options to default if needed
+options(warn = 0) # Reset to default behavior
+```
+
+
+### SELF-REPORT
+
+{{< include _02-09_adhd_adult_text_self.qmd >}}
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Roboto Slab", size: 0.7em)
+  set text(..font)
+  pad(top: 0.5em)[]
+  grid(
+    columns: (50%, 50%),
+    gutter: 8pt,
+    figure(
+      [#image(file_qtbl)],
+      caption: figure.caption(position: top, [#title]),
+      kind: "qtbl",
+      supplement: [*Table*],
+    ),
+    figure(
+      [#image(file_fig)],
+      caption: figure.caption(
+        position: bottom,
+        [Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.],
+      ),
+      placement: none,
+      kind: "image",
+      supplement: [*Figure*],
+      gap: 0.5em,
+    ),
+  )
+}
+```
+
+```{=typst}
+#let title = "ADHD/Executive Function Self Ratings"
+#let file_qtbl = "table_adhd_self.png"
+#let file_fig = "fig_adhd_self.svg"
+#domain(
+  title: [#title],
+  file_qtbl,
+  file_fig
+  )
+```

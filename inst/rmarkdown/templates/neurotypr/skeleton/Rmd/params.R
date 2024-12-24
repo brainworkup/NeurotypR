@@ -2,19 +2,25 @@
 
 patient <- "Biggie"
 
-test <- "wais5"
-test_name <- "WAIS-5"
-pages <- c(5, 5)
-extract_columns <- c(1, 3, 4, 5)
+# test <- "wais5"
+# test_name <- "WAIS-5"
+# pages <- c(5, 5)
+# extract_columns <- c(1, 3, 4, 5)
 
 test <- "wrat5"
 test_name <- "WRAT-5"
-pages <- c(2)
+pages <- c(8)
 extract_columns <- c(1, 2, 3, 4, 5)
 score_type <- "standard_score"
 
-# pdf <- file.path(file.choose(""))
-file <- pdf
+test <- "wms4"
+test_name <- "WMS-IV"
+pages <- c(12)
+extract_columns <- c(1, 3, 4, 5)
+variables <- c("scale", "raw_score", "score", "percentile")
+score_type <- "scaled_score"
+
+file <- file.path(file.choose())
 
 params <-
   list(
@@ -22,7 +28,9 @@ params <-
     test = test,
     test_name = test_name,
     file = file,
-    pages = pages
+    pages = pages,
+    extract_columns = extract_columns,
+    score_type = score_type
   )
 
 # Extracted areas

@@ -1,10 +1,10 @@
 ---
-title: "Pluck Tables from WAIS-IV"
+title: "Pluck Tables from WAIS-5"
 params:
   patient: Biggie
   test:
     label: "Test"
-    value: wais4
+    value: wais5
     input: select
     multiple: no
     choices:
@@ -12,7 +12,7 @@ params:
       - wais5
   test_name:
     label: "Test Name"
-    value: [WAIS-IV]
+    value: [WAIS-5]
     input: select
     multiple: no
     choices:
@@ -30,7 +30,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2,4]
+  pages: [2, 4]
   table1:
     label: "Index Scores"
     value: "Verbal Comprehension (VCI)"
@@ -243,55 +243,20 @@ patient <- (params$patient)
 test <- (params$test)
 test_name <- (params$test_name)
 pages <- (params$pages)
+version <- params$version
 # file <- file.path(file.choose())
 file <- file.path(params$file)
-if (params$test == "conners4_self") {
-  saveRDS(file, "conners4_self.rds")
-} else if (params$test == "conners4_parent") {
-  saveRDS(file, "conners4_parent.rds")
-} else if (params$test == "conners4_teacher") {
-  saveRDS(file, "conners4_teacher.rds")
-}
 ```
 
-
-## Patient
-
-```{r patient}
-patient <- params$patient
-```
-
-## Test
-
-```{r test}
-test <- params$test
-test_name <- params$test_name
-version <- params$version
-```
-
-## Upload/attach PDF
-
-```{r choose, eval = FALSE}
-file <- file.path(params$file)
-```
-
-## Pages
-
-```{r pages}
-pages <- params$pages
-```
-
-## Extract Areas with tabulapdf
+## Extract areas with `tabulapdf`
 
 ```{r eval = FALSE}
-library(tabulapdf)
-
 f <- file.path("/Users/joey/reports/Biggie/pdf/Edward_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
 
 # f <- file.path(file.choose(""))
 
 # locate areas and extract
-plucked_tables_wais4 <- tabulapdf::extract_areas(
+extracted_areas <- tabulapdf::extract_areas(
   file = f,
   pages = c(2, 4, 4, 4, 4),
   method = "stream",
@@ -299,12 +264,12 @@ plucked_tables_wais4 <- tabulapdf::extract_areas(
 )
 
 # Loop over the list and write each matrix to a CSV file
-for (i in seq_along(plucked_tables_wais4)) {
-  write.csv(plucked_tables_wais4[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+for (i in seq_along(extracted_areas)) {
+  write.csv(extracted_areas[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
 }
 
 # Save the entire list to an R data file
-save(plucked_tables_wais4, file = "plucked_tables_wais4.RData")
+save(extracted_areas, file = "extracted_areas.RData")
 ```
 
 ## Locate areas
@@ -342,7 +307,7 @@ if (params$version == "full") {
 ## Extract tables
 
 ```{r extract-tables, eval = FALSE}
-plucked_tables_wais4 <- bwu::gpluck_extract_table(
+extracted_tables <- bwu::gpluck_extract_table(
   file = file,
   pages = pages,
   area = area,
@@ -354,7 +319,7 @@ plucked_tables_wais4 <- bwu::gpluck_extract_table(
 
 ```{r}
 # Load the entire list from an R data file
-load("plucked_tables_wais4.RData")
+load("extracted_tables.RData")
 ```
 
 # WAIS-IV Index Scores (Table 1)
@@ -362,13 +327,13 @@ load("plucked_tables_wais4.RData")
 ## Pluck and tidy tables
 
 ```{r pluck1, eval = params$eval_iq}
-# Assuming you have plucked_tables_wais4 and params already defined
+# Assuming you have extracted_tables and params already defined
 
 # Use this because q-int didnt give PRI
 table1 <- readr::read_csv("wais4_1.csv")
 
 # Convert to data.frame
-# table1 <- as.data.frame(plucked_tables_wais4[[1]])
+# table1 <- as.data.frame(extracted_tables[[1]])
 
 # Rename columns
 colnames1 <- params[["colnames1"]]
@@ -592,7 +557,7 @@ table1 <- table1 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 
 ```{r pluck2, eval = params$eval_vci}
 # Convert to data.frame
-table2 <- as.data.frame(plucked_tables_wais4[[2]])
+table2 <- as.data.frame(extracted_tables[[2]])
 
 # Rename columns
 colnames2 <- params[["colnames2"]]
@@ -625,10 +590,10 @@ library(dplyr)
 # Initialize a list to store the transformed data.frames
 transformed_tables <- list()
 
-# Loop through plucked_tables_wais4 from index 2 to 5
+# Loop through extracted_tables from index 2 to 5
 for (i in 2:5) {
   # Convert to data.frame
-  table <- as.data.frame(plucked_tables_wais4[[i]])
+  table <- as.data.frame(extracted_tables[[i]])
 
   # Rename columns using the respective 'colnames' from params
   colnames_param <- params[[paste0("colnames", i)]]
@@ -755,7 +720,7 @@ table2 <- table2 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck3, eval = params$eval_pri}
-table3 <- as.data.frame(plucked_tables_wais4[[3]])
+table3 <- as.data.frame(extracted_tables[[3]])
 
 # if (params$version == "brief") {
 #   table3 <- as.data.frame(plucked_table[[2]])
@@ -888,7 +853,7 @@ table3 <- table3 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck4, eval = params$eval_wmi}
-table4 <- as.data.frame(plucked_tables_wais4[[4]])
+table4 <- as.data.frame(extracted_tables[[4]])
 # if (params$version == "brief") {
 #   table4 <- as.data.frame(plucked_table[[3]])
 # } else if (params$version == "full") {
@@ -1027,7 +992,7 @@ table4 <- table4 |> dplyr::relocate(c(raw_score, score, percentile, range, ci_95
 ## Pluck and tidy tables
 
 ```{r pluck5, eval = params$eval_psi}
-table5 <- as.data.frame(plucked_tables_wais4[[5]])
+table5 <- as.data.frame(extracted_tables[[5]])
 # if (params$version == "brief") {
 #   table5 <- as.data.frame(plucked_table[[4]])
 # } else if (params$version == "full") {
