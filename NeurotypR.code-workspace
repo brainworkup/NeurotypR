@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Bearded Theme Surprising Watermelon"
+    "workbench.colorTheme": "Catppuccin Macchiato"
   },
   "extensions": {
     "recommendations": ["atomashevic.vscode-working-memory"]

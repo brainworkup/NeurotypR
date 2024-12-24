@@ -12,7 +12,7 @@ params:
       - wais5
   test_name:
     label: "Test Name"
-    value: [WAIS-5]
+    value: "WAIS-V"
     input: select
     multiple: no
     choices:

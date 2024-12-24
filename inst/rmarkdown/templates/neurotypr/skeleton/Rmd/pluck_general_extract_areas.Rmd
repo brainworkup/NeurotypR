@@ -4,7 +4,7 @@ title: |
   <center> Any Test </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Michelle
+  patient: Biggie
   test:
     label: "Test"
     value: "test"
@@ -26,18 +26,18 @@ params:
     multiple: no
     choices:
       - WAIS-IV
-      - WAIS-5
+      - WAIS-V
+      - WMS-IV
       - WRAT-5
       - NAB
       - Brown EF/A Self-Report
       - Brown EF/A Parent Ratings
       - Brown EF/A Teacher Ratings
-      - WMS-IV
   file:
     label: "No file selected"
     value: file
     input: file
-  # pages: [12]
+  pages: [12]
   variables:
     label: "Variable Names"
     value: [scale, raw_score, score, percentile]

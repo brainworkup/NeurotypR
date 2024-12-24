@@ -8,6 +8,8 @@ output:
     toc_float: true
     theme: cosmo
     highlight: tango
+  pdf_document:
+    toc: true  
 ---
 
 ```{r setup, include=FALSE}

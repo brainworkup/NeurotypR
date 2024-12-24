@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from Brown EF/A Scales"
 params:
-  patient: Michelle
+  patient: Biggie
   test:
     label: "Brown EF/A"
     value: [brown_efa_self]
