@@ -5,9 +5,12 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Catppuccin Macchiato"
+    "workbench.colorTheme": "Oro Theme (Italics)"
   },
   "extensions": {
-    "recommendations": ["atomashevic.vscode-working-memory"]
+    "recommendations": [
+      "atomashevic.vscode-working-memory",
+      "saoudrizwan.claude-dev"
+    ]
   }
 }

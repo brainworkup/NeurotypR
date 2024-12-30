@@ -29,7 +29,7 @@ Following are examples of information that may be included:
 ::: {.block above="1.2em"}
 - **Attention/Orientation**: Orientation to person, place, time, and situation was intact.
 - **Appearance**: Appropriate grooming and dress for context.
-- **Behavior/Attitude**: Cooperative, engaged. No gross behavioral apathy or disinhibition observed. Mr. Cohen expressed his desire to do everything possible to compensate the family and take responsibility for his actions. 
+- **Behavior/Attitude**: Cooperative, engaged. No gross behavioral apathy or disinhibition observed.  
 - **Speech/Language**: Fluent and normal in rate, volume, and prosody.
 - **Mood/Affect**: Neutral, range was full and appropriate.
 - **Sensory/Motor**: Performance was not limited by any obvious sensory or motor difficulties.
