@@ -5,7 +5,25 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Oro Theme (Italics)"
+    "workbench.colorTheme": "Midnight Xenon",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "workbench.colorCustomizations": {
+      "tab.activeBorder": "#dee2fc66",
+      "activityBar.activeBackground": "#dee2fc66",
+      "activityBar.background": "#dee2fc66",
+      "activityBar.foreground": "#15202b",
+      "activityBar.inactiveForeground": "#15202b99",
+      "activityBarBadge.background": "#f26d7f",
+      "activityBarBadge.foreground": "#15202b",
+      "panel.border": "#dee2fc66",
+      "sideBar.border": "#dee2fc66",
+      "sash.hoverBorder": "#dee2fc66"
+    },
+    "peacock.color": "#b0b8f766",
+    "peacock.affectActivityBar": true,
+    "peacock.affectEditorGroupBorder": false,
+    "peacock.affectPanelBorder": true,
+    "peacock.affectSideBarBorder": true
   },
   "extensions": {
     "recommendations": [
