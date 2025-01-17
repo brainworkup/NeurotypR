@@ -4,7 +4,7 @@ title: |
   <center> Any Test </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Biggie
+  patient: Eric
   test:
     label: "Test"
     value: "test"
@@ -37,7 +37,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [12]
+  pages: [5,7]
   variables:
     label: "Variable Names"
     value: [scale, raw_score, score, percentile]

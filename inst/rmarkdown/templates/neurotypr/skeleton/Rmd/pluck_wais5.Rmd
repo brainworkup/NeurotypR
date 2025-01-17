@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-5"
 params:
-  patient: Biggie
+  patient: Eric
   test:
     label: "Test"
     value: wais5
@@ -16,34 +16,14 @@ params:
     input: select
     multiple: no
     choices:
+      - WAIS-V
       - WAIS-IV
-      - WAIS-5
-  version:
-    label: "Brief (4 subtest) or Full (8 subtest) version"
-    value: full
-    input: select
-    multiple: no
-    choices:
-      - brief
-      - full
   file:
     label: "No file selected"
     value: file
     input: file
-  pages: [2, 4]
+  pages: [5, 7]
   table1:
-    label: "Index Scores"
-    value: "Verbal Comprehension (VCI)"
-    input: select
-    multiple: yes
-    choices:
-      - Verbal Comprehension (VCI)
-      - Perceptual Reasoning (PRI)
-      - Working Memory (WMI)
-      - Processing Speed (PSI)
-      - Full Scale (FSIQ)
-      - General Ability (GAI)
-  table2:
     label: "Verbal Comprehension (VCI) Subtests"
     value: [Similarities, Vocabulary]
     input: select
@@ -53,104 +33,100 @@ params:
       - Vocabulary
       - Information
       - Comprehension
-  table3:
-    label: "Perceptual Reasoning (PRI)"
-    value: [Matrix Reasoning]
+  table2:
+    label: "Visual Spatial (VSI)"
+    value: [Block Design, Visual Puzzles]
     input: select
     multiple: yes
     choices:
       - Block Design
-      - Matrix Reasoning
       - Visual Puzzles
-      - Figure Weights
-  table4:
-    label: "Working Memory (WMI)"
-    value: [Letter-Number Sequencing]
+  table3:
+    label: "Fluid Reasoning (FRI)"
+    value: [Matrix Reasoning, Figure Weights]
     input: select
     multiple: yes
     choices:
-      - Digit Span
+      - Matrix Reasoning
+      - Figure Weights
       - Arithmetic
+      - Set Relations
+  table4:
+    label: "Working Memory (WMI)"
+    value: [Digit Sequencing]
+    input: select
+    multiple: yes
+    choices:
+      - Digit Sequencing
+      - Running Digits
+      - Digits Forward
+      - Digits Backward
       - Letter-Number Sequencing
+      - Symbol Span
+      - Spatial Addition
   table5:
     label: "Processing Speed (PSI)"
     value: [Coding]
     input: select
     multiple: yes
     choices:
-      - Symbol Search
       - Coding
-      - Cancellation
+      - Symbol Search
+      - Naming Speed Quan.
   table6:
-    label: "Perceptual Reasoning Process Score Summary"
-    value: [Block Design No Time Bonus]
+    label: "WAIS-V Composite Scores"
+    value: "Verbal Comprehension (VCI)"
     input: select
     multiple: yes
     choices:
-      - Block Design No Time Bonus
-  table7:
-    label: "Working Memory Process Score Summary"
-    value: [Digit Span Forward]
-    input: select
-    multiple: yes
-    choices:
-      - Digit Span Forward
-      - Digit Span Backward
-      - Digit Span Sequencing
-      - Longest Digit Span Forward
-      - Longest Digit Span Backward
-      - Longest Digit Span Sequence
-      - Longest Letter-Number Sequence
+      - Verbal Comprehension (VCI)
+      - Visual Spatial (VSI)
+      - Fluid Reasoning (FRI)
+      - Working Memory (WMI)
+      - Processing Speed (PSI)
+      - Full Scale (FSIQ)
+      - General Ability (GAI)
+      - Cognitive Proficiency (CPI)
   colnames1:
-    label: "Table 1 Column Names"
-    value: [scale, raw_score, abbrev, score, percentile, ci_95, category]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - abbrev
-      - score
-      - percentile
-      - ci_95
-      - category
-  colnames2:
     label: "Tables 2-5 Column Names"
-    value: [scale, raw_score, score, percentile, ref_group_ss, sem]
+    value: [domain, scale, abbrev, raw_score, score, percentile, ref_group_ss, sem]
     input: select
     multiple: yes
     choices:
+      - domain
       - scale
+      - abbrev
       - raw_score
       - score
       - percentile
       - ref_group_ss
       - sem
-  colnames3:
-    label: "Table 6 Column Names"
-    value: [scale, raw_score, score, percentile, sem]
+  colnames2:
+    label: "Table 6 Column Names (composite scores)"
+    value: [scale, abbrev, raw_score, score, percentile, ci_95, category, sem]
     input: select
     multiple: yes
     choices:
       - scale
+      - abbrev
       - raw_score
       - score
       - percentile
-      - sem
-  colnames4:
-    label: "Table 7 Column Names"
-    value: [scale, raw_score, score, percentile, base_rate, sem]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
-      - base_rate
+      - ci_95
+      - category
       - sem
   keep1:
     label: "Variables to Keep, Set 1"
+    value: [scale, raw_score, score, percentile]
+    input: select
+    multiple: yes
+    choices:
+      - scale
+      - raw_score
+      - score
+      - percentile
+  keep2:
+    label: "Variables to Keep, Set 2"
     value: [scale, raw_score, score, percentile, ci_95]
     input: select
     multiple: yes
@@ -160,25 +136,15 @@ params:
       - score
       - percentile
       - ci_95
-  keep2:
-    label: "Variables to Keep, Set 2"
-    value: [scale, raw_score, score, percentile]
-    input: select
-    multiple: yes
-    choices:
-      - scale
-      - raw_score
-      - score
-      - percentile
 # Domains to evaluate or not
-  eval_iq:
-    label: "General Ability"
-    value: TRUE
   eval_vci:
     label: "Verbal Comprehension"
     value: TRUE
-  eval_pri:
-    label: "Perceptual Reasoning"
+  eval_vsi:
+    label: "Visual Spatial"
+    value: FALSE
+  eval_fri:
+    label: "Fluid Reasoning"
     value: TRUE
   eval_wmi:
     label: "Working Memory"
@@ -186,12 +152,9 @@ params:
   eval_psi:
     label: "Processing Speed"
     value: TRUE
-  eval_bd:
-    label: "Block Design No Time Bonus"
-    value: FALSE
-  eval_span:
-    label: "Longest Span Subtests"
-    value: FALSE
+  eval_iq:
+    label: "Composite Scores"
+    value: TRUE
   match:
     label: "Subset/Match Rows"
     input: checkbox
@@ -200,10 +163,6 @@ output:
   rmdformats::robobook:
     highlight: kate
 ---
-
-# WAIS-IV
-
-<!-- Remember to use the VCI/PRI comparison output from Q-Interactive so tables don't shift on the page. -->
 
 ## Load libraries
 
@@ -239,26 +198,27 @@ library(bwu)
 ## Parameters
 
 ```{r}
-patient <- (params$patient)
-test <- (params$test)
-test_name <- (params$test_name)
-pages <- (params$pages)
-version <- params$version
+patient <- params$patient
+test <- params$test
+test_name <- params$test_name
+pages <- params$pages
 # file <- file.path(file.choose())
 file <- file.path(params$file)
+# qs::qsave(file, paste0(test, "_path.rds"))
+# file <- qs::qread(paste0(test, "_path.rds"))
 ```
 
 ## Extract areas with `tabulapdf`
 
 ```{r eval = FALSE}
-f <- file.path("/Users/joey/reports/Biggie/pdf/Biggie_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
+# f <- file.path("/Users/joey/reports/Biggie/pdf/Biggie_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
 
 # f <- file.path(file.choose(""))
 
 # locate areas and extract
 extracted_areas <- tabulapdf::extract_areas(
   file = f,
-  pages = c(2, 4, 4, 4, 4),
+  pages = c(5, 5, 5, 5, 5, 7),
   method = "stream",
   output = "matrix"
 )
@@ -269,12 +229,14 @@ for (i in seq_along(extracted_areas)) {
 }
 
 # Save the entire list to an R data file
-save(extracted_areas, file = "extracted_areas.RData")
+# qs::qsave(extracted_areas, file = "extracted_areas.rds")
+areas <- qs::qread("~/Biggie/src/rmd/areas_wisc5.rds")
 ```
 
 ## Locate areas
 
 ```{r areas-known, eval = FALSE}
+# TODO:
 # if known
 if (params$version == "full") {
   area <- list(
@@ -307,22 +269,26 @@ if (params$version == "full") {
 ## Extract tables
 
 ```{r extract-tables, eval = FALSE}
-extracted_tables <- bwu::gpluck_extract_table(
+# TODO:
+extracted_tables <- tabulapdf::extract_tables(
   file = file,
   pages = pages,
-  area = area,
-  guess = "FALSE",
+  area = areas,
   method = "stream",
-  output = "matrix"
+  output = "matrix",
+  guess = FALSE
 )
 ```
 
 ```{r}
+# Save the entire list to an R data file
+# qs::qsave(extracted_tables, file = "extracted_tables_wais5.rds")
+extracted_tables <- qs::qread("extracted_tables_wais5.rds")
 # Load the entire list from an R data file
-load("extracted_tables.RData")
+# load("extracted_tables.RData") # delete?
 ```
 
-# WAIS-IV Index Scores (Table 1)
+# WAIS-V Subtest Scores (Tables 1-5)
 
 ## Pluck and tidy tables
 

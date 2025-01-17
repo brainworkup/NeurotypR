@@ -130,9 +130,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(collapse)
 library(dplyr)
-library(hablar)
 library(here)
 library(knitr)
 library(magrittr)
@@ -147,7 +145,6 @@ library(snakecase)
 library(tabulapdf)
 library(tibble)
 library(tidyr)
-library(tidyverse)
 library(bwu)
 ```
 
@@ -202,7 +199,7 @@ plucked_tables <- tabulapdf::extract_tables(
 plucked_tables <- qs::qread("plucked_tables_wisc5.rds")
 ```
 
-## Function process_wisc_tables
+**## Function process_wisc_tables
 
 ```{r}
 library(dplyr)
@@ -222,7 +219,7 @@ process_wisc_tables(plucked_tables)
 for (i in seq_along(plucked_tables)) {
   write.csv(plucked_tables[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
 }
-```
+```**
 
 # Table 1
 
