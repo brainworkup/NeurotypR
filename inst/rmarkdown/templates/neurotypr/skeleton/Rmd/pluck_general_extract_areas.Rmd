@@ -37,7 +37,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [5,7]
+  pages: [5]
   variables:
     label: "Variable Names"
     value: [scale, raw_score, score, percentile]

@@ -11,7 +11,12 @@
 #   done' find-sh {} \;
 
 
-find /Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/quarto -name '*.qmd' -exec sh -c '
+# find /Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/quarto -name '*.qmd' -exec sh -c '
+#   for f do
+#     ln -s -- "$f" /Users/joey/neurotyp/NeurotypR/quarto/"$(basename "$f")"
+#   done' find-sh {} \;
+
+find /Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton -name '*.R' -exec sh -c '
   for f do
-    ln -s -- "$f" /Users/joey/neurotyp/NeurotypR/quarto/"$(basename "$f")"
+    ln -s -- "$f" /Users/joey/neurotyp/NeurotypR/Rmd/"$(basename "$f")"
   done' find-sh {} \;
