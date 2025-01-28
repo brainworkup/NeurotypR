@@ -1,0 +1,55 @@
+---
+title: "matplotlib demo"
+format:
+  html:
+    code-fold: true
+jupyter: quarto_env
+---
+
+For a demonstration of a line plot on a polar axis, see @fig-polar.
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+## My llm code
+
+```{python}
+import outlines
+
+model_name = "HuggingFaceTB/SmolLM2-360M-Instruct"
+model = outlines.models.transformers(model_name)
+
+# You must apply the chat template tokens to the prompt!
+# See below for an example.
+prompt = """
+<|im_start|>system
+You extract information from text.
+<|im_end|>
+
+<|im_start|>user
+What food does the following text describe?
+
+Text: I really really really want pizza.
+<|im_end|>
+<|im_start|>assistant
+"""
+
+generator = outlines.generate.choice(model, ["Pizza", "Pasta", "Salad", "Dessert"])
+answer = generator(prompt)
+print(f"The model's answer is: {answer}")
+```
