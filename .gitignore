@@ -20,3 +20,8 @@ data/
 
 /.quarto/
 matplotlib_files/
+reproducible_python_files/
+.editorconfig
+pdf-to-structure.py
+reproducible_python.qmd
+pdf-to-structure.py
