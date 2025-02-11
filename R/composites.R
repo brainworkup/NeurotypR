@@ -1,10 +1,4 @@
 # Function to compute cognitive composites
-#' Title of function goes here
-#'
-#' @param data
-#'
-#' @returns A composite score
-#' @export
 compute_composites <- function(data) {
   # Validate input
   if (!all(c("Subtest", "Score", "rpw") %in% colnames(data))) {

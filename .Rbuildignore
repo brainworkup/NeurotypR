@@ -19,10 +19,3 @@
 ^\.vscode$
 ^shiny$
 ^~/neurotyp/NeurotypR/R/shiny\.R$
-^Qmd$
-^Rmd$
-^venv$
-^ignore\.R$
-^R/neurotyp_functions\.R$
-^neurotyp_functions\.R$
-^\.venv$

@@ -1,0 +1,1 @@
+/Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/quarto/_03-00_sirf_text.qmd
