@@ -1,0 +1,1 @@
+/Users/joey/neurotyp/NeurotypR/inst/rmarkdown/templates/neurotypr/skeleton/quarto/_02-09_adhd_adult_text_self.qmd
