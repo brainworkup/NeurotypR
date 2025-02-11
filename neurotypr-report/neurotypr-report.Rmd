@@ -1,6 +1,6 @@
 ---
-title: "Neurotypical Research Report"
-author: "Joey Trampush"
+title: "Neuropsychological Report"
+author: "Joey Trampush, PhD"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -14,10 +14,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+## Reason for Referral
 
-Brief introduction to your neurotypical research study.
-
+Fill this in ...
+TODO:
 ## Methods
 
 ### Participants
