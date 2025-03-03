@@ -1,5 +1,5 @@
 ---
-title: "Neurotypical Research Report"
+title: "Neuropsychological Report"
 author: "Your Name"
 date: "`r Sys.Date()`"
 output: 
@@ -16,31 +16,25 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+# NEUROBEHAVIORAL STATUS EXAM
 
 Brief introduction to your neurotypical research study.
 
-## Methods
+# NEUROCOGNITIVE TESTING
 
-### Participants
+## Domains
 
 Describe your participant recruitment and demographics.
 
-### Materials
+# SIRF
 
 List and describe the materials and measures used.
 
-### Procedure
+# RECOMMENDATIONS
 
 Detail the experimental procedure.
 
-## Results
-
-```{r analysis, echo=FALSE}
-# Your analysis code here
-```
-
-## Discussion
+## Apendix
 
 Discuss your findings and their implications.
 

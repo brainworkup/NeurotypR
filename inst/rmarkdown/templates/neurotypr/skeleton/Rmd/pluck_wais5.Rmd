@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-5"
 params:
-  patient: Eric
+  patient: Biggie
   test:
     label: "Test"
     value: wais5
@@ -169,7 +169,7 @@ output:
 ```{r setup, include = FALSE}
 Sys.setenv(
   JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home"
+    "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home"
 )
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
@@ -282,7 +282,7 @@ extracted_tables <- tabulapdf::extract_tables(
 
 ```{r}
 # Save the entire list to an R data file
-# qs::qsave(extracted_tables, file = "extracted_tables_wais5.rds")
+qs::qsave(extracted_tables, file = "extracted_tables_wais5.rds")
 extracted_tables <- qs::qread("extracted_tables_wais5.rds")
 # Load the entire list from an R data file
 # load("extracted_tables.RData") # delete?

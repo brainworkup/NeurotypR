@@ -4,7 +4,7 @@ title: |
   <center> Any Test </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Biggie
+  patient: Harry
   test:
     label: "Test"
     value: "wrat5"
@@ -13,6 +13,7 @@ params:
     choices:
       - wais4
       - wais5
+      - wisc5
       - wms4
       - wrat5
       - nab
@@ -27,6 +28,7 @@ params:
     choices:
       - WAIS-IV
       - WAIS-V
+      - WISC-V
       - WMS-IV
       - WRAT-5
       - NAB
@@ -37,8 +39,8 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [2]
-  extract_columns: [1,2,3,4,5]
+  # pages: [2,3,6]
+  extract_columns: [2,4,5,6]
   variables:
     label: "Variable Names"
     value: [scale, raw_score, score, ci_95, percentile]
@@ -97,6 +99,7 @@ params:
       - symptom_validity
   compute_percentile: FALSE
   compute_ci95: FALSE
+  # do subtests need to be merged?
   subtests: FALSE
 output:
   rmdformats::robobook:
@@ -125,7 +128,6 @@ library(hablar)
 library(here)
 library(knitr)
 library(magrittr)
-library(NeurotypR)
 library(purrr)
 library(qs)
 library(readr)
@@ -139,12 +141,13 @@ library(tabulapdf)
 library(tibble)
 library(tidyr)
 library(vroom)
+library(NeurotypR)
 library(bwu)
 ```
 
 ## Parameters
 
-NOTE: moved to params.R ...
+NOTE: moved to `params.R` file ...
 can use those
 
 ```{r eval = FALSE}
@@ -206,9 +209,7 @@ saveRDS(extracted_areas, paste0(test, "_extracted_areas.rds"))
 
 # Check the extracted areas
 str(extracted_areas)
-```
 
-```{r}
 # To read the extracted areas back in
 # extracted_areas <- readRDS(paste0(test, "_extracted_areas.rds"))
 
@@ -251,19 +252,25 @@ df <- merge_subtests(test)
 
 ```{r}
 library(dplyr)
+
+extract_columns <- extract_columns
+
 # Function to extract columns by position
 extract_columns_by_position <- function(df, positions) {
   df[, positions]
 }
 
 # To save the filtered data.frame separately
-filtered_df <- extract_columns_by_position(df, params$extract_columns)
+# filtered_df <- extract_columns_by_position(df, params$extract_columns)
+filtered_df <- extract_columns_by_position(df, extract_columns)
 
 # To overwrite the original data.frame
-df <- extract_columns_by_position(df, params$extract_columns)
+# df <- extract_columns_by_position(df, params$extract_columns)
+df <- extract_columns_by_position(df, extract_columns)
 
 # Rename the variables
-colnames(df) <- params$variables
+# colnames(df) <- params$variables
+colnames(df) <- variables
 
 # Step 1: Replace "-" with NA in the entire dataframe
 df[df == "-"] <- NA
@@ -321,6 +328,8 @@ df_mutated <- bwu::gpluck_make_columns(
   result = "",
   absort = NULL
 )
+
+rm(df_merged)
 ```
 
 ## Test score ranges
@@ -358,6 +367,7 @@ df <- df_mutated |>
 ## Write out final csv
 
 ```{r write}
+test <- "wisc5_1"
 readr::write_excel_csv(df, here::here("data", "csv", paste0(test, ".csv")), col_names = TRUE)
 ```
 

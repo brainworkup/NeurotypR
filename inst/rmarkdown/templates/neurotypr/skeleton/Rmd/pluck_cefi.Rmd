@@ -1,20 +1,22 @@
 ---
 title: |
   <center> CEFI </center>
-  <center> Self and Observer Reports </center>
+  <center> Adult Self and Observer </center>
+  <center> Child Parent, Teacher, and Self </center>
 date: "`r Sys.Date()`"
 params:
   patient: Biggie
   test:
     label: "CEFI"
-    value: cefi_sr
+    value: ""
     input: select
     multiple: no
     choices:
-      - cefi_sr
-      - cefi_or
-      - cefi_sr_12-18
-      - cefi_or_5-18
+      - cefi_self
+      - cefi_observer
+      - cefi_parent_5-18
+      - cefi_teacher_5-18
+      - cefi_self_12-18
   test_name:
     label: "Test Name:"
     value: CEFI Self
@@ -23,8 +25,8 @@ params:
     choices:
       - CEFI Self
       - CEFI Observer
-      - CEFI Self-Report
-      - CEFI Observer-Report
+      - CEFI Parent
+      - CEFI Teacher
   file:
     label: "No file selected"
     value: file
@@ -43,27 +45,24 @@ output:
 # Set JAVA environment
 Sys.setenv(
   JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/graalvm-community-openjdk-22.0.1+8.1/Contents/Home"
+    "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home"
 )
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
-  echo = FALSE,
+  echo = TRUE,
   message = FALSE,
   warning = TRUE,
-  error = TRUE,
-  include = TRUE
+  error = TRUE
 )
 library(dplyr)
 library(fs)
 library(glue)
-library(hablar)
 library(here)
 library(knitr)
-library(magrittr)
-library(miniUI)
 library(pdftools)
 library(rJava)
+library(miniUI)
 library(rmarkdown)
 library(rmdformats)
 library(shiny)
@@ -73,6 +72,7 @@ library(tidyverse)
 library(xfun)
 library(yaml)
 library(bwu)
+library(NeurotypR)
 ```
 
 ## Parameters
@@ -87,27 +87,33 @@ file <- file.path(params$file)
 ```
 
 ```{r}
-if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
+if (params$test == "cefi_self") {
   saveRDS(file, "cefi_self.rds")
-} else if (params$test == "cefi_or" || params$test == "cefi_or_5-18") {
+} else if (params$test == "cefi_self_12-18") {
+  saveRDS(file, "cefi_self_12_18.rds")
+} else if (params$test == "cefi_observer") {
   saveRDS(file, "cefi_observer.rds")
+} else if (params$test == "cefi_parent_5-18") {
+  saveRDS(file, "cefi_parent_5_18.rds")
+} else if (params$test == "cefi_teacher_5-18") {
+  saveRDS(file, "cefi_teacher_5_18.rds")
 }
 ```
 
 ## Areas
 
 ```{r}
-if (params$test == "cefi_sr" | params$test == "cefi_or") {
+if (params$test == "cefi_self" | params$test == "cefi_observer") {
   areas <- list(
     table1 = c(460, 34, 483, 578),
     table2 = c(533, 34, 671, 578)
   )
-} else if (params$test == "cefi_sr_12-18") {
+} else if (params$test == "cefi_self_12-18") {
   areas <- list(
     table1 = c(467.033, 53.0, 480.038, 557.9),
     table2 = c(536.648, 52.02, 667.463, 557.685)
   )
-} else if (params$test == "cefi_or_5-18") {
+} else if (params$test == "cefi_observer_5-18") {
   areas <- list(
     table1 = c(468.563, 53.0, 481.568, 557.9),
     table2 = c(493.043, 50.49, 669.758, 559.98)
@@ -357,7 +363,7 @@ table <-
 ## Glue Result
 
 ```{r}
-if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
+if (params$test == "cefi_self" || params$test == "cefi_self_12-18") {
   table <-
     dplyr::mutate(table,
       result = dplyr::case_when(
@@ -450,60 +456,133 @@ vroom::vroom_write(
 
 ```{r}
 # CEFI Self
-if (params$test == "cefi_sr" || params$test == "cefi_sr_12-18") {
+if (params$test == "cefi_self") {
   ## extract text
-  cefi_sr_txt <- get_text(file)
-  if (!is.null(cefi_sr_txt)) {
-    # Replace long spaces with a col break symbol
-    cefi_sr_squished <- stringr::str_replace_all(cefi_sr_txt, "\\s{2,}", "- ") |>
+  cefi_self_txt <- get_text(file)
+  if (!is.null(cefi_self_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_self_squished <- stringr::str_replace_all(cefi_self_txt, "\\s{2,}", "- ") |>
       stringr::str_remove_all(",")
 
     # save as markdown
     readr::write_lines(
-      cefi_sr_squished,
-      here::here("cefi_sr_text.md"),
-      sep = "\n"
-    )
-    # save as quarto
-    readr::write_lines(
-      cefi_sr_squished,
-      here::here("cefi_sr_text.qmd"),
-      sep = "\n"
-    )
-    # save as text
-    readr::write_lines(
-      cefi_sr_squished,
-      here::here("cefi_sr_text.txt"),
+      cefi_self_squished,
+      here::here("cefi_self_text.md"),
       sep = "\n"
     )
   }
-
-  # CEFI Observer
-} else if (params$test == "cefi_or" || params$test == "cefi_or_5-18") {
+} else if (params$test == "cefi_self_12_18") {
   ## extract text
-  cefi_or_txt <- get_text(file)
-  if (!is.null(cefi_or_txt)) {
-    # Replace long spaces with a col break symbol
-    cefi_or_squished <- stringr::str_replace_all(cefi_or_txt, "\\s{2,}", "- ") |>
+  cefi_self_txt <- get_text(file)
+  if (!is.null(cefi_self_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_self_squished <- stringr::str_replace_all(cefi_self_txt, "\\s{2,}", "- ") |>
       stringr::str_remove_all(",")
 
     # save as markdown
     readr::write_lines(
-      cefi_or_squished,
-      here::here("cefi_or_text.md"),
+      cefi_self_squished,
+      here::here("cefi_self_12_18_text.md"),
       sep = "\n"
     )
-    # save as quarto
+  }
+}
+
+# CEFI Observer
+if (params$test == "cefi_observer") {
+  ## extract text
+  cefi_observer_txt <- get_text(file)
+  if (!is.null(cefi_observer_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_observer_squished <- stringr::str_replace_all(cefi_observer_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+
+    # save as markdown
     readr::write_lines(
-      cefi_or_squished,
-      here::here("cefi_or_text.qmd"),
+      cefi_observer_squished,
+      here::here("cefi_observer_text.md"),
       sep = "\n"
     )
-    # save as text
+  }
+} else if (params$test == "cefi_observer_5_18") {
+  ## extract text
+  cefi_observer_txt <- get_text(file)
+  if (!is.null(cefi_observer_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_observer_squished <- stringr::str_replace_all(cefi_observer_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+
+    # save as markdown
     readr::write_lines(
-      cefi_or_squished,
-      here::here("cefi_or_text.txt"),
+      cefi_observer_squished,
+      here::here("cefi_observer_5_18_text.md"),
       sep = "\n"
+    )
+  }
+}
+
+# CEFI Parent
+if (params$test == "cefi_parent") {
+  ## extract text
+  cefi_parent_txt <- get_text(file)
+  if (!is.null(cefi_parent_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_parent_squished <- stringr::str_replace_all(cefi_parent_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+
+    # save as markdown
+    readr::write_lines(
+      cefi_parent_squished,
+      here::here("cefi_parent_text.md"),
+      sep = "\n"
+    )
+  }
+} else if (params$test == "cefi_parent_5_18") {
+  ## extract text
+  cefi_parent_txt <- get_text(file)
+  if (!is.null(cefi_parent_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_parent_squished <- stringr::str_replace_all(cefi_parent_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+
+    # save as markdown
+    readr::write_lines(
+      cefi_parent_squished,
+      here::here("cefi_parent_5_18_text.md"),
+      sep = "\n"
+    )
+  }
+}
+
+# CEFI Teacher
+if (params$test == "cefi_teacher") {
+  ## extract text
+  cefi_teacher_txt <- get_text(file)
+  if (!is.null(cefi_teacher_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_teacher_squished <- stringr::str_replace_all(cefi_teacher_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+
+    # save as markdown
+    readr::write_lines(
+      cefi_teacher_squished,
+      here::here("cefi_teacher_text.md"),
+      sep = "\n"
+    )
+  }
+} else if (params$test == "cefi_teacher_5_18") {
+  ## extract text
+  cefi_teacher_txt <- get_text(file)
+  if (!is.null(cefi_teacher_txt)) {
+    # Replace long spaces with a column break symbol
+    cefi_teacher_squished <- stringr::str_replace_all(cefi_teacher_txt, "\\s{2,}", "- ") |>
+      stringr::str_remove_all(",")
+
+    # save as markdown
+    readr::write_lines(
+      cefi_teacher_squished,
+      here::here("cefi_teacher_5_18_text.md"),
+      sep = "\ n"
     )
   }
 }

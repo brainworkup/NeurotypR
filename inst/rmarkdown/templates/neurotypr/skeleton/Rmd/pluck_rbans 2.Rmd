@@ -1,7 +1,7 @@
 ---
 title: "Create table and csv for RBANS"
 params:
-  patient: Biggie
+  patient: Harry
   test:
     label: "Test"
     value: rbans
@@ -79,13 +79,13 @@ test_name <- params$test_name
 ## Load text/csv file and save as file.path
 
 ```{r file}
-#input_file_path <- file.choose()
+# input_file_path <- file.choose()
 input_file_path <- file.path(params$file)
 ```
 
 ## Google Drive
 
-```{r}
+```{r eval=F}
 library(googledrive)
 
 # Set the scope to allow viewing and managing files in Google Drive
@@ -96,22 +96,22 @@ drive_auth()
 drive <- drive_get()
 
 # Upload a file to the drive
-file_path <- "/Users/joey/My Drive/004004907_3_10_2024.csv"
-drive_upload(media = file_path, name = "004004907_3_10_2024.csv")
+file_path <- "'/Users/joey/Library/CloudStorage/GoogleDrive-j.trampush@gmail.com/My Drive/rbans/harry_scores.csv'"
+drive_upload(media = file_path, name = "harry_scores.csv")
 ```
 
 ## RAW SCORES
 
 ```{r}
 library(tidyverse)
-input_file_path <- "data/004004907_3_10_2024.csv"
+input_file_path <- "data/harry_scores.csv"
 test_name_prefix <- "RBANS Update Form A "
 output_file_path <- "data/processed_rbans_raw_data.csv"
 
 df <- read_csv(input_file_path,
-               col_names = FALSE,
-               show_col_types = FALSE,
-               locale = locale(encoding = "UTF-16LE")
+  col_names = FALSE,
+  show_col_types = FALSE,
+  locale = locale(encoding = "UTF-16LE")
 )
 
 # function
@@ -156,7 +156,6 @@ pluck_rbans_raw <- function(input_file_path,
   write_csv(df_raw, output_file_path)
 
   return(df_raw)
-
 }
 rbans_raw <- pluck_rbans_raw(input_file_path, output_file_path = output_file_path, test_name_prefix)
 ```
@@ -263,7 +262,6 @@ pluck_rbans_completion_times <- function(input_file_path,
   write_csv(df_times, output_file_path)
 
   return(df_times)
-
 }
 rbans_time <- pluck_rbans_completion_times(input_file_path, test_name_prefix, output_file_path = output_file_path)
 ```
@@ -324,7 +322,6 @@ pluck_rbans_composite <- function(input_file_path,
   }
 
   return(df_composite)
-
 }
 
 rbans_composite <- pluck_rbans_composite(input_file_path, test_name_prefix, output_file_path = output_file_path)
@@ -355,31 +352,31 @@ process_and_save_rbans_data <- function(rbans_raw,
                                         output_file_path) {
   library(dplyr)
   library(stringr)
-  
+
   # Join the data into one dataframe by the test name
   df <- left_join(rbans_raw, rbans_score, by = "scale") |>
     mutate(percentile = as.numeric(""), range = as.character("")) |>
     left_join(rbans_time, by = "scale")
-  
+
   # Update specific percentile values
   df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- 20
   df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- 20
   df$percentile[df$scale == "RBANS Update Form A List Recall"] <- 70
   df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- 50
-  
+
   # Recalculate percentiles based on score
   df <- df |>
     mutate(z = ifelse(!is.na(score), (score - 10) / 3, NA)) |>
     mutate(percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)) |>
     select(-z)
-  
+
   # Merge with composite scores
   df <- bind_rows(df, rbans_composite) |>
     relocate(completion_time_seconds, .after = ci_95_upper)
-  
+
   # Test score ranges (assuming bwu::gpluck_make_score_ranges is a predefined function)
   df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
-  
+
   # Remove prefix from scale names
   df <- df |>
     mutate(scale = str_remove(scale, test_name_prefix))
@@ -392,7 +389,7 @@ process_and_save_rbans_data <- function(rbans_raw,
     "Delayed Memory Index (DRI)" = "Delayed Memory Index",
     "Total Scale (TOT)" = "RBANS Total Index"
   )
-  
+
   df$scale <- map_chr(df$scale, ~ if_else(.x %in% names(scales_to_rename), scales_to_rename[.x], .x))
 
   # Write the combined data to a CSV file
@@ -400,13 +397,13 @@ process_and_save_rbans_data <- function(rbans_raw,
 }
 
 df <- process_and_save_rbans_data(
-  rbans_raw = rbans_raw, 
+  rbans_raw = rbans_raw,
   rbans_score = rbans_score,
   rbans_time = rbans_time,
-  rbans_composite = rbans_composite, 
-  test_name_prefix = test_name_prefix, 
+  rbans_composite = rbans_composite,
+  test_name_prefix = test_name_prefix,
   output_file_path = output_file_path
-  )
+)
 
 # Write the combined data to a CSV file
 output_file_path <- "data/rbans.csv"
@@ -416,7 +413,6 @@ write_csv(df, output_file_path)
 # MUTATE
 
 ```{r mutate}
-
 rbans <- df
 
 rbans <- bwu::gpluck_make_columns(
@@ -441,7 +437,7 @@ rbans <- bwu::gpluck_make_columns(
 
 ```{r domain}
 rbans <-
-  rbans |> 
+  rbans |>
   dplyr::mutate(
     domain = dplyr::case_when(
       scale == "RBANS Total Index" ~ "General Cognitive Ability",
@@ -692,7 +688,7 @@ rbans <-
 # EXPORT
 
 ```{r}
-readr::write_csv(rbans, here::here("data", "rbans.csv"), col_names = TRUE, na = "")
+readr::write_csv(rbans, here::here("data", "csv", "rbans.csv"), col_names = TRUE, na = "")
 ```
 
 ```{r}

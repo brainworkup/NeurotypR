@@ -55,7 +55,7 @@ library(bwu)
 # Set JAVA environment
 Sys.setenv(
   JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home"
+    "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home"
 )
 options(java.parameters = "-Xmx16000m")
 # Set knitr options
