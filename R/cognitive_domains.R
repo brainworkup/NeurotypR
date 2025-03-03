@@ -111,7 +111,7 @@ prepare_data <- function(domains, pheno, scales, type = NULL) {
 #' Visualize Data with Table and Dot Plot
 #'
 #' This function generates a table and a dot plot for a given dataset based on specified phenotypes and domains.
-#' The table is created using `bwu::tbl_gt`, and the dot plot is created using `bwu::dotplot`.
+#' The table is created using `tbl_gt`, and the dot plot is created using `dotplot`.
 #'
 #' @param data A data frame containing the data to be visualized. Must contain columns `scale`, `x`, and `y`.
 #' @param scales_to_keep A vector of scales to filter the data by.
@@ -158,8 +158,8 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
   fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])")
   source_note <- gt::md("Score = _T_ score (Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰])")
 
-  # Create the table using bwu::tbl_gt
-  tbl_gt <- bwu::tbl_gt(
+  # Create the table using tbl_gt
+  tbl_gt <- tbl_gt(
     data = data_tbl,
     pheno = pheno,
     table_name = table_name,
@@ -186,8 +186,8 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
   x_values <- data[[x]]
   y_values <- data[[y]]
 
-  # Create the dot plot using bwu::dotplot
-  dotplot <- bwu::dotplot(
+  # Create the dot plot using dotplot
+  dotplot <- dotplot(
     data = data,
     x = x_values,
     y = y_values,

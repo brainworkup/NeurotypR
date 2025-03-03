@@ -9,4 +9,28 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    rmarkdown
+    rmarkdown,
+    dplyr,
+    forcats,
+    ggplot2,
+    ggtext,
+    ggthemes,
+    glue,
+    gt,
+    gtExtras,
+    here,
+    highcharter,
+    janitor,
+    kableExtra,
+    purrr,
+    readr,
+    readxl,
+    rlang,
+    shiny,
+    stringr,
+    tabulapdf,
+    tibble,
+    tidyr,
+    tidyselect,
+    tinytex,
+    vroom

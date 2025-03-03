@@ -26,3 +26,4 @@
 ^R/neurotyp_functions\.R$
 ^neurotyp_functions\.R$
 ^\.venv$
+^\.editorconfig$

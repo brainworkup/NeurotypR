@@ -1,4 +1,18 @@
-# Function to compute cognitive composites
+#' Compute Cognitive Composites
+#'
+#' This function computes cognitive composite scores based on weighted averages of subtest scores.
+#'
+#' @param data A data frame containing columns 'Subtest', 'Score', and 'rpw' (relative process weight)
+#' @return A named vector of composite scores
+#' @export
+#'
+#' @examples
+#' data <- data.frame(
+#'   Subtest = c("Similarities", "Vocabulary", "Information"),
+#'   Score = c(14, 14, 11),
+#'   rpw = c(0.779333, 0.638047, 0.350256)
+#' )
+#' compute_composites(data)
 compute_composites <- function(data) {
   # Validate input
   if (!all(c("Subtest", "Score", "rpw") %in% colnames(data))) {
@@ -36,13 +50,4 @@ compute_composites <- function(data) {
   return(unlist(composite_scores))
 }
 
-# Sample data frame
-data <- data.frame(
-  Subtest = c("Similarities", "Vocabulary", "Information"),
-  Score = c(14, 14, 11),
-  rpw = c(0.779333, 0.638047, 0.350256)
-)
-
-# Compute composite scores
-composite_results <- compute_composites(data)
-print(composite_results)
+# End of function

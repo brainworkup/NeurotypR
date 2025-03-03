@@ -34,7 +34,7 @@ A list containing two elements: the table visualization (from \code{tbl_gt}) and
 }
 \description{
 This function generates a table and a dot plot for a given dataset based on specified phenotypes and domains.
-The table is created using \code{bwu::tbl_gt}, and the dot plot is created using \code{bwu::dotplot}.
+The table is created using \code{tbl_gt}, and the dot plot is created using \code{dotplot}.
 }
 \examples{
 # Example usage:

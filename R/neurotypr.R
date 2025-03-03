@@ -60,7 +60,7 @@ merge_lookup_table <- function(df, lookup_file_path) {
     dplyr::relocate(c(test, test_name), .before = scale) # Relocate columns
 
   # Add missing columns with default values
-  df_final <- bwu::gpluck_make_columns(
+  df_final <- gpluck_make_columns(
     df_merged,
     range = "",
     result = "",
