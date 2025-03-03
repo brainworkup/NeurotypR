@@ -1,49 +1,69 @@
-# NEUROBEHAVIORAL STATUS EXAM {#nse}
-
-## Notification/Informed Consent
-
-Mr. {{< var first_name >}} {{< var last_name >}} consented to undergo the current neuropsychological evaluation as part of a work-up for concerns of emerging cognitive impairment and dementia.
-{{< var mr_mrs >}} {{< var last_name >}} was informed none of what we discussed would remain confidential, and information {{< var he_she >}} provided during our meeting and the test results from my evaluation of {{< var him_her >}} would become a part of my report, to be used at {{< var his_her >}} attorney's discretion.
-{{< var he_she_cap >}} was informed a copy of any report I produced would be sent to {{< var his_her >}} attorney, possibly to the prosecuting attorney, and to the court.
-{{< var mr_mrs >}} {{< var last_name >}} indicated having understood the purpose of the evaluation and the limitations of confidentiality of our meeting and the testing I conducted.
-The evaluation was conducted in-person over two days, totaling approximately eight hours.
-
-This report is based on a review of available information contained in medical records and criminal records, consultation with attorney {{< var attorney >}}, and information gathered during the evaluation.
-I reserve the right to change my opinions about the following should I be provided additional records that alter my understanding of the findings.
-[^1]
-
-[^1]: Please note my current employer, Keck School of Medicine of USC, is neither involved in nor affiliated with this case, and that the patient was referred to me by {{< var his_her >}} attorney's office.
+# NEUROBEHAVIORAL STATUS EXAM {#sec-nse}
 
 ## Reason for Referral
 
-{{< var first_name >}} {{< var last_name >}} is a {{< var age >}}-year-old {{< var handedness >}}-handed male with a {{< var education >}}-year education referred to undergo comprehensive forensic neuropsychological examination. Mr. Cohen was referred for evaluation to assess his cognitive functioning and the potential neurological causes of his seizures in relation to a motor vehicle accident that resulted in a fatality.
+<!-- Information to Include in Reason for Referral Section
+• List name and position of referral source
+• Reason the individual is to be evaluated—What questions are to be addressed?
+• Concerns of parent, caregiver, teacher, or examinee (if applicable)
+• Previous diagnoses, disabilities, or medical concerns -->
 
-## Forensic Case Formulation
+{{< var first_name >}} {{< var last_name >}} is a {{< var age >}}-year-old, {{< var handedness >}}right-handed research assistant with {{< var education >}} years of education, including a B.A. in Hustling from the University of Bed-Sty. {{< var he_she_cap >}} was referred in order to determine the nature and extent of neurocognitive sequelae emerging from a history of attention-deficit/hyperactivity disorder (ADHD).
 
-On April 25, 2023, Mr. Cohen was involved in a motor vehicle accident in which he struck and killed a pedestrian and seriously injured the pedestrian's daughter. Mr. Cohen experienced a seizure while driving, leading to the loss of control of the vehicle. The incident was confirmed by multiple witnesses. He has no memory of the events immediately preceding the accident, and had significant post-traumatic amnesia subsequently. Mr. Cohen has been charged with vehicular manslaughter with gross negligence for not following his epilepsy treatment protocol. He has no prior criminal history.
-
+The purpose of the current evaluation is {{< var dx1 >}}, {{< var dx2 >}}, and {{< var dx3 >}}. This report is based on a review of available medical records and information gathered across multiple days of evaluation. Treatment planning and plans for test accommodations were discussed with {{< var first_name >}} during the feedback visit on the final day of the examination.
 
 ## Background
 
-### Developmental/Medical History:
-- Mr. Cohen reported no significant medical issues or developmental delays during his childhood in Israel.
-- He experienced his first seizure in 2013 while driving, but was able to stop the vehicle without incident.
-- Mr. Cohen was diagnosed with epilepsy and prescribed medication, but reported inconsistent follow-up with his medical providers.
-- After a bout with COVID-19, Mr. Cohen experienced an increase in dizziness, headaches, and seizure activity.
-- No seizures for the past 7-8 months.
+<!-- **Information to Include in Background Information Section**
+Provide pertinent information that has been obtained from all sources, including the referral source, family members, examinee, teachers, medical records, and so on. Do not include needless details or gossip. Following are examples of information that should be included:
+• Current family dynamics (spouse, children, siblings, etc.) 
+• Medical and psychiatric history
+• Developmental history
+• Educational history (note any special services)
+• Employment history (for adults) 
+• Previous therapeutic intervention 
+• Current stressors
+• Summary of past evaluations -->
 
-### Educational History:
-- Mr. Cohen completed his high school education in Israel but did not attend college.
-- He reported difficulties with reading comprehension and spelling during his schooling, which may have been indicative of a learning disorder.
+The following information was obtained during an interview with {{< var patient >}} and from review of available medical records. {{< var first_name >}} has been doing well in {{< var his_her >}} classes since starting law school and has never failed. However, issues have begun to arise that {{< var he_she >}} has been unable to avoid, including being easily distracted, restlessness, constantly fidgeting, procrastination, and variable attention. {{< var he_she_cap >}} suspects having ADHD and has always struggled with aspects of it. {{< var first_name >}}'s mother tried to get {{< var his_her >}} evaluated and tested when {{< var he_she >}} was younger, but was never able to do so because {{< var his_her >}} school at the time did not agree that there were major concerns. {{< var he_she_cap >}} has noticed increasing difficulty initiating tasks, especially when it comes to writing long research papers, and has been procrastinating more and more. {{< var first_name >}} has read up on ADHD and believes {{< var he_she >}} may have it, but has been able to hide it from others, as {{< var he_she >}} has "gotten good at pretending to pay attention." {{< var he_she_cap >}} seeks further assessment and evaluation to identify any underlying neurocognitive factors influencing {{< var his_her >}} academic motivations and performance.
 
-### Psychosocial History:
-- Mr. Cohen immigrated to the United States in 2012 at the age of 25.
-- He was previously married but divorced after 5 years.
-- Mr. Cohen described a complicated relationship with his older brother, Meir, including physical and emotional abuse during his childhood.
-- Mr. Cohen reported experiencing significant anxiety and difficulty in social situations, particularly when speaking in front of others.
-- Experiences marked feelings of guilt, helplessness, and depression following the tragic event. 
-- Acknowledged potential suicidal thoughts but emphasized desire to persevere.
+**Cognitive complaints**: sustained attention, working memory, and organization.
 
-### Family History:
-- Mr. Cohen's parents and four siblings still reside in Israel, and he has limited contact with them due to the strained relationship.
-- Mr. Cohen reported that his grandfather passed away from a brain stroke, but was unaware of any other neurological or psychiatric conditions in his family.
+## Relevant History
+
+### Past Neuropsychological Test Results
+
+Patient denied having prior testing.
+
+### Birth/Early Development
+
+- Normal pregnancy, birth, and delivery.
+- Developmental milestones achieved on time.
+
+### Medical History
+
+::: {.block above="1.2em"}
+- **Current**: Consequat ad est amet deserunt dolor amet cillum nisi irure sit consequat officia do..
+- **Family**: Irure anim qui deserunt eu culpa aliqua ea consequat deserunt..
+- **Medications**: None.
+- **Appetite/Weight**: Stable with no significant changes recently.
+- **Sleep**: Normal, no changes.
+- **Neurological Injury**: Voluptate magna do id veniam id laborum in qui magna sint ad cillum commodo.
+- **Psychiatric**: ADHD, anxiety, and depression.
+:::
+
+### Behavioral/Emotional/Social
+
+Laborum enim culpa excepteur non dolore ut consequat officia nisi proident.
+
+### Educational History
+
+Ea eiusmod eiusmod officia. Ut adipisicing magna nostrud aute in enim laboris ipsum amet. Ex est occaecat irure. Aliqua ea excepteur non ea dolore culpa commodo irure ipsum non. Ea in nisi laboris id laborum laborum reprehenderit officia in ad Lorem aliqua consectetur anim. Ex pariatur eu quis tempor. Amet veniam deserunt laborum do laborum eu ex.
+
+### Occupational History
+
+Mollit pariatur ut laborum nulla proident aute. Eu laboris tempor consectetur id qui eu. Exercitation sint cupidatat ipsum fugiat cupidatat nulla nostrud culpa elit reprehenderit sit Lorem minim officia. Ex exercitation voluptate enim pariatur voluptate magna commodo. Aute fugiat ad deserunt sunt qui ipsum. Culpa ea proident aliquip irure veniam ut. Tempor id minim commodo.
+
+### Cultural/Social Context
+
+Deserunt sint esse culpa exercitation adipisicing cupidatat cupidatat incididunt commodo magna. Minim irure non culpa dolore esse sit. Elit officia nulla consequat esse id consequat quis consequat quis voluptate veniam tempor fugiat. Ut in adipisicing nisi amet labore.

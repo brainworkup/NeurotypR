@@ -75,8 +75,8 @@ readr::write_excel_csv(iq, paste0(pheno, ".csv"), na = "", col_names = TRUE, app
 # The phenotype is specified by the 'pheno' variable
 data <- iq
 
-# Define the scales of interest
-scales <- c(
+# Define the scales to include
+subset <- c(
   "Auditory Working Memory (AWMI)",
   "Cognitive Proficiency (CPI)",
   "Crystallized Knowledge",

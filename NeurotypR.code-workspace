@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Monospace IDX Dark",
+    "workbench.colorTheme": "Black++ Nord Stream",
     "workbench.iconTheme": "catppuccin-mocha",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",

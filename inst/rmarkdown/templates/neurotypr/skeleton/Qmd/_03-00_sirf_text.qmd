@@ -10,7 +10,7 @@ However, significant weaknesses were identified across multiple domains:
 
 3. **Memory**: Below-average performance in memory tasks, particularly affecting long-term retention and discrimination between target and non-target information. While immediate recall occasionally reached average ranges, consistent difficulties emerged with delayed recall and recognition accuracy.
 
-These findings suggest a pattern of cognitive impairment that significantly impacts daily functioning. Mr. Cohen is likely to experience challenges in:
+These findings suggest a pattern of cognitive impairment that significantly impacts daily functioning. Mr. Smalls is likely to experience challenges in:
 
 - Professional settings requiring complex problem-solving or multitasking
 - Work or educational environments demanding sustained attention to verbal instruction
@@ -38,7 +38,7 @@ These findings suggest significant functional challenges in:
 
 ### Relationship to Epilepsy
 
-Mr. Cohen's cognitive profile is consistent with impairments commonly observed in moderate to severe epilepsy. The pattern of deficits—particularly in memory, attention, and executive functioning—likely reflects the cumulative impact of seizure activity, underlying neurological changes, and antiepileptic medications. Chronic seizures can disrupt neural networks and lead to structural changes that affect cognitive function, while anticonvulsant medications may further impact processing speed and attention. Given his longstanding epilepsy history, these neuropsychological findings strongly suggest that his cognitive impairments are secondary to his seizure disorder.
+Mr. Smalls's cognitive profile is consistent with impairments commonly observed in moderate to severe epilepsy. The pattern of deficits—particularly in memory, attention, and executive functioning—likely reflects the cumulative impact of seizure activity, underlying neurological changes, and antiepileptic medications. Chronic seizures can disrupt neural networks and lead to structural changes that affect cognitive function, while anticonvulsant medications may further impact processing speed and attention. Given his longstanding epilepsy history, these neuropsychological findings strongly suggest that his cognitive impairments are secondary to his seizure disorder.
 
 ### Behavioral/Emotional Findings
 

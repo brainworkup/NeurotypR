@@ -16,34 +16,34 @@ I reserve the right to change my opinions about the following should I be provid
 
 ## Reason for Referral
 
-{{< var first_name >}} {{< var last_name >}} is a {{< var age >}}-year-old {{< var handedness >}}-handed male with a {{< var education >}}-year education referred to undergo comprehensive forensic neuropsychological examination. Mr. Cohen was referred for evaluation to assess his cognitive functioning and the potential neurological causes of his seizures in relation to a motor vehicle accident that resulted in a fatality.
+{{< var first_name >}} {{< var last_name >}} is a {{< var age >}}-year-old {{< var handedness >}}-handed male with a {{< var education >}}-year education referred to undergo comprehensive forensic neuropsychological examination. Mr. Smalls was referred for evaluation to assess his cognitive functioning and the potential neurological causes of his seizures in relation to a motor vehicle accident that resulted in a fatality.
 
 ## Forensic Case Formulation
 
-On April 25, 2023, Mr. Cohen was involved in a motor vehicle accident in which he struck and killed a pedestrian and seriously injured the pedestrian's daughter. Mr. Cohen experienced a seizure while driving, leading to the loss of control of the vehicle. The incident was confirmed by multiple witnesses. He has no memory of the events immediately preceding the accident, and had significant post-traumatic amnesia subsequently. Mr. Cohen has been charged with vehicular manslaughter with gross negligence for not following his epilepsy treatment protocol. He has no prior criminal history.
+On April 25, 2023, Mr. Smalls was involved in a motor vehicle accident in which he struck and killed a pedestrian and seriously injured the pedestrian's daughter. Mr. Smalls experienced a seizure while driving, leading to the loss of control of the vehicle. The incident was confirmed by multiple witnesses. He has no memory of the events immediately preceding the accident, and had significant post-traumatic amnesia subsequently. Mr. Smalls has been charged with vehicular manslaughter with gross negligence for not following his epilepsy treatment protocol. He has no prior criminal history.
 
 
 ## Background
 
 ### Developmental/Medical History:
-- Mr. Cohen reported no significant medical issues or developmental delays during his childhood in Israel.
+- Mr. Smalls reported no significant medical issues or developmental delays during his childhood in Israel.
 - He experienced his first seizure in 2013 while driving, but was able to stop the vehicle without incident.
-- Mr. Cohen was diagnosed with epilepsy and prescribed medication, but reported inconsistent follow-up with his medical providers.
-- After a bout with COVID-19, Mr. Cohen experienced an increase in dizziness, headaches, and seizure activity.
+- Mr. Smalls was diagnosed with epilepsy and prescribed medication, but reported inconsistent follow-up with his medical providers.
+- After a bout with COVID-19, Mr. Smalls experienced an increase in dizziness, headaches, and seizure activity.
 - No seizures for the past 7-8 months.
 
 ### Educational History:
-- Mr. Cohen completed his high school education in Israel but did not attend college.
+- Mr. Smalls completed his high school education in Israel but did not attend college.
 - He reported difficulties with reading comprehension and spelling during his schooling, which may have been indicative of a learning disorder.
 
 ### Psychosocial History:
-- Mr. Cohen immigrated to the United States in 2012 at the age of 25.
+- Mr. Smalls immigrated to the United States in 2012 at the age of 25.
 - He was previously married but divorced after 5 years.
-- Mr. Cohen described a complicated relationship with his older brother, Meir, including physical and emotional abuse during his childhood.
-- Mr. Cohen reported experiencing significant anxiety and difficulty in social situations, particularly when speaking in front of others.
+- Mr. Smalls described a complicated relationship with his older brother, Meir, including physical and emotional abuse during his childhood.
+- Mr. Smalls reported experiencing significant anxiety and difficulty in social situations, particularly when speaking in front of others.
 - Experiences marked feelings of guilt, helplessness, and depression following the tragic event. 
 - Acknowledged potential suicidal thoughts but emphasized desire to persevere.
 
 ### Family History:
-- Mr. Cohen's parents and four siblings still reside in Israel, and he has limited contact with them due to the strained relationship.
-- Mr. Cohen reported that his grandfather passed away from a brain stroke, but was unaware of any other neurological or psychiatric conditions in his family.
+- Mr. Smalls's parents and four siblings still reside in Israel, and he has limited contact with them due to the strained relationship.
+- Mr. Smalls reported that his grandfather passed away from a brain stroke, but was unaware of any other neurological or psychiatric conditions in his family.

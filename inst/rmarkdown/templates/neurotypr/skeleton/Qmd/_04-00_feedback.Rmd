@@ -1,6 +1,6 @@
 ---
 title: "Neuropsychological Evaluation Results"
-patient: Itamar
+patient: Biggie
 date: 2024-07-04
 author: "Joey Trampush, PhD"
 institute: "Department of Psychiatry and the Behavioral Sciences"
@@ -29,7 +29,7 @@ output:
 
 ```{r patient, include=FALSE}
 patient <- rmarkdown::metadata$patient
-patient <- "Itamar"
+patient <- "Biggie"
 ```
 
 ```{r setup, include=FALSE}

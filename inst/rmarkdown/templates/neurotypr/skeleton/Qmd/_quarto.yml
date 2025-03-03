@@ -2,7 +2,7 @@ project:
   type: default
   execute-dir: file
   render:
-    - Itamar.qmd
+    - Biggie.qmd
 
 format:
   neurotyp-forensic-typst:
