@@ -40,3 +40,6 @@ Imports:
     vroom
 Suggests:
     bwu
+Depends: 
+    R (>= 3.5)
+LazyData: true

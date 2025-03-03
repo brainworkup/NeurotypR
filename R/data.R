@@ -3,13 +3,27 @@
 #' A dataset containing scores from the Childhood Autism Rating Scale, Second Edition (CARS2)
 #' for high-functioning individuals.
 #'
-#' @format A data frame with variables related to autism assessment:
+#' @format A data frame with the following variables:
 #' \describe{
-#'   \item{id}{Participant identifier}
-#'   \item{age}{Age of participant}
-#'   \item{score}{Total CARS2 score}
-#'   \item{classification}{Autism classification based on score}
-#'   \item{other_variables}{Additional assessment variables}
+#'   \item{test}{Test identifier, always "cars2_hf" for this dataset}
+#'   \item{test_name}{Full name of the test, "CARS 2-HF"}
+#'   \item{scale}{Name of the specific scale being measured}
+#'   \item{raw_score}{Raw score for the scale}
+#'   \item{score}{Processed score value}
+#'   \item{ci_95}{95% confidence interval (if available)}
+#'   \item{percentile}{Percentile rank (if available)}
+#'   \item{range}{Descriptive range of the score}
+#'   \item{domain}{Domain category, typically "Social Cognition"}
+#'   \item{subdomain}{Subdomain category, typically "ASD/Asperger's"}
+#'   \item{narrow}{Specific narrow category being assessed}
+#'   \item{pass}{PASS model classification (if applicable)}
+#'   \item{verbal}{Verbal component indicator (if applicable)}
+#'   \item{timed}{Whether the assessment is timed (if applicable)}
+#'   \item{test_type}{Type of test, typically "rating_scale"}
+#'   \item{score_type}{Type of score, e.g., "raw_score" or "t_score"}
+#'   \item{absort}{Unique identifier for the scale}
+#'   \item{description}{Detailed description of what the scale measures}
+#'   \item{result}{Interpretation of the results for the individual}
 #' }
 #' @source Childhood Autism Rating Scale, Second Edition (CARS2)
 "cars2_hf"
@@ -56,7 +70,7 @@
 #'   \item{timed}{Whether the test is timed.}
 #'   \item{verbal}{Verbal/nonverbal score.}
 #'   \item{pass}{PASS model.}
-#'   \item{absort}{Absorption score.}
+#'   \item{absort}{Absolute sort score.}
 #'   \item{z}{Z-score.}
 #'   \item{z_mean_dom}{Mean Z-score for domain.}
 #'   \item{z_sd_dom}{Standard deviation of Z-score for domain.}

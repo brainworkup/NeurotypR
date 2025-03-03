@@ -25,5 +25,7 @@ df <- data.frame(
   test_name = c("Name1", "Name2"),
   scale = c("Scale1", "Scale2")
 )
+\dontrun{
 merge_lookup_table(df, "~/reports/neuropsych_lookup_table_combined.csv")
+}
 }
