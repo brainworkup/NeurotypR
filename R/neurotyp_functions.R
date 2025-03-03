@@ -13,11 +13,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' domains <- c("Visual Perception/Construction")
 #' pheno <- "spatial"
 #' scales <- c("Arrows", "Bicycle Drawing")
 #' data_spatial <- prepare_and_export_spatial_data(domains, pheno, scales)
-prepare_and_export_spatial_data <- function(domains, pheno, scales, input_file = "neurocog.csv", output_file = NULL) {
+#' }
+prepare_and_export_spatial_data <- function(domains, pheno, scales, input_file = system.file("extdata", "neurocog.csv", package = "NeurotypR"), output_file = NULL) {
   # Check for required arguments
   if (missing(domains) || missing(pheno) || missing(scales)) {
     stop("All arguments (domains, pheno, scales) must be provided.")

@@ -23,9 +23,11 @@ This function prepares data for analysis by reading a CSV file, filtering the da
 selecting relevant columns, and writing the filtered data to a new CSV file.
 }
 \examples{
+\dontrun{
 # Example usage:
 domains <- c("Memory")
 pheno <- "memory"
 scales <- c("Scale1", "Scale2")
 prepare_data(domains, pheno, scales)
+}
 }

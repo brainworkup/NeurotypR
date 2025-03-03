@@ -17,7 +17,7 @@
 #' pheno <- "memory"
 #' scales <- c("Scale1", "Scale2")
 #' prepare_data(domains, pheno, scales)
-prepare_data <- function(domains, pheno, scales, type = NULL) {
+prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "neurocog.csv", package = "NeurotypR")) {
   # Check if required arguments are provided
   if (missing(domains) || missing(pheno) || missing(scales)) {
     stop("All arguments (domains, pheno, scales) must be provided.")

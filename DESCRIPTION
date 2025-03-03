@@ -37,9 +37,12 @@ Imports:
     tidyr,
     tidyselect,
     tinytex,
-    vroom
+    vroom,
+    qs
 Suggests:
-    bwu
+    bwu,
+    testthat (>= 3.0.0)
 Depends: 
     R (>= 3.5)
 LazyData: true
+Config/testthat/edition: 3

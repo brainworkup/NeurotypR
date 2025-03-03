@@ -1,14 +1,13 @@
+#' Global variable definitions
+#'
+#' @name globals
+#' @noRd
 utils::globalVariables(c(
-  "domain", "z", "percentile", "desc", "zMean", "zPct", "tibble", "name",
-  "neurocog", "list_parse", ".", "hc_theme_sandsignika", "narrow", "subdomain",
-  "patient", "test", "test_name", "neurobehav", "neuropsych", "range",
-  "raw_score", "score", "ci_95", "scaled_score", "t_score", "reliability",
-  "composition", "result", "z_mean", "z_percentile", "df", "neurodomain",
-  "sd", "caption", "df_adhd_ef", "n", "composite_name", "domains", "index",
-  "scales", "pass", "verbal", "timed", "test_type", "multiline", "mu_z",
-  "mu_percentile", "description", "z_mean_domain", "z_sd_domain",
-  "z_mean_subdomain", "z_sd_subdomain", "z_mean_narrow", "z_sd_narrow",
-  "z_mean_pass", "z_sd_pass", "z_mean_verbal", "z_sd_verbal",
-  "z_mean_timed", "z_sd_timed", "reactiveValues", "observeEvent",
-  "renderTable", "downloadHandler"
+  "str", "true_score", "ci_lo", "ci_hi", "absort", "Subtest", "Raw score",
+  "Scaled score", "Completion Time (seconds)", "X1", "X2", "X3", "ci_90_lo",
+  "ci_90_up", "ci_95_lower", "ci_95_upper", "completion_time_seconds", "br"
 ))
+
+#' Import functions from utils
+#' @importFrom utils str
+NULL

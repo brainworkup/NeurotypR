@@ -11,7 +11,7 @@
 #' run_data_entry_app()
 #' }
 #'
-#' @importFrom shiny fluidPage titlePanel sidebarLayout sidebarPanel mainPanel dateInput textInput actionButton downloadButton tableOutput reactiveValues observeEvent renderTable downloadHandler shinyApp
+#' @importFrom shiny fluidPage titlePanel sidebarLayout sidebarPanel mainPanel dateInput textInput actionButton downloadButton tableOutput reactiveValues observeEvent renderTable downloadHandler shinyApp br
 #' @importFrom rmarkdown render
 #' @importFrom tinytex tinytex_root
 #' @importFrom utils write.csv

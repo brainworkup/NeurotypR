@@ -8,7 +8,7 @@ prepare_and_export_spatial_data(
   domains,
   pheno,
   scales,
-  input_file = "neurocog.csv",
+  input_file = system.file("extdata", "neurocog.csv", package = "NeurotypR"),
   output_file = NULL
 )
 }
@@ -31,8 +31,10 @@ This function reads a CSV file, filters the data based on the specified domains 
 selects relevant columns, and writes the filtered data to a new CSV file.
 }
 \examples{
+\dontrun{
 domains <- c("Visual Perception/Construction")
 pheno <- "spatial"
 scales <- c("Arrows", "Bicycle Drawing")
 data_spatial <- prepare_and_export_spatial_data(domains, pheno, scales)
+}
 }

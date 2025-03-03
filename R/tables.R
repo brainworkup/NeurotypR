@@ -81,7 +81,7 @@ tbl_gt <-
         test_name = md("**Test**"),
         scale = md("**Scale**"),
         score = md("**Score**"),
-        percentile = md("**‰ Rank**"),
+        percentile = md("**\u2030 Rank**"),
         range = md("**Range**")
       ) |>
       gt::tab_header(title = title) |>
