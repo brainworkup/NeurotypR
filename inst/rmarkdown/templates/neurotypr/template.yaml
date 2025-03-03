@@ -1,3 +1,4 @@
-name: Neurotypical Research Report
-description: Template for creating neurotypical research reports
+name: Neuropsychological Reports
+description: Template for creating neuropsychological reports in R, RMarkdown,
+Quarto, and Typst
 create_dir: true

@@ -10,4 +10,3 @@ utils::globalVariables(c(
 
 #' Import functions from utils
 #' @importFrom utils str
-NULL

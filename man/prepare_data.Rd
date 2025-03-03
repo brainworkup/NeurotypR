@@ -4,7 +4,12 @@
 \alias{prepare_data}
 \title{Prepare Data for Analysis}
 \usage{
-prepare_data(domains, pheno, scales, type = NULL)
+prepare_data(
+  domains,
+  pheno,
+  scales,
+  type = system.file("extdata", "neurocog.csv", package = "NeurotypR")
+)
 }
 \arguments{
 \item{domains}{A character vector of domains to filter the data by.}
@@ -23,11 +28,9 @@ This function prepares data for analysis by reading a CSV file, filtering the da
 selecting relevant columns, and writing the filtered data to a new CSV file.
 }
 \examples{
-\dontrun{
 # Example usage:
 domains <- c("Memory")
 pheno <- "memory"
 scales <- c("Scale1", "Scale2")
 prepare_data(domains, pheno, scales)
-}
 }
