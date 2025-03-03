@@ -5,10 +5,10 @@ title: |
   <center> Child Parent, Teacher, and Self </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Biggie
+  patient: Harry
   test:
     label: "CEFI"
-    value: ""
+    value: "cefi_parent_5-18"
     input: select
     multiple: no
     choices:
@@ -19,7 +19,7 @@ params:
       - cefi_self_12-18
   test_name:
     label: "Test Name:"
-    value: CEFI Self
+    value: CEFI Parent
     input: select
     multiple: no
     choices:
@@ -55,14 +55,11 @@ knitr::opts_chunk$set(
   warning = TRUE,
   error = TRUE
 )
-library(dplyr)
-library(fs)
 library(glue)
 library(here)
 library(knitr)
 library(pdftools)
-library(rJava)
-library(miniUI)
+library(qs2)
 library(rmarkdown)
 library(rmdformats)
 library(shiny)
@@ -103,6 +100,7 @@ if (params$test == "cefi_self") {
 ## Areas
 
 ```{r}
+# note: double check these areas
 if (params$test == "cefi_self" | params$test == "cefi_observer") {
   areas <- list(
     table1 = c(460, 34, 483, 578),
@@ -110,35 +108,39 @@ if (params$test == "cefi_self" | params$test == "cefi_observer") {
   )
 } else if (params$test == "cefi_self_12-18") {
   areas <- list(
-    table1 = c(467.033, 53.0, 480.038, 557.9),
+    table1 = c(467.033, 53.0, 480.038, 557.9), # check
     table2 = c(536.648, 52.02, 667.463, 557.685)
   )
-} else if (params$test == "cefi_observer_5-18") {
+} else if (params$test == "cefi_parent_5-18") {
   areas <- list(
-    table1 = c(468.563, 53.0, 481.568, 557.9),
+    table1 = c(468, 52, 480, 559), # ok
+    table2 = c(534, 52, 678, 559)
+  )
+} else if (params$test == "cefi_teacher_5-18") {
+  areas <- list(
+    table1 = c(468.563, 53.0, 481.568, 557.9), # check
     table2 = c(493.043, 50.49, 669.758, 559.98)
   )
 }
 ```
 
-## Extract
+## Extract Tables
 
 ```{r}
-# This works well so far
-plucked_tables <- tabulapdf::extract_tables(
+extracted_tables <- tabulapdf::extract_tables(
   file = file,
   pages = pages,
   area = areas,
   guess = NULL,
-  method = "stream",
+  method = "decide", # stream, lattice
   output = "matrix"
 )
 
-# Save the plucked_tables object to a file
-save(plucked_tables, file = "plucked_tables.Rdata")
+# Save the extracted_tables object to a file in the 'data' folder
+qs2::qs_save(extracted_tables, file = paste0("data/extracted_tables_", test, ".qs"))
 
-# Load the plucked_tables object from a file
-# load("plucked_tables.Rdata")
+# Load the extracted_tables object from the 'data' folder
+extracted_tables <- qs2::qs_read(paste0("data/extracted_tables_", test, ".qs"))
 ```
 
 ## Functions
@@ -146,15 +148,15 @@ save(plucked_tables, file = "plucked_tables.Rdata")
 ```{r}
 # Function to process the extracted tables
 process_cefi_tables <- function(cefi_data) {
-  table_list <- purrr::map(cefi_data, as_tibble) |>
+  table_list <- purrr::map(cefi_data, as.data.frame) |>
     set_names(paste0("table", 1:length(cefi_data))) # Rename tables
 
   list2env(table_list, .GlobalEnv) # Assign to global environment
 }
 
 # Loop over the list and write each matrix to a CSV file
-for (i in seq_along(plucked_tables)) {
-  write.csv(plucked_tables[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
+for (i in seq_along(extracted_tables)) {
+  write.csv(extracted_tables[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
 }
 
 # convert columns
@@ -202,19 +204,16 @@ get_text <- function(file) {
 ## CEFI Full Scale (Table 1)
 
 ```{r}
-library(tibble)
-library(dplyr)
-
 # Process tables
-process_cefi_tables(plucked_tables)
+process_cefi_tables(extracted_tables)
 
 # Convert to tibble
-table1 <- as_tibble(table1)
+table1 <- tibble::as_tibble(table1)
 # Ensure column names are correct
 names(table1) <- c("score", "ci_95", "percentile", "category")
 
 # Add 'scale' column with empty strings
-table1 <- table1 |> mutate(scale = "Full Scale")
+table1 <- table1 |> dplyr::mutate(scale = "Full Scale")
 table1 <- table1[c("scale", "score", "ci_95", "percentile")]
 
 # Convert columns
@@ -225,147 +224,132 @@ table1 <- convert_columns(df = table1)
 
 ```{r}
 # Convert to tibble
-table2 <- as_tibble(table2)
+table2 <- tibble::as_tibble(table2)
 
 # Remove empty columns from table2
 table2 <- table2 |>
-  select_if(~ any(. != ""))
+  dplyr::select_if(~ any(. != ""))
 
 # Ensure column names are correct
 names(table2) <- c("scale", "score", "ci_95", "percentile", "category", "diff_from_avg", "stat", "strength")
 
 table2 <- table2 |>
-  select(-c("diff_from_avg", "stat", "strength", "category"))
+  dplyr::select(-c("diff_from_avg", "stat", "strength", "category"))
 
 # Usage (assuming you have a dataframe named 'df')
 table2 <- convert_columns(df = table2)
 
-# Assuming key_columns are those columns which must have data
-key_columns <- c("score", "percentile")
+# Fix split rows issue in table2
+# First, create a vector of all expected scale names
+expected_scales <- c(
+  "Attention", "Emotion Regulation", "Flexibility", "Inhibitory Control",
+  "Initiation", "Organization", "Planning", "Self-Monitoring", "Working Memory"
+)
 
-table2_all_rows <- table2
-table2 <- filter_real_data(table2_all_rows, key_columns)
-rm(table2_all_rows)
+# Step 1: Find rows with NA scores that might contain parts of scale names
+na_rows <- which(is.na(table2$score))
+
+# Step 2: Fix split scale names by examining each NA row
+fixed_table2 <- table2
+if (length(na_rows) > 0) {
+  for (i in na_rows) {
+    # Check if this might be part of a scale name that got split
+    if (i < nrow(table2)) {
+      # Try to combine with next row to see if it makes a valid scale name
+      potential_scale <- paste(table2$scale[i], table2$scale[i + 1], sep = " ")
+
+      # Check if this matches any expected scale or part of it
+      for (expected_scale in expected_scales) {
+        if (grepl(potential_scale, expected_scale, fixed = TRUE) ||
+          potential_scale == expected_scale) {
+          # Found a match, update the scale name and move data from row i+1
+          fixed_table2$scale[i] <- expected_scale
+          fixed_table2$score[i] <- fixed_table2$score[i + 1]
+          fixed_table2$ci_95[i] <- fixed_table2$ci_95[i + 1]
+          fixed_table2$percentile[i] <- fixed_table2$percentile[i + 1]
+
+          # Mark row i+1 for removal
+          fixed_table2$scale[i + 1] <- "TO_REMOVE"
+          break
+        }
+      }
+    }
+  }
+
+  # Remove marked rows
+  fixed_table2 <- fixed_table2 |>
+    filter(scale != "TO_REMOVE")
+}
+
+# Special case for "Working Memory" which might be split across two rows
+working_memory_row <- which(fixed_table2$scale == "Working")
+if (length(working_memory_row) > 0 && working_memory_row[1] < nrow(fixed_table2)) {
+  next_row <- working_memory_row[1] + 1
+  if (fixed_table2$scale[next_row] == "Memory") {
+    fixed_table2$scale[working_memory_row[1]] <- "Working Memory"
+    fixed_table2$score[working_memory_row[1]] <- fixed_table2$score[next_row]
+    fixed_table2$ci_95[working_memory_row[1]] <- fixed_table2$ci_95[next_row]
+    fixed_table2$percentile[working_memory_row[1]] <- fixed_table2$percentile[next_row]
+    fixed_table2 <- fixed_table2[-next_row, ]
+  }
+}
+
+# Filter out any remaining rows with NA scores
+fixed_table2 <- fixed_table2 |>
+  dplyr::filter(!is.na(score))
+
+# Deduplicate by scale name (keep the first occurrence of each scale)
+fixed_table2 <- fixed_table2 |>
+  dplyr::group_by(scale) |>
+  dplyr::slice(1) |>
+  dplyr::ungroup()
+
+# Replace the original table2 with the fixed version
+table2 <- fixed_table2
 
 # Print the filtered table
 print(table1)
 print(table2)
+
+# Bind rows into full data.frame
+df <- rbind(table1, table2)
 ```
 
-## Combine Tables
+## Match with lookup table
 
-```{r}
-table2[1, "scale"] <- "Attention"
-table2[2, "scale"] <- "Emotion Regulation"
-table2[3, "scale"] <- "Flexibility"
-table2[4, "scale"] <- "Inhibitory Control"
-table2[5, "scale"] <- "Initiation"
-table2[6, "scale"] <- "Organization"
-table2[7, "scale"] <- "Planning"
-table2[8, "scale"] <- "Self-Monitoring"
-table2[9, "scale"] <- "Working Memory"
+```{r eval = TRUE}
+# Load the lookup table
+lookup_table <- readr::read_csv("~/reports/neuropsych_lookup_table_combined.csv")
 
-keep <- c("scale", "score", "ci_95", "percentile")
+# Merge the data with the lookup table
+df_merged <- dplyr::mutate(df, test = test) |>
+  dplyr::left_join(lookup_table, by = c("test" = "test", "scale" = "scale")) |>
+  dplyr::relocate(c(test, test_name), .before = scale)
 
-# Selecting the columns in keep for both tables
-table1 <- table1[, keep, drop = FALSE]
-table2 <- table2[, keep, drop = FALSE]
-
-# Binding rows
-table <- rbind(table1, table2)
-```
-
-## Mutate
-
-```{r}
-table <- bwu::gpluck_make_columns(
-  data = table,
-  test = params$test,
-  test_name = params$test_name,
-  raw_score = NA,
-  range = NA,
-  domain = "ADHD",
-  subdomain = "Executive Function",
-  narrow = NA,
-  pass = NA,
-  verbal = NA,
-  timed = NA,
-  score_type = "standard_score",
-  test_type = "rating_scale",
-  description = NA,
-  result = NA
+# add missing columns
+df_mutated <- bwu::gpluck_make_columns(
+  df_merged,
+  range = "",
+  result = "",
+  absort = NULL
 )
-
-# relocate
-table <-
-  dplyr::relocate(table,
-    c(test, test_name),
-    .before = scale
-  ) |>
-  dplyr::relocate(c(raw_score), .before = score)
-
-# ranges
-table <- bwu::gpluck_make_score_ranges(table, test_type = "rating_scale")
 ```
 
-## Narrow
+## Test score ranges
 
-```{r}
-table <-
-  dplyr::mutate(table,
-    narrow = dplyr::case_when(
-      scale == "Full Scale" ~ "Overall Executive Function",
-      scale == "Attention" ~ "Attention",
-      scale == "Emotion Regulation" ~ "Emotion Regulation",
-      scale == "Flexibility" ~ "Flexibility",
-      scale == "Inhibitory Control" ~ "Inhibitory Control",
-      scale == "Initiation" ~ "Initiation",
-      scale == "Organization" ~ "Organization",
-      scale == "Planning" ~ "Planning",
-      scale == "Self-Monitoring" ~ "Self-Monitoring",
-      scale == "Working Memory" ~ "Working Memory",
-      TRUE ~ as.character(narrow)
-    )
-  )
+```{r ranges, eval = TRUE}
+df_mutated <- df_mutated |>
+  dplyr::mutate(range = NULL) |>
+  bwu::gpluck_make_score_ranges(table = df_mutated, test_type = "rating_scale") |>
+  dplyr::relocate(c(range), .after = percentile)
 ```
 
-## Descriptions
+## Glue results for each scale
 
-```{r}
-table <-
-  dplyr::mutate(table,
-    description = dplyr::case_when(
-      scale == "Full Scale" ~
-        "overall level of executive functioning",
-      scale == "Attention" ~
-        "i.e., avoid distractions, concentrate on tasks, and sustain attention",
-      scale == "Emotion Regulation" ~
-        "i.e., control and manage emotions, including staying calm when handling small problems and reacting with the right level of emotion",
-      scale == "Flexibility" ~
-        "i.e., adjust behavior to meet circumstances, including coming up with different ways to solve problems, changing behavior when needed, and being able to come up with new ways to reach a goal",
-      scale == "Inhibitory Control" ~
-        "i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking",
-      scale == "Initiation" ~
-        "i.e., begin tasks or projects on own, including starting tasks easily, being motivated, and taking the initiative when needed",
-      scale == "Organization" ~
-        "i.e., manage personal effects, work, or multiple tasks, including organizing tasks and thoughts well, managing time effectively, and working neatly",
-      scale == "Planning" ~
-        "i.e., develop and implement strategies to accomplish tasks, including planning ahead and making good decisions",
-      scale == "Self-Monitoring" ~
-        "i.e., evaluate own behavior in order to determine when a different approach is necessary, including noticing and fixing mistakes, knowing when help is required, and understanding when a task is completed",
-      scale == "Working Memory" ~
-        "i.e., keep information in mind that is important for knowing what to do and how to do it, including remembering important things, instructions, and steps",
-      TRUE ~ as.character(description)
-    )
-  )
-```
-
-## Glue Result
-
-```{r}
+```{r glueresults, eval = TRUE}
 if (params$test == "cefi_self" || params$test == "cefi_self_12-18") {
-  table <-
-    dplyr::mutate(table,
+  df <- df_mutated |>
+    dplyr::mutate(
       result = dplyr::case_when(
         scale == "Full Scale" ~ glue::glue(
           "- {patient}'s self-reported {description} was {range}.\n"
@@ -400,9 +384,9 @@ if (params$test == "cefi_self" || params$test == "cefi_self_12-18") {
         TRUE ~ as.character(result)
       )
     )
-} else {
-  table <-
-    dplyr::mutate(table,
+} else if (params$test == "cefi_observer" || params$test == "cefi_observer_12-18") {
+  df <- df_mutated |>
+    dplyr::mutate(
       result = dplyr::case_when(
         scale == "Full Scale" ~ glue::glue(
           "- {patient}'s observer-reported {description} was {range}.\n"
@@ -437,19 +421,98 @@ if (params$test == "cefi_self" || params$test == "cefi_self_12-18") {
         TRUE ~ as.character(result)
       )
     )
+} else if (params$test == "cefi_parent" || params$test == "cefi_parent_12-18" || params$test == "cefi_parent_5-18") {
+  df <- df_mutated |>
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "Full Scale" ~ glue::glue(
+          "- {patient}'s parent-reported {description} was {range}.\n"
+        ),
+        scale == "Attention" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Emotion Regulation" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Flexibility" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Inhibitory Control" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Initiation" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Organization" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Planning" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Self-Monitoring" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Working Memory" ~ glue::glue(
+          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
+} else if (params$test == "cefi_teacher" || params$test == "cefi_teacher_12-18") {
+  df <- df_mutated |>
+    dplyr::mutate(
+      result = dplyr::case_when(
+        scale == "Full Scale" ~ glue::glue(
+          "- {patient}'s teacher-reported {description} was {range}.\n"
+        ),
+        scale == "Attention" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Emotion Regulation" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Flexibility" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Inhibitory Control" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Initiation" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Organization" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Planning" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Self-Monitoring" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        scale == "Working Memory" ~ glue::glue(
+          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
+        ),
+        TRUE ~ as.character(result)
+      )
+    )
 }
+
+df <- df |>
+  dplyr::select(-description) |>
+  dplyr::relocate(absort, .after = result)
 ```
 
-## Save
+## Write out final csv
 
-```{r}
-vroom::vroom_write(
-  table,
-  here::here("data", "csv", paste0(test, ".csv")),
-  delim = ",",
-  col_names = TRUE,
-  na = ""
-)
+```{r write}
+# Make sure we're using the fully processed data.frame with all columns
+if (!exists("df") || ncol(df) <= 4) {
+  # If df wasn't properly updated in the results section, use df_mutated
+  writedf <- df_mutated
+} else {
+  writedf <- df
+}
+readr::write_excel_csv(writedf, here::here("data", "csv", paste0(test, ".csv")), col_names = TRUE)
 ```
 
 ## Extract Text
@@ -587,3 +650,5 @@ if (params$test == "cefi_teacher") {
   }
 }
 ```
+
+**THE END!!**
