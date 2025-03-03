@@ -336,12 +336,12 @@ df <- bind_rows(table1, table2)
 
 ```{r result}
 if (params$test == "basc3_prs_adolescent") {
-  df <- df %>%
-    rowwise() %>%
+  df <- df |>
+    rowwise() |>
     mutate(result = glue::glue("{patient}'s parent-reported {description} was {range}.\n"))
 } else {
-  df <- df %>%
-    rowwise() %>%
+  df <- df |>
+    rowwise() |>
     mutate(result = glue::glue("{patient}'s self-reported {description} was {range}.\n"))
 }
 ```
@@ -593,7 +593,7 @@ Also, be aware that this function works well for the sample data you provided; i
 Here's a quick way to further process the `TScore` column to get a cleaned version:
 
 ```{r}
-df <- df %>%
+df <- df |>
   dplyr::mutate(TScore_Cleaned = stringr::str_extract(TScore, "^\\d+"))
 
 print(df)

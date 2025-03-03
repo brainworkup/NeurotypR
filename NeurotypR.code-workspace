@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Midnight Xenon",
+    "workbench.colorTheme": "Monospace IDX Dark",
     "workbench.iconTheme": "catppuccin-mocha",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",

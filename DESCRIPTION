@@ -3,6 +3,8 @@ Title: R Markdown Template for Neuropsychological Report Writing
 Version: 0.0.0.9000
 Authors@R: 
     person("Joey", "Trampush", , "joey.trampush@brainworkup.org", role = c("aut", "cre"))
+Author: Joey Trampush [aut, cre]
+Maintainer: Joey Trampush <joey.trampush@brainworkup.org>
 Description: Provides R Markdown templates for neuropsychological research reports and analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -22,11 +24,13 @@ Imports:
     highcharter,
     janitor,
     kableExtra,
+    lubridate,
     purrr,
     readr,
     readxl,
     rlang,
     shiny,
+    stats,
     stringr,
     tabulapdf,
     tibble,
@@ -34,3 +38,5 @@ Imports:
     tidyselect,
     tinytex,
     vroom
+Suggests:
+    bwu

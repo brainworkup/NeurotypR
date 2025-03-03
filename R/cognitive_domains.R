@@ -40,11 +40,11 @@ prepare_data <- function(domains, pheno, scales, type = NULL) {
   }
 
   # Filter data by domains and remove rows with missing 'z_mean_domain' values
-  data <- data %>%
+  data <- data |>
     dplyr::filter(domain %in% domains, !is.na(z_mean_domain))
 
   # Select relevant columns
-  data <- data %>%
+  data <- data |>
     dplyr::select(
       test,
       test_name,
@@ -78,7 +78,7 @@ prepare_data <- function(domains, pheno, scales, type = NULL) {
     )
 
   # Filter data by scales
-  data <- data %>%
+  data <- data |>
     dplyr::filter(scale %in% scales)
 
   # Write the filtered data to a CSV file with the phenotype name
@@ -143,7 +143,7 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
   }
 
   # Filter data based on scales_to_keep
-  data_tbl <- data %>%
+  data_tbl <- data |>
     dplyr::filter(scale %in% scales_to_keep)
 
   # Table visualization parameters
@@ -152,11 +152,11 @@ visualize_data <- function(data, scales_to_keep, pheno, domain, grp_pheno = NULL
   multiline <- TRUE
 
   # Notes and source information
-  fn_scaled_score <- gt::md("Score = Scaled score (Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰])")
-  fn_standard_score <- gt::md("Score = Index score (Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰])")
-  fn_t_score <- gt::md("Score = T score (Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰])")
-  fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])")
-  source_note <- gt::md("Score = _T_ score (Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰])")
+  fn_scaled_score <- gt::md("Score = Scaled score (Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030])")
+  fn_standard_score <- gt::md("Score = Index score (Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030])")
+  fn_t_score <- gt::md("Score = T score (Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030])")
+  fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030])")
+  source_note <- gt::md("Score = _T_ score (Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030])")
 
   # Create the table using tbl_gt
   tbl_gt <- tbl_gt(

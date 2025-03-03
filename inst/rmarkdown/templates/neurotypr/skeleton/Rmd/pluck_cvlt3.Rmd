@@ -576,7 +576,7 @@ table3 <-
 
 ```{r desc4}
 table4 <-
-  table4 %>%
+  table4 |>
   tidytable::mutate(
     description = tidytable::case_when(
       scale ==
@@ -681,7 +681,7 @@ if (params$test == "cvlt3_brief") {
 ```{r glue-result}
 if (params$test == "cvlt3") {
   cvlt3 <-
-    cvlt3 %>%
+    cvlt3 |>
     tidytable::mutate(
       result = glue::glue(
         "{description} was {range}."
@@ -689,7 +689,7 @@ if (params$test == "cvlt3") {
     )
 } else {
   cvlt3_brief <-
-    cvlt3_brief %>%
+    cvlt3_brief |>
     tidytable::mutate(
       result = glue::glue(
         "{description} was {range}."

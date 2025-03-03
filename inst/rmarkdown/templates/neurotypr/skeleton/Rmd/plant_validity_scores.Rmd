@@ -352,7 +352,7 @@ compute_percentile_range <- function(
   }
 
   # Calculate z, percentile, and range
-  data <- data %>%
+  data <- data |>
     mutate(z = (score - score_params$mean) / score_params$sd) |>
     mutate(percentile = round(stats::pnorm(z) * 100, 1)) |>
     mutate(percentile = case_when(

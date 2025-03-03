@@ -117,7 +117,7 @@ library(dplyr)
 library(purrr)
 
 process_caars2_tables <- function(caars2_data) {
-  table_list <- purrr::map(caars2_data, as_tibble) %>%
+  table_list <- purrr::map(caars2_data, as_tibble) |>
     set_names(paste0("table", 1:length(caars2_data))) # Rename tables
 
   list2env(table_list, .GlobalEnv) # Assign to global environment

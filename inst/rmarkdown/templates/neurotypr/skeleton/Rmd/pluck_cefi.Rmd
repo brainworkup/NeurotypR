@@ -140,7 +140,7 @@ save(plucked_tables, file = "plucked_tables.Rdata")
 ```{r}
 # Function to process the extracted tables
 process_cefi_tables <- function(cefi_data) {
-  table_list <- purrr::map(cefi_data, as_tibble) %>%
+  table_list <- purrr::map(cefi_data, as_tibble) |>
     set_names(paste0("table", 1:length(cefi_data))) # Rename tables
 
   list2env(table_list, .GlobalEnv) # Assign to global environment
@@ -168,9 +168,9 @@ convert_columns <- function(df) {
 
 # Function to replace "-" with NA and filter out rows with no real data
 filter_real_data <- function(table, key_columns) {
-  table <- table %>%
-    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
-    mutate(across(all_of(key_columns), as.numeric)) %>%
+  table <- table |>
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) |>
+    mutate(across(all_of(key_columns), as.numeric)) |>
     filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
 
   return(table)
@@ -222,7 +222,7 @@ table1 <- convert_columns(df = table1)
 table2 <- as_tibble(table2)
 
 # Remove empty columns from table2
-table2 <- table2 %>%
+table2 <- table2 |>
   select_if(~ any(. != ""))
 
 # Ensure column names are correct

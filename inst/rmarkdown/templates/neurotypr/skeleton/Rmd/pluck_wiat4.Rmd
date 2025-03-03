@@ -334,7 +334,7 @@ wiat4[3, 1] <- c("Reading Comprehension")
 
 # Replace "NA" strings with actual NA values
 wiat4 <-
-  wiat4 %>%
+  wiat4 |>
   tidytable::mutate(across(everything(), function(x) ifelse(x == "NA NA NA", NA, x))) |>
   janitor::clean_names()
 
@@ -353,8 +353,8 @@ colnames(table1) <- params$colnames
 # table1 <- table1 |> slice(-3, -11) # redundant, change each time to remove rows with extra line
 to_double <- c("raw_score", "score", "percentile")
 table1 <-
-  table1 %>%
-  hablar::convert(dbl(all_of(to_double))) %>%
+  table1 |>
+  hablar::convert(dbl(all_of(to_double))) |>
   dplyr::relocate(scale, .before = raw_score)
 ```
 
@@ -728,7 +728,7 @@ table <-
 
 ```{r glue-result}
 table <-
-  table %>%
+  table |>
   tidytable::mutate(
     result = glue::glue(
       "{description} was {range}."

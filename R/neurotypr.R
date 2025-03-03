@@ -28,13 +28,18 @@ neurotypr_report <- function() {
 #' @param df A data frame to be merged with the lookup table.
 #' @param lookup_file_path A string specifying the path to the lookup table CSV file.
 #' @return A data frame that is the result of merging the input dataset and the lookup table.
+#' @importFrom readr read_csv
+#' @importFrom dplyr left_join arrange relocate
+#' @export
 #' @examples
 #' df <- data.frame(
 #'   test = c("Test1", "Test2"),
 #'   test_name = c("Name1", "Name2"),
 #'   scale = c("Scale1", "Scale2")
 #' )
+#' \dontrun{
 #' merge_lookup_table(df, "~/reports/neuropsych_lookup_table_combined.csv")
+#' }
 merge_lookup_table <- function(df, lookup_file_path) {
   # Validate inputs
   if (!file.exists(lookup_file_path)) {

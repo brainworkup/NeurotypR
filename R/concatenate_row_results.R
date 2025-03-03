@@ -49,7 +49,7 @@ process_and_save_results <- function(file_path, output_path) {
   df <- vroom::vroom(file_path)
 
   # Sort the dataset by 'percentile' in descending order
-  df <- df %>% arrange(desc(percentile))
+  df <- df |> arrange(desc(percentile))
 
   # Concatenate the results
   df$summary <- concatenate_results(df)

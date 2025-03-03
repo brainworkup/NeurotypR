@@ -17,8 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Reason for Referral
 
 Fill this in ...
-TODO:
-## Methods
+TODO: \## Methods
 
 ### Participants
 

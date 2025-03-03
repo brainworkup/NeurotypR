@@ -300,7 +300,7 @@ table1 <- table1 |>
 ```
 
 ```{r slice1}
-table1 <- table1 %>% dplyr::mutate(absort = paste0(seq_len(nrow(table1))))
+table1 <- table1 |> dplyr::mutate(absort = paste0(seq_len(nrow(table1))))
 table1$absort <- as.numeric(table1$absort)
 table1 <-
   table1 |>
@@ -378,7 +378,7 @@ colnames(table3) <- params$column_names2
 to_double <- c("raw_score", "z_score", "score", "percentile")
 table3 <-
   table3 |>
-  hablar::convert(dbl(all_of(to_double))) %>%
+  hablar::convert(dbl(all_of(to_double))) |>
   slice(2, 5, 8, 11, 14, 16, 19)
 ```
 

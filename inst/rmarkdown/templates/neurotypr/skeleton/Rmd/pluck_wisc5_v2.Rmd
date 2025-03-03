@@ -374,9 +374,9 @@ library(dplyr)
 
 # Function to replace "-" with NA and filter out rows with no real data
 filter_real_data <- function(table, key_columns) {
-  table <- table %>%
-    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
-    mutate(across(all_of(key_columns), as.numeric)) %>%
+  table <- table |>
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) |>
+    mutate(across(all_of(key_columns), as.numeric)) |>
     filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
 
   return(table)
@@ -477,7 +477,7 @@ table1 <-
 
 ```{r}
 table1 <-
-  table1 %>%
+  table1 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -496,7 +496,7 @@ table1 <- table1 |> dplyr::relocate(c(raw_score, score, ci_95, percentile, range
 ```{r}
 # Function to filter out rows with no real data (assumes real data rows have non-NA and non-empty values in key columns)
 filter_real_data <- function(table, key_columns) {
-  table %>%
+  table |>
     filter(rowSums(is.na(select(., all_of(key_columns))) | select(., all_of(key_columns)) == "") < length(key_columns))
 }
 
@@ -598,7 +598,7 @@ table2 <-
 
 ```{r}
 table2 <-
-  table2 %>%
+  table2 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -617,7 +617,7 @@ table2 <- table2 |> dplyr::relocate(c(raw_score, score, ci_95, percentile, range
 ```{r}
 # Function to filter out rows with no real data (assumes real data rows have non-NA and non-empty values in key columns)
 filter_real_data <- function(table, key_columns) {
-  table %>%
+  table |>
     filter(rowSums(is.na(select(., all_of(key_columns))) | select(., all_of(key_columns)) == "") < length(key_columns))
 }
 
@@ -725,7 +725,7 @@ table3 <-
 
 ```{r}
 table3 <-
-  table3 %>%
+  table3 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -744,7 +744,7 @@ table3 <- table3 |> dplyr::relocate(c(raw_score, score, ci_95, percentile, range
 ```{r}
 # Function to filter out rows with no real data (assumes real data rows have non-NA and non-empty values in key columns)
 filter_real_data <- function(table, key_columns) {
-  table %>%
+  table |>
     filter(rowSums(is.na(select(., all_of(key_columns))) | select(., all_of(key_columns)) == "") < length(key_columns))
 }
 
@@ -866,7 +866,7 @@ table4 <-
 
 ```{r}
 table4 <-
-  table4 %>%
+  table4 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -885,7 +885,7 @@ table4 <- table4 |> dplyr::relocate(c(raw_score, score, ci_95, percentile, range
 ```{r}
 # Function to filter out rows with no real data (assumes real data rows have non-NA and non-empty values in key columns)
 filter_real_data <- function(table, key_columns) {
-  table %>%
+  table |>
     filter(rowSums(is.na(select(., all_of(key_columns))) | select(., all_of(key_columns)) == "") < length(key_columns))
 }
 
@@ -989,7 +989,7 @@ table5 <-
 
 ```{r}
 table5 <-
-  table5 %>%
+  table5 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -1096,7 +1096,7 @@ table5[13, 1] <- c("Naming Speed Quantity Errors")
 ```{r}
 # Function to filter out rows with no real data (assumes real data rows have non-NA and non-empty values in key columns)
 filter_real_data <- function(table, key_columns) {
-  table %>%
+  table |>
     filter(rowSums(is.na(select(., all_of(key_columns))) | select(., all_of(key_columns)) == "") < length(key_columns))
 }
 
@@ -1115,9 +1115,9 @@ table6 <- readr::read_csv("wisc5_6.csv")
 names(table6) <- params$colnames2
 
 # Use unite to concatenate the first two columns and add parentheses around the abbrev data
-table6 <- table6 %>%
-  unite("scale", scale, abbrev, sep = " (", remove = TRUE) %>%
-  mutate(scale = paste0(scale, ")")) %>%
+table6 <- table6 |>
+  unite("scale", scale, abbrev, sep = " (", remove = TRUE) |>
+  mutate(scale = paste0(scale, ")")) |>
   relocate(scale, .before = raw_score)
 
 table6 <- table6 |> dplyr::select(all_of(params$keep2))

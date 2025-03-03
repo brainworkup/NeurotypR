@@ -257,9 +257,9 @@ table <-
 ## Create percentile
 
 ```{r percentile}
-table <- table %>%
-  dplyr::mutate(z = (score - 50) / 10) %>%
-  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) %>%
+table <- table |>
+  dplyr::mutate(z = (score - 50) / 10) |>
+  dplyr::mutate(percentile = trunc(pnorm(z) * 100)) |>
   dplyr::select(-z)
 ```
 

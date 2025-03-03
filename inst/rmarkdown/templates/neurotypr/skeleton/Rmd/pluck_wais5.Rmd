@@ -573,7 +573,7 @@ for (i in 2:5) {
   table[, 1] <- params[[paste0("table", i)]]
 
   # Select the relevant columns
-  table <- table %>% select(all_of(params[[paste0("keep", i)]]))
+  table <- table |> select(all_of(params[[paste0("keep", i)]]))
 
   # Store the transformed table in the list
   transformed_tables[[i - 1]] <- table
@@ -667,7 +667,7 @@ table2 <-
 
 ```{r result2, eval = params$eval_vci}
 table2 <-
-  table2 %>%
+  table2 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -800,7 +800,7 @@ table3 <-
 
 ```{r result3, eval = params$eval_pri}
 table3 <-
-  table3 %>%
+  table3 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -939,7 +939,7 @@ table4 <-
 
 ```{r result4, eval = params$eval_wmi}
 table4 <-
-  table4 %>%
+  table4 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -1063,7 +1063,7 @@ table5 <-
 
 ```{r result5, eval = params$eval_psi}
 table5 <-
-  table5 %>%
+  table5 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -1089,9 +1089,9 @@ if (params$version == "brief") {
 }
 colnames(table6) <- params$colnames3
 to_double <- c("raw_score", "score", "percentile")
-table6 <- table6 %>% hablar::convert(dbl(all_of(to_double)))
+table6 <- table6 |> hablar::convert(dbl(all_of(to_double)))
 table6$scale <- params$table6
-table6 <- table6 %>% dplyr::select(all_of(params$keep2))
+table6 <- table6 |> dplyr::select(all_of(params$keep2))
 ```
 
 ## Mutate columns
@@ -1142,7 +1142,7 @@ table6 <-
 ```{r result6, eval = params$eval_bd}
 # result text
 table6 <-
-  table6 %>%
+  table6 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -1205,7 +1205,7 @@ table7 <- bwu::gpluck_make_score_ranges(table = table7, test_type = "npsych_test
 
 ```{r narrow7, eval = params$eval_span}
 table7 <-
-  table7 %>%
+  table7 |>
   dplyr::mutate(
     narrow = dplyr::case_when(
       scale == "Digit Span Forward" ~ "Verbal Attention",
@@ -1295,7 +1295,7 @@ table7 <-
 
 ```{r result7, eval = params$eval_span}
 table7 <-
-  table7 %>%
+  table7 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"

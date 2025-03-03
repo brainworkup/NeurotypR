@@ -206,7 +206,7 @@ library(dplyr)
 library(purrr)
 
 process_wisc_tables <- function(plucked_tables) {
-  table_list <- purrr::map(plucked_tables, as_tibble) %>%
+  table_list <- purrr::map(plucked_tables, as_tibble) |>
     set_names(paste0("table", 1:length(plucked_tables))) # Rename tables
 
   list2env(table_list, .GlobalEnv) # Assign to global environment
@@ -254,9 +254,9 @@ library(dplyr)
 
 # Function to replace "-" with NA and filter out rows with no real data
 filter_real_data <- function(table, key_columns) {
-  table <- table %>%
-    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
-    mutate(across(all_of(key_columns), as.numeric)) %>%
+  table <- table |>
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) |>
+    mutate(across(all_of(key_columns), as.numeric)) |>
     filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
 
   return(table)
@@ -482,7 +482,7 @@ table1 <-
 
 ```{r}
 table1 <-
-  table1 %>%
+  table1 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"
@@ -518,9 +518,9 @@ library(dplyr)
 
 # Function to replace "-" with NA and filter out rows with no real data
 filter_real_data <- function(table, key_columns) {
-  table <- table %>%
-    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
-    mutate(across(all_of(key_columns), as.numeric)) %>%
+  table <- table |>
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) |>
+    mutate(across(all_of(key_columns), as.numeric)) |>
     filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
 
   return(table)
@@ -893,7 +893,7 @@ table3 <-
 
 # ranges
 table3 <-
-  table3 %>%
+  table3 |>
   dplyr::mutate(
     result = glue::glue(
       "{description} was {range}.\n"

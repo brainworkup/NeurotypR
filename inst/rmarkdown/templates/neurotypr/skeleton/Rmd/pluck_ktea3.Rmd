@@ -205,7 +205,7 @@ library(dplyr)
 library(purrr)
 
 process_ktea3_tables <- function(ktea3_data) {
-  table_list <- purrr::map(ktea3_data, as_tibble) %>%
+  table_list <- purrr::map(ktea3_data, as_tibble) |>
     set_names(paste0("table", 1:length(ktea3_data))) # Rename tables
 
   list2env(table_list, .GlobalEnv) # Assign to global environment
@@ -283,9 +283,9 @@ library(dplyr)
 
 # Function to replace "-" with NA and filter out rows with no real data
 filter_real_data <- function(table, key_columns) {
-  table <- table %>%
-    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) %>%
-    mutate(across(all_of(key_columns), as.numeric)) %>%
+  table <- table |>
+    mutate(across(all_of(key_columns), ~ if_else(. == "-", NA_character_, as.character(.)))) |>
+    mutate(across(all_of(key_columns), as.numeric)) |>
     filter(rowSums(is.na(select(., all_of(key_columns)))) < length(key_columns))
 
   return(table)
@@ -669,7 +669,7 @@ table2 <-
 
 ```{r}
 table1 <-
-  table1 %>%
+  table1 |>
   tidytable::mutate(
     result = glue::glue(
       "{description} was {range}."
@@ -677,7 +677,7 @@ table1 <-
   )
 
 table2 <-
-  table2 %>%
+  table2 |>
   tidytable::mutate(
     result = glue::glue(
       "{description} was {range}."
