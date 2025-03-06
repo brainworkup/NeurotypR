@@ -12,3 +12,4 @@
 ^\.DS_Store$
 ^\.history$
 ^\.vscode$
+^R/cognitive_domains\.R$
