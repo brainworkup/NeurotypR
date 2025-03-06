@@ -5,7 +5,7 @@ title: |
   <center> Child Parent, Teacher, and Self </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Harry
+  patient: Biggie
   test:
     label: "CEFI"
     value: "cefi_parent_5-18"
@@ -346,7 +346,7 @@ df_mutated <- df_mutated |>
 
 ## Glue results for each scale
 
-```{r glueresults, eval = TRUE}
+```{r glue, eval = TRUE}
 if (params$test == "cefi_self" || params$test == "cefi_self_12-18") {
   df <- df_mutated |>
     dplyr::mutate(

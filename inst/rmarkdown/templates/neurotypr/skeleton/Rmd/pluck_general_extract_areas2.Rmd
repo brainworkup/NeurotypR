@@ -4,7 +4,7 @@ title: |
   <center> Any Test </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Harry
+  patient: Biggie
   test:
     label: "Test"
     value: "wrat5"

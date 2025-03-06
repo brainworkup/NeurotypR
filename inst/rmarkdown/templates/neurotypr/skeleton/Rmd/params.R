@@ -148,7 +148,7 @@ df <- dplyr::bind_rows(wisc5_1, wisc5_2)
 # this did not work (below)
 # df <- merge_subtests(test)
 
-# Function to extract columns by position------------------------------------------------------
+# Function to extract columns by position---------------------------
 
 library(dplyr)
 
@@ -186,10 +186,7 @@ df <- df |>
 df <- df |>
   filter(!is.na(score) & !is.na(percentile))
 
-
 # Function to calculate 95% CI if needed ----------------------------------
-
-# Function to calculate 95% CI if needed
 
 # Assuming df is your data.frame and calc_ci_95 is your function
 for (i in seq_len(nrow(df))) {
@@ -231,15 +228,12 @@ df_mutated <- bwu::gpluck_make_columns(
 
 rm(df_merged)
 
-
 # Test score ranges -------------------------------------------------------
 
 df_mutated <- df_mutated |>
   dplyr::mutate(range = NULL) |>
   bwu::gpluck_make_score_ranges(table = df_mutated, test_type = "npsych_test") |>
   dplyr::relocate(c(range), .after = percentile)
-
-
 
 # Glue results for each scale ---------------------------------------------
 

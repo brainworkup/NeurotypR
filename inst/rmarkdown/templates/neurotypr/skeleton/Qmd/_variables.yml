@@ -7,18 +7,18 @@ first_name: Biggie
 last_name: Smalls
 dob: 1977-01-01
 doe: 2025-01-01
-doe2: 2025-01-02
-doe3:
-date_of_report: 2025-02-01
+doe2: 2025-02-01
+doe3: 2025-03-01
+date_of_report: 2025-04-01
 sex: male
 sex_cap: Male
-age: ""
+age: 18
 education: 12
 handedness: right
 referral: Dr. Dre
-observer: Mrs. Dre
+observer: Mrs. Dr Dre
 observer_relation: Mother
-attorney: Johnny Cochrane
+attorney: Johnny Cochran
 mr_mrs: Mr.
 he_she: he
 he_she_cap: He

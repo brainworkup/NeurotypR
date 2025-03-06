@@ -1,0 +1,641 @@
+## ADHD/Executive Functioning {#sec-adhd}
+
+```{r}
+#| label: setup-adhd
+#| include: false
+
+# Suppress warnings from being converted to errors
+options(warn = 1) # Set warn to 1 to make warnings not halt execution
+
+# domain
+domains <- c("ADHD")
+
+# target phenotype
+pheno <- "adhd"
+```
+
+```{r}
+#| label: export-adhd
+#| include: false
+#| eval: true
+
+# Read the CSV file into a data frame
+adhd <- vroom::vroom("neurobehav.csv")
+
+# Filter the data frame based on certain conditions
+# Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA
+adhd <- adhd |>
+  dplyr::filter(domain %in% domains)
+
+# Select specific columns from the data frame
+adhd <- adhd |>
+  dplyr::select(
+    test,
+    test_name,
+    scale,
+    raw_score,
+    score,
+    ci_95,
+    percentile,
+    range,
+    domain,
+    subdomain,
+    narrow,
+    pass,
+    verbal,
+    timed,
+    description,
+    result,
+    z,
+    z_mean_domain,
+    z_sd_domain,
+    z_mean_subdomain,
+    z_sd_subdomain,
+    z_mean_narrow,
+    z_sd_narrow
+  )
+
+# Write the 'adhd' data frame to a CSV file
+# The file name is derived from the 'pheno' variable
+readr::write_excel_csv(adhd, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+```
+
+```{r}
+#| label: data-adhd
+#| include: false
+
+# read and filter data
+data <- adhd
+
+# scales in this domain
+scales <- c(
+  "Activation",
+  "Focus",
+  "Effort",
+  "Emotion",
+  "Memory",
+  "Action",
+  "Total Composite",
+  "Inattention/Memory Problems",
+  "Hyperactivity/Restlessness",
+  "Impulsivity/Emotional Lability",
+  "Problems with Self-Concept",
+  "DSM-5 Inattentive Symptoms",
+  "DSM-5 Hyperactive-Impulsive Symptoms",
+  "DSM-5 ADHD Symptoms Total",
+  "ADHD Index",
+  "Full Scale",
+  "Attention",
+  "Emotion Regulation",
+  "Flexibility",
+  "Inhibitory Control",
+  "Initiation",
+  "Organization",
+  "Planning",
+  "Self-Monitoring",
+  "Working Memory",
+  "CEFI-SR Full Scale",
+  "CEFI-SR Attention",
+  "CEFI-SR Emotion Regulation",
+  "CEFI-SR Flexibility",
+  "CEFI-SR Inhibitory Control",
+  "CEFI-SR Initiation",
+  "CEFI-SR Organization",
+  "CEFI-SR Planning",
+  "CEFI-SR Self-Monitoring",
+  "CEFI-SR Working Memory",
+  "CEFI-OR Full Scale",
+  "CEFI-OR Attention",
+  "CEFI-OR Emotion Regulation",
+  "CEFI-OR Flexibility",
+  "CEFI-OR Inhibitory Control",
+  "CEFI-OR Initiation",
+  "CEFI-OR Organization",
+  "CEFI-OR Planning",
+  "CEFI-OR Self-Monitoring",
+  "CEFI-OR Working Memory",
+  # Conners 4
+  "Conners-4 Parent Inattention/Executive Dysfunction",
+  "Conners-4 Parent Hyperactivity",
+  "Conners-4 Parent Impulsivity",
+  "Conners-4 Parent Emotional Dysregulation",
+  "Conners-4 Parent Negative Self-Concept",
+  "Conners-4 Parent ADHD Inattentive Symptoms",
+  "Conners-4 Parent ADHD Hyperactive/Impulsive Symptoms",
+  "Conners-4 Parent Total ADHD Symptoms",
+  "Conners-4 Parent ADHD Index",
+  "Conners-4 Self Inattention/Executive Dysfunction",
+  "Conners-4 Self Hyperactivity",
+  "Conners-4 Self Impulsivity",
+  "Conners-4 Self Emotional Dysregulation",
+  "Conners-4 Self Negative Self-Concept",
+  "Conners-4 Self ADHD Inattentive Symptoms",
+  "Conners-4 Self ADHD Hyperactive/Impulsive Symptoms",
+  "Conners-4 Self Total ADHD Symptoms",
+  "Conners-4 Self ADHD Index",
+  "Inattention/Executive Dysfunction",
+  "Hyperactivity",
+  "Impulsivity",
+  "Emotional Dysregulation",
+  "Depressed Mood",
+  "Anxious Thoughts",
+  "Schoolwork",
+  "Peer Interactions",
+  "Family Life",
+  "ADHD Inattentive Symptoms",
+  "ADHD Hyperactive/Impulsive Symptoms",
+  "Total ADHD Symptoms",
+  "Oppositional Defiant Disorder Symptoms",
+  "Conduct Disorder Symptoms",
+  "ADHD Index",
+  ## CEFI
+  "Attention",
+  "Emotion Regulation",
+  "Flexibility",
+  "Inhibitory Control",
+  "Initiation",
+  "Organization",
+  "Full Scale",
+  "Planning",
+  "Self-Monitoring",
+  "Working Memory"
+)
+
+# Filter the data using the filter_data function from the bwu library
+# The domain is specified by the 'domains' variable
+# The scale is specified by the 'scales' variable
+data_adhd <- bwu::filter_data(data, domain = domains, scale = scales)
+```
+
+```{r}
+#| label: text-adhd-self
+#| cache: true
+#| include: false
+#| eval: false
+
+# Self-report
+data_adhd_self <-
+  data_adhd |>
+  dplyr::filter(test == "conners4_self" | test == "cefi_self" | test == "brown_efa_self" | test == "cefi_self_12-18") |>
+  dplyr::arrange(dplyr::desc(percentile)) |>
+  dplyr::distinct(.keep_all = FALSE)
+
+# Flatten the text
+bwu::cat_neuropsych_results(data = data_adhd_self, file = "_02-09_adhd_child_text_self.qmd")
+```
+
+```{r}
+#| label: text-adhd-parent
+#| cache: true
+#| include: false
+#| eval: true
+
+# Parent report
+data_adhd_parent <-
+  data_adhd |>
+  dplyr::filter(test == "conners4_parent" | test == "cefi_parent" | test == "brown_efa_parent" | test == "cefi_parent_5-18") |>
+  dplyr::distinct(.keep_all = FALSE)
+
+# Flatten the text
+bwu::cat_neuropsych_results(data = data_adhd_parent, file = "_02-09_adhd_child_text_parent.qmd")
+```
+
+```{r}
+#| label: text-adhd-teacher
+#| cache: true
+#| include: false
+#| eval: false
+
+# Parent report
+data_adhd_teacher <-
+  data_adhd |>
+  dplyr::filter(test == "conners4_teacher" | test == "cefi_teacher" | test == "brown_efa_teacher") |>
+  dplyr::distinct(.keep_all = FALSE)
+
+# Flatten the text
+bwu::cat_neuropsych_results(data = data_adhd_teacher, file = "_02-09_adhd_child_text_teacher.qmd")
+```
+
+```{r}
+#| label: qtbl-adhd-self
+#| dev: tikz
+#| fig-process: pdf2png
+#| include: false
+#| eval: false
+options(tikzDefaultEngine = "xetex")
+
+# table arguments
+table_name <- "table_adhd_self"
+vertical_padding <- 0
+multiline <- TRUE
+
+# footnotes
+fn_standard_score <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15
+[16th‰, 84th‰].
+
+Lower scores reflect reduced functioning.")
+
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+Higher scores reflect reduced functioning.")
+
+# groupings
+grp_adhd <- list(
+  standard_score = c("CEFI Self", "CEFI Observer", "CEFI Parent"),
+  t_score = c("Conners-4 Self", "Conners-4 Parent", "Conners-4 Teacher")
+)
+grp_conners4 <- list(
+  t_score = c("Conners-4 Self", "Conners-4 Parent", "Conners-4 Teacher")
+)
+grp_cefi <- list(
+  standard_score = c("CEFI Self", "CEFI Observer", "CEFI Parent")
+)
+grp_self <- list(
+  standard_score = c("CEFI Self"),
+  t_score = c("Conners-4 Self", "Brown EF/A Self")
+)
+
+# redo this bc got sorted by pct
+data_adhd_self <-
+  data_adhd |>
+  dplyr::filter(test == "conners4_self" | test == "cefi_self" | test == "brown_efa_self" | test == "cefi_self_12-18") |>
+  dplyr::distinct(.keep_all = FALSE)
+
+pheno <- "adhd_self"
+
+# make `gt` table
+bwu::tbl_gt(
+  data = data_adhd_self,
+  pheno = pheno,
+  table_name = table_name,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_standard_score = grp_self[["standard_score"]],
+  grp_t_score = grp_self[["t_score"]],
+  dynamic_grp = grp_self,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+
+```{r}
+#| label: qtbl-adhd-parent
+#| dev: tikz
+#| fig-process: pdf2png
+#| include: false
+#| eval: true
+options(tikzDefaultEngine = "xetex")
+
+# table arguments
+table_name <- "table_adhd_parent"
+vertical_padding <- 0
+multiline <- TRUE
+
+# footnotes
+fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15
+[16th‰, 84th‰].
+
+Lower scores reflect reduced functioning.")
+
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+Higher scores reflect reduced functioning.")
+
+# source notes
+sn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15
+[16th‰, 84th‰].
+
+Lower scores reflect reduced functioning.")
+
+sn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+Higher scores reflect reduced functioning.")
+
+source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+
+# groupings
+grp_adhd <- list(
+  standard_score = c("CEFI Self", "CEFI Observer"),
+  t_score = c("Conners-4 Self", "Conners-4 Parent", "Conners-4 Teacher")
+)
+grp_conners4 <- list(
+  t_score = c("Conners-4 Self", "Conners-4 Parent", "Conners-4 Teacher")
+)
+grp_cefi <- list(
+  standard_score = c("CEFI Self", "CEFI Observer")
+)
+
+grp_parent <- list(
+  standard_score = c("CEFI Parent"),
+  t_score = c("Conners-4 Parent", "Brown EF/A Parent")
+)
+
+# redo this bc got sorted by pct
+data_adhd_parent <-
+  data_adhd |>
+  dplyr::filter(test == "conners4_parent" | test == "cefi_parent" | test == "brown_efa_parent" | test == "cefi_parent_5-18") |>
+  dplyr::distinct(.keep_all = FALSE)
+
+pheno <- "adhd_parent"
+
+# make `gt` table
+bwu::tbl_gt(
+  data = data_adhd_parent,
+  pheno = pheno,
+  table_name = table_name,
+  source_note = sn_standard_score,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_standard_score = grp_parent[["standard_score"]],
+  grp_t_score = grp_parent[["t_score"]],
+  dynamic_grp = grp_parent,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+```{r}
+#| label: qtbl-adhd-teacher
+#| dev: tikz
+#| fig-process: pdf2png
+#| eval: false
+#| include: false
+options(tikzDefaultEngine = "xetex")
+
+# table arguments
+table_name <- "table_adhd_teacher"
+vertical_padding <- 0
+multiline <- TRUE
+
+# footnotes
+fn_standard_score <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15
+[16th‰, 84th‰].
+
+Lower scores reflect reduced functioning.")
+
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+
+Higher scores reflect reduced functioning.")
+
+# groupings
+grp_adhd <- list(
+  standard_score = c("CEFI Self", "CEFI Teacher"),
+  t_score = c("Conners-4 Self", "Conners-4 Parent", "Conners-4 Teacher")
+)
+grp_cefi <- list(
+  standard_score = c("CEFI Self", "CEFI Teacher", "CEFI Parent")
+)
+grp_conners4 <- list(
+  t_score = c("Conners-4 Self", "Conners-4 Parent", "Conners-4 Teacher")
+)
+
+grp_teacher <- list(
+  standard_score = c("CEFI Teacher"),
+  t_score = c("Conners-4 Teacher", "Brown EF/A Teacher")
+)
+
+# redo this bc got sorted by pct
+data_adhd_teacher <-
+  data_adhd |>
+  dplyr::filter(test == "conners4_teacher" | test == "cefi_teacher" | test == "brown_efa_teacher" | test == "cefi_teacher_5-18") |>
+  dplyr::distinct(.keep_all = FALSE)
+
+pheno <- "adhd_teacher"
+
+# make `gt` table
+bwu::tbl_gt(
+  data = data_adhd_teacher,
+  pheno = pheno,
+  table_name = table_name,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_standard_score = grp_teacher[["standard_score"]],
+  grp_t_score = grp_teacher[["t_score"]],
+  dynamic_grp = grp_teacher,
+  vertical_padding = vertical_padding,
+  multiline = multiline
+)
+```
+
+```{r}
+#| label: fig-adhd-self
+#| eval: false
+#| include: false
+#| fig-height: 6
+#| out-height: 100%
+#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
+
+# arguments
+filename <- "fig_adhd_self.svg"
+colors <- NULL
+return_plot <- TRUE
+
+# dotplot variables to plot (x, y)
+x <- data_adhd_self$z
+y <- data_adhd_self$scale
+
+# Suppress warnings from being converted to errors
+options(warn = 1) # Set warn to 1 to make warnings not halt execution
+
+bwu::dotplot(
+  data = data_adhd_self,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename,
+  na.rm = TRUE
+)
+
+# Reset warning options to default if needed
+options(warn = 0) # Reset to default behavior
+```
+
+```{r}
+#| label: fig-adhd-parent
+#| eval: true
+#| include: false
+#| fig-height: 6
+#| out-height: 100%
+#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
+
+# dotplot arguments
+filename <- "fig_adhd_parent.svg"
+colors <- NULL
+return_plot <- TRUE
+
+# dotplot variables to plot (x, y)
+x <- data_adhd_parent$z
+y <- data_adhd_parent$scale
+
+# Suppress warnings from being converted to errors
+options(warn = 1) # Set warn to 1 to make warnings not halt execution
+
+bwu::dotplot(
+  data = data_adhd_parent,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename,
+  na.rm = TRUE
+)
+
+# Reset warning options to default if needed
+options(warn = 0) # Reset to default behavior
+```
+
+```{r}
+#| label: fig-adhd-teacher
+#| eval: false
+#| include: false
+#| fig-height: 6
+#| out-height: 100%
+#| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
+
+# dotplot arguments
+filename <- "fig_adhd_teacher.svg"
+colors <- NULL
+return_plot <- TRUE
+
+# dotplot variables to plot (x, y)
+x <- data_adhd_teacher$z
+y <- data_adhd_teacher$scale
+
+# Suppress warnings from being converted to errors
+options(warn = 1) # Set warn to 1 to make warnings not halt execution
+
+bwu::dotplot(
+  data = data_adhd_teacher,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename,
+  na.rm = TRUE
+)
+
+# Reset warning options to default if needed
+options(warn = 0) # Reset to default behavior
+```
+
+<!-- ### SELF-REPORT -->
+
+<!-- {{< include _02-09_adhd_child_text_self.qmd >}} -->
+
+<!-- ```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Roboto Slab", size: 0.5em)
+  set text(..font)
+  pad(top: 0.5em)[]
+  grid(
+    columns: (50%, 50%),
+    gutter: 8pt,
+    figure(
+      [#image(file_qtbl)],
+      caption: figure.caption(position: top, [#title]),
+      kind: "qtbl",
+      supplement: [*Table*],
+    ),
+    figure(
+      [#image(file_fig)],
+      caption: figure.caption(
+        position: bottom,
+        [
+        Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+          ],
+      ),
+      placement: none,
+      kind: "image",
+      supplement: [*Figure*],
+      gap: 0.5em,
+    ),
+  )
+}
+
+#let title = "ADHD Self-Report"
+#let file_qtbl = "table_adhd_self.png"
+#let file_fig = "fig_adhd_self.svg"
+#domain(title: [#title], file_qtbl, file_fig)
+``` -->
+
+### PARENT REPORT
+
+{{< include _02-09_adhd_child_text_parent.qmd >}}
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Roboto Slab", size: 0.5em)
+  set text(..font)
+  pad(top: 0.5em)[]
+  grid(
+    columns: (50%, 50%),
+    gutter: 8pt,
+    figure(
+      [#image(file_qtbl)],
+      caption: figure.caption(position: top, [#title]),
+      kind: "qtbl",
+      supplement: [*Table*],
+    ),
+    figure(
+      [#image(file_fig)],
+      caption: figure.caption(
+        position: bottom,
+        [
+        Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+          ],
+      ),
+      placement: none,
+      kind: "image",
+      supplement: [*Figure*],
+      gap: 0.5em,
+    ),
+  )
+}
+
+#let title = "ADHD Parent Report"
+#let file_qtbl = "table_adhd_parent.png"
+#let file_fig = "fig_adhd_parent.svg"
+#domain(title: [#title], file_qtbl, file_fig)
+```
+
+<!-- ### TEACHER REPORT -->
+
+<!-- {{< include _02-09_adhd_child_text_teacher.qmd >}} -->
+
+<!-- ```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Roboto Slab", size: 0.5em)
+  set text(..font)
+  pad(top: 0.5em)[]
+  grid(
+    columns: (50%, 50%),
+    gutter: 8pt,
+    figure(
+      [#image(file_qtbl)],
+      caption: figure.caption(position: top, [#title]),
+      kind: "qtbl",
+      supplement: [*Table*],
+    ),
+    figure(
+      [#image(file_fig)],
+      caption: figure.caption(
+        position: bottom,
+        [
+        Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other.
+          ],
+      ),
+      placement: none,
+      kind: "image",
+      supplement: [*Figure*],
+      gap: 0.5em,
+    ),
+  )
+}
+
+#let title = "ADHD Teacher Report"
+#let file_qtbl = "table_adhd_teacher.png"
+#let file_fig = "fig_adhd_teacher.svg"
+#domain(title: [#title], file_qtbl, file_fig)
+``` -->
