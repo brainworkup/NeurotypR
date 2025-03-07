@@ -3,7 +3,7 @@ title: |
   <center> BASC-3 SRP Adolescent </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Biggie
+  patient: Elias
   test: basc3_srp_adolescent
   test_name: "BASC-3 SRP Adolescent"
   file:
@@ -78,7 +78,7 @@ extracted_tables <- tabulapdf::extract_tables(
   pages = pages,
   area = areas,
   guess = NULL,
-  method = "stream", # stream, lattice, decide
+  method = "stream",
   output = "matrix"
 )
 
@@ -95,18 +95,32 @@ extracted_tables <- qs2::qs_read(paste0("data/extracted_tables_", test, ".qs"))
 table1 <- data.frame(extracted_tables[[1]])
 column_names1 <- c("scale", "raw_score", "score", "percentile", "ci_95")
 colnames(table1) <- column_names1
-# Convert columns to double
+# Convert columns to double, handling non-numeric values
 to_double <- c("raw_score", "score", "percentile")
-table1[to_double] <- lapply(table1[to_double], as.numeric)
+table1[to_double] <- lapply(table1[to_double], function(x) {
+  # First convert to character to ensure consistent handling
+  x_char <- as.character(x)
+  # Replace any non-numeric values (like "-" or "") with NA
+  x_char[!grepl("^\\s*-?\\d+\\.?\\d*\\s*$", x_char)] <- NA
+  # Convert to numeric with warning suppression
+  suppressWarnings(as.numeric(x_char))
+})
 ```
 
 ```{r pluck-df2}
 table2 <- data.frame(extracted_tables[[2]])
 column_names2 <- c("scale", "raw_score", "score", "percentile", "ci_95", "difference", "sig_level") # frequency doesnt extract if no data
 colnames(table2) <- column_names2
-# Convert columns to double
+# Convert columns to double, handling non-numeric values
 to_double <- c("raw_score", "score", "percentile")
-table2[to_double] <- lapply(table2[to_double], as.numeric)
+table2[to_double] <- lapply(table2[to_double], function(x) {
+  # First convert to character to ensure consistent handling
+  x_char <- as.character(x)
+  # Replace any non-numeric values (like "-" or "") with NA
+  x_char[!grepl("^\\s*-?\\d+\\.?\\d*\\s*$", x_char)] <- NA
+  # Convert to numeric with warning suppression
+  suppressWarnings(as.numeric(x_char))
+})
 
 # Bind rows into full data.frame
 df <- dplyr::bind_rows(table1, table2)

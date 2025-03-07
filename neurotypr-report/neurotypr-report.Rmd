@@ -1,5 +1,5 @@
 ---
-title: "Neuropsychological Report"
+title: "Neurocognitive Examination"
 author: "Joey Trampush, PhD"
 date: "`r Sys.Date()`"
 output: 
@@ -14,30 +14,25 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Reason for Referral
+# NEUROBEHAVIORAL STATUS EXAM
 
-Fill this in ...
-TODO: \## Methods
+Brief introduction to your neurotypical research study.
 
-### Participants
+# NEUROCOGNITIVE TESTING
+
+## Domains
 
 Describe your participant recruitment and demographics.
 
-### Materials
+# SIRF
 
 List and describe the materials and measures used.
 
-### Procedure
+# RECOMMENDATIONS
 
 Detail the experimental procedure.
 
-## Results
-
-```{r analysis, echo=FALSE}
-# Your analysis code here
-```
-
-## Discussion
+## Apendix
 
 Discuss your findings and their implications.
 
