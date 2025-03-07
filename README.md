@@ -112,7 +112,7 @@ This package is licensed under the MIT License - see the LICENSE file for detail
 If you use NeurotypR in your research, please cite it as:
 
 ```
-Trampush, J. (2023). NeurotypR: R Markdown Template for Neuropsychological Report Writing. R package version 0.0.0.9002. https://github.com/brainworkup/NeurotypR
+Trampush, J. (2025). NeurotypR: R Markdown Template for Neuropsychological Report Writing. R package version 0.0.0.9002. https://github.com/brainworkup/NeurotypR
 ```
 
 ## Contributing
