@@ -33,10 +33,10 @@ NeurotypR is an R package that provides standardized R Markdown templates and fu
 
 ```r
 # Install from GitHub
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
+if (!requireNamespace("pak", quietly = TRUE)) {
+  install.packages("pak")
 }
-devtools::install_github("brainworkup/NeurotypR")
+pak::pak("brainworkup/NeurotypR")
 ```
 
 ## Usage
