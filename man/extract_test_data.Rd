@@ -15,7 +15,12 @@ extract_test_data(
   variables,
   lookup_table_path = "~/reports/neuropsych_lookup_table_combined.csv",
   write_output = TRUE,
-  output_dir = here::here("data", "csv"),
+  output_dir = if (requireNamespace("here", quietly = TRUE)) {
+     here::here("data",
+    "csv")
+ } else {
+     file.path("data", "csv")
+ },
   write_to_g = TRUE,
   g_filename = "g2"
 )
@@ -41,7 +46,7 @@ extract_test_data(
 
 \item{write_output}{Logical indicating whether to write output files}
 
-\item{output_dir}{Character string with directory to write output files to}
+\item{output_dir}{Character string with directory to write output files to. Default uses here::here("data", "csv") if available, otherwise file.path("data", "csv")}
 
 \item{write_to_g}{Logical indicating whether to append results to g2.csv}
 

@@ -8,7 +8,7 @@ format:
   neurotyp-typst:
     keep-typ: true
     keep-md: true
-    papersize: "a4"
+    papersize: "us-letter"
     bodyfont: "Equity B OTF"
     sansfont: "Work Sans"
     fontsize: 12pt

@@ -19,11 +19,12 @@
 #' @param filename The filename to save the plot to, Default: NULL
 #' @param ... Additional arguments to be passed to the function.
 #' @return An object of class 'ggplot' representing the dotplot.
-#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn
-#'   theme element_rect ggsave
 #' @importFrom stats reorder
+#' @importFrom ggplot2 ggplot geom_segment aes geom_point scale_fill_gradientn theme element_rect ggsave
 #' @importFrom ggthemes theme_fivethirtyeight
 #' @importFrom ggtext element_markdown
+#' @importFrom tibble tibble
+#' @importFrom highcharter list_parse
 #' @rdname dotplot
 #' @export
 dotplot <- function(data,
@@ -39,6 +40,13 @@ dotplot <- function(data,
                     return_plot = NULL,
                     filename = NULL,
                     ...) {
+  # Check if required packages are installed
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("Package 'ggplot2' must be installed to use this function.")
+  }
+  if (theme == "fivethirtyeight" && !requireNamespace("ggthemes", quietly = TRUE)) {
+    stop("Package 'ggthemes' must be installed to use theme_fivethirtyeight.")
+  }
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -184,12 +192,6 @@ dotplot <- function(data,
 #' @param patient Name of patient.
 #' @param neuro_domain Name of neuropsych domain to add to HC series.
 #' @param theme The highcharter theme to use.
-#' @importFrom dplyr group_by summarize mutate case_when arrange ungroup
-#' @importFrom highcharter tooltip_table highchart hc_title hc_add_series hcaes
-#'   hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme
-#'   hc_theme_merge hc_theme_sandsignika hc_theme_darkunica hc_theme_monokai
-#'   list_parse hc_colorAxis hc_chart
-#' @importFrom tibble tibble
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
@@ -198,6 +200,16 @@ drilldown <- function(data, patient, neuro_domain = c(
                         "Behavioral Rating Scales",
                         "Effort/Validity Test Scores"
                       ), theme) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
@@ -489,12 +501,6 @@ drilldown <- function(data, patient, neuro_domain = c(
 #' @param patient Name of patient.
 #' @param neuro_domain Name of neuropsych domain to add to HC series.
 #' @param theme The highcharter theme to use.
-#' @importFrom dplyr group_by summarize mutate case_when arrange ungroup
-#' @importFrom highcharter tooltip_table highchart hc_title hc_add_series hcaes
-#'   hc_xAxis hc_yAxis hc_tooltip hc_plotOptions hc_drilldown hc_add_theme
-#'   hc_theme_merge hc_theme_sandsignika hc_theme_darkunica hc_theme_monokai
-#'   list_parse hc_colorAxis hc_chart
-#' @importFrom tibble tibble
 #' @return A drilldown plot
 #' @rdname pass
 #' @export
@@ -503,6 +509,16 @@ pass <- function(data, patient, neuro_domain = c(
                    "Behavioral Rating Scales",
                    "Effort/Validity Test Scores"
                  ), theme) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores

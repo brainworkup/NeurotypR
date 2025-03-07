@@ -170,6 +170,7 @@ normalization <- function(x) {
 #' x <- c(1, 2, 3)
 #' standardization(x)
 #'
+#' @importFrom stats sd
 #' @export
 standardization <- function(x) {
   return((x - mean(x)) / sd(x))

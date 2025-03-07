@@ -157,7 +157,7 @@ test_name <- params$test_name
 pages <- params$pages
 # file <- file.path(file.choose())
 # file <- file.path(params$file)
-# qs::qsave(file, paste0(test, "_path.rds"))
+# qs2::qd_save(file, paste0(test, "_path.rds"))
 # file <- qs::qread(paste0(test, "_path.rds"))
 ```
 
@@ -176,7 +176,7 @@ pages <- params$pages
 # )
 # areas <- areas_wisc5
 # Save the entire list to an R data file
-# qs::qsave(areas, file = "areas_wisc5.rds")
+# qs2::qd_save(areas, file = "areas_wisc5.rds")
 areas <- qs::qread("~/Biggie/src/rmd/areas_wisc5.rds")
 ```
 
@@ -195,7 +195,7 @@ plucked_tables <- tabulapdf::extract_tables(
 
 ```{r}
 # Save the entire list to an R data file
-# qs::qsave(plucked_tables, file = "plucked_tables_wisc5.rds")
+# qs2::qd_save(plucked_tables, file = "plucked_tables_wisc5.rds")
 plucked_tables <- qs::qread("plucked_tables_wisc5.rds")
 ```
 

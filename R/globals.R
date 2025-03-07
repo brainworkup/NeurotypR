@@ -3,10 +3,18 @@
 #' @name globals
 #' @noRd
 utils::globalVariables(c(
-  "str", "true_score", "ci_lo", "ci_hi", "absort", "Subtest", "Raw score",
-  "Scaled score", "Completion Time (seconds)", "X1", "X2", "X3", "ci_90_lo",
-  "ci_90_up", "ci_95_lower", "ci_95_upper", "completion_time_seconds", "br"
+  ".", "absort", "br", "ci_90_lo", "ci_90_up", "ci_95", "ci_95_lower",
+  "ci_95_upper", "ci_hi", "ci_lo", "composite_name", "composition",
+  "Completion Time (seconds)", "completion_time_seconds", "description",
+  "domain", "domains", "index", "name", "narrow", "percentile", "Raw score",
+  "raw_score", "reliability", "result", "scales", "Scaled score", "scaled_score",
+  "score", "str", "subdomain", "Subtest", "t_score", "test", "test_name",
+  "test_type", "timed", "true_score", "verbal", "X1", "X2", "X3", "z", "zMean",
+  "zPct", "z_mean_domain", "z_mean_narrow", "z_mean_pass", "z_mean_subdomain",
+  "z_mean_timed", "z_mean_verbal", "z_sd_domain", "z_sd_narrow", "z_sd_pass",
+  "z_sd_subdomain", "z_sd_timed", "z_sd_verbal", "range", "pass", "scale",
+  "filename", "sd", "zMean", "pct1", "pct2", "pct3", "abbrev"
 ))
 
-#' Import functions from utils
 #' @importFrom utils str
+#' @importFrom stats sd pnorm qnorm

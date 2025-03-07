@@ -12,11 +12,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Example usage:
 #' domains <- c("Memory")
 #' pheno <- "memory"
 #' scales <- c("Scale1", "Scale2")
 #' prepare_data(domains, pheno, scales)
+#' }
 prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "neurocog.csv", package = "NeurotypR")) {
   # Check if required arguments are provided
   if (missing(domains) || missing(pheno) || missing(scales)) {

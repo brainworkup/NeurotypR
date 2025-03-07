@@ -72,7 +72,7 @@ score_type <- "scaled_score"
 # File path -------------------------------------------------------------
 
 file <- file.path(file.choose())
-qs::qsave(file, paste0(test, "_path.rds"))
+qs2::qd_save(file, paste0(test, "_path.rds"))
 
 # Parameters -------------------------------------------------------------
 

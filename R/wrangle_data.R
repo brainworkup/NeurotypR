@@ -4,7 +4,7 @@
 #' @importFrom dplyr filter distinct mutate group_by ungroup
 #' @importFrom purrr map set_names list_rbind
 #' @importFrom forcats as_factor
-#' @importFrom stats qnorm
+#' @importFrom stats qnorm sd
 #' @importFrom readr read_csv write_csv write_excel_csv
 #' @param file_path character, Name of patient file path
 #' @return List with 4 elements, each element is a dataframe of patient data

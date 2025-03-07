@@ -2,7 +2,7 @@
 #'
 #' This function extracts tables from PDF files containing neuropsychological test results,
 #' processes the data, merges with a lookup table, and calculates score ranges and text descriptions.
-#'
+#' @importFrom qs2 qd_save
 #' @param patient Character string with patient name
 #' @param test Character string identifying the test type (e.g., "wisc5", "wais5")
 #' @param test_name Character string with the full test name (e.g., "WISC-V", "WAIS-V")
@@ -13,7 +13,7 @@
 #' @param variables Character vector with names for the extracted columns
 #' @param lookup_table_path Character string with path to the lookup table CSV file
 #' @param write_output Logical indicating whether to write output files
-#' @param output_dir Character string with directory to write output files to
+#' @param output_dir Character string with directory to write output files to. Default uses here::here("data", "csv") if available, otherwise file.path("data", "csv")
 #' @param write_to_g Logical indicating whether to append results to g2.csv
 #' @param g_filename Character string with name of the g-file to write to (without extension)
 #'
@@ -44,13 +44,21 @@ extract_test_data <- function(
     variables,
     lookup_table_path = "~/reports/neuropsych_lookup_table_combined.csv",
     write_output = TRUE,
-    output_dir = here::here("data", "csv"),
+    output_dir = if (requireNamespace("here", quietly = TRUE)) {
+      here::here("data", "csv")
+    } else {
+      file.path("data", "csv")
+    },
     write_to_g = TRUE,
     g_filename = "g2") {
+  # Check if required packages are installed
+  if (!requireNamespace("tabulapdf", quietly = TRUE)) {
+    stop("Package 'tabulapdf' must be installed to use this function.")
+  }
   # File path -------------------------------------------------------------
   if (is.null(file)) {
     file <- file.path(file.choose())
-    qs::qsave(file, paste0(test, "_path.rds"))
+    qs2::qd_save(file, paste0(test, "_path.rds"))
   }
 
   # Parameters -------------------------------------------------------------

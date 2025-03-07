@@ -162,7 +162,7 @@ score_type <- params$score_type
 extract_columns <- params$extract_columns
 variables <- params$variables
 
-qs::qsave(file, paste0(test, "_path.rds"))
+qs2::qd_save(file, paste0(test, "_path.rds"))
 # file <- qs::qread(paste0(test, "_path.rds"))
 
 # saveRDS(file, paste0("file_pdf", test, ".rds")) # eventually update to data directory

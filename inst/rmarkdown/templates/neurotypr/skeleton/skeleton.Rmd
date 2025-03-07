@@ -1,5 +1,5 @@
 ---
-title: "Neuropsychological Report"
+title: "Neurocognitive Examination"
 author: "Your Name"
 date: "`r Sys.Date()`"
 output: 
@@ -18,26 +18,62 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # NEUROBEHAVIORAL STATUS EXAM
 
-Brief introduction to your neurotypical research study.
+==============================================
 
-# NEUROCOGNITIVE TESTING
+## **Identifying Information**
 
-## Domains
+- **Patient's Name:** [Insert defendant's name]
+- **Date of Report:** [Insert date of report]
 
-Describe your participant recruitment and demographics.
+## **Introduction**
 
-# SIRF
+As a forensic neuropsychologist, I have been retained to evaluate [Defendant's Name] in relation to their involvement in [briefly describe the alleged offense]. The purpose of this report is to provide an assessment of the defendant's mental health status and determine whether they meet the criteria for mental health diversion, as outlined in [California Penal Code Section].
 
-List and describe the materials and measures used.
+## **Clinical Evaluation**
 
-# RECOMMENDATIONS
+### Background Information
 
-Detail the experimental procedure.
+- **Demographic Information:** [Insert defendant's age, education level, employment status, and any relevant medical or mental health history]
+- **Criminal History:** [Insert defendant's prior convictions, if any]
 
-## Apendix
+### Mental Status Examination
 
-Discuss your findings and their implications.
+- **Appearance and Behavior:** [Describe the defendant's appearance and behavior during the evaluation, including any notable features or abnormalities]
+- **Speech and Language:** [Describe the defendant's speech patterns, including any abnormalities or deficits]
+- **Mood and Affect:** [Describe the defendant's mood and affect during the evaluation, including any evidence of anxiety, depression, or other emotional disturbances]
+- **Thought Process and Content:** [Describe the defendant's thought process and content, including any evidence of delusions, hallucinations, or disorganized thinking]
+- **Cognitive Functioning:** [Describe the defendant's cognitive functioning, including any evidence of deficits in attention, memory, or executive function]
 
-## References
+### Diagnostic Impressions
 
-List your references here.
+- **Axis I:** [List any Axis I diagnoses, including any mental health conditions that may be relevant to the defendant's alleged offense]
+- **Axis II:** [List any Axis II diagnoses, including any personality disorders or other conditions that may be relevant to the defendant's behavior]
+- **Axis III:** [List any Axis III diagnoses, including any medical conditions that may be relevant to the defendant's mental health status]
+
+### Assessment of Diversion Eligibility
+
+- **Mental Health Condition:** [Describe the defendant's mental health condition and how it relates to their alleged offense]
+- **Causal Link:** [Discuss the causal link between the defendant's mental health condition and their alleged offense]
+- **Treatment Needs:** [Describe the defendant's treatment needs and how they can be addressed through mental health diversion]
+- **Risk Assessment:** [Assess the defendant's risk of recidivism and any potential harm to themselves or others if they are not provided with mental health diversion]
+
+## **Conclusion**
+
+Based on the evaluation, I conclude that [Defendant's Name] meets the criteria for mental health diversion, as outlined in [California Penal Code Section]. The defendant's mental health condition is a significant contributing factor to their alleged offense, and they would benefit from treatment and diversion rather than incarceration. I recommend that the court consider mental health diversion as an alternative to traditional sentencing.
+
+## **Recommendations**
+
+- **Treatment Plan:** [Outline a treatment plan that addresses the defendant's mental health needs and reduces their risk of recidivism]
+- **Diversion Program:** [Recommend a diversion program that is suitable for the defendant's needs and circumstances]
+- **Monitoring and Evaluation:** [Recommend a plan for monitoring and evaluating the defendant's progress in the diversion program]
+
+## **Certification**
+
+I certify that I have personally evaluated [Defendant's Name] and that the opinions and recommendations expressed in this report are based on my professional expertise and judgment.
+
+## **Signature**
+
+[Your Name]
+Forensic Neuropsychologist
+[Your License Number]
+[Your Contact Information]

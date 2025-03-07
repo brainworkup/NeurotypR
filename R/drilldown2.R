@@ -1,8 +1,29 @@
+#' Drilldown on PASS Verbal/Nonverbal Domains
+#' This function creates a drilldown visualization for PASS Verbal/Nonverbal components.
+#' @param data Dataset to use.
+#' @param patient Name of patient.
+#' @param neuro_domain Name of neuropsych domain to add to HC series.
+#' @param theme The highcharter theme to use.
+#' @return A drilldown plot
+#' @importFrom tibble tibble
+#' @importFrom highcharter list_parse
+#' @rdname drilldown2
+#' @export
 drilldown2 <- function(data, patient, neuro_domain = c(
                          "Neuropsychological Test Scores",
                          "Behavioral Rating Scales",
                          "Effort/Validity Test Scores"
                        ), theme) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 3 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## PASS scores
@@ -224,11 +245,32 @@ drilldown2 <- function(data, patient, neuro_domain = c(
 }
 
 
+#' Drilldown on PASS Domains
+#' This function creates a drilldown visualization for PASS domains.
+#' @param data Dataset to use.
+#' @param patient Name of patient.
+#' @param neuro_domain Name of neuropsych domain to add to HC series.
+#' @param theme The highcharter theme to use.
+#' @return A drilldown plot
+#' @importFrom tibble tibble
+#' @importFrom highcharter list_parse
+#' @rdname pass
+#' @export
 pass <- function(data, patient, neuro_domain = c(
                    "Neuropsychological Test Scores",
                    "Behavioral Rating Scales",
                    "Effort/Validity Test Scores"
                  ), theme) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
@@ -389,11 +431,32 @@ pass <- function(data, patient, neuro_domain = c(
 
 
 
+#' Drilldown on Neuropsychological Domains
+#' This function creates a detailed hierarchical drilldown visualization for cognitive domains.
+#' @param data Dataset to use.
+#' @param patient Name of patient.
+#' @param neuro_domain Name of neuropsych domain to add to HC series.
+#' @param theme The highcharter theme to use.
+#' @return A drilldown plot with domain, subdomain, narrow, and scale levels
+#' @importFrom tibble tibble
+#' @importFrom highcharter list_parse
+#' @rdname drilldown3
+#' @export
 drilldown3 <- function(data, patient, neuro_domain = c(
                          "Neuropsychological Test Scores",
                          "Behavioral Rating Scales",
                          "Effort/Validity Test Scores"
                        ), theme) {
+  # Check if required packages are installed
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' must be installed to use this function.")
+  }
+  if (!requireNamespace("highcharter", quietly = TRUE)) {
+    stop("Package 'highcharter' must be installed to use this function.")
+  }
+  if (!requireNamespace("tibble", quietly = TRUE)) {
+    stop("Package 'tibble' must be installed to use this function.")
+  }
   # Create 4 levels of dataframes for drilldown ----------------------------------
   ## Level 1 -------------------------------------------------------
   ## Domain scores
