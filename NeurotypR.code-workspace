@@ -5,8 +5,8 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Default Dark Modern",
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "focus",
+    "workbench.iconTheme": "catppuccin-macchiato",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",
       "activityBar.background": "#dee2fc66",
@@ -16,23 +16,18 @@
       "sideBar.border": "#dee2fc66",
       "activityBar.foreground": "#15202b",
       "activityBar.inactiveForeground": "#15202b99",
-      "sash.hoverBorder": "#dee2fc66",
-      "commandCenter.border": "#15202b99",
-      "statusBar.background": "#b0b8f766",
-      "statusBar.foreground": "#15202b",
-      "statusBarItem.hoverBackground": "#828ef266",
-      "statusBarItem.remoteBackground": "#b0b8f766",
-      "statusBarItem.remoteForeground": "#15202b",
-      "titleBar.activeBackground": "#b0b8f766",
-      "titleBar.activeForeground": "#15202b",
-      "titleBar.inactiveBackground": "#b0b8f799",
-      "titleBar.inactiveForeground": "#15202b99"
+      "tab.activeBorder": "#dee2fc66",
+      "sash.hoverBorder": "#dee2fc66"
     },
     "peacock.color": "#b0b8f766",
     "peacock.affectActivityBar": true,
     "peacock.affectEditorGroupBorder": false,
     "peacock.affectPanelBorder": true,
-    "peacock.affectSideBarBorder": true
+    "peacock.affectSideBarBorder": true,
+    "workbench.preferredLightColorTheme": "Default Light Modern",
+    "jupyter.themeMatplotlibPlots": true,
+    "r.plot.defaults.colorTheme": "vscode",
+    "quarto.render.renderOnSave": true
   },
   "extensions": {
     "recommendations": [

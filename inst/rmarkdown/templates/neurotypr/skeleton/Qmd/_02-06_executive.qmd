@@ -251,9 +251,9 @@ data_executive_tbl <-
     "Letter-Number Sequencing",
     "List Memory Intrusions",
     "List Memory Repetitions",
-    "Longest Digit Span Backward",
-    "Longest Digit Span Forward",
-    "Longest Digit Span Sequence",
+    # "Longest Digit Span Forward",
+    # "Longest Digit Span Backward",
+    # "Longest Digit Span Sequence",
     "Longest Letter-Number Sequence",
     "Mazes",
     "NAB Attention Index",
@@ -342,24 +342,23 @@ source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th�
 
 # groupings
 grp_executive <- list(
-  scaled_score = c("WAIS-IV", "D-KEFS", "NEPSY-2", "WISC-5", "WISC-V", "WPPSI-IV", "RBANS"),
-  standard_score = c("NAB", "NAB-S", "WISC-5", "WISC-V", "WAIS-IV", "WPPSI-IV", "WASI-II", "RBANS", "NAB Executive Functions", "NAB Attention Index"),
+  scaled_score = c("WAIS-IV", "D-KEFS", "NEPSY-2", "WISC-5", "WISC-V", "WPPSI-IV", "RBANS", "RBANS Update Form A"),
+  standard_score = c("NAB", "NAB-S", "WISC-5", "WISC-V", "WAIS-IV", "WPPSI-IV", "WASI-II", "RBANS", "NAB Executive Functions", "NAB Attention Index", "RBANS Update Form A"),
   t_score = c("NAB-S", "NIH EXAMINER", "Trail Making Test", "Daily Living", "NAB Executive", "NAB Attention", "NAB")
 )
-
 
 # make `gt` table
 bwu::tbl_gt(
   data = data_executive_tbl,
   pheno = pheno,
   table_name = table_name,
-  source_note = source_note,
-  # fn_scaled_score = fn_scaled_score,
-  # fn_standard_score = fn_standard_score,
-  # fn_t_score = fn_t_score,
-  # grp_scaled_score = grp_executive[["scaled_score"]],
-  # grp_standard_score = grp_executive[["standard_score"]],
-  # grp_t_score = grp_executive[["t_score"]],
+  # source_note = source_note,
+  fn_scaled_score = fn_scaled_score,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_scaled_score = grp_executive[["scaled_score"]],
+  grp_standard_score = grp_executive[["standard_score"]],
+  grp_t_score = grp_executive[["t_score"]],
   dynamic_grp = grp_executive,
   vertical_padding = vertical_padding,
   multiline = multiline
@@ -466,7 +465,7 @@ options(warn = 0) # Reset to default behavior
   )
 ```
 
-<!-- ```{=typst}
+```{=typst}
 #let title = "Attention/Executive"
 #let file_qtbl = "table_executive.png"
 #let file_fig = "fig_executive_narrow.svg"
@@ -475,4 +474,4 @@ options(warn = 0) # Reset to default behavior
   file_qtbl,
   file_fig
   )
-``` -->
+```

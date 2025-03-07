@@ -4,7 +4,7 @@ params:
   patient: Biggie
   test:
     label: "Test"
-    value: rbans
+    value: "rbans"
     input: select
     multiple: no
     choices:
@@ -15,14 +15,24 @@ params:
       - rbans_d
   test_name:
     label: "Test Name"
-    value: RBANS
+    value: "RBANS Update Form A "
     input: select
     multiple: no
-    choices: [RBANS, RBANS Update Form A, RBANS Update Form B, RBANS Update Form C, RBANS Update Form D]
+    choices:
+      - "RBANS"
+      - "RBANS Update Form A "
+      - "RBANS Update Form B "
+      - "RBANS Update Form C "
+      - "RBANS Update Form D "
   file:
     label: "No file selected"
     value: file
     input: file
+  # Update these each time, get them from q-interactive web
+  line_orientation_percentile: [63]
+  naming_percentile: [37]
+  list_recall_percentile: [21]
+  list_recognition_percentile: [13]
   eval: TRUE
 output:
   rmdformats::robobook:
@@ -37,7 +47,9 @@ output:
 
 ```{r setup, include=F}
 # Set JAVA environment
-Sys.setenv(JAVA_HOME = "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home")
+Sys.setenv(
+  JAVA_HOME = 
+  "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home")
 options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
@@ -48,44 +60,35 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(tidyverse)
-library(tabulapdf)
-library(rJava)
-library(shiny)
+library(fs)
+library(googledrive)
+library(hablar)
 library(here)
 library(pdftools)
-library(fs)
-library(magrittr)
-library(hablar)
-library(googledrive)
+library(rJava)
+library(shiny)
+library(tabulapdf)
+library(tidyverse)
+library(glue)
+library(dplyr)
+library(readr)
 library(bwu)
+library(NeurotypR)
 ```
 
-## Patient
+## Parameters
 
-```{r patient}
+```{r}
 patient <- params$patient
-```
-
-## Test
-
-Name of neuropsych test or rating scale.
-
-```{r test}
 test <- params$test
 test_name <- params$test_name
-```
-
-## Load text/csv file and save as file.path
-
-```{r file}
-#input_file_path <- file.choose()
-input_file_path <- file.path(params$file)
+file <- file.path(params$file)
+# file <- file.path(file.choose())
 ```
 
 ## Google Drive
 
-```{r}
+```{r eval = FALSE}
 library(googledrive)
 
 # Set the scope to allow viewing and managing files in Google Drive
@@ -96,22 +99,22 @@ drive_auth()
 drive <- drive_get()
 
 # Upload a file to the drive
-file_path <- "/Users/joey/My Drive/004004907_3_10_2024.csv"
-drive_upload(media = file_path, name = "004004907_3_10_2024.csv")
+file <- params$file
+file_path <- glue::glue("/Users/joey/gDrive/rbans/", file)
+drive_upload(media = file_path, name = file)
 ```
 
 ## RAW SCORES
 
 ```{r}
-library(tidyverse)
-input_file_path <- "data/004004907_3_10_2024.csv"
-test_name_prefix <- "RBANS Update Form A "
+input_file_path <- file
+test_name_prefix <- params$test_name
 output_file_path <- "data/processed_rbans_raw_data.csv"
 
 df <- read_csv(input_file_path,
-               col_names = FALSE,
-               show_col_types = FALSE,
-               locale = locale(encoding = "UTF-16LE")
+  col_names = FALSE,
+  show_col_types = FALSE,
+  locale = locale(encoding = "UTF-16LE")
 )
 
 # function
@@ -153,10 +156,9 @@ pluck_rbans_raw <- function(input_file_path,
   df_raw$raw_score <- as.numeric(df_raw$raw_score)
 
   # Write the combined data to a CSV file
-  write_csv(df_raw, output_file_path)
+  readr::write_csv_excel(df_raw, output_file_path)
 
   return(df_raw)
-
 }
 rbans_raw <- pluck_rbans_raw(input_file_path, output_file_path = output_file_path, test_name_prefix)
 ```
@@ -164,8 +166,6 @@ rbans_raw <- pluck_rbans_raw(input_file_path, output_file_path = output_file_pat
 ## SCALED SCORES
 
 ```{r}
-# input_file_path <- "data/004004907_3_10_2024.csv"
-# test_name_prefix <- "RBANS Update Form A "
 output_file_path <- "data/processed_rbans_scaled_data.csv"
 
 # function
@@ -207,7 +207,7 @@ pluck_rbans_score <- function(input_file_path,
   df_score$score <- as.numeric(df_score$score)
 
   # Write the combined data to a CSV file
-  write_csv(df_score, output_file_path)
+  readr::write_csv_excel(df_score, output_file_path)
 
   return(df_score)
 }
@@ -260,10 +260,9 @@ pluck_rbans_completion_times <- function(input_file_path,
   df_times$completion_time_seconds <- as.numeric(df_times$completion_time_seconds)
 
   # Write the combined data to a CSV file
-  write_csv(df_times, output_file_path)
+  readr::write_csv_excel(df_times, output_file_path)
 
   return(df_times)
-
 }
 rbans_time <- pluck_rbans_completion_times(input_file_path, test_name_prefix, output_file_path = output_file_path)
 ```
@@ -320,11 +319,10 @@ pluck_rbans_composite <- function(input_file_path,
 
   # Optionally write to a CSV file
   if (!is.null(output_file_path)) {
-    write_csv(df_composite, output_file_path)
+    readr::write_csv_excel(df_composite, output_file_path)
   }
 
   return(df_composite)
-
 }
 
 rbans_composite <- pluck_rbans_composite(input_file_path, test_name_prefix, output_file_path = output_file_path)
@@ -355,31 +353,31 @@ process_and_save_rbans_data <- function(rbans_raw,
                                         output_file_path) {
   library(dplyr)
   library(stringr)
-  
+
   # Join the data into one dataframe by the test name
   df <- left_join(rbans_raw, rbans_score, by = "scale") |>
     mutate(percentile = as.numeric(""), range = as.character("")) |>
     left_join(rbans_time, by = "scale")
-  
+
   # Update specific percentile values
-  df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- 20
-  df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- 20
-  df$percentile[df$scale == "RBANS Update Form A List Recall"] <- 70
-  df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- 50
-  
+  df$percentile[df$scale == "RBANS Update Form A Line Orientation"] <- params$line_orientation_percentile
+  df$percentile[df$scale == "RBANS Update Form A Picture Naming"] <- params$naming_percentile
+  df$percentile[df$scale == "RBANS Update Form A List Recall"] <- params$list_recall_percentile
+  df$percentile[df$scale == "RBANS Update Form A List Recognition"] <- params$list_recognition_percentile
+
   # Recalculate percentiles based on score
   df <- df |>
     mutate(z = ifelse(!is.na(score), (score - 10) / 3, NA)) |>
     mutate(percentile = ifelse(is.na(percentile), trunc(pnorm(z) * 100), percentile)) |>
     select(-z)
-  
+
   # Merge with composite scores
   df <- bind_rows(df, rbans_composite) |>
     relocate(completion_time_seconds, .after = ci_95_upper)
-  
+
   # Test score ranges (assuming bwu::gpluck_make_score_ranges is a predefined function)
   df <- bwu::gpluck_make_score_ranges(table = df, test_type = "npsych_test")
-  
+
   # Remove prefix from scale names
   df <- df |>
     mutate(scale = str_remove(scale, test_name_prefix))
@@ -392,25 +390,25 @@ process_and_save_rbans_data <- function(rbans_raw,
     "Delayed Memory Index (DRI)" = "Delayed Memory Index",
     "Total Scale (TOT)" = "RBANS Total Index"
   )
-  
+
   df$scale <- map_chr(df$scale, ~ if_else(.x %in% names(scales_to_rename), scales_to_rename[.x], .x))
 
   # Write the combined data to a CSV file
-  return(write_csv(df, output_file_path))
+  return(readr::write_csv_excel(df, output_file_path))
 }
 
 df <- process_and_save_rbans_data(
-  rbans_raw = rbans_raw, 
+  rbans_raw = rbans_raw,
   rbans_score = rbans_score,
   rbans_time = rbans_time,
-  rbans_composite = rbans_composite, 
-  test_name_prefix = test_name_prefix, 
+  rbans_composite = rbans_composite,
+  test_name_prefix = test_name_prefix,
   output_file_path = output_file_path
-  )
+)
 
 # Write the combined data to a CSV file
 output_file_path <- "data/rbans.csv"
-write_csv(df, output_file_path)
+readr::write_csv_excel(df, output_file_path)
 ```
 
 # MUTATE
@@ -441,7 +439,7 @@ rbans <- bwu::gpluck_make_columns(
 
 ```{r domain}
 rbans <-
-  rbans |> 
+  rbans |>
   dplyr::mutate(
     domain = dplyr::case_when(
       scale == "RBANS Total Index" ~ "General Cognitive Ability",
@@ -692,7 +690,7 @@ rbans <-
 # EXPORT
 
 ```{r}
-readr::write_csv(rbans, here::here("data", "rbans.csv"), col_names = TRUE, na = "")
+readr::write_csv_excel(rbans, here::here("data", "rbans.csv"), col_names = TRUE, na = "")
 ```
 
 ```{r}

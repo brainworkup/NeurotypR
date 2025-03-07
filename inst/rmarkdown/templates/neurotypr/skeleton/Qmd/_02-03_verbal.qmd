@@ -57,9 +57,6 @@ verbal <- verbal |>
   )
 
 # Write the resulting data frame to a new CSV file
-# The file name is created by concatenating the 'pheno' variable and ".csv"
-# NA values are replaced with an empty string in the output file
-# Column names are included in the output file
 # If the file already exists, it is overwritten (not appended)
 readr::write_excel_csv(verbal, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
 ```
