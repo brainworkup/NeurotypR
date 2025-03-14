@@ -125,17 +125,43 @@ pluck_rbans_raw <- function(input_file_path,
     locale = locale(encoding = "UTF-16LE")
   )
 
-  # Rename the columns
-  names(df) <- c("Subtest", "NA", "Raw score")
+  # Rename the columns - make sure we have the right number based on the actual data
+  if (ncol(df) >= 3) {
+    names(df)[1:3] <- c("Subtest", "NA", "Raw score")
+    # Remove the second column
+    df <- df |> select(Subtest, `Raw score`)
+  } else {
+    # Handle the case where there might be fewer columns
+    names(df) <- c("Subtest", "Raw score")[1:ncol(df)]
+  }
 
-  # Remove the second column
-  df <- df |> select(Subtest, `Raw score`)
+  # Find the start of the "Raw Score" section with more robust approach
+  start_line <- which(df == "RAW SCORES", arr.ind = TRUE)
+  if (length(start_line) > 0) {
+    start_line <- start_line[1, "row"] + 1 # Take the first occurrence + 1
+  } else {
+    # Fallback if "RAW SCORES" not found
+    start_line <- which(grepl("RAW SCORES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+    if (length(start_line) > 0) {
+      start_line <- start_line[1, "row"] + 1
+    } else {
+      start_line <- 1 # Default to beginning if not found
+    }
+  }
 
-  # Find the start of the "Raw Score" section
-  start_line <- which(df == "RAW SCORES") + 1
-
-  # Find the stop of the "Raw Score" section
-  stop_line <- which(df == "SCALED SCORES") - 1
+  # Find the stop of the "Raw Score" section - similar approach
+  stop_line <- which(df == "SCALED SCORES", arr.ind = TRUE)
+  if (length(stop_line) > 0) {
+    stop_line <- stop_line[1, "row"] - 1 # Take the first occurrence - 1
+  } else {
+    # Fallback if "SCALED SCORES" not found
+    stop_line <- which(grepl("SCALED SCORES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+    if (length(stop_line) > 0) {
+      stop_line <- stop_line[1, "row"] - 1
+    } else {
+      stop_line <- nrow(df) # Default to end if not found
+    }
+  }
 
   # Read from the "Raw Score" section
   df_raw <- df |>
@@ -176,17 +202,43 @@ pluck_rbans_score <- function(input_file_path,
     locale = locale(encoding = "UTF-16LE")
   )
 
-  # Rename the columns
-  names(df) <- c("Subtest", "NA", "Scaled score")
+  # Rename the columns - make sure we have the right number based on the actual data
+  if (ncol(df) >= 3) {
+    names(df)[1:3] <- c("Subtest", "NA", "Scaled score")
+    # Remove the second column
+    df <- df |> select(Subtest, `Scaled score`)
+  } else {
+    # Handle the case where there might be fewer columns
+    names(df) <- c("Subtest", "Scaled score")[1:ncol(df)]
+  }
 
-  # Remove the second column
-  df <- df |> select(Subtest, `Scaled score`)
+  # Find the start of the "Scaled Score" section with more robust approach
+  start_line <- which(df == "SCALED SCORES", arr.ind = TRUE)
+  if (length(start_line) > 0) {
+    start_line <- start_line[1, "row"] + 1 # Take the first occurrence + 1
+  } else {
+    # Fallback if "SCALED SCORES" not found
+    start_line <- which(grepl("SCALED SCORES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+    if (length(start_line) > 0) {
+      start_line <- start_line[1, "row"] + 1
+    } else {
+      start_line <- 1 # Default to beginning if not found
+    }
+  }
 
-  # Find the start of the "Raw Score" section
-  start_line <- which(df == "SCALED SCORES") + 1
-
-  # Find the stop of the "Raw Score" section
-  stop_line <- which(df == "CONTEXTUAL EVENTS") - 1
+  # Find the stop of the "Scaled Score" section - similar approach
+  stop_line <- which(df == "CONTEXTUAL EVENTS", arr.ind = TRUE)
+  if (length(stop_line) > 0) {
+    stop_line <- stop_line[1, "row"] - 1 # Take the first occurrence - 1
+  } else {
+    # Fallback if "CONTEXTUAL EVENTS" not found
+    stop_line <- which(grepl("CONTEXTUAL EVENTS", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+    if (length(stop_line) > 0) {
+      stop_line <- stop_line[1, "row"] - 1
+    } else {
+      stop_line <- nrow(df) # Default to end if not found
+    }
+  }
 
   # Read from the "score" section
   df_score <- df |>
@@ -231,17 +283,43 @@ pluck_rbans_completion_times <- function(input_file_path,
     locale = locale(encoding = "UTF-16LE")
   )
 
-  # Rename the columns
-  names(df) <- c("Subtest", "NA", "Completion Time (seconds)")
+  # Rename the columns - make sure we have the right number based on the actual data
+  if (ncol(df) >= 3) {
+    names(df)[1:3] <- c("Subtest", "NA", "Completion Time (seconds)")
+    # Remove the second column
+    df <- df |> select(Subtest, `Completion Time (seconds)`)
+  } else {
+    # Handle the case where there might be fewer columns
+    names(df) <- c("Subtest", "Completion Time (seconds)")[1:ncol(df)]
+  }
 
-  # Remove the second column
-  df <- df |> select(Subtest, `Completion Time (seconds)`)
+  # Find the start of the "Completion Times" section with more robust approach
+  start_line <- which(df == "SUBTEST COMPLETION TIMES", arr.ind = TRUE)
+  if (length(start_line) > 0) {
+    start_line <- start_line[1, "row"] + 1 # Take the first occurrence + 1
+  } else {
+    # Fallback if "SUBTEST COMPLETION TIMES" not found
+    start_line <- which(grepl("SUBTEST COMPLETION TIMES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+    if (length(start_line) > 0) {
+      start_line <- start_line[1, "row"] + 1
+    } else {
+      start_line <- 1 # Default to beginning if not found
+    }
+  }
 
-  # Find the start of the section
-  start_line <- which(df == "SUBTEST COMPLETION TIMES") + 1
-
-  # Find the stop of the section
-  stop_line <- which(df == "RULES TRIGGERED") - 1
+  # Find the stop of the section - similar approach
+  stop_line <- which(df == "RULES TRIGGERED", arr.ind = TRUE)
+  if (length(stop_line) > 0) {
+    stop_line <- stop_line[1, "row"] - 1 # Take the first occurrence - 1
+  } else {
+    # Fallback if "RULES TRIGGERED" not found
+    stop_line <- which(grepl("RULES TRIGGERED", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+    if (length(stop_line) > 0) {
+      stop_line <- stop_line[1, "row"] - 1
+    } else {
+      stop_line <- nrow(df) # Default to end if not found
+    }
+  }
 
   # Read from the "Raw Score" section
   df_times <- df |>
@@ -282,37 +360,76 @@ pluck_rbans_composite <- function(input_file_path,
     locale = locale(encoding = "UTF-16LE")
   )
 
-  # Assume the first row after "Composite Score" has the column names
-  start_line <- which(df$X1 == "Composite Score")
+  # Find the start of the "Composite Score" section with more robust approach
+  start_line <- which(df == "Composite Score", arr.ind = TRUE)
+  if (length(start_line) > 0) {
+    start_line <- start_line[1, "row"] # Take the first occurrence
+  } else {
+    # Try looking for it in the X1 column specifically
+    start_line <- which(df$X1 == "Composite Score")
+    if (length(start_line) == 0) {
+      # Fallback if "Composite Score" not found
+      start_line <- which(grepl("Composite Score", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      if (length(start_line) > 0) {
+        start_line <- start_line[1, "row"]
+      } else {
+        # If still not found, return empty data frame
+        warning("Composite Score section not found in the file")
+        return(data.frame(
+          scale = character(),
+          score = numeric(),
+          percentile = numeric(),
+          ci_95_lower = numeric(),
+          ci_95_upper = numeric()
+        ))
+      }
+    }
+  }
+  
   # Assuming there's no specific end line, use the end of the file
   stop_line <- nrow(df)
 
-  # Extracting the relevant section
-  df_composite <- df |>
-    dplyr::slice((start_line + 1):stop_line) |>
-    tidyr::separate(
-      X3,
-      sep = ",",
-      into = c(
-        "percentile",
-        "ci_90_lo",
-        "ci_90_up",
-        "ci_95_lower",
-        "ci_95_upper"
-      )
-    ) |>
-    dplyr::dplyr::slice(-1) |>
-    dplyr::rename(scale = X1, score = X2) |>
-    # Filter based on the prefix
-    filter(str_starts(scale, test_name_prefix)) |>
-    select(-c(ci_90_lo, ci_90_up)) |>
-    dplyr::mutate(
-      scale = as.character(scale),
-      score = as.numeric(score),
-      percentile = as.numeric(percentile),
-      ci_95_lower = as.numeric(ci_95_lower),
-      ci_95_upper = as.numeric(ci_95_upper)
-    )
+  # Safely extract the relevant section with error handling
+  tryCatch(
+    {
+      df_composite <- df |>
+        dplyr::slice((start_line + 1):stop_line) |>
+        tidyr::separate(
+          X3,
+          sep = ",",
+          into = c(
+            "percentile",
+            "ci_90_lo",
+            "ci_90_up",
+            "ci_95_lower",
+            "ci_95_upper"
+          ),
+          fill = "right" # Handle cases with fewer than expected values
+        ) |>
+        dplyr::slice(-1) |>
+        dplyr::rename(scale = X1, score = X2) |>
+        # Filter based on the prefix
+        filter(str_starts(scale, test_name_prefix)) |>
+        select(-c(ci_90_lo, ci_90_up)) |>
+        dplyr::mutate(
+          scale = as.character(scale),
+          score = as.numeric(score),
+          percentile = as.numeric(percentile),
+          ci_95_lower = as.numeric(ci_95_lower),
+          ci_95_upper = as.numeric(ci_95_upper)
+        )
+    },
+    error = function(e) {
+      warning("Error processing composite scores: ", e$message)
+      return(data.frame(
+        scale = character(),
+        score = numeric(),
+        percentile = numeric(),
+        ci_95_lower = numeric(),
+        ci_95_upper = numeric()
+      ))
+    }
+  )
 
   # Optionally write to a CSV file
   if (!is.null(output_file_path)) {

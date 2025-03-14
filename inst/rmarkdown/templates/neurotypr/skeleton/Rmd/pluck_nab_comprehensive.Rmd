@@ -7,7 +7,7 @@ params:
   patient: Biggie
   test: nab
   test_name: NAB
-  pages: [2, 3, 6, 9, 10, 10, 11, 13] # no spatial
+  pages: [2, 3, 6, 9, 10, 10, 11, 13, 16]
   file:
     label: No file selected
     value: file
@@ -352,7 +352,7 @@ params:
       - percentile
   domains:
     label: "NAB Domains"
-    value: [index, att, lan, mem_list, mem_shape, mem_story, mem_daily, exe]
+    value: [index, att, lan, mem_list, mem_shape, mem_story, mem_daily, spt, exe]
     input: select
     multiple: yes
     choices:

@@ -344,12 +344,6 @@ ordering_list <- c(
   "Name/Address/Phone Delayed Recognition"
 )
 
-# Process the data
-data_memory_tbl <- data_memory |>
-  dplyr::filter(scale %in% ordering_list) |>
-  dplyr::mutate(scale = factor(scale, levels = ordering_list)) |>
-  dplyr::arrange(scale)
-
 # table arguments
 table_name <- "table_memory"
 vertical_padding <- 0
@@ -365,24 +359,24 @@ source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th�
 
 # groupings
 grp_memory <- list(
-  standard_score = c("CVLT-3", "CVLT-3 Brief", "NAB", "NAB-S", "CVLT-C"),
-  t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB"),
-  scaled_score = c("CVLT-3 Brief", "NEPSY-2", "CVLT-C", "CVLT-3")
+  scaled_score = c("CVLT-3 Brief", "NEPSY-2", "CVLT-C", "CVLT-3", "RBANS Update Form A", "RBANS"),
+  standard_score = c("CVLT-3", "CVLT-3 Brief", "NAB", "NAB-S", "CVLT-C", "RBANS Update Form A", "RBANS"),
+  t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB")
 )
 
 # make `gt` table
 bwu::tbl_gt(
-  data = data_memory_tbl,
+  data = data_memory,
   pheno = pheno,
   table_name = table_name,
   vertical_padding = vertical_padding,
-  source_note = source_note,
-  # fn_standard_score = fn_standard_score,
-  # fn_t_score = fn_t_score,
-  # fn_scaled_score = fn_scaled_score,
-  # grp_standard_score = grp_memory[["standard_score"]],
-  # grp_t_score = grp_memory[["t_score"]],
-  # grp_scaled_score = grp_memory[["scaled_score"]],
+  # source_note = source_note,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  fn_scaled_score = fn_scaled_score,
+  grp_standard_score = grp_memory[["standard_score"]],
+  grp_t_score = grp_memory[["t_score"]],
+  grp_scaled_score = grp_memory[["scaled_score"]],
   dynamic_grp = grp_memory,
   multiline = multiline
 )
@@ -401,9 +395,6 @@ colors <- NULL
 return_plot <- TRUE
 filename <- "fig_memory.svg"
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
 # Make dotplot
 bwu::dotplot(
   data = data_memory,
@@ -414,9 +405,6 @@ bwu::dotplot(
   filename = filename,
   na.rm = TRUE
 )
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
 ```
 
 ```{=typst}

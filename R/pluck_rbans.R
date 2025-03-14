@@ -10,6 +10,9 @@
 #' @param test_name The full test name to use in the output (e.g., "RBANS", "RBANS Update Form A")
 #' @param patient Patient identifier or name
 #' @param output_file_path Optional path to save the processed data. If NULL, data is returned but not saved.
+#' @importFrom readr read_csv write_csv_excel locale
+#' @import dplyr
+#' @import stringr
 #'
 #' @return A data frame containing the processed RBANS data
 #' @export
@@ -90,16 +93,15 @@ process_rbans_data <- function(input_file_path,
     # Keep only rows with the specified prefix in the first column
     df_raw <- df_raw |> dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
 
-    # Rename columns
-    vars <- c("scale", "raw_score")
-    df_raw <- df_raw |> dplyr::rename_with(~vars, dplyr::everything())
+    # Rename columns - using setNames instead of rename_with to avoid the length error
+    df_raw <- df_raw |> setNames(c("scale", "raw_score"))
 
     df_raw$scale <- as.character(df_raw$scale)
     df_raw$raw_score <- as.numeric(df_raw$raw_score)
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
-      readr::write_csv(df_raw, output_file_path)
+      readr::write_csv_excel(df_raw, output_file_path)
     }
 
     return(df_raw)
@@ -159,16 +161,15 @@ process_rbans_data <- function(input_file_path,
     # Keep only rows with the specified prefix in the first column
     df_score <- df_score |> dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
 
-    # Rename columns
-    vars <- c("scale", "score")
-    df_score <- df_score |> dplyr::rename_with(~vars, dplyr::everything())
+    # Rename columns - using setNames instead of rename_with to avoid the length error
+    df_score <- df_score |> setNames(c("scale", "score"))
 
     df_score$scale <- as.character(df_score$scale)
     df_score$score <- as.numeric(df_score$score)
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
-      readr::write_csv(df_score, output_file_path)
+      readr::write_csv_excel(df_score, output_file_path)
     }
 
     return(df_score)
@@ -228,16 +229,15 @@ process_rbans_data <- function(input_file_path,
     # Keep only rows with the specified prefix in the first column
     df_times <- df_times |> dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
 
-    # Rename columns
-    vars <- c("scale", "completion_time_seconds")
-    df_times <- df_times |> dplyr::rename_with(~vars, dplyr::everything())
+    # Rename columns - using setNames instead of rename_with to avoid the length error
+    df_times <- df_times |> setNames(c("scale", "completion_time_seconds"))
 
     df_times$scale <- as.character(df_times$scale)
     df_times$completion_time_seconds <- as.numeric(df_times$completion_time_seconds)
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
-      readr::write_csv(df_times, output_file_path)
+      readr::write_csv_excel(df_times, output_file_path)
     }
 
     return(df_times)
@@ -325,7 +325,7 @@ process_rbans_data <- function(input_file_path,
 
     # Write to file if output path is provided
     if (!is.null(output_file_path) && !is.null(df_composite) && nrow(df_composite) > 0) {
-      readr::write_csv(df_composite, output_file_path)
+      readr::write_csv_excel(df_composite, output_file_path)
     }
 
     return(df_composite)
@@ -394,7 +394,7 @@ process_rbans_data <- function(input_file_path,
 
   # Write the combined data to a CSV file if output_file_path is provided
   if (!is.null(output_file_path)) {
-    readr::write_csv(df, output_file_path)
+    readr::write_csv_excel(df, output_file_path)
   }
 
   return(df)
