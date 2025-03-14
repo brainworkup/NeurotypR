@@ -254,31 +254,32 @@ library(dplyr)
 # Function to extract columns by position
 extract_columns_by_position <- function(df, positions) {
   df[, positions]
+
+
+  # To save the filtered data.frame separately
+  filtered_df <- extract_columns_by_position(df, params$extract_columns)
+
+  # To overwrite the original data.frame
+  df <- extract_columns_by_position(df, params$extract_columns)
+
+  # Rename the variables
+  colnames(df) <- params$variables
+
+  # Step 1: Replace "-" with NA in the entire dataframe
+  df[df == "-"] <- NA
+
+  # Step 2 (Optional): Convert 'raw score' 'score' and 'percentile' to numeric
+  df <- df |>
+    mutate(
+      raw_score = as.numeric(raw_score),
+      score = as.numeric(score),
+      percentile = as.numeric(percentile)
+    )
+
+  # Step 3: Remove rows where 'score' or 'percentile' are missing
+  df <- df |>
+    filter(!is.na(score) & !is.na(percentile))
 }
-
-# To save the filtered data.frame separately
-filtered_df <- extract_columns_by_position(df, params$extract_columns)
-
-# To overwrite the original data.frame
-df <- extract_columns_by_position(df, params$extract_columns)
-
-# Rename the variables
-colnames(df) <- params$variables
-
-# Step 1: Replace "-" with NA in the entire dataframe
-df[df == "-"] <- NA
-
-# Step 2 (Optional): Convert 'raw score' 'score' and 'percentile' to numeric
-df <- df |>
-  mutate(
-    raw_score = as.numeric(raw_score),
-    score = as.numeric(score),
-    percentile = as.numeric(percentile)
-  )
-
-# Step 3: Remove rows where 'score' or 'percentile' are missing
-df <- df |>
-  filter(!is.na(score) & !is.na(percentile))
 ```
 
 ### Function to calculate 95% CI if needed
