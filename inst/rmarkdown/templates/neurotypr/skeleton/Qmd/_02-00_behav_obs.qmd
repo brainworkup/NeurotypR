@@ -34,5 +34,5 @@ Following are examples of information that may be included:
 - **Mood/Affect**: Neutral, range was full and appropriate.
 - **Sensory/Motor**: Performance was not limited by any obvious sensory or motor difficulties.
 - **Cognitive Process**: Coherent and goal directed.
-- **Effort/Validity**: Normal; RDS = 7, DCT = 4.3.
+- **Effort/Validity**: Normal; TOMM Trial 1 = 48/50, TOMM Trial 2 = 50/50, RDS = >6, DCT = 4.3.
 :::
