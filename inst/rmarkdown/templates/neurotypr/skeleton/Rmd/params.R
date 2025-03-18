@@ -2,7 +2,7 @@
 
 # Patient name ----------------------------------------------------------
 
-patient <- "Biggie"
+patient <- "Elias"
 
 # WISC-V parameters ----------------------------------------------------
 
@@ -73,6 +73,7 @@ score_type <- "scaled_score"
 
 file <- file.path(file.choose())
 qs::qsave(file, paste0(test, "_path.rds"))
+file <- qs::qread(paste0(test, "_path.rds"))
 
 # Parameters -------------------------------------------------------------
 
@@ -106,18 +107,21 @@ for (i in seq_along(extracted_areas)) {
   write.csv(extracted_areas[[i]], file = paste0(test, "_", i, ".csv"), row.names = FALSE)
 }
 
+test <- "wais5_index"
 # Save the entire list to an R data file
-save(extracted_areas, file = paste0(test, "_extracted_areas.rds"))
+saveRDS(extracted_areas, file = paste0(test, "_extracted_areas.rds"))
+# Load the list from the R data file (if necessary)
+extracted_areas <- readRDS(paste0(test, "_extracted_areas.rds"))
 
 # Check the extracted areas
 str(extracted_areas)
 
 # To convert a single test using extracted areas into a single data frame
-df1 <- extracted_areas[[1]]
+df <- extracted_areas[[1]]
 df2 <- extracted_areas[[2]]
-df1 <- as.data.frame(df1)
-df2 <- as.data.frame(df2)
-df <- rbind(df1, df2)
+df <- data.frame(df)
+df2 <- data.frame(df2)
+df <- rbind(df, df2)
 
 # Remove asterick from the first column (wisc5)
 df[, 2] <- gsub("\\*", "", df[, 2])
@@ -133,34 +137,6 @@ df <- df |>
   tidyr::unite("scale", 1, col2_paren, sep = " ", remove = TRUE)
 
 # FUNCTIONS ---------------------------------------
-
-# Function to merge subtests
-merge_subtests <- function(test, suffix = "csv") {
-  # Get the list of files matching the prefix and suffix
-  files <- dir(pattern = paste0(test, "_[0-9]+\\.", suffix))
-
-  # If no files are found, return an empty data frame
-  if (length(files) == 0) {
-    return(data.frame())
-  }
-
-  # Read in the first file
-  df <- readr::read_csv(files[1])
-
-  # Read in and bind the remaining files
-  for (file in files[-1]) {
-    temp_df <- readr::read_csv(file)
-    df <- dplyr::bind_rows(df, temp_df)
-  }
-
-  # Return the merged data frame
-  return(df)
-}
-
-df <- dplyr::bind_rows(wais5_1, wais5_2)
-
-# this did not work (below)
-df <- merge_subtests(test)
 
 # Function to extract columns by position---------------------------
 
@@ -203,8 +179,8 @@ df <- df |>
 for (i in seq_len(nrow(df))) {
   ci_values <- bwu::calc_ci_95(
     ability_score = df$score[i],
-    mean = 100, # change to 50, 0, 100, etc.
-    standard_deviation = 15, # change to 10, 1, 15, etc.
+    mean = 10, # change to 50, 0, 100, etc.
+    standard_deviation = 3, # change to 10, 1, 15, etc.
     reliability = .90
   )
   df$true_score[i] <- ci_values["true_score"]
@@ -223,6 +199,8 @@ df <- df |>
 lookup_table <- readr::read_csv("~/reports/neuropsych_lookup_table_combined.csv")
 
 # Merge the data with the lookup table
+test <- "wais5"
+
 df_merged <- dplyr::mutate(df, test = test) |>
   dplyr::left_join(lookup_table, by = c("test" = "test", "scale" = "scale")) |>
   dplyr::relocate(c(test, test_name), .before = scale)
@@ -266,7 +244,7 @@ df <- df_mutated |>
 
 # Write out final csv --------------------------------------------------
 
-test <- "wais4_index"
+test <- "wais5_index"
 readr::write_excel_csv(df, here::here("data", "csv", paste0(test, ".csv")), col_names = TRUE)
 
 

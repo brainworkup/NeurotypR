@@ -269,7 +269,7 @@ options(warn = 0) # Reset to default behavior
 ```{=typst}
 // Define a function to create a domain with a title, a table, and a figure
 #let domain(title: none, file_qtbl, file_fig) = {
-  let font = (font: "Roboto Slab", size: 0.5em)
+  let font = (font: "Roboto Slab", size: 0.7em)
   set text(..font)
   pad(top: 0.5em)[]
   grid(

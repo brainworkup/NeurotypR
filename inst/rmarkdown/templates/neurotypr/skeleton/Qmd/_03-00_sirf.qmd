@@ -180,7 +180,7 @@ bwu::dotplot(
     caption: figure.caption(
       position: bottom,
       [
-        Plots depicting the patient’s strengths and weaknesses across neurocognitive function subdomains. Note: z-scores are standardized with a mean of 0 and a standard deviation of 1.
+        Plots depicting the patient’s strengths and weaknesses across neurocognitive function subdomains. _Note:_ z-scores are standardized with a mean of 0 and a standard deviation of 1.
         ],
     ),
     kind: "image",

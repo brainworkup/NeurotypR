@@ -12,11 +12,11 @@ params:
       - wais5
   test_name:
     label: "Test Name"
-    value: "WAIS-V"
+    value: "WAIS-5"
     input: select
     multiple: no
     choices:
-      - WAIS-V
+      - WAIS-5
       - WAIS-IV
   file:
     label: "No file selected"
@@ -179,7 +179,6 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = TRUE
 )
-library(hablar)
 library(here)
 library(knitr)
 library(magrittr)
@@ -193,6 +192,7 @@ library(tibble)
 library(tidyr)
 library(dplyr)
 library(bwu)
+library(NeurotypR)
 ```
 
 ## Parameters
@@ -230,7 +230,7 @@ for (i in seq_along(extracted_areas)) {
 
 # Save the entire list to an R data file
 # qs2::qd_save(extracted_areas, file = "extracted_areas.rds")
-areas <- qs::qread("~/Biggie/src/rmd/areas_wisc5.rds")
+# areas <- qs::qread("~/Biggie/src/rmd/areas_wisc5.rds")
 ```
 
 ## Locate areas
