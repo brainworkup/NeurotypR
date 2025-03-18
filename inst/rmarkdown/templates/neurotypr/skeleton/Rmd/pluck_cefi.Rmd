@@ -71,6 +71,7 @@ library(yaml)
 library(bwu)
 library(NeurotypR)
 ```
+# note: updated 3/17/25
 
 ## Parameters
 
@@ -82,6 +83,8 @@ pages <- params$pages
 # file <- file.path(file.choose())
 file <- file.path(params$file)
 ```
+
+## Paths
 
 ```{r}
 if (params$test == "cefi_self") {
@@ -208,7 +211,7 @@ get_text <- function(file) {
 process_cefi_tables(extracted_tables)
 
 # Convert to tibble
-table1 <- tibble::as_tibble(table1)
+table1 <- data.frame(table1)
 # Ensure column names are correct
 names(table1) <- c("score", "ci_95", "percentile", "category")
 
@@ -224,7 +227,7 @@ table1 <- convert_columns(df = table1)
 
 ```{r}
 # Convert to tibble
-table2 <- tibble::as_tibble(table2)
+table2 <- data.frame(table2)
 
 # Remove empty columns from table2
 table2 <- table2 |>

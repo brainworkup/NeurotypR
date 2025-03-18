@@ -31,31 +31,31 @@ extract_columns <- c(1, 2, 3, 4)
 variables <- c("scale", "raw_score", "score", "percentile") # TODO:
 score_type <- "scaled_score"
 
-
 # WAIS-5 Parameters -------------------------------------------------------
 
 # WAIS-5 subtests
-test <- "wais5_subtest"
-test_name <- "WAIS-V"
-pages <- c(5)
+# do this first
+test <- "wais5"
+test_name <- "WAIS-5"
+pages <- c(24)
 extract_columns <- c(2, 4, 5, 6)
 variables <- c("scale", "raw_score", "score", "percentile")
 score_type <- "scaled_score"
 
 # WAIS-5 composites
+# do this second
 test <- "wais5"
-test_name <- "WAIS-V"
-pages <- c(7)
-extract_columns <- c(1, 2, 3, 4, 5)
-variables <- c("scale", "abbrev", "raw_score", "score", "percentile", "ci_95")
+test_name <- "WAIS-5"
+pages <- c(26, 26)
+extract_columns <- c(1, 3, 4, 5, 6)
+variables <- c("scale", "raw_score", "score", "percentile", "ci_95")
 score_type <- "standard_score"
-
 
 # WRAT-5 parameters -------------------------------------------------------
 
 test <- "wrat5"
 test_name <- "WRAT-5"
-pages <- c(2)
+pages <- c(20)
 extract_columns <- c(1, 2, 3, 4, 5)
 score_type <- "standard_score"
 variables <- c("scale", "raw_score", "score", "ci_95", "percentile")
@@ -72,7 +72,7 @@ score_type <- "scaled_score"
 # File path -------------------------------------------------------------
 
 file <- file.path(file.choose())
-qs2::qd_save(file, paste0(test, "_path.rds"))
+qs::qsave(file, paste0(test, "_path.rds"))
 
 # Parameters -------------------------------------------------------------
 
@@ -113,10 +113,24 @@ save(extracted_areas, file = paste0(test, "_extracted_areas.rds"))
 str(extracted_areas)
 
 # To convert a single test using extracted areas into a single data frame
-df <- data.frame(extracted_areas)
+df1 <- extracted_areas[[1]]
+df2 <- extracted_areas[[2]]
+df1 <- as.data.frame(df1)
+df2 <- as.data.frame(df2)
+df <- rbind(df1, df2)
 
 # Remove asterick from the first column (wisc5)
 df[, 2] <- gsub("\\*", "", df[, 2])
+
+# Remove parentheses (wais5 subtests)
+df <- df[!grepl("\\(", df[, 2]), ]
+
+# For WAIS-5, WISC-V, WAIS-IV
+# Merge Columns 1-2 and add parentheses
+library(tidyverse)
+df <- df |>
+  dplyr::mutate(col2_paren = paste0("(", df[[2]], ")")) |>
+  tidyr::unite("scale", 1, col2_paren, sep = " ", remove = TRUE)
 
 # FUNCTIONS ---------------------------------------
 
@@ -143,16 +157,16 @@ merge_subtests <- function(test, suffix = "csv") {
   return(df)
 }
 
-df <- dplyr::bind_rows(wisc5_1, wisc5_2)
+df <- dplyr::bind_rows(wais5_1, wais5_2)
 
 # this did not work (below)
-# df <- merge_subtests(test)
+df <- merge_subtests(test)
 
 # Function to extract columns by position---------------------------
 
 library(dplyr)
 
-extract_columns <- extract_columns
+extract_columns <- params$extract_columns
 
 # Function to extract columns by position
 extract_columns_by_position <- function(df, positions) {
@@ -160,16 +174,13 @@ extract_columns_by_position <- function(df, positions) {
 }
 
 # To save the filtered data.frame separately
-# filtered_df <- extract_columns_by_position(df, params$extract_columns)
 filtered_df <- extract_columns_by_position(df, extract_columns)
 
 # To overwrite the original data.frame
-# df <- extract_columns_by_position(df, params$extract_columns)
 df <- extract_columns_by_position(df, extract_columns)
 
 # Rename the variables
-# colnames(df) <- params$variables
-colnames(df) <- variables
+colnames(df) <- params$variables
 
 # Step 1: Replace "-" with NA in the entire dataframe
 df[df == "-"] <- NA
@@ -192,8 +203,8 @@ df <- df |>
 for (i in seq_len(nrow(df))) {
   ci_values <- bwu::calc_ci_95(
     ability_score = df$score[i],
-    mean = 10, # change to 50, 0, 100, etc.
-    standard_deviation = 3, # change to 10, 1, 15, etc.
+    mean = 100, # change to 50, 0, 100, etc.
+    standard_deviation = 15, # change to 10, 1, 15, etc.
     reliability = .90
   )
   df$true_score[i] <- ci_values["true_score"]
@@ -205,8 +216,6 @@ for (i in seq_len(nrow(df))) {
 df <- df |>
   dplyr::select(-c(true_score, ci_lo, ci_hi)) |>
   dplyr::relocate(ci_95, .after = score)
-
-
 
 # Lookup Table Match ------------------------------------------------------
 
@@ -225,8 +234,6 @@ df_mutated <- bwu::gpluck_make_columns(
   result = "",
   absort = NULL
 )
-
-rm(df_merged)
 
 # Test score ranges -------------------------------------------------------
 
@@ -259,7 +266,7 @@ df <- df_mutated |>
 
 # Write out final csv --------------------------------------------------
 
-test <- "wisc5_2"
+test <- "wais4_index"
 readr::write_excel_csv(df, here::here("data", "csv", paste0(test, ".csv")), col_names = TRUE)
 
 

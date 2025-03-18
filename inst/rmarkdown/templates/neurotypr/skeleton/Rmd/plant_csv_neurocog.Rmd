@@ -88,7 +88,7 @@ params:
         - "List Memory"
       DKEFS:
         - "D-KEFS Color Naming"
-        - "D-KEFS Word Reading"   
+        - "D-KEFS Word Reading"
         - "D-KEFS Inhibition"
         - "D-KEFS Switching"
         - "D-KEFS Inhibition Total Errors"
@@ -328,36 +328,26 @@ output:
 ```{r setup, include = FALSE}
 # Set JAVA environment
 Sys.setenv(
-  JAVA_HOME =
-    "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home"
+  JAVA_HOME = "/Library/Java/JavaVirtualMachines/graalvm-jdk-22.0.1+8.1/Contents/Home"
 )
-options(java.parameters = "-Xmx16000m")
 knitr::opts_chunk$set(
   root.dir = normalizePath("./"),
   echo = TRUE,
   message = TRUE,
   warning = TRUE,
-  error = TRUE,
-  include = FALSE
+  error = FALSE
 )
-library(dplyr)
-library(fs)
-library(glue)
-library(hablar)
+library(googledrive)
 library(here)
-library(knitr)
-library(magrittr)
 library(pdftools)
-library(rJava)
-library(rmarkdown)
-library(rmdformats)
 library(shiny)
-library(snakecase)
 library(tabulapdf)
-library(tidyverse)
-library(xfun)
-library(yaml)
+library(tidyr)
+library(glue)
+library(dplyr)
+library(readr)
 library(bwu)
+library(NeurotypR)
 ```
 
 ## Parameters
@@ -368,11 +358,10 @@ test <- params$test
 test_name <- params$test_name
 ```
 
-
 ## Make data frame
 
 ```{r make-df}
-data <- tibble::as_tibble(
+data <- data.frame(
   test = (params$test),
   test_name = (params$test_name),
   test_type = (params$test_type),

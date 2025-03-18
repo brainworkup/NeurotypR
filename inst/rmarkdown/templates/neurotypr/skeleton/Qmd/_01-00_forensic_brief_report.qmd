@@ -1,0 +1,47 @@
+## Reason for Referral
+
+{{< var first_name >}} {{< var last_name >}} is a {{< var age >}}-year-old {{< var sex >}} referred for evaluation. The Sheriff's Department arrested {{< var mr_mrs >}} {{< var last_name >}} and charged {{< var him_her >}} with one felony count of X (Penal Code X).
+
+## Background
+
+{{< var mr_mrs >}} {{< var last_name >}} has no prior criminal record and does not use drugs or alcohol. His medical/psychiatric history is marked by significant episodes of major depression, anxiety, and trauma. These conditions have been exacerbated by a series of traumatic events. In 2018, {{< var mr_mrs >}} {{< var last_name >}} experienced a left-sided cerebral hemorrhagic stroke, which has had ongoing effects on his mobility, cognitive abilities, and emotional regulation. His business partner years at his practice in <<CITY>> expressed concern about a potential diagnosis of bipolar disorder and declined to continue their professional partnership due to perceived risks to patient safety following {{< var mr_mrs >}} {{< var last_name >}}'s stroke. More recently, {{< var mr_mrs >}} {{< var last_name >}} has been facing additional stressors in the form of property management issues, tenant conflicts, and personal safety concerns.
+
+## Mental Status/Behavioral Observations
+
+::: {.block above="1.2em"}
+- **Orientation/Attention:** Alert, oriented, and memory intact but shows distractibility. Experiences short-term memory/attention issues (e.g., often spends 20+ minutes searching for his phone and keys), but denies major cognitive decline overall.
+- **Appearance and Behavior:** Disheveled, rapid speech, fidgety, acknowledges need for mental health assistance.
+- **Affect and Mood:** Reports stress and anxiety, exhibits severe mood swings, from fleeting and instantaneous crying (multiple times during exam) to instantaneous and inappropriate laughing (also multiple times). Denies suicidal and homicidal ideation.
+- **Thought Process:** Rapid, unrelated thoughts; no delusions or hallucinations.
+- **Speech/Language:** Pressured, disorganized, and difficult to understand at times. Mathematical analysis indicated {{< var mr_mrs >}} {{< var last_name >}} spoke xx% of the time during our 2+ hour exam, whereas I only spoke xx% of the time.
+- **Insight and Judgment:** Shows insight into condition, improved but previously poor judgment. Utilizes meditative activities, such as tending plants, as coping mechanisms.
+:::
+
+## Summary/Impression
+
+The actions leading to the arrest were atypical for {{< var mr_mrs >}} {{< var last_name >}} and appears influenced by heightened anxiety, complex life stressors, and historical traumatic experiences, rather than any predisposition towards aggression. His action to display a firearm under threat suggests a lapse in judgment rather than aggressive or impulsive behavior. He struggles with emotional distress, especially related to health and family matters, indicating chronic mood concerns.
+
+{{< var mr_mrs >}} {{< var last_name >}} meets DSM-5 criteria for conditions directly impacting cognitive, emotional, and behavioral functioning, contributing to the incident. He expresses fear of being perceived as aggressive, emphasizing that his actions were motivated by fear and anxiety rather than anger. He has participated in anger management, demonstrating awareness of his need to regulate his emotional responses. Further, {{< var mr_mrs >}} {{< var last_name >}} 's stroke history impacts his mobility and potentially his sense of vulnerability. He reflects on familial and cultural influences affecting his perceptions and decisions around self-defense.
+
+The current follow-up evaluation underscores the need for a comprehensive approach to {{< var mr_mrs >}} {{< var last_name >}} 's mental health and cognitive concerns. It highlights the importance of considering his cultural background, language barriers, and the complex interplay of trauma, stress, and both manic- and depressive-like emotions in his life. {{< var mr_mrs >}} {{< var last_name >}} is recommended for the Mental Health Diversion Program to address these multifaceted aspects, supporting his recovery and enhancing his quality of life. With adherence to a recommended treatment plan, his prognosis is favorable for mental health diversion, offering significant benefits in addressing underlying mental health issues and reducing recidivism risk.
+
+### Diagnostic Impression
+
+- {{< var dsm5_dx1 >}}
+- {{< var dsm5_dx2 >}}
+- {{< var dsm5_dx3 >}}
+- {{< var dsm5_dx4 >}}
+- {{< var dsm5_dx5 >}}
+
+- [DSM-5/ICD-10 Codes](_03-00_dsm5_icd10_dx.qmd)
+
+## Recommendations
+
+1. **Comprehensive Neuropsychological Evaluation**: A thorough assessment of the
+cognitive and emotional impacts of his stroke on fitness-for-work is warranted.
+2. **Tailored Therapy and Support**: Therapy, such as cognitive-behavioral therapy (CBT), to address specific stressors and anxiety. Support in managing property and professional responsibilities could reduce external stressors.
+3. **Monitoring and Ongoing Support**: Regular mental health monitoring to address new or ongoing stressors.
+4. **Physical Health Management**: Medical supervision for stroke impact and mobility issues.
+5. **Community and Legal Support**: Assistance with property and legal issues to alleviate stress and anxiety.
+6. **Family Reconciliation Efforts**: Encourage family therapy to reduce feelings of isolation.
+7. **Cultural and Educational Outreach**: Education on legal self-defense mechanisms and fear and anxiety management consistent with cultural values.

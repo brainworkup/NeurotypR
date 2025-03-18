@@ -63,7 +63,7 @@ processes the data, merges with a lookup table, and calculates score ranges and 
 \dontrun{
 # Extract WISC-V subtest data
 wisc5_data <- extract_test_data(
-  patient = "John",
+  patient = "Biggie",
   test = "wisc5",
   test_name = "WISC-V",
   pages = c(30),
