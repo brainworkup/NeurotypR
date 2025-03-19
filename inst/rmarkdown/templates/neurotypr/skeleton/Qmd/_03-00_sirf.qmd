@@ -79,7 +79,7 @@ readr::write_csv(g, "data/csv/g.csv")
 #| eval: false
 #| fig-cap: "Overall neurocognitive function subdomain plots of the patient's strengths and weaknesses. _Note:_ _z_-Scores have a mean of 0 and a standard deviation of 1."
 
-g <- vroom::vroom("data/csv/g.csv")
+g <- readr::read_csv("data/csv/g.csv")
 
 # scales
 keep <- c(
@@ -139,7 +139,7 @@ bwu::dotplot(
 #| fig-cap: "Broad cognitive domains"
 
 # Read the data and filter out "Cognitive Proficiency" scale
-data <- vroom::vroom("neurocog.csv") |>
+data <- readr::read_csv("neurocog.csv") |>
   dplyr::filter(scale != "Cognitive Proficiency")
 
 # Calculate M,SD

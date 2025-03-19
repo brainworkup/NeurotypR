@@ -18,7 +18,7 @@ pheno <- "daily_living"
 #| include: false
 
 # Read the CSV file into a data frame
-daily_living <- vroom::vroom("neurocog.csv")
+daily_living <- readr::read_csv("neurocog.csv")
 
 # Filter the data frame to keep only rows where 'domain' equals 'domains'
 daily_living <- daily_living |> dplyr::filter(domain %in% domains)

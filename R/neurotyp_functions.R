@@ -26,7 +26,7 @@ prepare_and_export_spatial_data <- function(domains, pheno, scales, input_file =
   }
 
   # Read the CSV file into a data frame
-  df_spatial <- vroom::vroom(input_file)
+  df_spatial <- readr::read_csv(input_file)
 
   # Ensure required columns are present in the data
   required_columns <- c("domain", "scale", "z_mean_domain")

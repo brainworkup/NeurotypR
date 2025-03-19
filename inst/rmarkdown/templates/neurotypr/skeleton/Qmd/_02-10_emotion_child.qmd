@@ -19,7 +19,7 @@ pheno <- "emotion"
 #| include: false
 
 # Read the CSV file into a data frame
-emotion <- vroom::vroom("neurobehav.csv")
+emotion <- readr::read_csv("neurobehav.csv")
 
 # Filter the data frame based on certain conditions
 # Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA

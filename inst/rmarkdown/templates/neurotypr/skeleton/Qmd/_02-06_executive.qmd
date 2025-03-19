@@ -21,7 +21,7 @@ pheno <- "executive"
 #| include: false
 
 # Read the CSV file into a data frame
-executive <- vroom::vroom("neurocog.csv")
+executive <- readr::read_csv("neurocog.csv")
 
 # Filter the data frame based on certain conditions
 # Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA
@@ -181,7 +181,12 @@ scales <- c(
   "Figure Drawing Copy Planning",
   "Figure Drawing Immediate Recall Organization",
   "Figure Drawing Immediate Recall Fragmentation",
-  "Figure Drawing Immediate Recall Planning"
+  "Figure Drawing Immediate Recall Planning",
+  "RBANS Digit Span",
+  "RBANS Coding",
+  "Digit Sequencing",
+  "Digits Backward",
+  "Symbol Span"
 )
 
 # Filter the data using the filter_data function from the bwu library

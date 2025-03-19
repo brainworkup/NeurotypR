@@ -13,7 +13,7 @@ domains <- c("General Cognitive Ability")
 pheno <- "iq"
 
 # Read the CSV file into a data frame
-iq <- vroom::vroom("neurocog.csv")
+iq <- readr::read_csv("neurocog.csv")
 ```
 
 ```{r}

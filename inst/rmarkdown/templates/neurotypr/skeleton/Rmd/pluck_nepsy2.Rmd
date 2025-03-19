@@ -84,7 +84,7 @@ file <- params$file
 library(tabulapdf)
 ## from basc3prs, not nepsy
 
-nepsy2 <- vroom::vroom("/Users/joey/reports/Biggie/data/nepsy2_scores.csv")
+nepsy2 <- readr::read_csv("/Users/joey/reports/Biggie/data/nepsy2_scores.csv")
 
 # f <- file.path(file.choose(""))
 

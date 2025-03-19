@@ -2230,7 +2230,7 @@ df <-
     result
   )
 
-vroom::vroom_write(df,
+readr::read_csv_write(df,
   here::here("data", "csv", "nab.csv"),
   delim = ",",
   col_names = TRUE,

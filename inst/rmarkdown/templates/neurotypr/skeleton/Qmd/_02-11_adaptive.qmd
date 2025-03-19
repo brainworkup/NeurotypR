@@ -16,7 +16,7 @@ pheno <- "adaptive"
 #| include: false
 
 # Read the CSV file into a data frame
-adaptive <- vroom::vroom("neurobehav.csv")
+adaptive <- readr::read_csv("neurobehav.csv")
 
 # Filter the data frame based on certain conditions
 # Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA

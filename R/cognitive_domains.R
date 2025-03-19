@@ -26,7 +26,7 @@ prepare_data <- function(domains, pheno, scales, type = system.file("extdata", "
   }
 
   # Read the CSV file into a data frame
-  data <- vroom::vroom(type)
+  data <- readr::read_csv(type)
 
   # Ensure required columns are present in the data
   required_columns <- c(

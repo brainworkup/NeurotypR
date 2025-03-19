@@ -18,7 +18,7 @@ pheno <- "spatial"
 #| include: false
 
 # Read the CSV file into a data frame
-spatial <- vroom::vroom("neurocog.csv")
+spatial <- readr::read_csv("neurocog.csv")
 
 # Filter the data frame to keep only rows where 'domain' equals 'domains'
 spatial <- spatial |> dplyr::filter(domain %in% domains)

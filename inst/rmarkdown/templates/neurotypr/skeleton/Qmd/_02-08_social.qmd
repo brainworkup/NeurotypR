@@ -18,8 +18,8 @@ pheno <- "social"
 #| include: false
 
 # Read the CSV file into a data frame
-social1 <- vroom::vroom("neurocog.csv")
-social2 <- vroom::vroom("neurobehav.csv")
+social1 <- readr::read_csv("neurocog.csv")
+social2 <- readr::read_csv("neurobehav.csv")
 social <- dplyr::bind_rows(social1, social2)
 
 # Filter the data frame based on certain conditions

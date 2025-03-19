@@ -172,8 +172,8 @@ plucked_tables <- bwu::gpluck_extract_tables(
 
 ```{r pluck, eval = T}
 # Use this because it imports as a tibble
-table1 <- vroom::vroom(paste0(test, "_1.csv"))
-table2 <- vroom::vroom(paste0(test, "_2.csv"))
+table1 <- readr::read_csv(paste0(test, "_1.csv"))
+table2 <- readr::read_csv(paste0(test, "_2.csv"))
 
 # Rename columns
 vars_tbl1 <- c("scale", "raw_score", "score", "percentile", "ci_95")
@@ -192,7 +192,7 @@ df <- bind_rows(table1, table2)
 
 ```{r}
 # Read the lookup table
-lookup_basc3_prs <- vroom::vroom("/Users/joey/Dropbox/neuropsych_lookup_table.csv")
+lookup_basc3_prs <- readr::read_csv("/Users/joey/Dropbox/neuropsych_lookup_table.csv")
 
 # Add test column
 df$test <- test

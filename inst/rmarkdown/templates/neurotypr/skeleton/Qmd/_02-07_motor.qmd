@@ -18,7 +18,7 @@ pheno <- "motor"
 #| include: false
 
 # Read the CSV file into a data frame
-motor <- vroom::vroom("neurocog.csv")
+motor <- readr::read_csv("neurocog.csv")
 
 # Filter the data frame based on certain conditions
 # Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA

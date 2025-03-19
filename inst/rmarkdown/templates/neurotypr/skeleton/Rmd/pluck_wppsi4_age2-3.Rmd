@@ -293,8 +293,8 @@ df <- bind_rows(table2, table3, table1) |>
 
 ```{r}
 # Read the lookup table
-# lookup_wppsi4 <- vroom::vroom("data/lookup_wppsi4_ages2-3.csv")
-lookup_wppsi4 <- vroom::vroom("data/neuropsych_lookup_table.csv")
+# lookup_wppsi4 <- readr::read_csv("data/lookup_wppsi4_ages2-3.csv")
+lookup_wppsi4 <- readr::read_csv("data/neuropsych_lookup_table.csv")
 
 # Add test column
 df$test <- "wppsi4"

@@ -46,7 +46,7 @@ concatenate_results <- function(df) {
 #' @return NULL. Writes the processed summary to the file.
 process_and_save_results <- function(file_path, output_path) {
   # Load the dataset
-  df <- vroom::vroom(file_path)
+  df <- readr::read_csv(file_path)
 
   # Sort the dataset by 'percentile' in descending order
   df <- df |> arrange(desc(percentile))

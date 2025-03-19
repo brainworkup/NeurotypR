@@ -13,7 +13,7 @@ domains <- c("Academic Skills")
 pheno <- "academics"
 
 # Read the CSV file into a data frame
-academics <- vroom::vroom("neurocog.csv")
+academics <- readr::read_csv("neurocog.csv")
 ```
 
 ```{r}

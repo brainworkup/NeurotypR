@@ -65,10 +65,10 @@ return_plot <- Sys.getenv("RETURN_PLOT")
 
 file_path <- here::here("data", "csv")
 bwu::load_data(here::here(file_path))
-neurocog <- vroom::vroom("neurocog.csv")
-neurobehav <- vroom::vroom("neurobehav.csv")
-neuropsych <- vroom::vroom("neuropsych.csv")
-validity <- vroom::vroom("validity.csv")
+neurocog <- readr::read_csv("neurocog.csv")
+neurobehav <- readr::read_csv("neurobehav.csv")
+neuropsych <- readr::read_csv("neuropsych.csv")
+validity <- readr::read_csv("validity.csv")
 ```
 
 ```{=typst}
@@ -93,7 +93,7 @@ validity <- vroom::vroom("validity.csv")
 
 <!-- {{< pagebreak >}} -->
 
-{{< include _02-00_behav-obs.qmd >}}
+{{< include _02-00_behav_obs.qmd >}}
 
 # NEUROCOGNITIVE FINDINGS {#sec-nt}
 

@@ -2,7 +2,7 @@
 
 # Patient name ----------------------------------------------------------
 
-patient <- "Elias"
+patient <- "Victoria"
 
 # WISC-V parameters ----------------------------------------------------
 
@@ -37,7 +37,7 @@ score_type <- "scaled_score"
 # do this first
 test <- "wais5"
 test_name <- "WAIS-5"
-pages <- c(24)
+pages <- c(7)
 extract_columns <- c(2, 4, 5, 6)
 variables <- c("scale", "raw_score", "score", "percentile")
 score_type <- "scaled_score"
@@ -46,7 +46,7 @@ score_type <- "scaled_score"
 # do this second
 test <- "wais5"
 test_name <- "WAIS-5"
-pages <- c(26, 26)
+pages <- c(9)
 extract_columns <- c(1, 3, 4, 5, 6)
 variables <- c("scale", "raw_score", "score", "percentile", "ci_95")
 score_type <- "standard_score"
@@ -127,9 +127,13 @@ df <- rbind(df, df2)
 df[, 2] <- gsub("\\*", "", df[, 2])
 
 # Remove parentheses (wais5 subtests)
-df <- df[!grepl("\\(", df[, 2]), ]
+library(dplyr)
+library(stringr)
 
-# For WAIS-5, WISC-V, WAIS-IV
+df <- df %>%
+  mutate(X2 = str_remove_all(X2, "\\(|\\)"))
+
+# For WAIS-5 Indexes, WISC-V, WAIS-IV
 # Merge Columns 1-2 and add parentheses
 library(tidyverse)
 df <- df |>
@@ -203,7 +207,7 @@ test <- "wais5"
 
 df_merged <- dplyr::mutate(df, test = test) |>
   dplyr::left_join(lookup_table, by = c("test" = "test", "scale" = "scale")) |>
-  dplyr::relocate(c(test, test_name), .before = scale)
+  dplyr::relocate(all_of(c("test", "test_name")), .before = "scale")
 
 # add missing columns
 df_mutated <- bwu::gpluck_make_columns(
@@ -240,7 +244,6 @@ df <- df_mutated |>
   ) |>
   dplyr::select(-description) |>
   dplyr::relocate(absort, .after = result)
-
 
 # Write out final csv --------------------------------------------------
 
