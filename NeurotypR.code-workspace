@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Codemos Modern (Dark)",
+    "workbench.colorTheme": "Tailwind Dark Neutral",
     "workbench.iconTheme": "Monokai Pro Icons",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",

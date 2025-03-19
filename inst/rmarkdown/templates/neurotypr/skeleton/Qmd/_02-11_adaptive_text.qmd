@@ -1,13 +1,3 @@
-<<PROMPT>>
-
-## Area: Adaptive Functioning
-
-Summarize and interpret these neuropsychological test scores related to the area denoted above. For scores that are Below Average, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation in order from scores that are Exceptionally High/Above Average to Exceptionally Low/Below Average to delineate relative strengths and weaknesses, respectively. Finally, recommended additional support that the patient should receive in areas in which scores fall Below Average to Exceptionally Low.
-
-Prefix the output/results as follows: Headers (e.g., Relative Strengths,
-Relative Weaknesses) should be padded with ###, and output that contains lists should be
-unordered and padded with - instead of ordered.
-
 <<EXAMPLE>>
 
 Adaptive functioning is a broad term that refers to the collection of conceptual, social, and practical skills that enable individuals to function independently and meet the demands of everyday life. These skills include things like communication, self-care, home living, social skills, and community use.
