@@ -4,12 +4,12 @@ title: |
   <center> Comprehensive Score Report </center>
 date: "`r Sys.Date()`"
 params:
-  patient: Victoria
+  patient: Biggie
   test: nab
   test_name: NAB
   pages: [2, 3, 6, 9, 10, 10, 11, 13, 16]
   file:
-    label: No file selected
+    label: "No file selected"
     value: file
     input: file
   index:
@@ -421,6 +421,9 @@ library(tabulapdf)
 library(tidyr)
 library(glue)
 library(dplyr)
+library(rlang)
+library(purrr)
+library(qs2)
 library(readr)
 library(bwu)
 library(NeurotypR)
@@ -437,8 +440,8 @@ pages <- params$pages
 domain_names <- params$domains
 # file <- file.path(file.choose())
 file <- file.path(params$file)
-qs2::qd_save(file, paste0(test, "_path.rds"))
-# qs2::qd_read(paste0(test, "_path.rds"))
+qs2::qd_save(file, paste0(test, "_file_path.rds"))
+# qs2::qd_read(paste0(test, "_file_path.rds"))
 ```
 
 ## Areas
@@ -519,11 +522,8 @@ areas <- list(
   }
 )
 
-# Save the areas list to a file
-saveRDS(areas, file = "areas_list.rds")
-
-# Load the areas list from a file
-# areas <- readRDS("areas_list.rds")
+qs2::qd_save(file, paste0(test, "_areas_list.rds"))
+# qs2::qd_read(paste0(test, "_areas_list.rds"))
 ```
 
 ```{r eval = FALSE}
@@ -538,7 +538,8 @@ areas <- tabulapdf::locate_areas(
 areas_df <- do.call(rbind, lapply(areas, function(x) as.data.frame(t(x))))
 
 # Write the data frame to a text file
-write.table(areas_df,
+write.table(
+  areas_df,
   file = "areas_nab.txt",
   sep = "\t",
   row.names = FALSE,
@@ -550,7 +551,7 @@ write.table(areas_df,
 dput(areas, file = "areas_nab.txt")
 
 # Read the list back into R
-areas_nab <- dget("areas_nab.txt")
+# areas_nab <- dget("areas_nab.txt")
 ```
 
 ## Extract
@@ -600,10 +601,10 @@ domain_names <- params$domains
 names(extracted_tables) <- domain_names
 
 # Save the list of data frames to a file
-saveRDS(extracted_tables, file = "extracted_tables.rds")
+saveRDS(extracted_tables, file = glue::glue(test, "_extracted_tables.rds"))
 
 # Load the list of data frames from the file
-extracted_tables <- readRDS("extracted_tables.rds")
+extracted_tables <- readRDS(glue::glue(test, "_extracted_tables.rds"))
 
 # Verify that the list is loaded correctly
 str(extracted_tables)
@@ -619,26 +620,29 @@ convert_percentile <- function(df, column_name) {
   column_sym <- rlang::sym(column_name)
 
   df <- df |>
-    mutate(original_percentile = .data[[column_name]]) |> # Store original percentile values
-    mutate(temp_column = as.numeric(ifelse(
-      grepl("^>", .data[[column_name]]),
-      as.numeric(sub("^>", "", .data[[column_name]])) + 0.1,
-      ifelse(grepl("^<", .data[[column_name]]), 0.9, .data[[column_name]])
-    ))) |>
-    mutate(!!column_sym := temp_column) |>
+    dplyr::mutate(original_percentile = .data[[column_name]]) |> # Store original percentile values
+    dplyr::mutate(
+      temp_column = as.numeric(ifelse(
+        grepl("^>", .data[[column_name]]),
+        as.numeric(sub("^>", "", .data[[column_name]])) + 0.1,
+        ifelse(grepl("^<", .data[[column_name]]), 0.9, .data[[column_name]])
+      ))
+    ) |>
+    dplyr::mutate(!!column_sym := temp_column) |>
     select(-temp_column)
   return(df)
 }
 
+# df <- df |> convert_percentile("column_name")
+
 # Function to convert specified columns to integer, double, and factor types
 convert_columns <- function(df, to_integer, to_double, to_factor) {
   df <- df |>
-    mutate(across(all_of(to_integer), as.integer, .names = "{.col}")) |>
-    mutate(across(all_of(to_double), as.double, .names = "{.col}")) |>
-    mutate(across(all_of(to_factor), as.factor, .names = "{.col}"))
+    dplyr::mutate(across(all_of(to_integer), as.integer, .names = "{.col}")) |>
+    dplyr::mutate(across(all_of(to_double), as.double, .names = "{.col}")) |>
+    dplyr::mutate(across(all_of(to_factor), as.factor, .names = "{.col}"))
   return(df)
 }
-# df <- df |> convert_percentile()
 ```
 
 ## Function to tidy the data frame and maintain column types
@@ -666,37 +670,28 @@ tidy_data <- function(df) {
 
 ```{r}
 library(dplyr)
-# Function to extract columns by position
-extract_columns_by_position <- function(df, positions) {
-  df[, positions]
 
-
-  # To save the filtered data.frame separately
-  # filtered_df <- extract_columns_by_position(df, params$extract_columns)
-  filtered_df <- extract_columns_by_position(df, extract_columns)
-
-  # To overwrite the original data.frame
-  # df <- extract_columns_by_position(df, params$extract_columns)
-  df <- extract_columns_by_position(df, extract_columns)
+extract_and_clean_columns <- function(df, positions, new_colnames) {
+  # Extract columns by position
+  df <- df[, positions]
 
   # Rename the variables
-  # colnames(df) <- params$variables
-  colnames(df) <- variables
+  colnames(df) <- new_colnames
 
-  # Step 1: Replace "-" with NA in the entire dataframe
+  # Replace "-" with NA in the entire dataframe
   df[df == "-"] <- NA
 
-  # Step 2 (Optional): Convert 'raw score' 'score' and 'percentile' to numeric
+  # Convert 'raw score', 'score', and 'percentile' to numeric
   df <- df |>
-    mutate(
-      raw_score = as.numeric(raw_score),
-      score = as.numeric(score),
-      percentile = as.numeric(percentile)
+    dplyr::mutate(
+      across(c("raw_score", "score", "percentile"), as.numeric)
     )
 
-  # Step 3: Remove rows where 'score' or 'percentile' are missing
+  # Remove rows where 'score' or 'percentile' are missing
   df <- df |>
     filter(!is.na(score) & !is.na(percentile))
+
+  return(df)
 }
 ```
 
@@ -710,9 +705,8 @@ save_path <- "data"
 ```{r}
 # Extract table
 table_name <- "index"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names1
-
 
 # Specify the columns to be converted
 to_integer <- c("score")
@@ -749,7 +743,11 @@ if (params$test == "nab") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue::glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 1
 index <- table
@@ -761,7 +759,7 @@ print(index)
 ```{r}
 # Extract table
 table_name <- "att"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names2
 
 # Specify the columns to be converted
@@ -826,7 +824,11 @@ if (params$test == "nabs") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 2
 att <- table
@@ -896,7 +898,11 @@ if (params$test == "nabs") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 3
 lan <- table
@@ -908,7 +914,7 @@ print(lan)
 ```{r}
 # Extract table
 table_name <- "mem_list"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names2
 
 # Specify the columns to be converted
@@ -937,8 +943,12 @@ if (params$test == "nab") {
   table[6, 1] <- c("List Learning List A Short Delayed Recall")
   table[7, 1] <- c("List Learning List A Long Delayed Recall")
   table[8, 1] <- c("List Learning List A Percent Retention")
-  table[9, 1] <- c("List Learning List A Long Delayed Forced-Choice Recognition")
-  table[10, 1] <- c("List Learning List A Long Delayed Forced-Choice Recognition False Alarms")
+  table[9, 1] <- c(
+    "List Learning List A Long Delayed Forced-Choice Recognition"
+  )
+  table[10, 1] <- c(
+    "List Learning List A Long Delayed Forced-Choice Recognition False Alarms"
+  )
   table[11, 1] <- c("List Learning List A Discriminability Index")
   table[12, 1] <- c("List Learning List A Recall vs. Recognition Index")
   table[13, 1] <- c("List Learning Semantic Clusters")
@@ -958,7 +968,11 @@ if (params$test == "nab") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 4
 mem_list <- table
@@ -970,7 +984,7 @@ print(mem_list)
 ```{r}
 # Extract table
 table_name <- "mem_shape"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names3
 
 # Assign the table to a variable with a descriptive name
@@ -1008,12 +1022,18 @@ if (params$test == "nabs") {
   table[5, 1] <- c("Shape Learning Delayed Recognition")
   table[6, 1] <- c("Shape Learning Percent Retention")
   table[7, 1] <- c("Shape Learning Delayed Forced-Choice Recognition")
-  table[8, 1] <- c("Shape Learning Delayed Forced-Choice Recognition False Alarms")
+  table[8, 1] <- c(
+    "Shape Learning Delayed Forced-Choice Recognition False Alarms"
+  )
   table[9, 1] <- c("Shape Learning Discriminability Index")
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 5
 mem_shape <- table
@@ -1025,7 +1045,7 @@ print(mem_shape)
 ```{r}
 # Extract table
 table_name <- "mem_story"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names3
 
 # Specify the columns to be converted
@@ -1060,13 +1080,19 @@ if (params$test == "nab") {
   table[2, 1] <- c("Story Learning Phrase Unit Long Delayed Recall")
 } else if (params$test == "nabs") {
   table[1, 1] <- c("Screening Story Learning Immediate Recall")
-  table[2, 1] <- c("Screening Story Learning
-Delayed Recall")
+  table[2, 1] <- c(
+    "Screening Story Learning
+Delayed Recall"
+  )
   table[3, 1] <- c("Screening Story Learning Percent Retention")
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 6
 mem_story <- table
@@ -1078,7 +1104,7 @@ print(mem_story)
 ```{r}
 # Extract table
 table_name <- "mem_daily"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names3
 
 # Specify the columns to be converted
@@ -1116,7 +1142,11 @@ if (params$test == "nab") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 7
 mem_daily <- table
@@ -1128,7 +1158,7 @@ print(mem_daily)
 ```{r eval = params$eval_spt}
 # Extract table
 table_name <- "spt"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names3
 
 # Specify the columns to be converted
@@ -1147,30 +1177,6 @@ tidy_table <- tidy_data(table)
 
 # Convert columns again after tidying to ensure types are preserved
 table <- convert_columns(tidy_table, to_integer, to_double, to_factor)
-
-# if (params$eval_spt == TRUE) {
-#   # Extract table
-#   table_name <- "spt"
-#   table <- as.data.frame(extracted_tables[[table_name]])
-#   colnames(table) <- params$column_names3
-#
-#   # Specify the columns to be converted
-#   to_integer <- c("raw_score", "score", "percentile")
-#   to_double <- c("z_score")
-#   to_factor <- c("category")
-#
-#   # Apply the convert_percentile function to the percentile column
-#   table <- convert_percentile(table, "percentile")
-#
-#   # Use the function to convert the columns
-#   table <- convert_columns(table, to_integer, to_double, to_factor)
-#
-#   # Tidy the data frame
-#   tidy_table <- tidy_data(table)
-#
-#   # Convert columns again after tidying to ensure types are preserved
-#   table <- convert_columns(tidy_table, to_integer, to_double, to_factor)
-# }
 
 if (params$test == "nab") {
   table[1, 1] <- c("Visual Discrimination")
@@ -1193,7 +1199,11 @@ if (params$test == "nab") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 8
 spt <- table
@@ -1205,7 +1215,7 @@ print(spt)
 ```{r}
 # Extract table
 table_name <- "exe"
-table <- as.data.frame(extracted_tables[[table_name]])
+table <- data.frame(extracted_tables[[table_name]])
 colnames(table) <- params$column_names3
 
 # Specify the columns to be converted
@@ -1239,7 +1249,11 @@ if (params$test == "nab") {
 }
 
 # Save table as csv file
-write.csv(table, glue("{save_path}/{test}_table_{table_name}.csv"), row.names = FALSE)
+write.csv(
+  table,
+  glue("{save_path}/{test}_table_{table_name}.csv"),
+  row.names = FALSE
+)
 
 # make table 9
 exe <- table
@@ -1251,12 +1265,23 @@ print(exe)
 ```{r eval = TRUE}
 df <- data.frame()
 
-df <- df |> dplyr::bind_rows(index, att, lan, mem_list, mem_shape, mem_story, mem_daily, spt, exe)
+df <- df |>
+  dplyr::bind_rows(
+    index,
+    att,
+    lan,
+    mem_list,
+    mem_shape,
+    mem_story,
+    mem_daily,
+    spt,
+    exe
+  )
 ```
 
 ## Function to calculate 95% CI if needed
 
-```{r eval = TRUE}
+```{r eval = FALSE}
 # Assuming df is your data.frame and calc_ci_95 is your function
 for (i in seq_len(nrow(df))) {
   ci_values <- bwu::calc_ci_95(
@@ -1280,7 +1305,9 @@ df <- df |>
 
 ```{r eval = TRUE}
 # Load the lookup table
-lookup_table <- readr::read_csv("~/reports/neuropsych_lookup_table_combined.csv")
+lookup_table <- readr::read_csv(
+  "~/reports/neuropsych_lookup_table_combined.csv"
+)
 
 # Merge the data with the lookup table
 df_merged <- dplyr::mutate(df, test = test) |>
@@ -1294,8 +1321,6 @@ df_mutated <- bwu::gpluck_make_columns(
   result = "",
   absort = NULL
 )
-
-# rm(df_merged)
 ```
 
 ## Test score ranges
@@ -1303,7 +1328,10 @@ df_mutated <- bwu::gpluck_make_columns(
 ```{r ranges, eval = TRUE}
 df_mutated <- df_mutated |>
   dplyr::mutate(range = NULL) |>
-  bwu::gpluck_make_score_ranges(table = df_mutated, test_type = "npsych_test") |>
+  bwu::gpluck_make_score_ranges(
+    table = df_mutated,
+    test_type = "npsych_test"
+  ) |>
   dplyr::relocate(c(range), .after = percentile)
 ```
 
@@ -1312,18 +1340,8 @@ df_mutated <- df_mutated |>
 ```{r results, eval = TRUE}
 df <- df_mutated |>
   dplyr::mutate(
-    result = ifelse(
-      percentile == 1,
-      glue::glue("{description} fell within the {range} and ranked at the {percentile}st percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"),
-      ifelse(
-        percentile == 2,
-        glue::glue("{description} fell within the {range} and ranked at the {percentile}nd percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"),
-        ifelse(
-          percentile == 3,
-          glue::glue("{description} fell within the {range} and ranked at the {percentile}rd percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"),
-          glue::glue("{description} fell within the {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n")
-        )
-      )
+    result = glue::glue(
+      "{description} performed in the {range} range, exceeding {100 - percentile}% of peers in the general population.\n"
     )
   ) |>
   dplyr::select(-description) |>
@@ -1333,161 +1351,31 @@ df <- df_mutated |>
 ## Sort by domains and subtests
 
 ```{r eval = TRUE}
-#' Sort NAB scales in standard order
-#'
-#' @description
-#' Sorts a data frame containing Neuropsychological Assessment Battery (NAB) scales
-#' into the standard hierarchical order: Total Index followed by domain indices with
-#' their respective subtests.
-#'
-#' @param data A data frame containing a column named "scale" with NAB scale names
-#'
-#' @return A data frame sorted by NAB scale names in standard order
-#'
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' nab_data <- tibble::tibble(
-#'   scale = c("Memory Index (MEM)", "Attention Index (ATT)", "Dots"),
-#'   score = c(100, 95, 8)
-#' )
-#' sort_nab_scales(nab_data)
-#' }
-sort_nab_scales <- function(data) {
-  # Define standard NAB order
-  nab_order <- c(
-    "Total NAB Index (T-NAB)",
-    # Attention domain
-    "Attention Index (ATT)",
-    "Orientation",
-    "Orientation to Self",
-    "Orientation to Time",
-    "Orientation to Place",
-    "Orientation to Situation",
-    "Digits Forward",
-    "Digits Forward Longest Span",
-    "Digits Backward",
-    "Digits Backward Longest Span",
-    "Dots",
-    "Numbers & Letters Part A Speed",
-    "Numbers & Letters Part A Errors",
-    "Numbers & Letters Part A Efficiency",
-    "Numbers & Letters Part B Efficiency",
-    "Numbers & Letters Part C Efficiency",
-    "Numbers & Letters Part D Efficiency",
-    "Numbers & Letters Part D Disruption",
-    "Driving Scenes",
-    # Language domain
-    "Language Index (LAN)",
-    "Oral Production",
-    "Auditory Comprehension",
-    "Auditory Comprehension Colors",
-    "Auditory Comprehension Shapes",
-    "Auditory Comprehension Colors/Shapes/Numbers",
-    "Auditory Comprehension Pointing",
-    "Auditory Comprehension Yes/No",
-    "Auditory Comprehension Paper Folding",
-    "Naming",
-    "Naming Semantic Cuing",
-    "Naming Phonemic Cuing",
-    "Reading Comprehension",
-    "Reading Comprehension Words",
-    "Reading Comprehension Sentences",
-    "Writing",
-    "Writing Legibility",
-    "Writing Spelling",
-    "Writing Syntax",
-    "Writing Conveyance",
-    "Bill Payment",
-    # Memory domain
-    "Memory Index (MEM)",
-    "List Learning List A Trial 1 Immediate Recall",
-    "List Learning List A Trial 2 Immediate Recall",
-    "List Learning List A Trial 3 Immediate Recall",
-    "List Learning List A Immediate Recall",
-    "List Learning List B Immediate Recall",
-    "List Learning List A Short Delayed Recall",
-    "List Learning List A Long Delayed Recall",
-    "List Learning List A Percent Retention",
-    "List Learning List A Long Delayed Forced-Choice Recognition",
-    "List Learning List A Long Delayed Forced-Choice Recognition False Alarms",
-    "List Learning List A Discriminability Index",
-    "List Learning List A Recall vs. Recognition Index",
-    "List Learning Semantic Clusters",
-    "List Learning Perseverations",
-    "List Learning Intrusions",
-    "Shape Learning Trial 1 Immediate Recognition",
-    "Shape Learning Trial 2 Immediate Recognition",
-    "Shape Learning Trial 3 Immediate Recognition",
-    "Shape Learning Immediate Recognition",
-    "Shape Learning Delayed Recognition",
-    "Shape Learning Percent Retention",
-    "Shape Learning Delayed Forced-Choice Recognition",
-    "Shape Learning Delayed Forced-Choice Recognition False Alarms",
-    "Shape Learning Discriminability Index",
-    "Story Learning Trial 1 Phrase Unit",
-    "Story Learning Trial 2 Phrase Unit",
-    "Story Learning Phrase Unit Immediate Recall",
-    "Story Learning Thematic Unit Immediate Recall",
-    "Story Learning Trial 1 Thematic Unit",
-    "Story Learning Trial 2 Thematic Unit",
-    "Story Learning Phrase Unit Delayed Recall",
-    "Story Learning Thematic Unit Delayed Recall",
-    "Story Learning Phrase Unit Percent Retention",
-    "Daily Living Memory Immediate Recall",
-    "Daily Living Memory Delayed Recall",
-    "Daily Living Memory Retention",
-    "Daily Living Memory Delayed Recognition",
-    "Daily Living Memory Recall vs. Recognition",
-    "Medication Instructions Immediate Recall",
-    "Medication Instructions Delayed Recall",
-    "Medication Instructions Delayed Recognition",
-    "Name/Address/Phone Immediate Recall",
-    "Name/Address/Phone Delayed Recall",
-    "Name/Address/Phone Delayed Recognition",
-    # Spatial domain
-    "Spatial Index (SPT)",
-    "Visual Discrimination",
-    "Design Construction",
-    "Figure Drawing Copy",
-    "Figure Drawing Copy Organization",
-    "Figure Drawing Copy Fragmentation",
-    "Figure Drawing Copy Planning",
-    "Figure Drawing Immediate Recall",
-    "Figure Drawing Immediate Recall Organization",
-    "Figure Drawing Immediate Recall Fragmentation",
-    "Figure Drawing Immediate Recall Planning",
-    "Figure Drawing Percent Retention",
-    "Map Reading",
-    # Executive Functions domain
-    "Executive Functions Index (EXE)",
-    "Mazes",
-    "Judgment",
-    "Categories",
-    "Word Generation",
-    "Word Generation Perseverations"
-  )
+library(NeurotypR)
+df <- NeurotypR::sort_nab_scales(df)
 
-  # Sort the data frame using the predefined order
-  data %>%
-    dplyr::mutate(scale = factor(scale, levels = nab_order)) %>%
-    dplyr::arrange(scale)
-}
-
-df <- sort_nab_scales(df)
+# Remove any incomplete rows (rows with just "test" value but missing other data)
+df <- df |>
+  dplyr::filter(!is.na(scale) & scale != "")
 ```
+
+# Save
 
 ## Write out final csv
 
 ```{r write}
 test <- params$test
-readr::write_excel_csv(df, here::here("data", "csv", paste0(test, ".csv")), col_names = TRUE)
+readr::write_excel_csv(
+  df,
+  here::here("data", "csv", paste0(test, ".csv")),
+  na = "",
+  col_names = TRUE
+)
 ```
 
-## Write to "g2.csv" file
+## Write to "g.csv" file
 
-```{r g2, eval = TRUE}
+```{r g, eval = TRUE}
 has_headers <- function(file_path) {
   if (!file.exists(file_path)) {
     return(FALSE) # File doesn't exist, headers are needed
@@ -1497,7 +1385,7 @@ has_headers <- function(file_path) {
 }
 
 csv_file <- df
-g <- "g2"
+g <- "g"
 file_path <- here::here("data", paste0(g, ".csv"))
 
 readr::write_excel_csv(
@@ -1505,7 +1393,8 @@ readr::write_excel_csv(
   file_path,
   append = TRUE,
   col_names = !has_headers(file_path),
-  quote = "all"
+  quote = "all",
+  na = ""
 )
 ```
 

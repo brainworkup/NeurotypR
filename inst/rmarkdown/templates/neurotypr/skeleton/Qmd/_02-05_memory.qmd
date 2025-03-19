@@ -61,7 +61,13 @@ memory <- memory |>
 
 # Write the 'memory' data frame to a CSV file
 # The file name is derived from the 'pheno' variable
-readr::write_excel_csv(memory, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+readr::write_excel_csv(
+  memory,
+  paste0(pheno, ".csv"),
+  na = "",
+  col_names = TRUE,
+  append = FALSE
+)
 ```
 
 ```{r}
@@ -212,162 +218,7 @@ bwu::cat_neuropsych_results(data = data_memory, file = "_02-05_memory_text.qmd")
 
 ```{r}
 #| include: false
-
-#' @title Make Table Using gt Package for Neurocognitive Domains
-#' @description Create a table of domain counts using dplyr and gt packages.
-#' @importFrom dplyr across mutate group_by summarize arrange select if_else
-#' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave tab_style tab_stubhead tab_caption tab_spanner cell_text cells_body cells_row_groups md tab_footnote opt_vertical_padding
-#' @importFrom gtExtras gt_theme_538
-#' @importFrom tidyr replace_na
-#' @importFrom glue glue
-#' @param data File or path to data.
-#' @param pheno Phenotype name.
-#' @param table_name Name of the table to be saved.
-#' @param source_note Source note to be added to the table.
-#' @param names Names of the columns.
-#' @param title Title of the table.
-#' @param tab_stubhead Stubhead of the table.
-#' @param caption Caption of the table.
-#' @param process_md Process markdown.
-#' @param fn_scaled_score Footnote for scaled score.
-#' @param fn_standard_score Footnote for standard score.
-#' @param fn_t_score Footnote for t score.
-#' @param fn_z_score Footnote for z score.
-#' @param fn_raw_score Footnote for raw scores.
-#' @param grp_standard_score Groups for standard score.
-#' @param grp_t_score Groups for t score.
-#' @param grp_scaled_score Groups for scaled score.
-#' @param grp_z_score Groups for z score.
-#' @param grp_raw_score Groups for raw scores.
-#' @param dynamic_grp Generalized grouping parameter.
-#' @param vertical_padding Vertical padding.
-#' @param multiline Multiline footnotes, Default = TRUE.
-#' @param ... Additional arguments to be passed to the function.
-#' @return A formatted table with domain counts.
-#' @rdname tbl_gt
-#' @export
-tbl_gt <-
-  function(
-    data,
-    pheno = NULL,
-    table_name = NULL,
-    source_note = NULL,
-    names = NULL,
-    title = NULL,
-    tab_stubhead = NULL,
-    caption = NULL,
-    process_md = FALSE,
-    fn_scaled_score = NULL,
-    fn_standard_score = NULL,
-    fn_t_score = NULL,
-    fn_z_score = NULL,
-    fn_raw_score = NULL,
-    grp_scaled_score = NULL,
-    grp_standard_score = NULL,
-    grp_t_score = NULL,
-    grp_z_score = NULL,
-    grp_raw_score = NULL,
-    dynamic_grp = NULL,
-    vertical_padding = NULL,
-    multiline = TRUE,
-    ...
-  ) {
-    # Create data counts
-    data_counts <- data |>
-      dplyr::select(test_name, scale, score, percentile, range) |>
-      dplyr::mutate(across(
-        c(score, percentile),
-        ~ tidyr::replace_na(., replace = 0)
-      ))
-
-    # Create table
-    table <- data_counts |>
-      dplyr::mutate(
-        score = dplyr::if_else(score == 0, NA_integer_, score),
-        percentile = dplyr::if_else(percentile == 0, NA_integer_, percentile),
-        test_name = as.character(paste0(test_name)),
-        scale = as.character(scale)
-      ) |>
-      gt::gt(
-        rowname_col = "scale",
-        groupname_col = "test_name",
-        process_md = process_md,
-        caption = caption,
-        rownames_to_stub = FALSE,
-        id = paste0("table_", pheno)
-      ) |>
-      gt::cols_label(
-        test_name = gt::md("**Test**"),
-        scale = gt::md("**Scale**"),
-        score = gt::md("**Score**"),
-        percentile = gt::md("**% Rank**"),
-        range = gt::md("**Range**")
-      ) |>
-      gt::tab_header(title = title) |>
-      gt::tab_stubhead(label = tab_stubhead) |>
-      gt::sub_missing(missing_text = "--") |>
-      # Indent rows except the main index row
-      gt::tab_stub_indent(
-        rows = scale != "Memory Index (MEM)",
-        indent = 2
-      ) |>
-      # Bold the Memory Index (MEM) row in the stub column
-      gt::tab_style(
-        style = gt::cell_text(weight = "bold"),
-        locations = gt::cells_stub(
-          rows = scale == "Memory Index (MEM)"
-        )
-      ) |>
-      gt::cols_align(
-        align = "center",
-        columns = c("score", "percentile", "range")
-      ) # <-- End of pipe chain
-
-    # Add footnotes individually
-    if (!is.null(fn_scaled_score)) {
-      table <- table |>
-        gt::tab_footnote(
-          footnote = fn_scaled_score,
-          locations = gt::cells_row_groups(groups = grp_scaled_score)
-        )
-    }
-    if (!is.null(fn_standard_score)) {
-      table <- table |>
-        gt::tab_footnote(
-          footnote = fn_standard_score,
-          locations = gt::cells_row_groups(groups = grp_standard_score)
-        )
-    }
-    if (!is.null(fn_t_score)) {
-      table <- table |>
-        gt::tab_footnote(
-          footnote = fn_t_score,
-          locations = gt::cells_row_groups(groups = grp_t_score)
-        )
-    }
-
-    # Adding source note and styling
-    table <- table |>
-      gt::tab_style(
-        style = gt::cell_text(size = "small"),
-        locations = gt::cells_source_notes()
-      ) |>
-      gt::tab_source_note(source_note = source_note) |>
-      gtExtras::gt_theme_538() |>
-      gt::tab_options(
-        row_group.font.weight = "bold",
-        footnotes.multiline = multiline,
-        footnotes.font.size = "small",
-        footnotes.sep = "  " # Adjust spacing between footnotes
-      ) |>
-      gt::opt_vertical_padding(scale = vertical_padding)
-
-    # Save outputs
-    gt::gtsave(table, glue::glue("table_{pheno}.png"))
-    gt::gtsave(table, glue::glue("table_{pheno}.pdf"))
-
-    return(table)
-  }
+source("tbl_gt.R")
 ```
 
 ```{r}
@@ -504,44 +355,83 @@ ordering_list <- c(
   "Name/Address/Phone Delayed Recognition"
 )
 
+# Process the data
+data_memory_tbl <- data_memory |>
+  dplyr::filter(scale %in% ordering_list) |>
+  dplyr::mutate(scale = factor(scale, levels = ordering_list)) |>
+  dplyr::arrange(scale)
+
 # table arguments
 table_name <- "table_memory"
 vertical_padding <- 0
 multiline <- TRUE
 
 # footnotes
-fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_scaled_score <- gt::md("Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md(
+  "Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]"
+)
+
+fn_scaled_score <- gt::md(
+  "Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]"
+)
+
 fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])")
+
+fn_z_score <- gt::md(
+  "Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])"
+)
 
 source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
 # groupings
+# grp_memory <- list(
+#   scaled_score = c(
+#     "CVLT-3 Brief",
+#     "NEPSY-2",
+#     "CVLT-C",
+#     "CVLT-3",
+#     "RBANS Update Form A",
+#     "RBANS"
+#   ),
+#   standard_score = c(
+#     "CVLT-3",
+#     "CVLT-3 Brief",
+#     "NAB",
+#     "NAB-S",
+#     "CVLT-C",
+#     "RBANS Update Form A",
+#     "RBANS"
+#   ),
+#   t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB")
+# )
+
 grp_memory <- list(
-  scaled_score = c("CVLT-3 Brief", "NEPSY-2", "CVLT-C", "CVLT-3", "RBANS Update Form A", "RBANS"),
-  standard_score = c("CVLT-3", "CVLT-3 Brief", "NAB", "NAB-S", "CVLT-C", "RBANS Update Form A", "RBANS"),
-  t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB")
+  standard_score = c("NAB"),
+  t_score = c("NAB")
 )
 
 # make `gt` table
-bwu::tbl_gt(
-  data = data_memory,
+tbl_gt(
+  data = data_memory_tbl,
   pheno = pheno,
   table_name = table_name,
   vertical_padding = vertical_padding,
   # source_note = source_note,
   fn_standard_score = fn_standard_score,
   fn_t_score = fn_t_score,
-  fn_scaled_score = fn_scaled_score,
+  # fn_scaled_score = fn_scaled_score,
   grp_standard_score = grp_memory[["standard_score"]],
   grp_t_score = grp_memory[["t_score"]],
-  grp_scaled_score = grp_memory[["scaled_score"]],
+  # grp_scaled_score = grp_memory[["scaled_score"]],
   dynamic_grp = grp_memory,
   multiline = multiline
 )
 ```
 
+```{r}
+#| include: false
+source("dotplot.R")
+```
 
 ```{r}
 #| label: fig-memory
@@ -556,7 +446,7 @@ return_plot <- TRUE
 filename <- "fig_memory.svg"
 
 # Make dotplot
-bwu::dotplot(
+dotplot(
   data = data_memory,
   x = x,
   y = y,
@@ -595,6 +485,7 @@ bwu::dotplot(
       )
   }
 ```
+
 ```{=typst}
 #let title = "Learning and Memory"
 #let file_qtbl = "table_memory.png"

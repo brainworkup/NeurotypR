@@ -57,8 +57,17 @@ verbal <- verbal |>
   )
 
 # Write the resulting data frame to a new CSV file
+# The file name is created by concatenating the 'pheno' variable and ".csv"
+# NA values are replaced with an empty string in the output file
+# Column names are included in the output file
 # If the file already exists, it is overwritten (not appended)
-readr::write_excel_csv(verbal, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+readr::write_excel_csv(
+  verbal,
+  paste0(pheno, ".csv"),
+  na = "",
+  col_names = TRUE,
+  append = FALSE
+)
 ```
 
 ```{r}
@@ -173,6 +182,11 @@ bwu::cat_neuropsych_results(data = data_verbal, file = "_02-03_verbal_text.qmd")
 ```
 
 ```{r}
+#| include: false
+source("tbl_gt.R")
+```
+
+```{r}
 #| label: qtbl-verbal
 #| dev: tikz
 #| fig-process: pdf2png
@@ -190,36 +204,67 @@ vertical_padding <- 0
 multiline <- TRUE
 
 # footnotes
-fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_scaled_score <- gt::md("Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md(
+  "Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]"
+)
+fn_scaled_score <- gt::md(
+  "Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]"
+)
 fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])")
+fn_z_score <- gt::md(
+  "Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])"
+)
 
 source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
 # Define the groups for the table
 grp_verbal <- list(
-  scaled_score = c("WAIS-IV", "WISC-5", "NEPSY-2", "D-KEFS", "WPPSI-IV", "CELF-5", "RBANS"),
-  standard_score = c("NAB", "WPPSI-IV", "NAB-S", "CELF-5", "RBANS"),
-  t_score = c("NAB", "NAB-S", "NIH EXAMINER", "WASI-2", "NAB Language")
+  scaled_score = c(
+    # "WAIS-IV",
+    # "WISC-5",
+    # "NEPSY-2",
+    # "D-KEFS",
+    # "WPPSI-IV",
+    # "CELF-5",
+    # "RBANS",
+    "WAIS-5"
+  ),
+  standard_score = c(
+    # "WPPSI-IV",
+    # "NAB-S",
+    # "CELF-5",
+    # "RBANS",
+    "NAB"
+  ),
+  t_score = c(
+    # "NAB-S",
+    # "NIH EXAMINER",
+    # "WASI-2",
+    "NAB"
+  )
 )
 
 # make `gt` table
-bwu::tbl_gt(
+tbl_gt(
   data = data_verbal_tbl,
   pheno = pheno,
   table_name = table_name,
-  source_note = source_note,
-  # fn_scaled_score = fn_scaled_score,
-  # fn_standard_score = fn_standard_score,
-  # fn_t_score = fn_t_score,
-  # grp_scaled_score = grp_verbal[["scaled_score"]],
-  # grp_standard_score = grp_verbal[["standard_score"]],
-  # grp_t_score = grp_verbal[["t_score"]],
+  # source_note = source_note,
+  fn_scaled_score = fn_scaled_score,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_scaled_score = grp_verbal[["scaled_score"]],
+  grp_standard_score = grp_verbal[["standard_score"]],
+  grp_t_score = grp_verbal[["t_score"]],
   dynamic_grp = grp_verbal,
   vertical_padding = vertical_padding,
   multiline = multiline
 )
+```
+
+```{r}
+#| include: false
+source("dotplot.R")
 ```
 
 ```{r}
@@ -228,6 +273,7 @@ bwu::tbl_gt(
 #| fig-cap: "Verbal and language functioning refers to the ability to access and apply acquired word knowledge, to verbalize meaningful concepts, to understand complex multistep instructions, to think about verbal information, and to express oneself using words."
 
 # Arguments
+# colors <- bwu::tokyo
 colors <- NULL
 return_plot <- TRUE
 filename <- "fig_verbal_subdomain.svg"
@@ -236,11 +282,8 @@ filename <- "fig_verbal_subdomain.svg"
 x <- data_verbal$z_mean_subdomain
 y <- data_verbal$subdomain
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
 # Make dotplot
-bwu::dotplot(
+dotplot(
   data = data_verbal,
   x = x,
   y = y,
@@ -249,9 +292,6 @@ bwu::dotplot(
   filename = filename,
   na.rm = TRUE
 )
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
 ```
 
 ```{r}

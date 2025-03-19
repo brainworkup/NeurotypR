@@ -57,8 +57,17 @@ spatial <- spatial |>
   )
 
 # Write the resulting data frame to a new CSV file
+# The file name is created by concatenating the 'pheno' variable and ".csv"
+# NA values are replaced with an empty string in the output file
+# Column names are included in the output file
 # If the file already exists, it is overwritten (not appended)
-readr::write_excel_csv(spatial, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+readr::write_excel_csv(
+  spatial,
+  paste0(pheno, ".csv"),
+  na = "",
+  col_names = TRUE,
+  append = FALSE
+)
 ```
 
 ```{r}
@@ -127,7 +136,15 @@ data_spatial <-
 #| include: false
 
 # export text
-bwu::cat_neuropsych_results(data = data_spatial, file = "_02-04_spatial_text.qmd")
+bwu::cat_neuropsych_results(
+  data = data_spatial,
+  file = "_02-04_spatial_text.qmd"
+)
+```
+
+```{r}
+#| include: false
+source("tbl_gt.R")
 ```
 
 ```{r}
@@ -145,26 +162,49 @@ vertical_padding <- 0
 multiline <- TRUE
 
 # footnotes
-fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]")
-fn_scaled_score <- gt::md("Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
+fn_standard_score <- gt::md(
+  "Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]"
+)
+fn_scaled_score <- gt::md(
+  "Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]"
+)
 fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
-fn_z_score <- gt::md("Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])")
+fn_z_score <- gt::md(
+  "Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])"
+)
 
 source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
+
 # grouping
 grp_spatial <- list(
-  scaled_score = c("WAIS-IV", "WISC-5", "NEPSY-2", "WPPSI-IV", "WISC-V", "RBANS Update Form A", "RBANS"),
-  standard_score = c("NAB", "WPPSI-IV", "NAB-S", "RBANS Update Form A", "RBANS"),
-  t_score = c("NAB", "Rey Complex Figure", "WASI-2", "NAB-S", "NAB Spatial")
+  scaled_score = c(
+    # "WAIS-IV",
+    # "WISC-5",
+    # "NEPSY-2",
+    # "WPPSI-IV",
+    # "WISC-V",
+    "WAIS-5"
+  ),
+  standard_score = c(
+    # "WPPSI-IV",
+    # "NAB-S",
+    "NAB"
+  ),
+  t_score = c(
+    # "Rey Complex Figure",
+    # "WASI-2",
+    # "NAB-S",
+    "NAB"
+  )
 )
 
 # make `gt` table
-bwu::tbl_gt(
+tbl_gt(
   data = data_spatial,
   pheno = pheno,
   table_name = table_name,
-  source_note = source_note,
+  # source_note = source_note,
   fn_scaled_score = fn_scaled_score,
   fn_standard_score = fn_standard_score,
   fn_t_score = fn_t_score,
@@ -175,6 +215,11 @@ bwu::tbl_gt(
   vertical_padding = vertical_padding,
   multiline = multiline
 )
+```
+
+```{r}
+#| include: false
+source("dotplot.R")
 ```
 
 ```{r}
@@ -197,7 +242,7 @@ colors <- NULL
 return_plot <- TRUE
 
 # Make dotplot
-bwu::dotplot(
+dotplot(
   data = data_spatial,
   x = x,
   y = y,

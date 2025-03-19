@@ -1,41 +1,7 @@
-### Strengths
+<summary>
+Ms. Smalls exhibits significant executive dysfunction impacting her daily life and independent living. While she demonstrates Above Average verbal fluency and generativity, she faces challenges with higher-order executive functions. Her Below Average sustained attention, marked distractibility, and compromised auditory attention hinder her ability to monitor behavior, follow through on intentions, and maintain goal-directed activities, particularly in busy environments.
 
-- Average performance in:
-  - Judgment and decision-making
-  - Orientation (person, place, time, and situation)
-  - Planning and managing simple tasks
-  - Basic sustained attention and visual scanning
+Her Low Average working memory affects her capacity for self-regulated behavior and anticipating consequences. Additionally, difficulties in concept formation and abstract reasoning lead to concrete thinking, poor judgment, and trouble applying past experiences to new situations, making her susceptible to manipulation and impulsive decisions, such as in financial matters.
 
-### Weaknesses
-
-#### Attention
-- Below average in:
-  - Auditory attention
-  - Selective attention
-  - Complex attentional demands
-
-#### Cognitive Processing
-- Low average performance in:
-  - Working memory
-  - Psychomotor speed
-  - Information processing speed
-
-#### Task Management
-- Difficulty with:
-  - Maintaining focus on complex tasks
-  - Holding multiple pieces of information in mind
-  - Rapidly shifting focus between tasks
-
-### Real-life Implications
-
-1. Work Performance:
-   - Slower task completion
-   - Challenges following lengthy spoken instructions
-
-2. Adaptability:
-   - Reduced mental flexibility when juggling multiple responsibilities
-   - Difficulty adapting to changing circumstances
-
-3. Environmental Challenges:
-   - Struggles in busy, noise-filled environments
-   - Difficulty managing several cognitive activities simultaneously
+Ms. Smalls also struggles with social-behavioral regulation, often responding inappropriately and engaging in confabulation, failing to adjust her behavior despite negative feedback. Her real-life behaviors reflect poor decision-making, impulsivity, susceptibility to influence, and truthfulness issues. These issues indicate compromised metacognitive awareness and self-regulation, necessitating external structure and supervision in areas such as financial management, social interactions, and daily activities to ensure her well-being.
+</summary>

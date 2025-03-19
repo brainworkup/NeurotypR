@@ -1,49 +1,26 @@
-# NEUROBEHAVIORAL STATUS EXAM {#nse}
-
-## Notification/Informed Consent
-
-Mr. {{< var first_name >}} {{< var last_name >}} consented to undergo the current neuropsychological evaluation as part of a work-up for concerns of emerging cognitive impairment and dementia.
-{{< var mr_mrs >}} {{< var last_name >}} was informed none of what we discussed would remain confidential, and information {{< var he_she >}} provided during our meeting and the test results from my evaluation of {{< var him_her >}} would become a part of my report, to be used at {{< var his_her >}} attorney's discretion.
-{{< var he_she_cap >}} was informed a copy of any report I produced would be sent to {{< var his_her >}} attorney, possibly to the prosecuting attorney, and to the court.
-{{< var mr_mrs >}} {{< var last_name >}} indicated having understood the purpose of the evaluation and the limitations of confidentiality of our meeting and the testing I conducted.
-The evaluation was conducted in-person over two days, totaling approximately eight hours.
-
-This report is based on a review of available information contained in medical records and criminal records, consultation with attorney {{< var attorney >}}, and information gathered during the evaluation.
-I reserve the right to change my opinions about the following should I be provided additional records that alter my understanding of the findings.
-[^1]
-
-[^1]: Please note my current employer, Keck School of Medicine of USC, is neither involved in nor affiliated with this case, and that the patient was referred to me by {{< var his_her >}} attorney's office.
+```{=typst}
+= NEUROBEHAVIORAL STATUS EXAM
+```
 
 ## Reason for Referral
+Biggie Smalls, a 32-year-old female, was referred for a neurobehavioral status exam to evaluate her cognitive and functional abilities, with particular emphasis on assessing her capacity to manage finances and live independently.
 
-{{< var first_name >}} {{< var last_name >}} is a {{< var age >}}-year-old {{< var handedness >}}-handed male with a {{< var education >}}-year education referred to undergo comprehensive forensic neuropsychological examination. Mr. Smalls was referred for evaluation to assess his cognitive functioning and the potential neurological causes of his seizures in relation to a motor vehicle accident that resulted in a fatality.
+## Background/History
 
-## Forensic Case Formulation
+### Developmental/Medical History
+Ms. Smalls presents with a history of cognitive and functional impairments that have been previously documented through neuropsychological evaluation. Prior assessments revealed below-average intellectual functioning, with significant deficits in nonverbal reasoning and visuospatial skills. Her profile is characterized by marked impairments in executive functioning, including difficulties with planning, organization, self-monitoring, cognitive flexibility, working memory, and processing speed. Behavioral observations documented perseveration, micrographia (small, cramped handwriting), poor organizational skills, and inconsistent attention.
 
-On April 25, 2023, Mr. Smalls was involved in a motor vehicle accident in which he struck and killed a pedestrian and seriously injured the pedestrian's daughter. Mr. Smalls experienced a seizure while driving, leading to the loss of control of the vehicle. The incident was confirmed by multiple witnesses. He has no memory of the events immediately preceding the accident, and had significant post-traumatic amnesia subsequently. Mr. Smalls has been charged with vehicular manslaughter with gross negligence for not following his epilepsy treatment protocol. He has no prior criminal history.
+Ms. Smalls's cognitive profile shows a relative preservation of basic verbal skills while exhibiting significant difficulties with tasks requiring fluid reasoning, novel problem-solving, and executive functioning. She demonstrates deficits in delayed recall, spatial working memory, and selective attention, with unusual response patterns including random guessing and perseverative errors during cognitive testing.
 
+### Behavioral/Emotional/Social
+Ms. Smalls currently resides in a group home with three other residents, including one who is non-verbal and another with severe autism. She attends a daily program where she engages in various activities and has shown improvement in her ability to assist other clients and stand up for herself.
 
-## Background
+Ms. Smalls reports having a boyfriend, described as an ex-police officer training for the FBI; however, family members and evaluators question his existence as no one has met him. She becomes notably defensive when questioned about this relationship, suggesting social or emotional vulnerabilities. There are concerns about her susceptibility to manipulation in relationships, as well as observations that she may sometimes exhibit manipulative behaviors herself.
 
-### Developmental/Medical History:
-- Mr. Smalls reported no significant medical issues or developmental delays during his childhood in Israel.
-- He experienced his first seizure in 2013 while driving, but was able to stop the vehicle without incident.
-- Mr. Smalls was diagnosed with epilepsy and prescribed medication, but reported inconsistent follow-up with his medical providers.
-- After a bout with COVID-19, Mr. Smalls experienced an increase in dizziness, headaches, and seizure activity.
-- No seizures for the past 7-8 months.
+Her interests include gardening and previously caring for numerous pets including iguanas, turtles, and dogs, which appear to serve as meaningful activities and possible coping mechanisms. Ms. Smalls demonstrates significant difficulty with financial management, typically spending money quickly upon receipt without planning for future needs.
 
-### Educational History:
-- Mr. Smalls completed his high school education in Israel but did not attend college.
-- He reported difficulties with reading comprehension and spelling during his schooling, which may have been indicative of a learning disorder.
+### Family History
+Ms. Smalls's support system has been significantly impacted by the deaths of both parents. Her father, described as controlling particularly regarding finances, left approximately $70,000 upon his passing. Her mother, who previously assisted with financial management, also passed away after reportedly engaging in significant spending that led to housing instability. Ms. Smalls has an aunt who provides some support and assistance, though there appear to be strained relationships with family members who express skepticism about her reported boyfriend and concerns about her financial decisions.
 
-### Psychosocial History:
-- Mr. Smalls immigrated to the United States in 2012 at the age of 25.
-- He was previously married but divorced after 5 years.
-- Mr. Smalls described a complicated relationship with his older brother, Meir, including physical and emotional abuse during his childhood.
-- Mr. Smalls reported experiencing significant anxiety and difficulty in social situations, particularly when speaking in front of others.
-- Experiences marked feelings of guilt, helplessness, and depression following the tragic event. 
-- Acknowledged potential suicidal thoughts but emphasized desire to persevere.
-
-### Family History:
-- Mr. Smalls's parents and four siblings still reside in Israel, and he has limited contact with them due to the strained relationship.
-- Mr. Smalls reported that his grandfather passed away from a brain stroke, but was unaware of any other neurological or psychiatric conditions in his family.
+### Educational History
+Ms. Smalls demonstrates basic verbal skills and can perform simple tasks independently. However, she struggles with tasks requiring higher cognitive functions such as problem-solving and memory recall. Her functional educational attainment is evidenced by limited practical life skills; she has never independently managed bills or finances and is uncertain about her credit status. While she has obtained a driver's permit, she has never progressed to acquiring a full driver's license, suggesting difficulties with more complex aspects of driving or the licensing process.

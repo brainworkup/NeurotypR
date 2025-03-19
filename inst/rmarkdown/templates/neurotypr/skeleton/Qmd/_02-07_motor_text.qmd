@@ -1,12 +1,1 @@
-<<PROMPT>>
-
-<<EXAMPLE>>
-
-All scores in this area were { range }.
-Fine motor speed and dexterity were { range } bilaterally.
-No evidence of atypical lateralization of fine nor gross motor skills.
-No evidence of dyspraxia.
-Graphomotor speed and accuracy (i.e., graphomotor control) was intact.
-Gross motor functioning including balance and gait appeared intact on observation.
-
-<<END>>
+Ms. Smalls's motor skills assessment revealed intact functioning across all areas. Fine motor speed and dexterity were within the Low Average to Average range bilaterally, with typical lateralization observed. No signs of dyspraxia or motor planning difficulties were noted, and gross motor functions, including balance and gait, appeared normal during observation.

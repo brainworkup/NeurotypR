@@ -112,6 +112,11 @@ bwu::cat_neuropsych_results(
 ```
 
 ```{r}
+#| include: false
+source("tbl_gt.R")
+```
+
+```{r}
 #| label: qtbl-daily-living
 #| dev: tikz
 #| fig-process: pdf2png
@@ -165,17 +170,24 @@ grp_daily_living <- list(
 )
 
 # make `gt` table
-bwu::tbl_gt(
-  data = data_daily_living_tbl,
-  pheno = pheno,
-  table_name = table_name,
-  source_note = source_note,
-  # fn_t_score = fn_t_score,
-  # grp_t_score = grp_daily_living[["t_score"]],
-  dynamic_grp = grp_daily_living,
-  vertical_padding = vertical_padding,
-  multiline = multiline
-)
+tbl <-
+  tbl_gt(
+    data = data_daily_living_tbl,
+    pheno = pheno,
+    table_name = table_name,
+    source_note = source_note,
+    # fn_t_score = fn_t_score,
+    # grp_t_score = grp_daily_living[["t_score"]],
+    dynamic_grp = grp_daily_living,
+    vertical_padding = vertical_padding,
+    multiline = multiline
+  )
+tbl
+```
+
+```{r}
+#| include: false
+source("dotplot.R")
 ```
 
 ```{r}
@@ -193,7 +205,7 @@ x <- data_daily_living$z_mean_subdomain
 y <- data_daily_living$subdomain
 
 # Make dotplot
-bwu::dotplot(
+dotplot(
   data = data_daily_living,
   x = x,
   y = y,
@@ -203,7 +215,6 @@ bwu::dotplot(
   na.rm = TRUE
 )
 ```
-
 
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
@@ -230,7 +241,6 @@ bwu::dotplot(
         )
     }
 ```
-
 ```{=typst}
 #let title = "Daily Living"
 #let file_qtbl = "table_daily_living.png"

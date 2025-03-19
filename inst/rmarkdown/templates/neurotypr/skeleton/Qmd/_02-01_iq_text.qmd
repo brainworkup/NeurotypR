@@ -1,34 +1,3 @@
-The patient demonstrated below-average overall neuropsychological functioning across multiple domains.
+<summary>
 
-### Strengths
-- Visuoperceptual skills
-- Attention to detail
-- Visuoconstructional abilities (high average range for single domain tasks)
-
-### Areas of Concern
-- Attention
-- Executive functioning
-- Language comprehension
-- Word-finding abilities
-- Spatial processing
-- Memory
-
-### Composite Scores
-
-- Verbal/visual memory functioning: Low average range
-- Executive skills: Low average range
-- Attentional functioning: Exceptionally low, indicating significant challenges maintaining focus and sustaining attention
-
-### Comprehensive Index
-
-A comprehensive measure of neuropsychological functioning indicated below-average performance, suggesting global cognitive impairment.
-
-### Implications for Daily Life
-
-The below-average overall performance may impact:
-
-- Activities requiring complex problem-solving
-- Effective communication
-- Learning and retention of new information
-- Concentration and focus
-- Various aspects of cognitive processing in everyday tasks
+</summary>

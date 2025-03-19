@@ -61,7 +61,13 @@ motor <- motor |>
 
 # Write the 'motor' data frame to a CSV file
 # The file name is derived from the 'pheno' variable
-readr::write_excel_csv(motor, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+readr::write_excel_csv(
+  motor,
+  paste0(pheno, ".csv"),
+  na = "",
+  col_names = TRUE,
+  append = FALSE
+)
 ```
 
 ```{r}
@@ -96,12 +102,12 @@ scales <- c(
   "Visuomotor Precision Errors",
   "Visuomotor Precision Pencil Lifts",
   "Visuomotor Precision Completion Time",
-  "Visuomotor Precision"
+  "Visuomotor Precision",
+  "FT Dominant Hand Combined",
+  "FT Nondominant Hand Combined"
 )
 
 # Filter the data using the filter_data function from the bwu library
-# The domain is specified by the 'domains' variable
-# The scale is specified by the 'scales' variable
 data_motor <- bwu::filter_data(data, domain = domains, scale = scales)
 ```
 
@@ -112,6 +118,11 @@ data_motor <- bwu::filter_data(data, domain = domains, scale = scales)
 
 # Generate the text for the motor domain
 bwu::cat_neuropsych_results(data = data_motor, file = "_02-07_motor_text.qmd")
+```
+
+```{r}
+#| include: false
+source("tbl_gt.R")
 ```
 
 ```{r}
@@ -129,28 +140,35 @@ vertical_padding <- 0
 multiline <- TRUE
 
 # footnotes
-fn_scaled_score <- gt::md("Scaled score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]")
-fn_t_score <- gt::md("_T_-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+fn_scaled_score <- gt::md(
+  "Scaled score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]"
+)
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
 # Groupings
 grp_motor <- list(
-  t_score = c("Grooved Pegboard"),
-  scaled_score = c("NEPSY-2")
+  # scaled_score = c("NEPSY-2"),
+  t_score = c("Grooved Pegboard")
 )
 
 # make `gt` table
-bwu::tbl_gt(
+tbl_gt(
   data = data_motor,
   pheno = pheno,
   table_name = table_name,
   fn_t_score = fn_t_score,
-  fn_scaled_score = fn_scaled_score,
+  # fn_scaled_score = fn_scaled_score,
   grp_t_score = grp_motor[["t_score"]],
-  grp_scaled_score = grp_motor[["scaled_score"]],
+  # grp_scaled_score = grp_motor[["scaled_score"]],
   dynamic_grp = grp_motor,
   vertical_padding = vertical_padding,
   multiline = multiline
 )
+```
+
+```{r}
+#| include: false
+source("dotplot.R")
 ```
 
 ```{r}
@@ -160,17 +178,15 @@ bwu::tbl_gt(
 #| fig-cap: "Sensorimotor tasks refer to the capacity to control hand movements quickly, smoothly, and with adequate precision, which are required to engage in activities such as writing and drawing."
 
 # dotplot args
-x <- data_motor$z_mean_narrow
-y <- data_motor$narrow
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
 filename <- "fig_motor.svg"
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
+x <- data_motor$z_mean_narrow
+y <- data_motor$narrow
 
 # Plotting function call
-bwu::dotplot(
+dotplot(
   data = data_motor,
   x = x,
   y = y,
@@ -179,14 +195,11 @@ bwu::dotplot(
   filename = filename,
   na.rm = TRUE
 )
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
 ```
 
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
-  let font = (font: "Roboto Slab", size: 0.5em)
+  let font = (font: "Roboto Slab", size: 0.7em)
   set text(..font)
   pad(top: 0.5em)[]  
     grid(
@@ -195,7 +208,7 @@ options(warn = 0) # Reset to default behavior
         figure([#image(file_qtbl)],
           caption: figure.caption(position: top, [#title]),
           kind: "qtbl",
-          supplement: [Table],
+          supplement: [*Table*],
           ),
         figure([#image(file_fig, width: auto)],
           caption: figure.caption(position: bottom, [
@@ -205,7 +218,7 @@ options(warn = 0) # Reset to default behavior
             ]),
           placement: none,
           kind: "image",
-          supplement: [Figure],
+          supplement: [*Figure*],
           gap: 0.5em,
         ),
       )

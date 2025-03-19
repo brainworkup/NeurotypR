@@ -1,4 +1,6 @@
-# RECOMMENDATIONS {#sec-recs}
+```{=typst}
+= RECOMMENDATIONS
+```
 
 There are several support systems and community resources that could be helpful for Mr. Smalls as he copes with the emotional and psychological impact of the accident:
 
