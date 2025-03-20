@@ -41,8 +41,7 @@ Imports:
     tinytex
 Suggests:
     bwu,
-    testthat (>= 3.0.0),
-    vroom
+    testthat (>= 3.0.0)
 Depends: 
     R (>= 3.5)
 LazyData: true

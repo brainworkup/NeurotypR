@@ -17,7 +17,6 @@ Rmd/cars2.xlsx
 Rmd/cars2_hf.xlsx
 Rmd/cars2_hf.csv
 # data/
-
 /.quarto/
 matplotlib_files/
 reproducible_python_files/
@@ -27,3 +26,4 @@ reproducible_python.qmd
 pdf-to-structure.py
 NeurotypR.Rcheck/
 NeurotypR.code-workspace
+README.Rmd

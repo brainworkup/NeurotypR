@@ -72,11 +72,12 @@ library(rJava)
 library(shiny)
 library(here)
 library(pdftools)
-library(fs)
 library(magrittr)
 library(hablar)
 library(googledrive)
 library(bwu)
+library(NeurotypR)
+library(glue)
 ```
 
 ## Patient
@@ -118,10 +119,9 @@ df <- read_csv(
 
 # function
 pluck_rbans_raw <- function(
-  input_file_path,
-  test_name_prefix,
-  output_file_path = NULL
-) {
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -177,10 +177,9 @@ output_file_path <- "data/processed_rbans_scaled_data.csv"
 
 # function
 pluck_rbans_score <- function(
-  input_file_path,
-  test_name_prefix,
-  output_file_path = NULL
-) {
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -236,15 +235,14 @@ output_file_path <- "data/processed_rbans_completion_time_data.csv"
 
 # function
 pluck_rbans_completion_times <- function(
-  input_file_path,
-  test_name_prefix,
-  output_file_path = NULL
-) {
-  df <- read_csv(
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL) {
+  df <- readr::ead_csv(
     input_file_path,
     col_names = FALSE,
     show_col_types = FALSE,
-    locale = locale(encoding = "UTF-16LE")
+    locale = readr::locale(encoding = "UTF-16LE")
   )
 
   # Rename the columns
@@ -291,16 +289,13 @@ rbans_time <- pluck_rbans_completion_times(
 ## COMPOSITE SCORES
 
 ```{r}
-# input_file_path <- "data/004004907_3_10_2024.csv"
-# test_name_prefix <- "RBANS Update Form A "
 output_file_path <- "data/processed_rbans_composite_data.csv"
 
 # function
 pluck_rbans_composite <- function(
-  input_file_path,
-  test_name_prefix,
-  output_file_path = NULL
-) {
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL) {
   df <- read_csv(
     input_file_path,
     col_names = FALSE,
@@ -373,13 +368,12 @@ rbans_composite <- pluck_rbans_composite(
 #' @import stringr
 #' @export
 process_and_save_rbans_data <- function(
-  rbans_raw,
-  rbans_score,
-  rbans_time,
-  rbans_composite,
-  test_name_prefix,
-  output_file_path
-) {
+    rbans_raw,
+    rbans_score,
+    rbans_time,
+    rbans_composite,
+    test_name_prefix,
+    output_file_path) {
   library(dplyr)
   library(stringr)
 
@@ -454,7 +448,6 @@ write_csv(df, output_file_path)
 # MUTATE
 
 ```{r mutate}
-
 rbans <- df
 
 rbans <- bwu::gpluck_make_columns(

@@ -31,3 +31,4 @@
 ^\.DS_Store$
 .*\.DS_Store$
 ^R/cognitive_domains\.R$
+^README\.Rmd$
