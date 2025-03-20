@@ -296,7 +296,7 @@ data_social <- data_social |> dplyr::select(c(test_name, scale, raw_score, score
 #   }
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_social,
   pheno = pheno,
   table_name = table_name,
@@ -359,7 +359,7 @@ options(warn = 0) # Reset to default behavior
 #let domain(title: none, file_qtbl, file_fig) = {
   let font = (font: "Roboto Slab", size: 0.5em)
   set text(..font)
-  pad(top: 0.5em)[]  
+  pad(top: 0.5em)[]
     grid(
       columns: (50%, 50%),
       gutter: 8pt,

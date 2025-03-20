@@ -248,7 +248,7 @@ source_note <- gt::md("PAI _T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84
 Higher scores reflect reduced functioning.")
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_emotion,
   pheno = pheno,
   table_name = table_name,

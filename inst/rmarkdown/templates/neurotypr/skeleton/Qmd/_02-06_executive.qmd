@@ -214,7 +214,7 @@ bwu::cat_neuropsych_results(
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("NeurotypR::tbl_gt2.R")
 ```
 ```{r}
 #| label: qtbl-executive
@@ -401,7 +401,7 @@ grp_executive <- list(
 )
 
 # make `gt` table
-tbl_gt(
+NeurotypR::tbl_gt2(
   data = data_executive_tbl,
   pheno = pheno,
   table_name = table_name,

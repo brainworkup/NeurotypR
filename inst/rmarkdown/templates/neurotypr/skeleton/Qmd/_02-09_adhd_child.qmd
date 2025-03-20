@@ -264,7 +264,7 @@ data_adhd_self <-
 pheno <- "adhd_self"
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_adhd_self,
   pheno = pheno,
   table_name = table_name,
@@ -340,7 +340,7 @@ data_adhd_parent <-
 pheno <- "adhd_parent"
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_adhd_parent,
   pheno = pheno,
   table_name = table_name,
@@ -404,7 +404,7 @@ data_adhd_teacher <-
 pheno <- "adhd_teacher"
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_adhd_teacher,
   pheno = pheno,
   table_name = table_name,

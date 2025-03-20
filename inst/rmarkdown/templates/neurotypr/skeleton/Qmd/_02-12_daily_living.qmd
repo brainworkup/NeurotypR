@@ -113,7 +113,7 @@ bwu::cat_neuropsych_results(
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("NeurotypR::tbl_gt2.R")
 ```
 
 ```{r}
@@ -171,7 +171,7 @@ grp_daily_living <- list(
 
 # make `gt` table
 tbl <-
-  tbl_gt(
+  NeurotypR::tbl_gt2(
     data = data_daily_living_tbl,
     pheno = pheno,
     table_name = table_name,
@@ -231,7 +231,7 @@ dotplot(
           ),
         figure([#image(file_fig)],
           caption: figure.caption(position: bottom, [
-            _Daily Living_ tests evaluate functional abilities required for independent living through ecologically-valid tasks, including bill payment processing, remembering appointments and medication instructions, map navigation, driving awareness, and everyday judgment. These tasks assess how cognitive abilities translate to real-world performance, providing insight into the patient's daily functioning and independence. 
+            _Daily Living_ tests evaluate functional abilities required for independent living through ecologically-valid tasks, including bill payment processing, remembering appointments and medication instructions, map navigation, driving awareness, and everyday judgment. These tasks assess how cognitive abilities translate to real-world performance, providing insight into the patient's daily functioning and independence.
             ]),
           placement: none,
           kind: "image",

@@ -122,7 +122,7 @@ bwu::cat_neuropsych_results(data = data_motor, file = "_02-07_motor_text.qmd")
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("NeurotypR::tbl_gt2.R")
 ```
 
 ```{r}
@@ -152,7 +152,7 @@ grp_motor <- list(
 )
 
 # make `gt` table
-tbl_gt(
+NeurotypR::tbl_gt2(
   data = data_motor,
   pheno = pheno,
   table_name = table_name,
@@ -201,7 +201,7 @@ dotplot(
 #let domain(title: none, file_qtbl, file_fig) = {
   let font = (font: "Roboto Slab", size: 0.7em)
   set text(..font)
-  pad(top: 0.5em)[]  
+  pad(top: 0.5em)[]
     grid(
       columns: (50%, 50%),
       gutter: 8pt,

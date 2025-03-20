@@ -257,7 +257,7 @@ data_emotion_self <-
   dplyr::distinct(.keep_all = FALSE)
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_emotion_self,
   pheno = pheno,
   table_name = table_name,
@@ -313,7 +313,7 @@ data_emotion_parent <-
 pheno <- "emotion_parent"
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_emotion_parent,
   pheno = pheno,
   table_name = table_name,
@@ -371,7 +371,7 @@ data_emotion_teacher <-
   dplyr::distinct(.keep_all = FALSE)
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_emotion_teacher,
   pheno = pheno,
   table_name = table_name,

@@ -144,7 +144,7 @@ bwu::cat_neuropsych_results(
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("NeurotypR::tbl_gt2.R")
 ```
 
 ```{r}
@@ -200,7 +200,7 @@ grp_spatial <- list(
 )
 
 # make `gt` table
-tbl_gt(
+NeurotypR::tbl_gt2(
   data = data_spatial,
   pheno = pheno,
   table_name = table_name,

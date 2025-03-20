@@ -223,7 +223,7 @@ grp_self <- list(
 )
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_adhd_self,
   pheno = pheno,
   table_name = table_name,
@@ -345,7 +345,7 @@ grp_observer <- list(
 )
 
 # make `gt` table
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_adhd_observer,
   pheno = pheno,
   table_name = table_name,

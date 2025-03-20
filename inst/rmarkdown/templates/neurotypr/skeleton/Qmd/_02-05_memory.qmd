@@ -218,7 +218,7 @@ bwu::cat_neuropsych_results(data = data_memory, file = "_02-05_memory_text.qmd")
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("NeurotypR::tbl_gt2.R")
 ```
 
 ```{r}
@@ -411,7 +411,7 @@ grp_memory <- list(
 )
 
 # make `gt` table
-tbl_gt(
+NeurotypR::tbl_gt2(
   data = data_memory_tbl,
   pheno = pheno,
   table_name = table_name,

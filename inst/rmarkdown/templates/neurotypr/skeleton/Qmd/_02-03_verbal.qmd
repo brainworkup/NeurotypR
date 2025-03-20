@@ -183,7 +183,7 @@ bwu::cat_neuropsych_results(data = data_verbal, file = "_02-03_verbal_text.qmd")
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("R/tbl_gt2.R")
 ```
 
 ```{r}
@@ -245,7 +245,7 @@ grp_verbal <- list(
 )
 
 # make `gt` table
-tbl_gt(
+NeurotypR::tbl_gt2(
   data = data_verbal_tbl,
   pheno = pheno,
   table_name = table_name,
@@ -283,7 +283,7 @@ x <- data_verbal$z_mean_subdomain
 y <- data_verbal$subdomain
 
 # Make dotplot
-dotplot(
+NeurotypR::dotplot2(
   data = data_verbal,
   x = x,
   y = y,

@@ -141,7 +141,7 @@ bwu::cat_neuropsych_results(data = data_iq, file = "_02-01_iq_text.qmd")
 
 ```{r}
 #| include: false
-source("tbl_gt.R")
+source("NeurotypR::tbl_gt2.R")
 ```
 
 ```{r}
@@ -234,8 +234,8 @@ grp_iq <- list(
   )
 )
 
-# Create the table using the tbl_gt function from the bwu library
-tbl_gt(
+# Create the table using the NeurotypR::tbl_gt2 function from the bwu library
+NeurotypR::tbl_gt2(
   data = data_iq,
   pheno = pheno,
   table_name = table_name,
@@ -275,7 +275,7 @@ filename <- "fig_iq_subdomain.svg"
 # data_iq <- dplyr::filter(data_iq, scale %in% keep)
 
 # Create the dotplot using the dotplot function from the bwu library
-dotplot(
+NeurotypR::dotplot2(
   data = data_iq,
   x = x,
   y = y,

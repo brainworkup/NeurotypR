@@ -131,8 +131,8 @@ grp_adaptive <- list(
   )
 )
 
-# Create the table using the tbl_gt function from the bwu library
-bwu::tbl_gt(
+# Create the table using the NeurotypR::tbl_gt2 function from the bwu library
+bwu::NeurotypR::tbl_gt2(
   data = data_adaptive,
   pheno = pheno,
   table_name = table_name,

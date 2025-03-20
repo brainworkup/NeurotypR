@@ -184,9 +184,9 @@ grp_academics <- list(
   standard_score = c("KTEA-3", "WIAT-4", "WRAT-5")
 )
 
-# Create the table using the tbl_gt function from the bwu library
+# Create the table using the NeurotypR::tbl_gt2 function from the bwu library
 # source("table_gt.R")
-bwu::tbl_gt(
+bwu::NeurotypR::tbl_gt2(
   data = data_academics,
   pheno = pheno,
   table_name = table_name,
