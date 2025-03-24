@@ -2,3 +2,6 @@ project:
   title: "NeurotypR"
   render:
     - "!quarto/"
+
+execute:
+  freeze: auto
