@@ -13,21 +13,23 @@ date_of_report: {{< var date_of_report >}}
 
 packages <- c(
   "dplyr",
-  "collapse",
   "glue",
   "gt",
   "here",
   "janitor",
   "knitr",
+  "purrr",
   "quarto",
   "readr",
   "readxl",
   "rmarkdown",
   "snakecase",
+  "stringr",
   "tidytable",
   "vroom",
   "xfun",
-  "bwu"
+  "bwu",
+  "NeurotypR"
 )
 
 # Function to load packages one by one
@@ -89,13 +91,15 @@ validity <- readr::read_csv("validity.csv")
 
 <!-- {{< pagebreak >}} -->
 
-{{< include _01-00_nse.qmd >}}
+{{< include _01-00_nse_*.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
 {{< include _02-00_behav_obs.qmd >}}
 
-# NEUROCOGNITIVE FINDINGS {#sec-nt}
+```{=typst}
+= NEUROCOGNITIVE FINDINGS
+```
 
 {{< include _02-01_iq.qmd >}}
 
@@ -127,10 +131,12 @@ validity <- readr::read_csv("validity.csv")
 
 {{< include _03-00_sirf_text.qmd >}}
 
-{{< include _03-01_recs.qmd >}}
+{{< include _03-01_recommendations.qmd >}}
+
+<!-- {{< include _03-02_signature_forensic.qmd >}} -->
 
 {{< include _03-02_signature.qmd >}}
 
-{{< pagebreak >}}
+<!-- {{< pagebreak >}} -->
 
 {{< include _03-03_appendix.qmd >}}

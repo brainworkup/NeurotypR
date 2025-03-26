@@ -16,8 +16,8 @@
       "sideBar.border": "#dee2fc66",
       "activityBar.foreground": "#15202b",
       "activityBar.inactiveForeground": "#15202b99",
-      "sash.hoverBorder": "#dee2fc66",
-      "tab.activeBorder": "#dee2fc66"
+      "tab.activeBorder": "#dee2fc66",
+      "sash.hoverBorder": "#dee2fc66"
     },
     "peacock.color": "#b0b8f766",
     "peacock.affectActivityBar": true,

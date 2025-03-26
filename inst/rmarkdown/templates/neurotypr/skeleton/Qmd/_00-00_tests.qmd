@@ -4,7 +4,6 @@
 - Conners' Adult ADHD Diagnostic Interview for DSM-IV, Part I: History (CAADID Part 1)
 - Conners' Adult ADHD Diagnostic Interview for DSM-IV, Part II: Symptoms? (CAADID Part 2)
 - Structured Clinical Interview for DSM-5 Disorders, Clinician Version (SCID-5-CV)
-- Kiddie SADS
 - Beck Anxiety Inventory (BAI)
 - Beck Depression Inventory, 2nd ed (BDI-2)
 - Brown Executive Function/Attention Scales, Parent Report (Brown EF/A Parent)
@@ -19,7 +18,7 @@
 - Conners' Adult ADHD and Executive Function Rating Scales, 2nd ed, Observer Report (CAARS-2 Observer)
 - Conners' Adult ADHD Rating Scales--Observer Report: Long Version (CAARS--O:L)
 - Conners' Adult ADHD Rating Scales--Self-Report: Long Version (CAARS--S:L)
-- Delis-Kaplan Executive Function System (D-KEFS): 
+- Delis-Kaplan Executive Function System (D-KEFS):
   - Color-Word Interference
   - Trail Making
   - Design Fluency
@@ -57,18 +56,18 @@
   - Test of Premorbid Functioning (TOPF)
   - Social Cognition
 - Neuropsychological Assessment Battery (NAB):
-  - Attention Module 
+  - Attention Module
   - Language Module
   - Memory Module
   - Spatial Module
   - Executive Functions Module
 - Neuropsychological Assessment Battery, Screener (NAB-S):
-  - Attention Module 
+  - Attention Module
   - Language Module
   - Memory Module
   - Spatial Module
   - Executive Functions Module
-- Neuropsychological Assessment Battery (NAB): 
+- Neuropsychological Assessment Battery (NAB):
   - Judgment
 - Hare Psychopathy Checklist, Revised (PCL-R)
 - Personality Assessment Inventory (PAI)
@@ -77,7 +76,7 @@
 
 - Comprehensive Neurodevelopmental Symptom and History Interview
 - Behavioral Assessment System for Children, 3rd ed, Structured Developmental History (BASC-3 SDH)
-- K-SADS
+- Kiddie-SADS
 - Adaptive Behavior Assessment System, 3rd ed, Parent Form (ABAS-3 Parent)
 - Adaptive Behavior Assessment System, 3rd ed, Parent/Primary Caregiver Form (ABAS-3 Parent)
 - Adaptive Behavior Assessment System, 3rd ed, Self-Report Form (ABAS-3 Self)
@@ -129,7 +128,7 @@
 - Wechsler Adult Intelligence Scale, 4th ed (WAIS-IV)
 - Wechsler Abbreviated Scale of Intelligence, 2nd ed (WASI-2)
 - Wechsler Individual Achievement Test, 4th ed (WIAT-4)
-- Wechsler Individual Achievement Test, 4th ed (WIAT-4): Word Reading, Reading Comprehension, Pseudoword Decoding, Orthographic Fluency, Decoding Fluency 
+- Wechsler Individual Achievement Test, 4th ed (WIAT-4): Word Reading, Reading Comprehension, Pseudoword Decoding, Orthographic Fluency, Decoding Fluency
 - Wechsler Intelligence Scale for Children, 5th ed (WISC-V)
 - Wechsler Preschool and Primary Scale of Intelligence, 4th ed, Ages 2-3 (WPPSI-IV)
 - Wechsler Preschool and Primary Scale of Intelligence, 4th ed, Ages 4-7 (WPPSI-IV)

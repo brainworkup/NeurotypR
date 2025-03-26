@@ -2,7 +2,7 @@ project:
   type: default
   execute-dir: file
   render:
-    - Biggie.qmd
+    - template.qmd
 
 format:
   neurotyp-typst:
