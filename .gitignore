@@ -28,3 +28,14 @@ NeurotypR.Rcheck/
 NeurotypR.code-workspace
 README.Rmd
 NeurotypR.qmd
+
+.vscode/extensions.json
+Patient_Workflow.md
+ignore.R
+matplotlib.qmd
+pdf-to-structure.py
+test_cars2_hf.R
+test_descriptions.md
+test_neurotypr.R
+thinking-cap.py
+inst/rmarkdown/templates/neurotypr/skeleton/qmd/.quarto

@@ -140,11 +140,6 @@ bwu::cat_neuropsych_results(data = data_iq, file = "_02-01_iq_text.qmd")
 ```
 
 ```{r}
-#| include: false
-source("NeurotypR::tbl_gt2.R")
-```
-
-```{r}
 #| label: qtbl-iq
 #| dev: tikz
 #| fig-process: pdf2png
@@ -249,11 +244,6 @@ NeurotypR::tbl_gt2(
 ```
 
 ```{r}
-#| include: false
-source("dotplot.R")
-```
-
-```{r}
 #| label: fig-iq-subdomain
 #| include: false
 #| fig-cap: "_Premorbid Ability_ is an estimate of an individual's intellectual functioning prior to known or suspected onset of brain disease or dysfunction. _General Ability_ is the overall skill to reason, solve problems, and gain useful knowledge. _Crystallized Knowledge_ involves understanding the world through language and reasoning. _Fluid Reasoning_ is the logical analysis and solution of new problems, identifying underlying patterns, and applying logic."
@@ -307,7 +297,7 @@ filename <- "fig_iq_narrow.svg"
 # data_iq <- dplyr::filter(data_iq, scale %in% keep)
 
 # Create the dotplot using the dotplot function from the bwu library
-dotplot(
+NeurotypR::dotplot2(
   data = data_iq,
   x = x,
   y = y,
@@ -366,7 +356,7 @@ dotplot(
 ```
 
 
-<!-- ```{=typst}
+```{=typst}
 // Define the title of the domain
 #let title = "General Cognitive Ability"
 
@@ -378,4 +368,4 @@ dotplot(
 
 // The title is appended with ' Index Scores'
 #domain(title: [#title Scores], file_qtbl, file_fig)
-``` -->
+```

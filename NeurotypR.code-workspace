@@ -5,8 +5,8 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Tailwind Dark Neutral",
-    "workbench.iconTheme": "Monokai Pro Icons",
+    "workbench.colorTheme": "Codemos Modern (Dark)",
+    "workbench.iconTheme": "vscode-icons",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",
       "activityBar.background": "#dee2fc66",

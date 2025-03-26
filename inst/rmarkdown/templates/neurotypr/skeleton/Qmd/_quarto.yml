@@ -5,7 +5,7 @@ project:
     - template.qmd
 
 format:
-  neurotyp-typst:
+  neurotyp-pediatric-typst:
     keep-typ: true
     keep-md: true
     papersize: "us-letter"
@@ -15,6 +15,30 @@ format:
     number-sections: false
     citeproc: false
     csl: src/bib/apa.csl
+
+# format:
+#   neurotyp-adult-typst:
+#     keep-typ: true
+#     keep-md: true
+#     papersize: "us-letter"
+#     bodyfont: "Equity B OTF"
+#     sansfont: "Work Sans"
+#     fontsize: 12pt
+#     number-sections: false
+#     citeproc: false
+#     csl: src/bib/apa.csl
+
+# format:
+#   neurotyp-forensic-typst:
+#     keep-typ: true
+#     keep-md: true
+#     papersize: "us-letter"
+#     bodyfont: "Equity B OTF"
+#     sansfont: "Work Sans"
+#     fontsize: 12pt
+#     number-sections: false
+#     citeproc: false
+#     csl: src/bib/apa.csl
 
 execute:
   warning: false

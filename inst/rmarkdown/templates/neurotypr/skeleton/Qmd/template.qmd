@@ -113,15 +113,19 @@ validity <- readr::read_csv("validity.csv")
 
 {{< include _02-06_executive.qmd >}}
 
-{{< include _02-12_dailyliving.qmd >}}
+{{< include _02-07_motor.qmd >}}
 
-<!-- {{< include _02-07_motor.qmd >}} -->
+{{< include _02-12_daily_living.qmd >}}
 
 <!-- {{< include _02-08_social.qmd >}} -->
 
 {{< include _02-09_adhd_adult.qmd >}}
 
 {{< include _02-10_emotion_adult.qmd >}}
+
+<!-- {{< include _02-09_adhd_child.qmd >}} -->
+
+<!-- {{< include _02-10_emotion_child.qmd >}} -->
 
 <!-- {{< include _02-11_adaptive.qmd >}} -->
 
