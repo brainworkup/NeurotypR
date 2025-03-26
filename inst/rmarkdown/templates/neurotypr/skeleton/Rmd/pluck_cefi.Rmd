@@ -1,32 +1,33 @@
 ---
 title: |
   <center> CEFI </center>
-  <center> Adult Self and Observer </center>
-  <center> Child Parent, Teacher, and Self </center>
+  <center> Adult and Child Self and Observer </center>
+  <center> Parent, Teacher, and Self </center>
 date: "`r Sys.Date()`"
 params:
   patient: Biggie
   test:
     label: "CEFI"
-    value: "cefi_parent_5-18"
+    value: "cefi_self_12-18"
     input: select
     multiple: no
     choices:
       - cefi_self
       - cefi_observer
+      - cefi_self_12-18
       - cefi_parent_5-18
       - cefi_teacher_5-18
-      - cefi_self_12-18
   test_name:
     label: "Test Name:"
-    value: CEFI Parent
+    value: "CEFI Self 12-18"
     input: select
     multiple: no
     choices:
-      - CEFI Self
-      - CEFI Observer
-      - CEFI Parent
-      - CEFI Teacher
+      - "CEFI Self"
+      - "CEFI Observer"
+      - "CEFI Self 12-18"
+      - "CEFI Parent"
+      - "CEFI Teacher"
   file:
     label: "No file selected"
     value: file
@@ -71,7 +72,6 @@ library(yaml)
 library(bwu)
 library(NeurotypR)
 ```
-# note: updated 3/17/25
 
 ## Parameters
 
@@ -84,15 +84,13 @@ pages <- params$pages
 file <- file.path(params$file)
 ```
 
-## Paths
-
 ```{r}
 if (params$test == "cefi_self") {
   saveRDS(file, "cefi_self.rds")
-} else if (params$test == "cefi_self_12-18") {
-  saveRDS(file, "cefi_self_12_18.rds")
 } else if (params$test == "cefi_observer") {
   saveRDS(file, "cefi_observer.rds")
+} else if (params$test == "cefi_self_12-18") {
+  saveRDS(file, "cefi_self_12_18.rds")
 } else if (params$test == "cefi_parent_5-18") {
   saveRDS(file, "cefi_parent_5_18.rds")
 } else if (params$test == "cefi_teacher_5-18") {
@@ -103,6 +101,12 @@ if (params$test == "cefi_self") {
 ## Areas
 
 ```{r}
+# get_areas <- tabulapdf::locate_areas(
+#   file = file,
+#   pages = pages,
+#   copy = TRUE
+# )
+
 # note: double check these areas
 if (params$test == "cefi_self" | params$test == "cefi_observer") {
   areas <- list(
@@ -111,8 +115,8 @@ if (params$test == "cefi_self" | params$test == "cefi_observer") {
   )
 } else if (params$test == "cefi_self_12-18") {
   areas <- list(
-    table1 = c(467.033, 53.0, 480.038, 557.9), # check
-    table2 = c(536.648, 52.02, 667.463, 557.685)
+    table1 = c(458.6, 52.6, 472.5, 559.4), # OK
+    table2 = c(525.9, 54.9, 656.9, 557.1)
   )
 } else if (params$test == "cefi_parent_5-18") {
   areas <- list(
@@ -143,7 +147,7 @@ extracted_tables <- tabulapdf::extract_tables(
 qs2::qs_save(extracted_tables, file = paste0("data/extracted_tables_", test, ".qs"))
 
 # Load the extracted_tables object from the 'data' folder
-extracted_tables <- qs2::qs_read(paste0("data/extracted_tables_", test, ".qs"))
+# extracted_tables <- qs2::qs_read(paste0("data/extracted_tables_", test, ".qs"))
 ```
 
 ## Functions
@@ -212,6 +216,7 @@ process_cefi_tables(extracted_tables)
 
 # Convert to tibble
 table1 <- data.frame(table1)
+
 # Ensure column names are correct
 names(table1) <- c("score", "ci_95", "percentile", "category")
 
@@ -321,6 +326,9 @@ df <- rbind(table1, table2)
 ## Match with lookup table
 
 ```{r eval = TRUE}
+library(readr)
+library(dplyr)
+
 # Load the lookup table
 lookup_table <- readr::read_csv("~/reports/neuropsych_lookup_table_combined.csv")
 
@@ -350,155 +358,31 @@ df_mutated <- df_mutated |>
 ## Glue results for each scale
 
 ```{r glue, eval = TRUE}
-if (params$test == "cefi_self" || params$test == "cefi_self_12-18") {
-  df <- df_mutated |>
-    dplyr::mutate(
-      result = dplyr::case_when(
-        scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s self-reported {description} was {range}.\n"
-        ),
-        scale == "Attention" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Emotion Regulation" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Flexibility" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Inhibitory Control" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Initiation" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Organization" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Planning" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Self-Monitoring" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Working Memory" ~ glue::glue(
-          "- {patient}'s self-reported {narrow} ({description}) was {range}.\n"
-        ),
-        TRUE ~ as.character(result)
+# Get the rater type from params$test
+rater <- params$test |>
+  stringr::str_extract("self|observer|parent|teacher")
+
+# Define the rater label based on the extracted rater type
+rater_labels <- c(
+  "self" = "self",
+  "observer" = "observer",
+  "parent" = "parent",
+  "teacher" = "teacher"
+)
+
+# Update the result column using the appropriate rater label
+df <- df_mutated |>
+  dplyr::mutate(
+    result = dplyr::case_when(
+      scale == "Full Scale" ~ glue::glue(
+        "In terms of executive functioning skills related to ADHD, {patient}'s {rater_labels[[rater]]}-reported {scale} score (measuring {description}) fell within the {range} range.\n\n"
+      ),
+      TRUE ~ glue::glue(
+        "- {patient}'s {rater_labels[[rater]]}-reported {scale} score ({description}) fell within the {range} range.\n\n"
       )
     )
-} else if (params$test == "cefi_observer" || params$test == "cefi_observer_12-18") {
-  df <- df_mutated |>
-    dplyr::mutate(
-      result = dplyr::case_when(
-        scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s observer-reported {description} was {range}.\n"
-        ),
-        scale == "Attention" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Emotion Regulation" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Flexibility" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Inhibitory Control" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Initiation" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Organization" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Planning" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Self-Monitoring" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Working Memory" ~ glue::glue(
-          "- {patient}'s observer-reported {narrow} ({description}) was {range}.\n"
-        ),
-        TRUE ~ as.character(result)
-      )
-    )
-} else if (params$test == "cefi_parent" || params$test == "cefi_parent_12-18" || params$test == "cefi_parent_5-18") {
-  df <- df_mutated |>
-    dplyr::mutate(
-      result = dplyr::case_when(
-        scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s parent-reported {description} was {range}.\n"
-        ),
-        scale == "Attention" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Emotion Regulation" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Flexibility" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Inhibitory Control" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Initiation" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Organization" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Planning" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Self-Monitoring" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Working Memory" ~ glue::glue(
-          "- {patient}'s parent-reported {narrow} ({description}) was {range}.\n"
-        ),
-        TRUE ~ as.character(result)
-      )
-    )
-} else if (params$test == "cefi_teacher" || params$test == "cefi_teacher_12-18") {
-  df <- df_mutated |>
-    dplyr::mutate(
-      result = dplyr::case_when(
-        scale == "Full Scale" ~ glue::glue(
-          "- {patient}'s teacher-reported {description} was {range}.\n"
-        ),
-        scale == "Attention" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Emotion Regulation" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Flexibility" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Inhibitory Control" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Initiation" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Organization" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Planning" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Self-Monitoring" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        scale == "Working Memory" ~ glue::glue(
-          "- {patient}'s teacher-reported {narrow} ({description}) was {range}.\n"
-        ),
-        TRUE ~ as.character(result)
-      )
-    )
-}
+  )
+
 
 df <- df |>
   dplyr::select(-description) |>
@@ -537,7 +421,7 @@ if (params$test == "cefi_self") {
       sep = "\n"
     )
   }
-} else if (params$test == "cefi_self_12_18") {
+} else if (params$test == "cefi_self_12-18") {
   ## extract text
   cefi_self_txt <- get_text(file)
   if (!is.null(cefi_self_txt)) {
@@ -548,7 +432,7 @@ if (params$test == "cefi_self") {
     # save as markdown
     readr::write_lines(
       cefi_self_squished,
-      here::here("cefi_self_12_18_text.md"),
+      here::here("cefi_self_12-18_text.md"),
       sep = "\n"
     )
   }
@@ -570,7 +454,7 @@ if (params$test == "cefi_observer") {
       sep = "\n"
     )
   }
-} else if (params$test == "cefi_observer_5_18") {
+} else if (params$test == "cefi_observer_5-18") {
   ## extract text
   cefi_observer_txt <- get_text(file)
   if (!is.null(cefi_observer_txt)) {
@@ -581,7 +465,7 @@ if (params$test == "cefi_observer") {
     # save as markdown
     readr::write_lines(
       cefi_observer_squished,
-      here::here("cefi_observer_5_18_text.md"),
+      here::here("cefi_observer_5-18_text.md"),
       sep = "\n"
     )
   }
@@ -603,7 +487,7 @@ if (params$test == "cefi_parent") {
       sep = "\n"
     )
   }
-} else if (params$test == "cefi_parent_5_18") {
+} else if (params$test == "cefi_parent_5-18") {
   ## extract text
   cefi_parent_txt <- get_text(file)
   if (!is.null(cefi_parent_txt)) {
@@ -614,7 +498,7 @@ if (params$test == "cefi_parent") {
     # save as markdown
     readr::write_lines(
       cefi_parent_squished,
-      here::here("cefi_parent_5_18_text.md"),
+      here::here("cefi_parent_5-18_text.md"),
       sep = "\n"
     )
   }
@@ -636,7 +520,7 @@ if (params$test == "cefi_teacher") {
       sep = "\n"
     )
   }
-} else if (params$test == "cefi_teacher_5_18") {
+} else if (params$test == "cefi_teacher_5-18") {
   ## extract text
   cefi_teacher_txt <- get_text(file)
   if (!is.null(cefi_teacher_txt)) {
@@ -647,7 +531,7 @@ if (params$test == "cefi_teacher") {
     # save as markdown
     readr::write_lines(
       cefi_teacher_squished,
-      here::here("cefi_teacher_5_18_text.md"),
+      here::here("cefi_teacher_5-18_text.md"),
       sep = "\ n"
     )
   }

@@ -1,11 +1,5 @@
-<<PROMPT>>
+<summary>
 
-## Area: Behavioral/Emotional/Social (self-report)
 
-Summarize and interpret these neuropsychological test scores related to the area denoted above. For scores that are Below { range }, give a brief example of how this could impact the patient's daily functioning. Organize your summary and interpretation in order from scores that are Exceptionally High/Above { range } to Exceptionally Low/Below { range } to delineate relative strengths and weaknesses, respectively. Finally, recommended additional support that the patient should receive in areas in which scores fall Below { range } to Exceptionally Low.
 
-<<EXAMPLE>>
-
-Biggie's parent-reported assessments show a mix of High Average and Average scores in various aspects of emotional and behavioral well-being. High Average scores include attention, anxiety-based and depressive behaviors, social adeptness, and internalizing problems. Average scores include behavioral symptoms, externalizing problems, aggression, rule-breaking, self-control, health-related problems, logical thought patterns, social avoidance, and adaptation to situations. Low Average scores are seen in adaptive skills, daily task performance, creativity under pressure, and communication skills. The Below Average score is in expressive and receptive communication skills and independent information-seeking abilities.
-
-<<END>>
+</summary>

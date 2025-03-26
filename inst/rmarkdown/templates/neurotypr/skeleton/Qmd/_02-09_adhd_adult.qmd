@@ -4,9 +4,6 @@
 #| label: setup-adhd
 #| include: false
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
 # domain
 domains <- c("ADHD")
 
@@ -65,6 +62,7 @@ readr::write_excel_csv(adhd, paste0(pheno, ".csv"), na = "", col_names = TRUE, a
 #| include: false
 
 scales <- c(
+  # Brown EF/A
   "Activation",
   "Focus",
   "Effort",
@@ -72,6 +70,7 @@ scales <- c(
   "Memory",
   "Action",
   "Total Composite",
+  # CAARS
   "Inattention/Memory Problems",
   "Hyperactivity/Restlessness",
   "Impulsivity/Emotional Lability",
@@ -91,6 +90,7 @@ scales <- c(
   "Planning",
   "Self-Monitoring",
   "Working Memory",
+  # Conners 4
   "Inattention/Executive Dysfunction",
   "Hyperactivity",
   "Impulsivity",
@@ -100,43 +100,18 @@ scales <- c(
   "ADHD Hyperactive/Impulsive Symptoms",
   "Total ADHD Symptoms",
   "ADHD Index",
-  "CAARS-OR Inattention/Memory Problems",
-  "CAARS-OR Hyperactivity/Restlessness",
-  "CAARS-OR Impulsivity/Emotional Lability",
-  "CAARS-OR Problems with Self-Concept",
-  "CAARS-OR DSM-5 Inattentive Symptoms",
-  "CAARS-OR DSM-5 Hyperactive-Impulsive Symptoms",
-  "CAARS-OR DSM-5 ADHD Symptoms Total",
-  "CAARS-OR ADHD Index",
-  "CAARS-SR Inattention/Memory Problems",
-  "CAARS-SR Hyperactivity/Restlessness",
-  "CAARS-SR Impulsivity/Emotional Lability",
-  "CAARS-SR Problems with Self-Concept",
-  "CAARS-SR DSM-5 Inattentive Symptoms",
-  "CAARS-SR DSM-5 Hyperactive-Impulsive Symptoms",
-  "CAARS-SR DSM-5 ADHD Symptoms Total",
-  "CAARS-SR ADHD Index",
-  "CEFI-OR Full Scale",
-  "CEFI-OR Attention",
-  "CEFI-OR Emotion Regulation",
-  "CEFI-OR Flexibility",
-  "CEFI-OR Inhibitory Control",
-  "CEFI-OR Initiation",
-  "CEFI-OR Organization",
-  "CEFI-OR Planning",
-  "CEFI-OR Self-Monitoring",
-  "CEFI-OR Working Memory",
-  "CEFI-SR Full Scale",
-  "CEFI-SR Attention",
-  "CEFI-SR Emotion Regulation",
-  "CEFI-SR Flexibility",
-  "CEFI-SR Inhibitory Control",
-  "CEFI-SR Initiation",
-  "CEFI-SR Organization",
-  "CEFI-SR Planning",
-  "CEFI-SR Self-Monitoring",
-  "CEFI-SR Working Memory",
-  "Inattention (INATTN) Index"
+  # PAI
+  "Inattention (INATTN) Index",
+  # CAARS-2
+  "ADHD Hyperactive/Impulsive Symptoms",
+  "ADHD Inattentive Symptoms",
+  "CAARS-2 ADHD Index",
+  "Emotional Dysregulation",
+  "Hyperactivity",
+  "Impulsivity",
+  "Inattention/Executive Dysfunction",
+  "Negative Self-Concept",
+  "Total ADHD Symptoms"
 )
 
 # Filter the data using the filter_data function from the bwu library
@@ -152,14 +127,13 @@ data_adhd <- bwu::filter_data(data = adhd, domain = domains, scale = scales)
 # Self-report
 data_adhd_self <-
   data_adhd |>
-  dplyr::filter(test == "caars_sr" | test == "cefi_sr" | test == "caars2_sr" | test == "brown_efa_self" | test == "pai") |>
+  dplyr::filter(test == "caars_self" | test == "cefi_self" | test == "caars2_self" | test == "brown_efa_self" | test == "pai" | test == "cefi_self_12-18") |>
   dplyr::arrange(dplyr::desc(percentile)) |>
   dplyr::distinct(.keep_all = FALSE)
 
 # Flatten the text
 bwu::cat_neuropsych_results(data = data_adhd_self, file = "_02-09_adhd_adult_text_self.qmd")
 ```
-
 
 ```{r}
 #| label: qtbl-adhd-self
@@ -179,65 +153,63 @@ multiline <- TRUE
 
 # variables
 data_adhd_self <-
-  dplyr::mutate(data_adhd_self, scale = stringr::str_remove_all(scale, "CAARS-OR |CEFI-OR |CAARS2 Self |Brown EF/A |PAI "))
+  dplyr::mutate(data_adhd_self, scale = stringr::str_remove_all(
+    scale, "CAARS Self |CEFI Self |CAARS-2 Self |Brown EF/A Self |PAI |CEFI Self 12-18  |Conners 4 Self |Conners 4 Parent "
+  ))
 
 # footnotes
-# fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15
-# [16th‰, 84th‰].
+fn_standard_score <- gt::md("Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰].
 
-# Lower scores reflect reduced functioning.")
+Lower scores reflect reduced functioning.")
 
 fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
 
 Higher scores reflect reduced functioning.")
 
-# fn_t_score <- gt::md("Brown EF/A T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
-
-# Higher scores reflect reduced functioning.")
-
-source_note <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
-
-Higher scores reflect reduced functioning.")
-
-# source_note <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰].
-
-# Lower scores reflect reduced functioning in the given area.")
+# source_note <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]. Higher scores reflect reduced functioning.")
 
 # groupings
 grp_adhd <- list(
-  standard_score = c("CEFI Self-Report", "CEFI Observer-Report", "CEFI Self", "CEFI Observer"),
-  t_score = c("CAARS Self-Report", "CAARS Observer-Report", "CAARS-2 Self-Report", "CAARS-2 Observer-Report", "CAARS2 Self", "CAARS2 Observer", "CAARS Self", "Brown EF/A Self-Report", "PAI")
+  standard_score = c("CEFI Self", "CEFI Observer", "CEFI Self 12-18"),
+  t_score = c("CAARS Self", "CAARS Observer", "CAARS-2 Self", "CAARS-2 Observer", "Brown EF/A Self", "PAI", "Conners-4 Self", "Conners-4 Parent")
 )
 
 grp_caars <- list(
-  t_score = c("CAARS Self-Report", "CAARS Observer-Report", "CAARS-2 Self-Report", "CAARS-2 Observer-Report", "CAARS2 Self", "CAARS2 Observer", "CAARS Self")
+  t_score = c("CAARS Self", "CAARS Observer", "CAARS-2 Self", "CAARS-2 Observer")
 )
 
 grp_cefi <- list(
-  standard_score = c("CEFI Self-Report", "CEFI Observer-Report", "CEFI Self", "CEFI Observer")
+  standard_score = c("CEFI Self", "CEFI Observer", "CEFI Self 12-18")
+)
+
+grp_brown_efa <- list(
+  standard_score = c("Brown EF/A Self", "Brown EF/A Observer")
+)
+
+grp_conners4 <- list(
+  standard_score = c("Conners-4 Parent", "Conners-4 Self")
 )
 
 grp_self <- list(
-  standard_score = c("CEFI Self-Report", "CEFI Self"),
-  t_score = c("CAARS Self-Report", "CAARS-2 Self-Report", "CAARS2 Self", "CAARS Self", "Brown EF/A Self-Report", "PAI")
+  standard_score = c("CEFI Self", "CEFI Self 12-18"),
+  t_score = c("CAARS-2 Self", "CAARS Self", "Brown EF/A Self", "PAI")
 )
 
 # make `gt` table
-bwu::NeurotypR::tbl_gt2(
+NeurotypR::tbl_gt2(
   data = data_adhd_self,
   pheno = pheno,
   table_name = table_name,
   vertical_padding = vertical_padding,
-  source_note = source_note,
-  # fn_standard_score = fn_standard_score,
-  # fn_t_score = fn_t_score,
-  # grp_standard_score = grp_self[["standard_score"]],
-  # grp_t_score = grp_self[["t_score"]],
+  # source_note = source_note,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  grp_standard_score = grp_self[["standard_score"]],
+  grp_t_score = grp_self[["t_score"]],
   dynamic_grp = grp_self,
   multiline = multiline
 )
 ```
-
 
 ```{r}
 #| label: fig-adhd-self
@@ -255,10 +227,7 @@ filename <- "fig_adhd_self.svg"
 colors <- NULL
 return_plot <- TRUE
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
-bwu::dotplot(
+NeurotypR::dotplot2(
   data = data_adhd_self,
   x = x,
   y = y,
@@ -267,9 +236,6 @@ bwu::dotplot(
   filename = filename,
   na.rm = TRUE
 )
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
 ```
 
 ```{r}
@@ -281,7 +247,7 @@ options(warn = 0) # Reset to default behavior
 # Observer-report
 data_adhd_observer <-
   data_adhd |>
-  dplyr::filter(test == "caars_or" | test == "cefi_or" | test == "caars2_or") |>
+  dplyr::filter(test == "caars_observer" | test == "cefi_observer" | test == "caars2_observer" | test == "brown_efa_observer" | test == "conners4_parent" | test == "cefi_parent" | test == "cefi_teacher") |>
   dplyr::arrange(dplyr::desc(percentile)) |>
   dplyr::distinct(.keep_all = FALSE)
 
@@ -305,7 +271,7 @@ multiline <- TRUE
 
 # variables
 data_adhd_observer <-
-  dplyr::mutate(data_adhd_observer, scale = stringr::str_remove_all(scale, "CAARS-OR |CEFI-OR |CAARS2 Observer "))
+  dplyr::mutate(data_adhd_observer, scale = stringr::str_remove_all(scale, "CAARS Observer |CEFI Observer |CAARS-2 Observer |Brown EF/A Observer |Conners 4 Parent"))
 
 # footnotes
 fn_standard_score <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15
@@ -313,54 +279,56 @@ fn_standard_score <- gt::md("CEFI Standard score: Mean = 100 [50th‰], SD ± 15
 
 Lower scores reflect reduced functioning.")
 
-fn_t_score <- gt::md("CAARS T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
 
 Higher scores reflect reduced functioning.")
 
-fn_t_score <- gt::md("CAARS T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+# source_note <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
 
-Higher scores reflect reduced functioning.")
-
-source_note <- gt::md("CAARS T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
-
-Higher scores reflect reduced functioning.")
+# Higher scores reflect reduced functioning.")
 
 # groupings
 grp_adhd <- list(
-  standard_score = c("CEFI Observer-Report", "CEFI Observer-Report", "CEFI Observer", "CEFI Observer"),
-  t_score = c("CAARS Observer-Report", "CAARS Observer-Report", "CAARS-2 Observer-Report", "CAARS-2 Observer-Report", "CAARS2 Observer", "CAARS2 Observer", "CAARS Observer")
+  standard_score = c("CEFI Self", "CEFI Observer", "CEFI Self 12-18"),
+  t_score = c("CAARS Self", "CAARS Observer", "CAARS-2 Self", "CAARS-2 Observer", "Brown EF/A Self", "Brown EF/A Observer", "PAI", "Conners-4 Self", "Conners-4 Parent")
 )
 
 grp_caars <- list(
-  t_score = c("CAARS Observer-Report", "CAARS Observer-Report", "CAARS-2 Observer-Report", "CAARS-2 Observer-Report", "CAARS2 Observer", "CAARS2 Observer", "CAARS Observer")
+  t_score = c("CAARS Self", "CAARS Observer", "CAARS-2 Self", "CAARS-2 Observer")
 )
 
 grp_cefi <- list(
-  standard_score = c("CEFI Observer-Report", "CEFI Observer-Report", "CEFI Observer", "CEFI Observer")
+  standard_score = c("CEFI Self", "CEFI Observer", "CEFI Self 12-18")
+)
+
+grp_brown_efa <- list(
+  standard_score = c("Brown EF/A Self", "Brown EF/A Observer")
+)
+
+grp_conners4 <- list(
+  standard_score = c("Conners-4 Parent", "Conners-4 Self")
 )
 
 grp_observer <- list(
-  standard_score = c("CEFI Observer-Report", "CEFI Observer"),
-  t_score = c("CAARS Observer-Report", "CAARS-2 Observer-Report", "CAARS2 Observer", "CAARS Observer")
+  standard_score = c("CEFI Observer"),
+  t_score = c("CAARS-2 Observer", "CAARS Observer", "Brown EF/A Observer", "Conners-4 Parent")
 )
 
 # make `gt` table
-bwu::NeurotypR::tbl_gt2(
+NeurotypR::tbl_gt2(
   data = data_adhd_observer,
   pheno = pheno,
   table_name = table_name,
-  source_note = source_note,
+  # source_note = source_note,
   fn_standard_score = fn_standard_score,
-  # fn_t_score = fn_t_score,
+  fn_t_score = fn_t_score,
   grp_standard_score = grp_observer[["standard_score"]],
-  # grp_t_score = grp_observer[["t_score"]],
+  grp_t_score = grp_observer[["t_score"]],
   dynamic_grp = grp_observer,
   vertical_padding = vertical_padding,
   multiline = multiline
 )
 ```
-
-
 
 ```{r}
 #| label: fig-adhd-observer
@@ -377,10 +345,7 @@ filename <- "fig_adhd_observer.svg"
 colors <- NULL
 return_plot <- TRUE
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
-bwu::dotplot(
+NeurotypR::dotplot2(
   data = data_adhd_observer,
   x = x,
   y = y,
@@ -389,11 +354,7 @@ bwu::dotplot(
   filename = filename,
   na.rm = TRUE
 )
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
 ```
-
 
 ### SELF-REPORT
 
@@ -427,7 +388,6 @@ options(warn = 0) # Reset to default behavior
   )
 }
 ```
-
 ```{=typst}
 #let title = "ADHD/Executive Function Self Ratings"
 #let file_qtbl = "table_adhd_self.png"
@@ -438,7 +398,6 @@ options(warn = 0) # Reset to default behavior
   file_fig
   )
 ```
-
 ### OBSERVER RATINGS
 
 {{< include _02-09_adhd_adult_text_observer.qmd >}}
@@ -473,8 +432,6 @@ options(warn = 0) # Reset to default behavior
   )
 }
 ```
-
-
 ```{=typst}
 #let title = "ADHD Observer Ratings"
 #let file_qtbl = "table_adhd_observer.png"

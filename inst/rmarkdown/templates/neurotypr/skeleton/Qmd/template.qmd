@@ -91,7 +91,7 @@ validity <- readr::read_csv("validity.csv")
 
 <!-- {{< pagebreak >}} -->
 
-{{< include _01-00_nse_*.qmd >}}
+{{< include _01-00_nse_referral.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
@@ -100,7 +100,6 @@ validity <- readr::read_csv("validity.csv")
 ```{=typst}
 = NEUROCOGNITIVE FINDINGS
 ```
-
 {{< include _02-01_iq.qmd >}}
 
 {{< include _02-02_academics.qmd >}}
@@ -119,15 +118,15 @@ validity <- readr::read_csv("validity.csv")
 
 <!-- {{< include _02-08_social.qmd >}} -->
 
-{{< include _02-09_adhd_adult.qmd >}}
+<!-- {{< include _02-09_adhd_adult.qmd >}} -->
 
-{{< include _02-10_emotion_adult.qmd >}}
+{{< include _02-09_adhd_child.qmd >}}
 
-<!-- {{< include _02-09_adhd_child.qmd >}} -->
+<!-- {{< include _02-10_emotion_adult.qmd >}} -->
 
-<!-- {{< include _02-10_emotion_child.qmd >}} -->
+{{< include _02-10_emotion_child.qmd >}}
 
-<!-- {{< include _02-11_adaptive.qmd >}} -->
+{{< include _02-11_adaptive.qmd >}}
 
 <!-- {{< pagebreak >}} -->
 
