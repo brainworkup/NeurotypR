@@ -216,10 +216,7 @@ data_memory <- bwu::filter_data(data = memory, domain = domains, scale = scales)
 bwu::cat_neuropsych_results(data = data_memory, file = "_02-05_memory_text.qmd")
 ```
 
-```{r}
-#| include: false
-source("NeurotypR::tbl_gt2.R")
-```
+
 
 ```{r}
 #| label: qtbl-memory
@@ -428,10 +425,7 @@ NeurotypR::tbl_gt2(
 )
 ```
 
-```{r}
-#| include: false
-source("dotplot.R")
-```
+
 
 ```{r}
 #| label: fig-memory
@@ -446,7 +440,7 @@ return_plot <- TRUE
 filename <- "fig_memory.svg"
 
 # Make dotplot
-dotplot(
+NeurotypR::dotplot2(
   data = data_memory,
   x = x,
   y = y,

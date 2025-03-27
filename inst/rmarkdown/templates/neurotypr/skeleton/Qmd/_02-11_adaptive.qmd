@@ -164,7 +164,7 @@ y <- data_adaptive$narrow
 options(warn = 1) # Set warn to 1 to make warnings not halt execution
 
 # Create the dotplot using the dotplot function from the bwu library
-bwu::dotplot(
+NeurotypR::dotplot2(
   data = data_adaptive,
   x = x,
   y = y,

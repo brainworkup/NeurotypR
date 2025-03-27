@@ -11,8 +11,12 @@ options(warn = 1) # Set warn to 1 to make warnings not halt execution
 
 # domain
 domains <- c(
-  "Psychiatric Disorders", "Personality Disorders", "Substance Use",
-  "Psychosocial Problems", "Behavioral/Emotional/Social", "Emotional/Behavioral/Personality"
+  "Psychiatric Disorders",
+  "Personality Disorders",
+  "Substance Use",
+  "Psychosocial Problems"
+  # "Behavioral/Emotional/Social",
+  # "Emotional/Behavioral/Personality"
 )
 
 # phenotype
@@ -62,7 +66,13 @@ emotion <- emotion |>
 
 # Write the 'emotion' data frame to a CSV file
 # The file name is derived from the 'pheno' variable
-readr::write_excel_csv(emotion, paste0(pheno, ".csv"), na = "", col_names = TRUE, append = FALSE)
+readr::write_excel_csv(
+  emotion,
+  paste0(pheno, ".csv"),
+  na = "",
+  col_names = TRUE,
+  append = FALSE
+)
 ```
 
 ```{r}
@@ -194,9 +204,11 @@ vertical_padding <- 0
 multiline <- TRUE
 
 # Source/footnote
-source_note <- gt::md("PAI _T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+source_note <- gt::md(
+  "PAI _T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
 
-Higher scores reflect reduced functioning.")
+Higher scores reflect reduced functioning."
+)
 
 
 # groupings
@@ -205,14 +217,18 @@ grp_emotion <- list(
 )
 
 data_emotion <-
-  dplyr::filter(data_emotion, domain %in% c(
-    "Psychiatric Disorders",
-    "Personality Disorders",
-    "Psychosocial Problems",
-    "Substance Use"
-    # "Behavioral/Emotional/Social",
-    # "Emotional/Behavioral/Personality"
-  )) |>
+  dplyr::filter(
+    data_emotion,
+    domain %in%
+      c(
+        "Psychiatric Disorders",
+        "Personality Disorders",
+        "Psychosocial Problems",
+        "Substance Use"
+        # "Behavioral/Emotional/Social",
+        # "Emotional/Behavioral/Personality"
+      )
+  ) |>
   dplyr::arrange(factor(test_name, levels = c("PAI", "MMPI-3")), subdomain)
 
 # Define the specific order of scales
@@ -243,12 +259,14 @@ data_emotion <- data_emotion |>
 # print(data_emotion)
 
 # Source/footnote
-source_note <- gt::md("PAI _T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
+source_note <- gt::md(
+  "PAI _T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰].
 
-Higher scores reflect reduced functioning.")
+Higher scores reflect reduced functioning."
+)
 
 # make `gt` table
-bwu::NeurotypR::tbl_gt2(
+NeurotypR::tbl_gt2(
   data = data_emotion,
   pheno = pheno,
   table_name = table_name,
@@ -274,7 +292,7 @@ x <- data_emotion$z_mean_subdomain
 y <- data_emotion$subdomain
 
 # Make dotplot
-bwu::dotplot(
+NeurotypR::dotplot2(
   colors = colors,
   data = data_emotion,
   filename = filename,

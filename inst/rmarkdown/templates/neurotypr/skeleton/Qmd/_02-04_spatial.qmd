@@ -142,10 +142,6 @@ bwu::cat_neuropsych_results(
 )
 ```
 
-```{r}
-#| include: false
-source("NeurotypR::tbl_gt2.R")
-```
 
 ```{r}
 #| label: qtbl-spatial
@@ -217,10 +213,6 @@ NeurotypR::tbl_gt2(
 )
 ```
 
-```{r}
-#| include: false
-source("dotplot.R")
-```
 
 ```{r}
 #| label: fig-spatial
@@ -242,7 +234,7 @@ colors <- NULL
 return_plot <- TRUE
 
 # Make dotplot
-dotplot(
+NeurotypR::dotplot2(
   data = data_spatial,
   x = x,
   y = y,

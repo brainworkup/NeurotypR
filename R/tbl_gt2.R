@@ -1,6 +1,6 @@
 #' @title Make Table Using gt Package for Neurocognitive Domains
 #' @description Create a table of domain counts using dplyr and gt packages.
-#' @importFrom dplyr across mutate group_by summarize arrange select if_else
+#' @importFrom dplyr across mutate group_by summarize arrange select if_else .data
 #' @importFrom gt gt cols_label tab_stub_indent tab_header sub_missing tab_options cols_align tab_source_note gtsave tab_style tab_stubhead tab_caption tab_spanner cell_text cells_body cells_row_groups md tab_footnote opt_vertical_padding
 #' @importFrom gtExtras gt_theme_538
 #' @importFrom tidyr replace_na
@@ -33,44 +33,55 @@
 #' @export
 tbl_gt2 <-
   function(
-      data,
-      pheno = NULL,
-      table_name = NULL,
-      source_note = NULL,
-      names = NULL,
-      title = NULL,
-      tab_stubhead = NULL,
-      caption = NULL,
-      process_md = FALSE,
-      fn_scaled_score = NULL,
-      fn_standard_score = NULL,
-      fn_t_score = NULL,
-      fn_z_score = NULL,
-      fn_raw_score = NULL,
-      grp_scaled_score = NULL,
-      grp_standard_score = NULL,
-      grp_t_score = NULL,
-      grp_z_score = NULL,
-      grp_raw_score = NULL,
-      dynamic_grp = NULL,
-      vertical_padding = NULL,
-      multiline = TRUE,
-      ...) {
+    data,
+    pheno = NULL,
+    table_name = NULL,
+    source_note = NULL,
+    names = NULL,
+    title = NULL,
+    tab_stubhead = NULL,
+    caption = NULL,
+    process_md = FALSE,
+    fn_scaled_score = NULL,
+    fn_standard_score = NULL,
+    fn_t_score = NULL,
+    fn_z_score = NULL,
+    fn_raw_score = NULL,
+    grp_scaled_score = NULL,
+    grp_standard_score = NULL,
+    grp_t_score = NULL,
+    grp_z_score = NULL,
+    grp_raw_score = NULL,
+    dynamic_grp = NULL,
+    vertical_padding = NULL,
+    multiline = TRUE,
+    ...
+  ) {
     # Create data counts
     data_counts <- data |>
-      dplyr::select(test_name, scale, score, percentile, range) |>
+      dplyr::select(
+        .data$test_name,
+        .data$scale,
+        .data$score,
+        .data$percentile,
+        .data$range
+      ) |>
       dplyr::mutate(across(
-        c(score, percentile),
+        c(.data$score, .data$percentile),
         ~ tidyr::replace_na(., replace = 0)
       ))
 
     # Create table
     table <- data_counts |>
       dplyr::mutate(
-        score = dplyr::if_else(score == 0, NA_integer_, score),
-        percentile = dplyr::if_else(percentile == 0, NA_integer_, percentile),
-        test_name = as.character(paste0(test_name)),
-        scale = as.character(scale)
+        score = dplyr::if_else(.data$score == 0, NA_integer_, .data$score),
+        percentile = dplyr::if_else(
+          .data$percentile == 0,
+          NA_integer_,
+          .data$percentile
+        ),
+        test_name = as.character(paste0(.data$test_name)),
+        scale = as.character(.data$scale)
       ) |>
       gt::gt(
         rowname_col = "scale",
@@ -98,7 +109,30 @@ tbl_gt2 <-
             "Executive Functions Index (EXE)",
             "Spatial Index (SPT)",
             "Language Index (LAN)",
-            "Memory Index (MEM)"
+            "Memory Index (MEM)",
+            "NAB Attention Index",
+            "NAB Executive Functions Index",
+            "NAB Total Index",
+            "NAB Memory Index",
+            "NAB Language Index",
+            "NAB Spatial Index",
+            "Attention Index",
+            "RBANS Total Index",
+            "Delayed Memory Index",
+            "Immediate Memory Index",
+            "Language Index",
+            "Visuospatial/Constructional Index",
+            "Full Scale (FSIQ)",
+            "General Ability (GAI)",
+            "Verbal Comprehension (VCI)",
+            "Processing Speed (PSI)",
+            "Perceptual Reasoning (PRI)",
+            "Working Memory (WMI)",
+            "Cognitive Proficiency (CPI)",
+            "Fluid Reasoning (FRI)",
+            "Visual Spatial (VSI)",
+            "Vocabulary Acquisition (VAI)",
+            "Nonverbal (NVI)"
           ),
         indent = 2
       ) |>
@@ -119,7 +153,30 @@ tbl_gt2 <-
               "Executive Functions Index (EXE)",
               "Spatial Index (SPT)",
               "Language Index (LAN)",
-              "Memory Index (MEM)"
+              "Memory Index (MEM)",
+              "NAB Attention Index",
+              "NAB Executive Functions Index",
+              "NAB Total Index",
+              "NAB Memory Index",
+              "NAB Language Index",
+              "NAB Spatial Index",
+              "Attention Index",
+              "RBANS Total Index",
+              "Delayed Memory Index",
+              "Immediate Memory Index",
+              "Language Index",
+              "Visuospatial/Constructional Index",
+              "Full Scale (FSIQ)",
+              "General Ability (GAI)",
+              "Verbal Comprehension (VCI)",
+              "Processing Speed (PSI)",
+              "Perceptual Reasoning (PRI)",
+              "Working Memory (WMI)",
+              "Cognitive Proficiency (CPI)",
+              "Fluid Reasoning (FRI)",
+              "Visual Spatial (VSI)",
+              "Vocabulary Acquisition (VAI)",
+              "Nonverbal (NVI)"
             )
         )
       ) |>

@@ -39,3 +39,10 @@ test_descriptions.md
 test_neurotypr.R
 thinking-cap.py
 inst/rmarkdown/templates/neurotypr/skeleton/qmd/.quarto
+.lintr
+inst/rmarkdown/templates/neurotypr/skeleton/qmd/list.bat
+inst/rmarkdown/templates/neurotypr/skeleton/qmd/template 2.qmd
+.gitignore
+inst/rmarkdown/templates/neurotypr/skeleton/qmd/_quarto 2.yml
+.gitignore
+inst/rmarkdown/templates/neurotypr/skeleton/qmd/_02-09_adhd_child_text_teacher (1).qmd

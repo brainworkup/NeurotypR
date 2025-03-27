@@ -6,9 +6,6 @@
 #| label: setup-executive
 #| include: false
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
 # domain
 domains <- c("Attention/Executive")
 
@@ -212,10 +209,7 @@ bwu::cat_neuropsych_results(
 )
 ```
 
-```{r}
-#| include: false
-source("NeurotypR::tbl_gt2.R")
-```
+
 ```{r}
 #| label: qtbl-executive
 #| dev: tikz
@@ -418,10 +412,7 @@ NeurotypR::tbl_gt2(
 )
 ```
 
-```{r}
-#| include: false
-source("dotplot.R")
-```
+
 
 ```{r}
 #| label: fig-executive-subdomain
@@ -447,7 +438,7 @@ return_plot <- TRUE
 x <- data_executive$z_mean_subdomain
 y <- data_executive$subdomain
 
-dotplot(
+NeurotypR::dotplot2(
   data = data_executive,
   x = x,
   y = y,
@@ -472,7 +463,7 @@ return_plot <- TRUE
 x <- data_executive$z_mean_narrow
 y <- data_executive$narrow
 
-dotplot(
+NeurotypR::dotplot2(
   data = data_executive,
   x = x,
   y = y,
@@ -519,7 +510,7 @@ dotplot(
   )
 ```
 
-<!-- ```{=typst}
+```{=typst}
 #let title = "Attention/Executive"
 #let file_qtbl = "table_executive.png"
 #let file_fig = "fig_executive_narrow.svg"
@@ -528,4 +519,4 @@ dotplot(
   file_qtbl,
   file_fig
   )
-``` -->
+```

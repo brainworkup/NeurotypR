@@ -296,7 +296,7 @@ data_social <- data_social |> dplyr::select(c(test_name, scale, raw_score, score
 #   }
 
 # make `gt` table
-bwu::NeurotypR::tbl_gt2(
+NeurotypR::tbl_gt2(
   data = data_social,
   pheno = pheno,
   table_name = table_name,
@@ -334,14 +334,11 @@ data_social <- data_social |>
 x <- data_social$raw_score
 y <- data_social$scale
 colors <- NULL
-return_plot <- Sys.getenv("RETURN_PLOT")
+return_plot <- TRUE
 filename <- "fig_social.svg"
 
-# Suppress warnings from being converted to errors
-options(warn = 1) # Set warn to 1 to make warnings not halt execution
-
 # Plotting function call
-bwu::dotplot(
+NeurotypR::dotplot2(
   data = data_social,
   x = x,
   y = y,
@@ -350,14 +347,11 @@ bwu::dotplot(
   filename = filename,
   na.rm = TRUE
 )
-
-# Reset warning options to default if needed
-options(warn = 0) # Reset to default behavior
 ```
 
 ```{=typst}
 #let domain(title: none, file_qtbl, file_fig) = {
-  let font = (font: "Roboto Slab", size: 0.5em)
+  let font = (font: "Roboto Slab", size: 0.7em)
   set text(..font)
   pad(top: 0.5em)[]
     grid(

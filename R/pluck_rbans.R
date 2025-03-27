@@ -28,19 +28,22 @@
 #'   output_file_path = "data/processed_rbans.csv"
 #' )
 #' }
-process_rbans_data <- function(input_file_path,
-                               test_name_prefix,
-                               test,
-                               test_name,
-                               patient,
-                               output_file_path = NULL) {
+process_rbans_data <- function(
+    input_file_path,
+    test_name_prefix,
+    test,
+    test_name,
+    patient,
+    output_file_path = NULL) {
   # Validate input file
   if (!file.exists(input_file_path)) {
     stop("Input file does not exist: ", input_file_path)
   }
 
   # Function to extract raw scores
-  pluck_rbans_raw <- function(input_file_path, test_name_prefix, output_file_path = NULL) {
+  pluck_rbans_raw <- function(input_file_path,
+                              test_name_prefix,
+                              output_file_path = NULL) {
     df <- readr::read_csv(
       input_file_path,
       col_names = FALSE,
@@ -49,13 +52,14 @@ process_rbans_data <- function(input_file_path,
     )
 
     # Rename the columns - make sure we have the right number based on the actual data
+
     if (ncol(df) >= 3) {
       names(df)[1:3] <- c("Subtest", "NA", "Raw score")
       # Remove the second column
       df <- df |> dplyr::select(Subtest, `Raw score`)
     } else {
       # Handle the case where there might be fewer columns
-      names(df) <- c("Subtest", "Raw score")[1:ncol(df)]
+      names(df) <- c("Subtest", "Raw score")[seq_len(ncol(df))]
     }
 
     # Find the start of the "Raw Score" section - search the entire dataframe
@@ -64,7 +68,10 @@ process_rbans_data <- function(input_file_path,
       start_line <- start_line[1, "row"] + 1 # Take the first occurrence + 1
     } else {
       # Fallback if "RAW SCORES" not found
-      start_line <- which(grepl("RAW SCORES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      start_line <- which(
+        grepl("RAW SCORES", as.matrix(df), ignore.case = TRUE),
+        arr.ind = TRUE
+      )
       if (length(start_line) > 0) {
         start_line <- start_line[1, "row"] + 1
       } else {
@@ -78,7 +85,10 @@ process_rbans_data <- function(input_file_path,
       stop_line <- stop_line[1, "row"] - 1 # Take the first occurrence - 1
     } else {
       # Fallback if "SCALED SCORES" not found
-      stop_line <- which(grepl("SCALED SCORES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      stop_line <- which(
+        grepl("SCALED SCORES", as.matrix(df), ignore.case = TRUE),
+        arr.ind = TRUE
+      )
       if (length(stop_line) > 0) {
         stop_line <- stop_line[1, "row"] - 1
       } else {
@@ -91,7 +101,8 @@ process_rbans_data <- function(input_file_path,
       dplyr::slice(start_line:stop_line)
 
     # Keep only rows with the specified prefix in the first column
-    df_raw <- df_raw |> dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
+    df_raw <- df_raw |>
+      dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
 
     # Rename columns - using setNames instead of rename_with to avoid the length error
     df_raw <- df_raw |> setNames(c("scale", "raw_score"))
@@ -108,7 +119,9 @@ process_rbans_data <- function(input_file_path,
   }
 
   # Function to extract scaled scores
-  pluck_rbans_score <- function(input_file_path, test_name_prefix, output_file_path = NULL) {
+  pluck_rbans_score <- function(input_file_path,
+                                test_name_prefix,
+                                output_file_path = NULL) {
     df <- readr::read_csv(
       input_file_path,
       col_names = FALSE,
@@ -123,7 +136,7 @@ process_rbans_data <- function(input_file_path,
       df <- df |> dplyr::select(Subtest, `Scaled score`)
     } else {
       # Handle the case where there might be fewer columns
-      names(df) <- c("Subtest", "Scaled score")[1:ncol(df)]
+      names(df) <- c("Subtest", "Scaled score")[seq_len(ncol(df))]
     }
 
     # Find the start of the "Scaled Score" section - search the entire dataframe
@@ -132,7 +145,10 @@ process_rbans_data <- function(input_file_path,
       start_line <- start_line[1, "row"] + 1 # Take the first occurrence + 1
     } else {
       # Fallback if "SCALED SCORES" not found
-      start_line <- which(grepl("SCALED SCORES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      start_line <- which(
+        grepl("SCALED SCORES", as.matrix(df), ignore.case = TRUE),
+        arr.ind = TRUE
+      )
       if (length(start_line) > 0) {
         start_line <- start_line[1, "row"] + 1
       } else {
@@ -146,7 +162,10 @@ process_rbans_data <- function(input_file_path,
       stop_line <- stop_line[1, "row"] - 1 # Take the first occurrence - 1
     } else {
       # Fallback if "CONTEXTUAL EVENTS" not found
-      stop_line <- which(grepl("CONTEXTUAL EVENTS", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      stop_line <- which(
+        grepl("CONTEXTUAL EVENTS", as.matrix(df), ignore.case = TRUE),
+        arr.ind = TRUE
+      )
       if (length(stop_line) > 0) {
         stop_line <- stop_line[1, "row"] - 1
       } else {
@@ -159,7 +178,8 @@ process_rbans_data <- function(input_file_path,
       dplyr::slice(start_line:stop_line)
 
     # Keep only rows with the specified prefix in the first column
-    df_score <- df_score |> dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
+    df_score <- df_score |>
+      dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
 
     # Rename columns - using setNames instead of rename_with to avoid the length error
     df_score <- df_score |> setNames(c("scale", "score"))
@@ -176,7 +196,9 @@ process_rbans_data <- function(input_file_path,
   }
 
   # Function to extract completion times
-  pluck_rbans_completion_times <- function(input_file_path, test_name_prefix, output_file_path = NULL) {
+  pluck_rbans_completion_times <- function(input_file_path,
+                                           test_name_prefix,
+                                           output_file_path = NULL) {
     df <- readr::read_csv(
       input_file_path,
       col_names = FALSE,
@@ -191,7 +213,7 @@ process_rbans_data <- function(input_file_path,
       df <- df |> dplyr::select(Subtest, `Completion Time (seconds)`)
     } else {
       # Handle the case where there might be fewer columns
-      names(df) <- c("Subtest", "Completion Time (seconds)")[1:ncol(df)]
+      names(df) <- c("Subtest", "Completion Time (seconds)")[seq_len(ncol(df))]
     }
 
     # Find the start of the "Completion Times" section - search the entire dataframe
@@ -200,7 +222,10 @@ process_rbans_data <- function(input_file_path,
       start_line <- start_line[1, "row"] + 1 # Take the first occurrence + 1
     } else {
       # Fallback if "SUBTEST COMPLETION TIMES" not found
-      start_line <- which(grepl("SUBTEST COMPLETION TIMES", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      start_line <- which(
+        grepl("SUBTEST COMPLETION TIMES", as.matrix(df), ignore.case = TRUE),
+        arr.ind = TRUE
+      )
       if (length(start_line) > 0) {
         start_line <- start_line[1, "row"] + 1
       } else {
@@ -214,7 +239,10 @@ process_rbans_data <- function(input_file_path,
       stop_line <- stop_line[1, "row"] - 1 # Take the first occurrence - 1
     } else {
       # Fallback if "RULES TRIGGERED" not found
-      stop_line <- which(grepl("RULES TRIGGERED", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+      stop_line <- which(
+        grepl("RULES TRIGGERED", as.matrix(df), ignore.case = TRUE),
+        arr.ind = TRUE
+      )
       if (length(stop_line) > 0) {
         stop_line <- stop_line[1, "row"] - 1
       } else {
@@ -227,13 +255,16 @@ process_rbans_data <- function(input_file_path,
       dplyr::slice(start_line:stop_line)
 
     # Keep only rows with the specified prefix in the first column
-    df_times <- df_times |> dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
+    df_times <- df_times |>
+      dplyr::filter(stringr::str_starts(Subtest, test_name_prefix))
 
     # Rename columns - using setNames instead of rename_with to avoid the length error
     df_times <- df_times |> setNames(c("scale", "completion_time_seconds"))
 
     df_times$scale <- as.character(df_times$scale)
-    df_times$completion_time_seconds <- as.numeric(df_times$completion_time_seconds)
+    df_times$completion_time_seconds <- as.numeric(
+      df_times$completion_time_seconds
+    )
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
@@ -244,7 +275,9 @@ process_rbans_data <- function(input_file_path,
   }
 
   # Function to extract composite scores
-  pluck_rbans_composite <- function(input_file_path, test_name_prefix, output_file_path = NULL) {
+  pluck_rbans_composite <- function(input_file_path,
+                                    test_name_prefix,
+                                    output_file_path = NULL) {
     df <- readr::read_csv(
       input_file_path,
       col_names = FALSE,
@@ -261,7 +294,10 @@ process_rbans_data <- function(input_file_path,
       start_line <- which(df$X1 == "Composite Score")
       if (length(start_line) == 0) {
         # Fallback if "Composite Score" not found
-        start_line <- which(grepl("Composite Score", as.matrix(df), ignore.case = TRUE), arr.ind = TRUE)
+        start_line <- which(
+          grepl("Composite Score", as.matrix(df), ignore.case = TRUE),
+          arr.ind = TRUE
+        )
         if (length(start_line) > 0) {
           start_line <- start_line[1, "row"]
         } else {
@@ -304,11 +340,11 @@ process_rbans_data <- function(input_file_path,
           dplyr::filter(stringr::str_starts(scale, test_name_prefix)) |>
           dplyr::select(-c(ci_90_lo, ci_90_up)) |>
           dplyr::mutate(
-            scale = as.character(scale),
-            score = as.numeric(score),
-            percentile = as.numeric(percentile),
-            ci_95_lower = as.numeric(ci_95_lower),
-            ci_95_upper = as.numeric(ci_95_upper)
+            scale = as.character(.data$scale),
+            score = as.numeric(.data$score),
+            percentile = as.numeric(.data$percentile),
+            ci_95_lower = as.numeric(.data$ci_95_lower),
+            ci_95_upper = as.numeric(.data$ci_95_upper)
           )
       },
       error = function(e) {
@@ -324,7 +360,11 @@ process_rbans_data <- function(input_file_path,
     )
 
     # Write to file if output path is provided
-    if (!is.null(output_file_path) && !is.null(df_composite) && nrow(df_composite) > 0) {
+    if (
+      !is.null(output_file_path) &&
+        !is.null(df_composite) &&
+        nrow(df_composite) > 0
+    ) {
       readr::write_csv_excel(df_composite, output_file_path)
     }
 
@@ -332,10 +372,26 @@ process_rbans_data <- function(input_file_path,
   }
 
   # Extract data components - pass the output_file_path parameter to intermediate files if desired
-  rbans_raw <- pluck_rbans_raw(input_file_path, test_name_prefix, output_file_path = NULL)
-  rbans_score <- pluck_rbans_score(input_file_path, test_name_prefix, output_file_path = NULL)
-  rbans_time <- pluck_rbans_completion_times(input_file_path, test_name_prefix, output_file_path = NULL)
-  rbans_composite <- pluck_rbans_composite(input_file_path, test_name_prefix, output_file_path = NULL)
+  rbans_raw <- pluck_rbans_raw(
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL
+  )
+  rbans_score <- pluck_rbans_score(
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL
+  )
+  rbans_time <- pluck_rbans_completion_times(
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL
+  )
+  rbans_composite <- pluck_rbans_composite(
+    input_file_path,
+    test_name_prefix,
+    output_file_path = NULL
+  )
 
   # Join the data into one dataframe by the test name
   df <- dplyr::left_join(rbans_raw, rbans_score, by = "scale") |>
@@ -344,9 +400,15 @@ process_rbans_data <- function(input_file_path,
 
   # Recalculate percentiles based on score
   df <- df |>
-    dplyr::mutate(z = ifelse(!is.na(score), (score - 10) / 3, NA)) |>
-    dplyr::mutate(percentile = ifelse(is.na(percentile), trunc(stats::pnorm(z) * 100), percentile)) |>
-    dplyr::select(-z)
+    dplyr::mutate(z = ifelse(!is.na(.data$score), (.data$score - 10) / 3, NA)) |>
+    dplyr::mutate(
+      percentile = ifelse(
+        is.na(.data$percentile),
+        trunc(stats::pnorm(.data$z) * 100),
+        .data$percentile
+      )
+    ) |>
+    dplyr::select(-"z")
 
   # Merge with composite scores
   df <- dplyr::bind_rows(df, rbans_composite) |>
@@ -387,7 +449,10 @@ process_rbans_data <- function(input_file_path,
     "Total Scale (TOT)" = "RBANS Total Index"
   )
 
-  df$scale <- purrr::map_chr(df$scale, ~ ifelse(.x %in% names(scales_to_rename), scales_to_rename[.x], .x))
+  df$scale <- purrr::map_chr(
+    df$scale,
+    ~ ifelse(.x %in% names(scales_to_rename), scales_to_rename[.x], .x)
+  )
 
   # Add additional columns
   df <- add_rbans_metadata(df, test, test_name, patient)
@@ -418,8 +483,10 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
       data = df,
       test = test,
       test_name = test_name,
-      ci_95 = ifelse(!is.na(df$ci_95_lower) & !is.na(df$ci_95_upper),
-        paste0(df$ci_95_lower, "-", df$ci_95_upper), ""
+      ci_95 = ifelse(
+        !is.na(df$ci_95_lower) & !is.na(df$ci_95_upper),
+        paste0(df$ci_95_lower, "-", df$ci_95_upper),
+        ""
       ),
       domain = "",
       subdomain = "",
@@ -436,8 +503,19 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
     # Fallback if bwu package is not available
     missing_cols <- setdiff(
       c(
-        "test", "test_name", "ci_95", "domain", "subdomain", "narrow",
-        "pass", "verbal", "timed", "test_type", "score_type", "description", "result"
+        "test",
+        "test_name",
+        "ci_95",
+        "domain",
+        "subdomain",
+        "narrow",
+        "pass",
+        "verbal",
+        "timed",
+        "test_type",
+        "score_type",
+        "description",
+        "result"
       ),
       names(df)
     )
@@ -448,8 +526,10 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
 
     df$test <- test
     df$test_name <- test_name
-    df$ci_95 <- ifelse(!is.na(df$ci_95_lower) & !is.na(df$ci_95_upper),
-      paste0(df$ci_95_lower, "-", df$ci_95_upper), ""
+    df$ci_95 <- ifelse(
+      !is.na(df$ci_95_lower) & !is.na(df$ci_95_upper),
+      paste0(df$ci_95_lower, "-", df$ci_95_upper),
+      ""
     )
     df$test_type <- "npsych_test"
   }
@@ -462,7 +542,8 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
         scale == "Immediate Memory Index" ~ "Memory",
         scale == "List Learning" ~ "Memory",
         scale == "Story Memory" ~ "Memory",
-        scale == "Visuospatial/Constructional Index" ~ "Visual Perception/Construction",
+        scale == "Visuospatial/Constructional Index" ~
+          "Visual Perception/Construction",
         scale == "Figure Copy" ~ "Visual Perception/Construction",
         scale == "Line Orientation" ~ "Visual Perception/Construction",
         scale == "Language Index" ~ "Verbal/Language",
@@ -488,7 +569,8 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
         scale == "Immediate Memory Index" ~ "Neuropsychological Functioning",
         scale == "List Learning" ~ "Learning Efficiency",
         scale == "Story Memory" ~ "Learning Efficiency",
-        scale == "Visuospatial/Constructional Index" ~ "Neuropsychological Functioning",
+        scale == "Visuospatial/Constructional Index" ~
+          "Neuropsychological Functioning",
         scale == "Figure Copy" ~ "Organization",
         scale == "Line Orientation" ~ "Perception",
         scale == "Language Index" ~ "Neuropsychological Functioning",
@@ -514,7 +596,8 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
         scale == "Immediate Memory Index" ~ "RBANS Memory Index",
         scale == "List Learning" ~ "Word-List Learning",
         scale == "Story Memory" ~ "Story Memory",
-        scale == "Visuospatial/Constructional Index" ~ "RBANS Visuospatial/Constructional Index",
+        scale == "Visuospatial/Constructional Index" ~
+          "RBANS Visuospatial/Constructional Index",
         scale == "Figure Copy" ~ "Figure Copy",
         scale == "Line Orientation" ~ "Visual Perception",
         scale == "Language Index" ~ "RBANS Language Index",
@@ -640,24 +723,31 @@ add_rbans_metadata <- function(df, test, test_name, patient) {
   df <- df |>
     dplyr::mutate(
       description = dplyr::case_when(
-        scale == "RBANS Total Index" ~ "composite indicator of general cognitive functioning",
-        scale == "Immediate Memory Index" ~ "composite verbal learning of a word list and a logical story",
+        scale == "RBANS Total Index" ~
+          "composite indicator of general cognitive functioning",
+        scale == "Immediate Memory Index" ~
+          "composite verbal learning of a word list and a logical story",
         scale == "List Learning" ~ "word list learning",
         scale == "Story Memory" ~ "expository story learning",
-        scale == "Visuospatial/Constructional Index" ~ "broad visuospatial processing",
+        scale == "Visuospatial/Constructional Index" ~
+          "broad visuospatial processing",
         scale == "Figure Copy" ~ "copy of a complex abstract figure",
         scale == "Line Orientation" ~ "basic perception of visual stimuli",
         scale == "Language Index" ~ "general language processing",
-        scale == "Picture Naming" ~ "confrontation naming/expressive vocabulary",
+        scale == "Picture Naming" ~
+          "confrontation naming/expressive vocabulary",
         scale == "Semantic Fluency" ~ "semantic word fluency/generativity",
-        scale == "Attention Index" ~ "general attentional and executive functioning",
+        scale == "Attention Index" ~
+          "general attentional and executive functioning",
         scale == "RBANS Digit Span" ~ "attention span and auditory attention",
         scale == "RBANS Coding" ~ "speed of information processing",
-        scale == "Delayed Memory Index" ~ "long-term recall of verbal information",
+        scale == "Delayed Memory Index" ~
+          "long-term recall of verbal information",
         scale == "List Recall" ~ "long-term recall of a word list",
         scale == "List Recognition" ~ "delayed recognition of a word list",
         scale == "Story Recall" ~ "long-term recall of a detailed story",
-        scale == "Figure Recall" ~ "long-term recall and reconstruction of a complex abstract figure",
+        scale == "Figure Recall" ~
+          "long-term recall and reconstruction of a complex abstract figure",
         TRUE ~ as.character(description)
       )
     )

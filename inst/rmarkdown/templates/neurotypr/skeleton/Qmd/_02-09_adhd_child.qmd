@@ -170,7 +170,7 @@ data_adhd_self <-
     data_adhd_self,
     scale = stringr::str_remove_all(
       scale,
-      "CEFI Self |Brown EF/A Self |CEFI Self 12-18 |Conners-4 Self "
+      "Brown EF/A Self |CEFI Self 12-18 |Conners-4 Self "
     )
   )
 
@@ -303,7 +303,7 @@ data_adhd_parent <-
     data_adhd_parent,
     scale = stringr::str_remove_all(
       scale,
-      "CEFI Parent |Brown EF/A Parent |Conners-4 Parent"
+      "CEFI Parent |Brown EF/A Parent |Conners-4 Parent "
     )
   )
 
@@ -401,14 +401,13 @@ NeurotypR::dotplot2(
 )
 ```
 
-
 ```{r}
 #| label: text-adhd-teacher
 #| cache: true
 #| include: false
-#| eval: false
+#| eval: true
 
-# Parent report
+# Teacher report
 data_adhd_teacher <-
   data_adhd |>
   dplyr::filter(
@@ -429,7 +428,7 @@ bwu::cat_neuropsych_results(
 #| label: qtbl-adhd-teacher
 #| dev: tikz
 #| fig-process: pdf2png
-#| eval: false
+#| eval: true
 #| include: false
 options(tikzDefaultEngine = "xetex")
 
@@ -437,6 +436,16 @@ options(tikzDefaultEngine = "xetex")
 table_name <- "table_adhd_teacher"
 vertical_padding <- 0
 multiline <- TRUE
+
+# variables
+data_adhd_teacher <-
+  dplyr::mutate(
+    data_adhd_teacher,
+    scale = stringr::str_remove_all(
+      scale,
+      "CEFI Teacher |Brown EF/A Teacher |Conners-4 Teacher "
+    )
+  )
 
 # footnotes
 fn_standard_score <- gt::md(
@@ -456,12 +465,12 @@ Higher scores reflect reduced functioning."
 grp_adhd <- list(
   standard_score = c("CEFI Self 12-18", "CEFI Teacher", "CEFI Parent"),
   t_score = c(
-    "Conners-4 Self",
-    "Conners-4 Parent",
-    "Conners-4 Teacher",
-    "Brown EF/A Teacher",
     "Brown EF/A Parent",
-    "Brown EF/A Self"
+    "Brown EF/A Self",
+    "Brown EF/A Teacher",
+    "Conners-4 Parent",
+    "Conners-4 Self",
+    "Conners-4 Teacher"
   )
 )
 grp_cefi <- list(
@@ -482,9 +491,9 @@ grp_teacher <- list(
 data_adhd_teacher <-
   data_adhd |>
   dplyr::filter(
-    test == "conners4_teacher" |
-      test == "brown_efa_teacher" |
-      test == "cefi_teacher_5-18"
+    test == "brown_efa_teacher" |
+      test == "cefi_teacher_5-18" |
+      test == "conners4_teacher"
   ) |>
   dplyr::distinct(.keep_all = FALSE)
 
@@ -505,10 +514,9 @@ NeurotypR::tbl_gt2(
 )
 ```
 
-
 ```{r}
 #| label: fig-adhd-teacher
-#| eval: false
+#| eval: true
 #| include: false
 #| fig-cap: "Attention and executive functions are multidimensional concepts that contain several related processes. Both concepts require self-regulatory skills and have some common subprocesses; therefore, it is common to treat them together, or even to refer to both processes when talking about one or the other."
 
