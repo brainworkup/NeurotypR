@@ -112,7 +112,7 @@ process_rbans_data <- function(
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
-      readr::write_csv_excel(df_raw, output_file_path)
+      readr::write_excel_csv(df_raw, output_file_path)
     }
 
     return(df_raw)
@@ -189,7 +189,7 @@ process_rbans_data <- function(
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
-      readr::write_csv_excel(df_score, output_file_path)
+      readr::write_excel_csv(df_score, output_file_path)
     }
 
     return(df_score)
@@ -268,7 +268,7 @@ process_rbans_data <- function(
 
     # Write to file if output path is provided
     if (!is.null(output_file_path)) {
-      readr::write_csv_excel(df_times, output_file_path)
+      readr::write_excel_csv(df_times, output_file_path)
     }
 
     return(df_times)
@@ -365,7 +365,7 @@ process_rbans_data <- function(
         !is.null(df_composite) &&
         nrow(df_composite) > 0
     ) {
-      readr::write_csv_excel(df_composite, output_file_path)
+      readr::write_excel_csv(df_composite, output_file_path)
     }
 
     return(df_composite)
@@ -459,7 +459,7 @@ process_rbans_data <- function(
 
   # Write the combined data to a CSV file if output_file_path is provided
   if (!is.null(output_file_path)) {
-    readr::write_csv_excel(df, output_file_path)
+    readr::write_excel_csv(df, output_file_path)
   }
 
   return(df)

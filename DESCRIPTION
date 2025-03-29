@@ -3,7 +3,6 @@ Title: R Markdown Templates for Neuropsychological Report Writing
 Version: 0.0.0.9003
 Authors@R:
     person("Joey", "Trampush", email = "joey.trampush@brainworkup.org", role = c("aut", "cre"))
-Author: Joey Trampush [aut, cre]
 Maintainer: Joey Trampush <joey.trampush@brainworkup.org>
 Description: Provides R Markdown templates for neuropsychological evaluation data processing and report generation.
 License: MIT
@@ -12,37 +11,37 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
     dplyr,
-    glue,
-    lubridate,
-    purrr,
-    readr,
-    rlang,
-    stats,
-    stringr,
-    tibble,
-    tidyr,
-    tidyselect,
-    utils,
     forcats,
     ggplot2,
     ggtext,
     ggthemes,
+    glue,
     gt,
     gtExtras,
     here,
     highcharter,
     janitor,
     kableExtra,
-    readxl,
-    rmarkdown,
+    lubridate,
+    purrr,
     qs2,
+    readr,
+    readxl,
+    rlang,
+    rmarkdown,
     shiny,
+    stats,
+    stringr,
     tabulapdf,
-    tinytex
+    tibble,
+    tidyr,
+    tidyselect,
+    tinytex,
+    utils
 Suggests:
     bwu,
     testthat (>= 3.0.0)
-Depends: 
+Depends:
     R (>= 3.5)
 LazyData: true
 Config/testthat/edition: 3
