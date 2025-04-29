@@ -28,7 +28,6 @@ NeurotypR.Rcheck/
 NeurotypR.code-workspace
 README.Rmd
 NeurotypR.qmd
-
 .vscode/extensions.json
 Patient_Workflow.md
 ignore.R
@@ -46,3 +45,6 @@ inst/rmarkdown/templates/neurotypr/skeleton/qmd/template 2.qmd
 inst/rmarkdown/templates/neurotypr/skeleton/qmd/_quarto 2.yml
 .gitignore
 inst/rmarkdown/templates/neurotypr/skeleton/qmd/_02-09_adhd_child_text_teacher (1).qmd
+NeurotypR.code-workspace
+app-shiny.R
+nab.test.descriptions.manual.xlsx
