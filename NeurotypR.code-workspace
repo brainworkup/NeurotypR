@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "FireFly Pro",
+    "workbench.colorTheme": "Themer Future Pro Dark",
     "workbench.iconTheme": "catppuccin-mocha",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",
@@ -16,17 +16,8 @@
       "sideBar.border": "#dee2fc66",
       "activityBar.foreground": "#15202b",
       "activityBar.inactiveForeground": "#15202b99",
-      "commandCenter.border": "#15202b99",
       "sash.hoverBorder": "#dee2fc66",
-      "statusBar.background": "#b0b8f766",
-      "statusBar.foreground": "#15202b",
-      "statusBarItem.hoverBackground": "#828ef266",
-      "statusBarItem.remoteBackground": "#b0b8f766",
-      "statusBarItem.remoteForeground": "#15202b",
-      "titleBar.activeBackground": "#b0b8f766",
-      "titleBar.activeForeground": "#15202b",
-      "titleBar.inactiveBackground": "#b0b8f799",
-      "titleBar.inactiveForeground": "#15202b99"
+      "tab.activeBorder": "#dee2fc66"
     },
     "peacock.color": "#b0b8f766",
     "peacock.affectActivityBar": true,
@@ -37,7 +28,8 @@
     "jupyter.themeMatplotlibPlots": true,
     "r.plot.defaults.colorTheme": "vscode",
     "quarto.render.renderOnSave": true,
-    "workbench.preferredHighContrastLightColorTheme": "Default High Contrast"
+    "workbench.preferredHighContrastLightColorTheme": "Default High Contrast",
+    "workbench.productIconTheme": "fluent-icons"
   },
   "extensions": {
     "recommendations": [

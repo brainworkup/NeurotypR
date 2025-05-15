@@ -1,9 +1,3 @@
----
-title: "General Cognitive Ability"
-params:
-  first_name: !expr yaml::read_yaml("_variables.yml")$first_name
----
-
 ## General Cognitive Ability {#sec-iq}
 
 {{< include _02-01_iq_text.qmd >}}
