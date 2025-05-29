@@ -27,24 +27,28 @@
 #' @importFrom highcharter list_parse
 #' @rdname dotplot
 #' @export
-dotplot <- function(data,
-                    x,
-                    y,
-                    linewidth = 0.5,
-                    fill = x,
-                    shape = 21,
-                    point_size = 6,
-                    line_color = "black",
-                    colors = NULL,
-                    theme = "fivethirtyeight",
-                    return_plot = NULL,
-                    filename = NULL,
-                    ...) {
+dotplot <- function(
+  data,
+  x,
+  y,
+  linewidth = 0.5,
+  fill = x,
+  shape = 21,
+  point_size = 6,
+  line_color = "black",
+  colors = NULL,
+  theme = "fivethirtyeight",
+  return_plot = NULL,
+  filename = NULL,
+  ...
+) {
   # Check if required packages are installed
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     stop("Package 'ggplot2' must be installed to use this function.")
   }
-  if (theme == "fivethirtyeight" && !requireNamespace("ggthemes", quietly = TRUE)) {
+  if (
+    theme == "fivethirtyeight" && !requireNamespace("ggthemes", quietly = TRUE)
+  ) {
     stop("Package 'ggthemes' must be installed to use theme_fivethirtyeight.")
   }
   # Define the color palette
@@ -134,7 +138,8 @@ dotplot <- function(data,
 
   # Apply theme
   plot_object <- plot_object +
-    switch(theme,
+    switch(
+      theme,
       "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
       "minimal" = ggplot2::theme_minimal(),
       "classic" = ggplot2::theme_classic(),
@@ -173,8 +178,10 @@ dotplot <- function(data,
         device = "svg"
       )
     } else {
-      warning("File extension not recognized.
-              Supported extensions are 'pdf', 'png', and 'svg'.")
+      warning(
+        "File extension not recognized.
+Supported extensions are 'pdf', 'png', and 'svg'."
+      )
     }
   }
 
@@ -195,11 +202,27 @@ dotplot <- function(data,
 #' @return A drilldown plot
 #' @rdname drilldown
 #' @export
-drilldown <- function(data, patient, neuro_domain = c(
-                        "Neuropsychological Test Scores",
-                        "Behavioral Rating Scales",
-                        "Effort/Validity Test Scores"
-                      ), theme) {
+#' Drilldown on Neuropsych Domains
+#' This function uses the R Highcharter package and drilldown function to
+#' "drilldown" on neuropsychological domains and test scores. \code{drilldown}
+#' Creates a highcharter drilldown interactive plot.
+#' @param data Dataset to use.
+#' @param patient Name of patient.
+#' @param neuro_domain Name of neuropsych domain to add to HC series.
+#' @param theme The highcharter theme to use.
+#' @return A drilldown plot
+#' @rdname drilldown
+#' @export
+drilldown <- function(
+  data,
+  patient,
+  neuro_domain = c(
+    "Neuropsychological Test Scores",
+    "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"
+  ),
+  theme
+) {
   # Check if required packages are installed
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("Package 'dplyr' must be installed to use this function.")
@@ -221,8 +244,7 @@ drilldown <- function(data, patient, neuro_domain = c(
       zPct = mean(percentile, na.rm = TRUE)
     ) |>
     dplyr::mutate(range = NA) |>
-    ungroup() # NOTE this is new
-
+    dplyr::ungroup() # Fixed: added dplyr:: prefix
 
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
@@ -242,7 +264,7 @@ drilldown <- function(data, patient, neuro_domain = c(
     )
 
   # 2. sort hi to lo
-  df1 <- dplyr::arrange(df1, desc(zPct)) # NOTE this is new
+  df1 <- dplyr::arrange(df1, dplyr::desc(zPct)) # Fixed: added dplyr:: prefix to desc
 
   # 3. create tibble with new column with domain name lowercase
   df_level1_status <- tibble(
@@ -269,7 +291,7 @@ drilldown <- function(data, patient, neuro_domain = c(
           zPct = mean(percentile, na.rm = TRUE)
         ) |>
         dplyr::mutate(range = NA) |>
-        dplyr::ungroup() # NOTE this is new
+        dplyr::ungroup() # Fixed: added dplyr:: prefix
 
       # round z-score to 1 decimal
       df2$zMean <- round(df2$zMean, 2L)
@@ -290,7 +312,7 @@ drilldown <- function(data, patient, neuro_domain = c(
         )
 
       # 2. sort hi to lo
-      df2 <- dplyr::arrange(df2, desc(zPct)) # NOTE this is new
+      df2 <- dplyr::arrange(df2, dplyr::desc(zPct)) # Fixed: added dplyr:: prefix to desc
 
       # 3. create tibble with new column with domain name lowercase
       df_level2_status <- tibble(
@@ -304,7 +326,7 @@ drilldown <- function(data, patient, neuro_domain = c(
       list(
         id = tolower(x_level),
         type = "column",
-        data = list_parse(df_level2_status)
+        data = highcharter::list_parse(df_level2_status) # Fixed: added highcharter:: prefix
       )
     })
 
@@ -328,7 +350,7 @@ drilldown <- function(data, patient, neuro_domain = c(
             zPct = mean(percentile, na.rm = TRUE)
           ) |>
           dplyr::mutate(range = NA) |>
-          ungroup() # NOTE this is new
+          dplyr::ungroup() # Fixed: added dplyr:: prefix
 
         # round z-score to 1 decimal
         df3$zMean <- round(df3$zMean, 2L)
@@ -348,7 +370,7 @@ drilldown <- function(data, patient, neuro_domain = c(
             )
           )
 
-        df3 <- dplyr::arrange(df3, desc(zPct))
+        df3 <- dplyr::arrange(df3, dplyr::desc(zPct)) # Fixed: added dplyr:: prefix to desc
 
         df_level3_status <- tibble(
           name = df3$narrow,
@@ -361,10 +383,11 @@ drilldown <- function(data, patient, neuro_domain = c(
         list(
           id = tolower(paste(x_level, y_level, sep = "_")),
           type = "column",
-          data = list_parse(df_level3_status)
+          data = highcharter::list_parse(df_level3_status) # Fixed: added highcharter:: prefix
         )
       })
-    }) |> unlist(recursive = FALSE)
+    }) |>
+    unlist(recursive = FALSE)
 
   ## Level 4 -------------------------------------------------------
   ## Scale scores
@@ -387,7 +410,7 @@ drilldown <- function(data, patient, neuro_domain = c(
               zPct = mean(percentile, na.rm = TRUE)
             ) |>
             dplyr::mutate(range = NA) |>
-            dplyr::ungroup() # NOTE this is new
+            dplyr::ungroup() # Fixed: added dplyr:: prefix
 
           # round z-score to 1 decimal
           df4$zMean <- round(df4$zMean, 2L)
@@ -407,7 +430,7 @@ drilldown <- function(data, patient, neuro_domain = c(
               )
             )
 
-          df4 <- dplyr::arrange(df4, desc(zMean))
+          df4 <- dplyr::arrange(df4, dplyr::desc(zMean)) # Fixed: added dplyr:: prefix to desc
 
           df_level4_status <- tibble(
             name = df4$scale,
@@ -419,11 +442,13 @@ drilldown <- function(data, patient, neuro_domain = c(
           list(
             id = tolower(paste(x_level, y_level, z_level, sep = "_")),
             type = "column",
-            data = list_parse(df_level4_status)
+            data = highcharter::list_parse(df_level4_status) # Fixed: added highcharter:: prefix
           )
         })
-      }) |> unlist(recursive = FALSE)
-    }) |> unlist(recursive = FALSE)
+      }) |>
+        unlist(recursive = FALSE)
+    }) |>
+    unlist(recursive = FALSE)
 
   # Create charts ----------------------------------
   # Theme
@@ -445,15 +470,16 @@ drilldown <- function(data, patient, neuro_domain = c(
       text = patient,
       style = list(fontSize = "15px")
     ) |>
-    highcharter::hc_add_series(df_level1_status,
+    highcharter::hc_add_series(
+      df_level1_status,
       type = "bar",
       name = neuro_domain,
       highcharter::hcaes(x = name, y = y)
     ) |>
     highcharter::hc_xAxis(
       type = "category",
-      title = list(text = "Domain"),
-      categories = .$name
+      title = list(text = "Domain")
+      # Removed: categories = .$name (this was causing the error)
     ) |>
     highcharter::hc_yAxis(
       title = list(text = "z-Score (Mean = 0, SD = 1)"),
@@ -504,11 +530,16 @@ drilldown <- function(data, patient, neuro_domain = c(
 #' @return A drilldown plot
 #' @rdname pass
 #' @export
-pass <- function(data, patient, neuro_domain = c(
-                   "Neuropsychological Test Scores",
-                   "Behavioral Rating Scales",
-                   "Effort/Validity Test Scores"
-                 ), theme) {
+pass <- function(
+  data,
+  patient,
+  neuro_domain = c(
+    "Neuropsychological Test Scores",
+    "Behavioral Rating Scales",
+    "Effort/Validity Test Scores"
+  ),
+  theme
+) {
   # Check if required packages are installed
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("Package 'dplyr' must be installed to use this function.")
@@ -531,7 +562,6 @@ pass <- function(data, patient, neuro_domain = c(
     ) |>
     dplyr::mutate(range = NA) |>
     ungroup() # NOTE this is new
-
 
   df1$zMean <- round(df1$zMean, 2L)
   df1$zPct <- round(df1$zPct, 0L)
@@ -561,8 +591,6 @@ pass <- function(data, patient, neuro_domain = c(
     range = df1$range,
     drilldown = tolower(name)
   )
-
-
 
   ## Level 2 -------------------------------------------------------
   ## Scale scores
@@ -632,7 +660,8 @@ pass <- function(data, patient, neuro_domain = c(
       text = patient,
       style = list(fontSize = "15px")
     ) |>
-    highcharter::hc_add_series(df_pass_status,
+    highcharter::hc_add_series(
+      df_pass_status,
       type = "bar",
       name = neuro_domain,
       highcharter::hcaes(x = name, y = y)

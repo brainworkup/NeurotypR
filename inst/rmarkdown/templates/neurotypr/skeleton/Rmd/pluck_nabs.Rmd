@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from NAB-Screener (NAB-S)"
 params:
-  patient: Matthew
+  patient: Max
   test:
     label: "Test"
     value: nabs
@@ -326,6 +326,23 @@ table1[6, 1] <- c("NAB Total Index")
 table2 <- as.data.frame(plucked_tables[[2]])
 colnames(table2) <- params$column_names2
 to_double <- c("raw_score", "z_score", "score", "percentile")
+
+# Pre-process non-numeric values before conversion
+table2 <- table2 |>
+  dplyr::mutate(across(all_of(to_double), function(x) {
+    # Replace "N/A" with NA
+    x <- ifelse(x == "N/A", NA_character_, x)
+    # Handle "< 1" values by converting to 0.5
+    x <- ifelse(x == "< 1", "0.5", x)
+    return(x)
+  }))
+
+table2 <-
+  table2 |>
+  hablar::convert(dbl(all_of(to_double)))
+# |>
+# slice(2, 5, 8, 11, 14, 16, 19)
+
 table2 <- table2 |> hablar::convert(dbl(all_of(to_double)))
 ```
 
@@ -366,9 +383,6 @@ if (params$test == "nabs") {
   table2[7, 1] <- c("Numbers & Letters Part D Efficiency")
   table2[8, 1] <- c("Driving Scenes")
 }
-# table2[10, 5] <- 1
-# table2[12, 5] <- 1
-# table2[13, 5] <- 1
 ```
 
 # NAB Language

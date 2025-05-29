@@ -5,7 +5,7 @@ title: |
 date: "`r Sys.Date()`"
 params:
   patient:
-    value: Biggie
+    value: Max
     label: "Patient's first name:"
     input: text
   test_name:
@@ -88,7 +88,7 @@ params:
         - "List Memory"
       DKEFS:
         - "D-KEFS Color Naming"
-        - "D-KEFS Word Reading"   
+        - "D-KEFS Word Reading"
         - "D-KEFS Inhibition"
         - "D-KEFS Switching"
         - "D-KEFS Inhibition Total Errors"
