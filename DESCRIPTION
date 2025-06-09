@@ -1,6 +1,6 @@
 Package: NeurotypR
-Title: R Markdown Templates for Neuropsychological Report Writing
-Version: 0.0.0.9003
+Title: Quarto and Typst Templates for Neuropsychological Report Writing
+Version: 0.0.1.0000
 Authors@R:
     person("Joey", "Trampush", email = "joey.trampush@brainworkup.org", role = c("aut", "cre"))
 Maintainer: Joey Trampush <joey.trampush@brainworkup.org>

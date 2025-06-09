@@ -35,3 +35,4 @@
 ^\.lintr$
 ^\.quarto$
 ^app-shiny\.R$
+^inst/rmarkdown/templates/neurotypr/skeleton/qmd/\.quarto$
