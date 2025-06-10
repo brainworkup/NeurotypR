@@ -26,6 +26,6 @@ df <- data.frame(
   scale = c("Scale1", "Scale2")
 )
 \dontrun{
-merge_lookup_table(df, "~/reports/neuropsych_lookup_table_combined.csv")
+merge_lookup_table(df, "~/Dropbox/neuropsych_lookup_table_combined.csv")
 }
 }

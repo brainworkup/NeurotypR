@@ -46,9 +46,9 @@
 #' @param percentile_col Name of column containing percentile information, Default = "percentile".
 #' @param ... Additional arguments to be passed to the function.
 #' @return A formatted table with domain counts and visualizations.
-#' @rdname tbl_gt2
+#' @rdname tbl_gt_enhanced
 #' @export
-tbl_gt4_enhanced <- function(
+tbl_gt_enhanced <- function(
   data,
   pheno = NULL,
   table_name = NULL,

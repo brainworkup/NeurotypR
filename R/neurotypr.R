@@ -10,13 +10,13 @@
 #' neurotypr_report()
 #' }
 neurotypr_report <- function() {
-  rmarkdown::draft("neurotypr-report.Rmd",
+  rmarkdown::draft(
+    "neurotypr-report.Rmd",
     template = "neurotypr",
     package = "NeurotypR",
     edit = FALSE
   )
 }
-
 
 
 #' Merge Dataset with a Lookup Table
@@ -38,7 +38,7 @@ neurotypr_report <- function() {
 #'   scale = c("Scale1", "Scale2")
 #' )
 #' \dontrun{
-#' merge_lookup_table(df, "~/reports/neuropsych_lookup_table_combined.csv")
+#' merge_lookup_table(df, "~/Dropbox/neuropsych_lookup_table_combined.csv")
 #' }
 merge_lookup_table <- function(df, lookup_file_path) {
   # Validate inputs
