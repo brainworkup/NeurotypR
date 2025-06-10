@@ -53,6 +53,7 @@ library(xaringanExtra)
 library(xaringanthemer)
 library(tidyverse)
 library(bwu)
+library(NeurotypR)
 ## knitr options
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(

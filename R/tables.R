@@ -32,33 +32,38 @@
 #' @rdname tbl_gt
 #' @export
 tbl_gt <-
-  function(data,
-           pheno = NULL,
-           table_name = NULL,
-           source_note = NULL,
-           names = NULL,
-           title = NULL,
-           tab_stubhead = NULL,
-           caption = NULL,
-           process_md = FALSE,
-           fn_scaled_score = NULL,
-           fn_standard_score = NULL,
-           fn_t_score = NULL,
-           fn_z_score = NULL,
-           fn_raw_score = NULL,
-           grp_scaled_score = NULL,
-           grp_standard_score = NULL,
-           grp_t_score = NULL,
-           grp_z_score = NULL,
-           grp_raw_score = NULL,
-           dynamic_grp = NULL,
-           vertical_padding = NULL,
-           multiline = TRUE,
-           ...) {
+  function(
+    data,
+    pheno = NULL,
+    table_name = NULL,
+    source_note = NULL,
+    names = NULL,
+    title = NULL,
+    tab_stubhead = NULL,
+    caption = NULL,
+    process_md = FALSE,
+    fn_scaled_score = NULL,
+    fn_standard_score = NULL,
+    fn_t_score = NULL,
+    fn_z_score = NULL,
+    fn_raw_score = NULL,
+    grp_scaled_score = NULL,
+    grp_standard_score = NULL,
+    grp_t_score = NULL,
+    grp_z_score = NULL,
+    grp_raw_score = NULL,
+    dynamic_grp = NULL,
+    vertical_padding = NULL,
+    multiline = TRUE,
+    ...
+  ) {
     # Create data counts
     data_counts <- data |>
       dplyr::select(test_name, scale, score, percentile, range) |>
-      dplyr::mutate(across(c(score, percentile), ~ tidyr::replace_na(., replace = 0)))
+      dplyr::mutate(across(
+        c(score, percentile),
+        ~ tidyr::replace_na(., replace = 0)
+      ))
 
     # Create table
     table <- data_counts |>
@@ -127,7 +132,10 @@ tbl_gt <-
 
     # Adding source note
     table <- table |>
-      gt::tab_style(style = cell_text(size = "small"), locations = cells_source_notes()) |>
+      gt::tab_style(
+        style = cell_text(size = "small"),
+        locations = cells_source_notes()
+      ) |>
       gt::tab_source_note(source_note = source_note) |>
       gtExtras::gt_theme_538() |>
       gt::tab_options(
@@ -162,13 +170,18 @@ tbl_kbl <- function(data) {
     align = c("lccc")
   ) |>
     kableExtra::kable_paper(lightable_options = "basic") |>
-    kableExtra::kable_styling(latex_options = c("scale_down", "HOLD_position", "striped")) |>
+    kableExtra::kable_styling(
+      latex_options = c("scale_down", "HOLD_position", "striped")
+    ) |>
     kableExtra::column_spec(1, width = "8cm") |>
     kableExtra::pack_rows(index = table(data$Test)) |>
     kableExtra::row_spec(row = 0, bold = TRUE) |>
-    kableExtra::footnote("Note: Standard scores have a mean of 50 and a standard deviation of 10, and higher scores reflect reduced functioning. Standard scores have a mean of 100 and a standard deviation of 15, and lower scores reflect reduced functioning.",
-      general_title = "", threeparttable = TRUE,
-      escape = F, footnote_as_chunk = TRUE
+    kableExtra::footnote(
+      "Note: Standard scores have a mean of 50 and a standard deviation of 10, and higher scores reflect reduced functioning. Standard scores have a mean of 100 and a standard deviation of 15, and lower scores reflect reduced functioning.",
+      general_title = "",
+      threeparttable = TRUE,
+      escape = F,
+      footnote_as_chunk = TRUE
     )
 }
 
@@ -219,27 +232,29 @@ tbl_md_typ <- function(data, caption = NULL) {
 #' @importFrom dplyr filter select mutate
 #' @importFrom tidyselect all_of
 #' @importFrom purrr set_names
-make_tibble <- function(data,
-                        domain,
-                        columns = c(
-                          "scale",
-                          "score",
-                          "percentile",
-                          "range",
-                          "subdomain",
-                          "test_name"
-                        ),
-                        percentile = NULL,
-                        round = 0,
-                        names = c(
-                          "Scale",
-                          "Score",
-                          "\u2030 Rank",
-                          "Range",
-                          "Subdomain",
-                          "Test"
-                        ),
-                        ...) {
+make_tibble <- function(
+  data,
+  domain,
+  columns = c(
+    "scale",
+    "score",
+    "percentile",
+    "range",
+    "subdomain",
+    "test_name"
+  ),
+  percentile = NULL,
+  round = 0,
+  names = c(
+    "Scale",
+    "Score",
+    "\u2030 Rank",
+    "Range",
+    "Subdomain",
+    "Test"
+  ),
+  ...
+) {
   # Filter data based on the phenotype of interest
   tibb <-
     dplyr::filter(data, domain == domain) |>
@@ -425,37 +440,23 @@ generate_g <- function(data, patient, scales, index_score_file) {
     data |>
     dplyr::mutate(
       description = dplyr::case_when(
-        scale == "General Ability" ~ "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
+        scale == "General Ability" ~
+          "An estimate of higher cognitive reasoning and acquired knowledge (*g*)",
         scale == "Crystallized Knowledge" ~ "Crystallized intelligence (*G*c)",
-        scale ==
-          "Fluid Reasoning" ~
-          "An estimate of fluid intelligence (*G*f)",
-        scale ==
-          "Cognitive Proficiency" ~
+        scale == "Fluid Reasoning" ~ "An estimate of fluid intelligence (*G*f)",
+        scale == "Cognitive Proficiency" ~
           "A composite estimate of working memory and processing speed (i.e., cognitive proficiency)",
-        scale ==
-          "Working Memory" ~
-          "An estimate of working memory capacity",
-        scale ==
-          "Processing Speed" ~
+        scale == "Working Memory" ~ "An estimate of working memory capacity",
+        scale == "Processing Speed" ~
           "Collective performance across measures of processing speed and cognitive efficiency",
-        scale ==
-          "Full Scale IQ (FSIQ)" ~
-          "General Intelligence (*g*)",
-        scale ==
-          "General Ability (GAI)" ~
-          "General Intelligence (*g*)",
-        scale ==
-          "Verbal Comprehension (VCI)" ~
+        scale == "Full Scale IQ (FSIQ)" ~ "General Intelligence (*g*)",
+        scale == "General Ability (GAI)" ~ "General Intelligence (*g*)",
+        scale == "Verbal Comprehension (VCI)" ~
           "An estimate of crystallized knowledge (*G*c)",
-        scale ==
-          "Perceptual Reasoning (PRI)" ~
+        scale == "Perceptual Reasoning (PRI)" ~
           "An estimate of fluid intelligence (*G*f)",
-        scale ==
-          "Working Memory (WMI)" ~
-          "An estimate of working memory",
-        scale ==
-          "Processing Speed (PSI)" ~
+        scale == "Working Memory (WMI)" ~ "An estimate of working memory",
+        scale == "Processing Speed (PSI)" ~
           "Collective performance across measures of processing speed and cognitive efficiency",
         TRUE ~ as.character(description)
       )
@@ -467,15 +468,20 @@ generate_g <- function(data, patient, scales, index_score_file) {
     data |>
     dplyr::mutate(
       result = dplyr::case_when(
-        scale == "General Ability" ~ glue::glue(
-          "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
-        ),
-        scale == "Crystallized Knowledge" ~ glue::glue(
-          "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
-        ),
-        scale == "Fluid Reasoning" ~ glue::glue("{description} was classified as {range}.\n"),
-        scale == "Cognitive Proficiency" ~ glue::glue("{description} was {range}.\n"),
-        scale == "Working Memory" ~ glue::glue("{description} fell in the {range} range.\n"),
+        scale == "General Ability" ~
+          glue::glue(
+            "{description} was {range} and ranked at the {percentile}th percentile, indicating performance as good as or better than {percentile}% of same-age peers from the general population.\n"
+          ),
+        scale == "Crystallized Knowledge" ~
+          glue::glue(
+            "{description} was classified as {range} and ranked at the {percentile}th percentile.\n"
+          ),
+        scale == "Fluid Reasoning" ~
+          glue::glue("{description} was classified as {range}.\n"),
+        scale == "Cognitive Proficiency" ~
+          glue::glue("{description} was {range}.\n"),
+        scale == "Working Memory" ~
+          glue::glue("{description} fell in the {range} range.\n"),
         scale == "Processing Speed" ~ glue::glue("{description} was {range}.\n")
       )
     )
@@ -483,20 +489,25 @@ generate_g <- function(data, patient, scales, index_score_file) {
   ## Relocate variables
 
   data <-
-    dplyr::relocate(data,
+    dplyr::relocate(
+      data,
       c(raw_score, score, ci_95, percentile, range),
       .after = scale
     ) |>
-    dplyr::relocate(c(scaled_score, t_score, reliability, composition), .after = result) |>
+    dplyr::relocate(
+      c(scaled_score, t_score, reliability, composition),
+      .after = result
+    ) |>
     dplyr::filter(
-      scale %in% c(
-        "General Ability",
-        "Crystallized Knowledge",
-        "Fluid Reasoning",
-        "Cognitive Proficiency",
-        "Working Memory",
-        "Processing Speed"
-      )
+      scale %in%
+        c(
+          "General Ability",
+          "Crystallized Knowledge",
+          "Fluid Reasoning",
+          "Cognitive Proficiency",
+          "Working Memory",
+          "Processing Speed"
+        )
     )
 
   ## Write out CSV
@@ -511,8 +522,16 @@ generate_g <- function(data, patient, scales, index_score_file) {
 }
 
 # footnotes
-fn_scaled_score <- gt::md("Scaled score: Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030]")
-fn_standard_score <- gt::md("Standard score: Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030]")
-fn_t_score <- gt::md("_T_-score: Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030]")
-fn_z_score <- gt::md("_z_-score: Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030]")
+fn_scaled_score <- gt::md(
+  "Scaled score: Mean = 10 [50th\u2030], SD \u00B1 3 [16th\u2030, 84th\u2030]"
+)
+fn_standard_score <- gt::md(
+  "Standard score: Mean = 100 [50th\u2030], SD \u00B1 15 [16th\u2030, 84th\u2030]"
+)
+fn_t_score <- gt::md(
+  "_T_-score: Mean = 50 [50th\u2030], SD \u00B1 10 [16th\u2030, 84th\u2030]"
+)
+fn_z_score <- gt::md(
+  "_z_-score: Mean = 0 [50th\u2030], SD \u00B1 1 [16th\u2030, 84th\u2030]"
+)
 fn_raw_score <- gt::md("Raw score: Range = 1-4")

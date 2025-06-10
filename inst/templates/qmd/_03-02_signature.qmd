@@ -2,6 +2,10 @@ It was a pleasure to work with {{< var mr_mrs >}} {{< var last_name >}}. I am av
 
 Sincerely,
 
+Thank you for considering this report in your evaluation of {{< var mr_mrs >}} {{< var last_name >}}. I am available to provide further information or clarification as needed.
+
+Respectfully submitted,
+
 ```{r}
 #| label: signature
 #| fig-align: left

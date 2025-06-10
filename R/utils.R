@@ -9,7 +9,7 @@
 #' @param packages Character vector of package names
 #' @return Logical indicating success
 #' @export
-check_dependencies <- function(packages = NULL) {
+check_depend <- function(packages = NULL) {
   if (is.null(packages)) {
     packages <- c("quarto", "rmarkdown", "dplyr", "readr", "gt", "ggplot2")
   }
@@ -43,7 +43,7 @@ get_template_path <- function(template_name, template_type = "templates") {
   template_path <- system.file(
     template_type,
     template_name,
-    package = "neuropsychreport"
+    package = "NeurotypR"
   )
 
   if (!file.exists(template_path)) {

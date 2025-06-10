@@ -38,3 +38,5 @@
 ^inst/rmarkdown/templates/neurotypr/skeleton/qmd/\.quarto$
 
 
+^LICENSE\.md$
+^nab\.test\.descriptions\.manual\.xlsx$
