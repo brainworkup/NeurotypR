@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.0.9002] - 2025-03-07
 
 ### Added
-- Support for additional neuropsychological tests including WAIS-5
+- Support for additional neuropsychological tests including WAIS-V
 - Improved Quarto templates for report sections
 - Additional visualization functions for test results
 - Enhanced data extraction utilities
@@ -25,7 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.0.9001] - 2025-01-15
 
 ### Added
-
 - Initial R Markdown templates for neuropsychological reports
 - Core functions for data processing and visualization
 - Support for WAIS-IV, WISC-V, RBANS assessment tools
@@ -33,20 +32,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Data extraction functions for common test formats
 
 ### Changed
-
 - Standardized function naming conventions
 - Improved documentation
 
 ## [0.0.0.9000] - 2025-01-01
 
 ### Added
-
 - Package scaffolding and initial structure
 - Basic documentation
 - Core dependencies
 - Licensing and project files
 
 ## References
-
 - Future releases will be linked to GitHub releases
 - For detailed changes, refer to the git commit history

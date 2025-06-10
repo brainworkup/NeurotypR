@@ -5,53 +5,40 @@ project:
     - template.qmd
 
 format:
-  neurotyp-adult-typst:
-    keep-typ: true
-    keep-md: true
-    papersize: "us-letter"
-    bodyfont: "IBM Plex Serif"
-    sansfont: "IBM Plex Sans"
-    fontsize: 12pt
-    number-sections: false
-    number-offset: 1
-    citeproc: true
-    csl: src/bib/apa.csl
-    shift-heading-level-by: 0
-    fig-width: 6
-    fig-height: 4
-    fig-format: svg
-
   neurotyp-pediatric-typst:
     keep-typ: true
     keep-md: true
     papersize: "us-letter"
-    bodyfont: "IBM Plex Serif"
-    sansfont: "IBM Plex Sans"
+    bodyfont: "Equity B OTF"
+    sansfont: "Work Sans"
     fontsize: 12pt
     number-sections: false
-    number-offset: 1
-    citeproc: true
+    citeproc: false
     csl: src/bib/apa.csl
-    shift-heading-level-by: 0
-    fig-width: 6
-    fig-height: 4
-    fig-format: svg
 
-  neurotyp-forensic-typst:
-    keep-typ: true
-    keep-md: true
-    papersize: "us-letter"
-    bodyfont: "IBM Plex Serif"
-    sansfont: "IBM Plex Sans"
-    fontsize: 12pt
-    number-sections: false
-    number-offset: 1
-    citeproc: true
-    csl: src/bib/apa.csl
-    shift-heading-level-by: 0
-    fig-width: 6
-    fig-height: 4
-    fig-format: svg
+# format:
+#   neurotyp-adult-typst:
+#     keep-typ: true
+#     keep-md: true
+#     papersize: "us-letter"
+#     bodyfont: "Equity B OTF"
+#     sansfont: "Work Sans"
+#     fontsize: 12pt
+#     number-sections: false
+#     citeproc: false
+#     csl: src/bib/apa.csl
+
+# format:
+#   neurotyp-forensic-typst:
+#     keep-typ: true
+#     keep-md: true
+#     papersize: "us-letter"
+#     bodyfont: "Equity B OTF"
+#     sansfont: "Work Sans"
+#     fontsize: 12pt
+#     number-sections: false
+#     citeproc: false
+#     csl: src/bib/apa.csl
 
 execute:
   warning: false
@@ -59,9 +46,6 @@ execute:
   message: false
   freeze: auto
   cache: true
-  engine: knitr
-  tools:
-    r: "/usr/local/bin/R"
 
 editor:
   markdown:

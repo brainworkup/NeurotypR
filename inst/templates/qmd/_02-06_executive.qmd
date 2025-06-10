@@ -188,8 +188,6 @@ scales <- c(
 )
 
 # Filter the data using the filter_data function from the bwu library
-# The domain is specified by the 'domains' variable
-# The scale is specified by the 'scales' variable
 data_executive <- bwu::filter_data(
   data = executive,
   domain = domains,
