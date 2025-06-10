@@ -1,0 +1,92 @@
+<summary>
+
+
+
+</summary>
+- Biggie's (teacher ratings) Action (Monitoring and self-regulating action) was Below Average.
+- Biggie's (teacher ratings) Overall
+- Biggie's (teacher ratings) Organizing, prioritizing, and activating to work was Below Average.
+- Teacher-reported ADHD Inattentive Symptoms (i.e., Items that are consistent with the DSM-5 Inattentive Presentation of ADHD) was High Average.
+
+"- Teacher-reported Inattention/Executive Dysfunction (i.e., A scale including items related to having trouble paying attention and sustaining attention, as well as difficulty with other areas of Executive functioning such as planning, organizing, and time management) was High Average."
+- Biggie's (teacher ratings) Memory (Utilizing working memory and accessing recall) was Average.
+- Biggie's (teacher ratings) Emotion (Managing frustration and modulating emotions) was Average.
+- Teacher-reported Total ADHD Symptoms (i.e., All items from the Conners 4 DSM ADHD Inattentive and Hyperactive/Impulsive Symptom scales) was High Average.
+
+- Teacher-reported ADHD Index (i.e., Scale composed of the 12 items that best differentiate youth with ADHD from those in the general population) indicated a probability of 74% of having ADHD, which in this context is considered to be  at risk for ADHD .
+
+"- Teacher-reported Hyperactivity (i.e., A scale including items about restlessness, difficulty staying seated or sitting still, needing to move around, getting overly excited, and talking too much) was Average."
+#NAME?
+- Teacher-reported ADHD Hyperactive/Impulsive Symptoms (i.e., Symptoms of hyperactivity and impulsivity consistent with DSM-5) was Average.
+
+- Inhibitory Control (i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking) was Average
+- Biggie's (teacher ratings) Effort (Regulating alertness, sustaining effort, and adjusting processing speed) was Low Average.
+- Biggie's (teacher ratings) Focus (Focusing, sustaining, and shifting attention to tasks) was Average.
+#NAME?
+- AJ's overall level of executive functioning was Average.
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+"- Teacher-reported Emotional Dysregulation (i.e., A scale including items about overreacting, losing temper, and having trouble calming down) was Low Average."
+"- Teacher-reported Impulsivity (i.e., A scale including items about interrupting others, blurting out answers, acting before thinking, and having trouble waiting for one's turn) was Below Average.
+- Biggie's (teacher ratings) Action (Monitoring and self-regulating action) was Below Average.
+- Biggie's (teacher ratings) Overall
+- Biggie's (teacher ratings) Organizing, prioritizing, and activating to work was Below Average.
+- Teacher-reported ADHD Inattentive Symptoms (i.e., Items that are consistent with the DSM-5 Inattentive Presentation of ADHD) was High Average.
+
+"- Teacher-reported Inattention/Executive Dysfunction (i.e., A scale including items related to having trouble paying attention and sustaining attention, as well as difficulty with other areas of Executive functioning such as planning, organizing, and time management) was High Average."
+- Biggie's (teacher ratings) Memory (Utilizing working memory and accessing recall) was Average.
+- Biggie's (teacher ratings) Emotion (Managing frustration and modulating emotions) was Average.
+- Teacher-reported Total ADHD Symptoms (i.e., All items from the Conners 4 DSM ADHD Inattentive and Hyperactive/Impulsive Symptom scales) was High Average.
+
+- Teacher-reported ADHD Index (i.e., Scale composed of the 12 items that best differentiate youth with ADHD from those in the general population) indicated a probability of 74% of having ADHD, which in this context is considered to be  at risk for ADHD .
+
+"- Teacher-reported Hyperactivity (i.e., A scale including items about restlessness, difficulty staying seated or sitting still, needing to move around, getting overly excited, and talking too much) was Average."
+#NAME?
+- Teacher-reported ADHD Hyperactive/Impulsive Symptoms (i.e., Symptoms of hyperactivity and impulsivity consistent with DSM-5) was Average.
+
+- Inhibitory Control (i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking) was Average
+- Biggie's (teacher ratings) Effort (Regulating alertness, sustaining effort, and adjusting processing speed) was Low Average.
+- Biggie's (teacher ratings) Focus (Focusing, sustaining, and shifting attention to tasks) was Average.
+#NAME?
+- AJ's overall level of executive functioning was Average.
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+"- Teacher-reported Emotional Dysregulation (i.e., A scale including items about overreacting, losing temper, and having trouble calming down) was Low Average."
+"- Teacher-reported Impulsivity (i.e., A scale including items about interrupting others, blurting out answers, acting before thinking, and having trouble waiting for one's turn) was Below Average.
+- Biggie's (teacher ratings) Action (Monitoring and self-regulating action) was Below Average.
+- Biggie's (teacher ratings) Overall
+- Biggie's (teacher ratings) Organizing, prioritizing, and activating to work was Below Average.
+- Teacher-reported ADHD Inattentive Symptoms (i.e., Items that are consistent with the DSM-5 Inattentive Presentation of ADHD) was High Average.
+
+"- Teacher-reported Inattention/Executive Dysfunction (i.e., A scale including items related to having trouble paying attention and sustaining attention, as well as difficulty with other areas of Executive functioning such as planning, organizing, and time management) was High Average."
+- Biggie's (teacher ratings) Memory (Utilizing working memory and accessing recall) was Average.
+- Biggie's (teacher ratings) Emotion (Managing frustration and modulating emotions) was Average.
+- Teacher-reported Total ADHD Symptoms (i.e., All items from the Conners 4 DSM ADHD Inattentive and Hyperactive/Impulsive Symptom scales) was High Average.
+
+- Teacher-reported ADHD Index (i.e., Scale composed of the 12 items that best differentiate youth with ADHD from those in the general population) indicated a probability of 74% of having ADHD, which in this context is considered to be  at risk for ADHD .
+
+"- Teacher-reported Hyperactivity (i.e., A scale including items about restlessness, difficulty staying seated or sitting still, needing to move around, getting overly excited, and talking too much) was Average."
+#NAME?
+- Teacher-reported ADHD Hyperactive/Impulsive Symptoms (i.e., Symptoms of hyperactivity and impulsivity consistent with DSM-5) was Average.
+
+- Inhibitory Control (i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking) was Average
+- Biggie's (teacher ratings) Effort (Regulating alertness, sustaining effort, and adjusting processing speed) was Low Average.
+- Biggie's (teacher ratings) Focus (Focusing, sustaining, and shifting attention to tasks) was Average.
+#NAME?
+- AJ's overall level of executive functioning was Average.
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+#NAME?
+"- Teacher-reported Emotional Dysregulation (i.e., A scale including items about overreacting, losing temper, and having trouble calming down) was Low Average."
+"- Teacher-reported Impulsivity (i.e., A scale including items about interrupting others, blurting out answers, acting before thinking, and having trouble waiting for one's turn) was Below Average.

@@ -1,0 +1,15 @@
+<summary>
+
+Reading comprehension skills at the level of word, sentence, and passage was classified as Average and ranked at the 70th percentile.
+An overall speed/fluency in solving fact-based addition, subtraction, and multiplication problems was Average.
+A composite score of decoding and comprehension that balances word-level and text-level reading skills fell in the Average range.
+Orthographic lexicon, or sight vocabulary fluency was Average.
+Spontaneous writing fluency at the discourse level was Average.
+Single word reading/decoding of a list of regular and irregular words was Average.
+Paper-and-pencil math calculation skills, ranging from basic operations with integers to geometry, algebra, and calculus problems was Average.
+Applying mathematical principles to real-life situations, ranging from basic concepts, everyday applications, geometry, and algebra was Average.
+An estimate of overall mathematics skills in the domains of math comprehension and problem solving and math computation was Average.
+Paper-and-pencil math calculation skills, ranging from basic operations with integers to geometry, algebra, and calculus problems was Average overall.
+
+
+</summary>

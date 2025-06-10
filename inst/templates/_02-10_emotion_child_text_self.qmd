@@ -1,0 +1,15 @@
+<summary>
+
+Biggie's score on Aggression (scores are indicative of an individual who may be seen as impatient, irritable, and quick-tempered) was Exceptionally High.
+Biggie's score on Physical Aggression (suggest that losses of temper are more common and that the person is prone to more physical displays of anger, perhaps breaking objects or engaging in physical confrontations) was Exceptionally High.
+Biggie's score on Traumatic Stress (trauma (single or multiple) is the overriding focus of the person's life) was Exceptionally High.
+Biggie's score on Hypervigilance (suggest a person who is pragmatic and skeptical in relationships) was Exceptionally High.
+Biggie's score on Self-Harm (reflect levels of impulsivity and recklessness that become more hazardous as scores rise) was Exceptionally High.
+Biggie's score on Antisocial Behaviors (scores suggest a history of difficulties with authority and with social convention) was Exceptionally High.
+Biggie's score on Stimulus-Seeking (patient is likely to manifest behavior that is reckless and potentially dangerous to himself and/or those around him) was Exceptionally High.
+Biggie's score on Verbal Aggression (reflects a person who is assertive and not intimidated by confrontation and, toward the upper end of this range, he may be verbally aggressive) was Exceptionally High.
+Biggie's score on Grandiosity (person may have little capacity to recognize personal limitations, to the point where one is not able to think clearly about one's capabilities) was Above Average.
+Biggie's score on Negative Relationships (person is likely to be bitter and resentful about the way past relationships have gone) was Above Average.
+Biggie's score on Antisocial Features (individuals are likely to be impulsive and hostile, perhaps with a history of reckless and/or antisocial acts) was Above Average.
+
+</summary>

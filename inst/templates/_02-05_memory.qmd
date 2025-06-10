@@ -1,0 +1,492 @@
+## Memory {#sec-memory}
+
+{{< include _02-05_memory_text.qmd >}}
+
+```{r}
+#| label: setup-memory
+#| include: false
+
+# domain
+domains <- c("Memory")
+
+# phenotype
+pheno <- "memory"
+```
+
+```{r}
+#| label: export-memory
+#| include: false
+
+# Read the CSV file into a data frame
+memory <- readr::read_csv("neurocog.csv")
+
+# Filter the data frame based on certain conditions
+# Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA
+memory <- memory |>
+  dplyr::filter(domain %in% domains)
+
+# Select specific columns from the data frame
+memory <- memory |>
+  dplyr::select(
+    test,
+    test_name,
+    scale,
+    raw_score,
+    score,
+    ci_95,
+    percentile,
+    range,
+    domain,
+    subdomain,
+    narrow,
+    pass,
+    verbal,
+    timed,
+    description,
+    result,
+    z,
+    z_mean_domain,
+    z_sd_domain,
+    z_mean_subdomain,
+    z_sd_subdomain,
+    z_mean_narrow,
+    z_sd_narrow,
+    z_mean_pass,
+    z_sd_pass,
+    z_mean_verbal,
+    z_sd_verbal,
+    z_mean_timed,
+    z_sd_timed
+  )
+
+# Write the 'memory' data frame to a CSV file
+# The file name is derived from the 'pheno' variable
+readr::write_excel_csv(
+  memory,
+  paste0(pheno, ".csv"),
+  na = "",
+  col_names = TRUE,
+  append = FALSE
+)
+```
+
+```{r}
+#| label: data-memory
+#| include: false
+
+# Memory scales
+scales <- c(
+  "CVLT-3 Forced-Choice Recognition Hits",
+  "CVLT-3 Total Intrusions",
+  "CVLT-3 Total Repetitions",
+  "Daily Living Memory Delayed Recall",
+  "Daily Living Memory Delayed Recognition",
+  "Daily Living Memory Immediate Recall",
+  "Daily Living Memory Recall vs. Recognition",
+  "Daily Living Memory Retention",
+  "Delayed Memory Index",
+  "Designs I",
+  "Designs II",
+  "Figure Drawing Immediate Recall",
+  "Figure Drawing Percent Retention",
+  "Figure Recall",
+  "Immediate Memory Index",
+  "List B Correct",
+  "List B Free Recall Correct",
+  "List Learning Immediate Recall",
+  "List Learning Intrusions",
+  "List Learning List A Discriminability Index",
+  "List Learning List A Immediate Recall",
+  "List Learning List A Long Delayed Forced-Choice Recognition False Alarms",
+  "List Learning List A Long Delayed Forced-Choice Recognition",
+  "List Learning List A Long Delayed Recall",
+  "List Learning List A Percent Retention",
+  "List Learning List A Recall vs. Recognition Index",
+  "List Learning List A Short Delayed Recall",
+  "List Learning List A Trial 1 Immediate Recall",
+  "List Learning List A Trial 2 Immediate Recall",
+  "List Learning List A Trial 3 Immediate Recall",
+  "List Learning List B Immediate Recall",
+  "List Learning Long Delayed Recall",
+  "List Learning Perseverations",
+  "List Learning Semantic Clusters",
+  "List Learning Short Delayed Recall",
+  "List Learning",
+  "List Memory Delay Effect",
+  "List Memory Interference Effect",
+  "List Memory Intrusions",
+  "List Memory Learning Effect",
+  "List Memory Repetitions",
+  "List Memory Total and Delayed Recall",
+  "List Memory Total Trials 1-5",
+  "List Recall",
+  "List Recognition",
+  "Logical Memory I",
+  "Logical Memory II",
+  "Long Delay Cued Recall",
+  "Long Delay Free Recall",
+  "Long-Delay Cued Recall",
+  "Long-Delay Free Recall",
+  "Long-Delay Recognition Discriminability",
+  "Long-Delay Recognition Response Bias",
+  "Medication Instructions Delayed Recall",
+  "Medication Instructions Delayed Recognition",
+  "Medication Instructions Immediate Recall",
+  "Memory Domain",
+  "Memory for Designs Content",
+  "Memory for Designs Delayed Content",
+  "Memory for Designs Delayed Spatial",
+  "Memory for Designs Delayed",
+  "Memory for Designs Spatial",
+  "Memory for Designs",
+  "Memory for Faces Delayed",
+  "Memory for Faces",
+  "Memory Index (MEM)",
+  "NAB Memory Index",
+  "Name/Address/Phone Delayed Recall",
+  "Name/Address/Phone Delayed Recognition",
+  "Name/Address/Phone Immediate Recall",
+  "Narrative Memory Free and Cued Recall",
+  "Narrative Memory Free Recall",
+  "Narrative Memory Recall",
+  "Narrative Memory Recognition",
+  "Recognition Discriminability (d')",
+  "Recognition Discriminability Nonparametric",
+  "ROCFT Delayed Recall",
+  "Sentence Repetition",
+  "Shape Learning Delayed Forced-Choice Recognition False Alarms",
+  "Shape Learning Delayed Forced-Choice Recognition",
+  "Shape Learning Delayed Recognition",
+  "Shape Learning Discriminability Index",
+  "Shape Learning Immediate Recognition",
+  "Shape Learning Percent Retention",
+  "Shape Learning Trial 1 Immediate Recognition",
+  "Shape Learning Trial 2 Immediate Recognition",
+  "Shape Learning Trial 3 Immediate Recognition",
+  "Short Delay Cued Recall",
+  "Short Delay Free Recall",
+  "Short-Delay Cued Recall",
+  "Short-Delay Free Recall",
+  "Story Learning Delayed Recall",
+  "Story Learning Immediate Recall",
+  "Story Learning Percent Retention",
+  "Story Learning Phrase Unit Delayed Recall",
+  "Story Learning Phrase Unit Immediate Recall",
+  "Story Learning Phrase Unit Percent Retention",
+  "Story Learning Thematic Unit Delayed Recall",
+  "Story Learning Thematic Unit Immediate Recall",
+  "Story Learning Trial 1 Phrase Unit",
+  "Story Learning Trial 1 Thematic Unit",
+  "Story Learning Trial 2 Phrase Unit",
+  "Story Learning Trial 2 Thematic Unit",
+  "Story Memory",
+  "Story Recall",
+  "Total False Positives",
+  "Total Hits",
+  "Total Intrusions",
+  "Total Repetitions",
+  "Trial 1 Correct",
+  "Trial 1 Free Recall Correct",
+  "Trial 2 Correct",
+  "Trial 3 Correct",
+  "Trial 4 Correct",
+  "Trial 5 Correct",
+  "Trial 5 Free Recall Correct",
+  "Trials 1-4 Correct",
+  "Trials 1-5 Correct",
+  "Trials 1-5 Free Recall Correct",
+  "Visual Reproduction I",
+  "Visual Reproduction II",
+  "Word List Interference-Recall",
+  "Word List Interference-Repetition"
+)
+
+# Filter the data using the filter_data function from the bwu library
+# The domain is specified by the 'domains' variable
+# The scale is specified by the 'scales' variable
+data_memory <- bwu::filter_data(data = memory, domain = domains, scale = scales)
+```
+
+```{r}
+#| label: text-memory
+#| cache: true
+#| include: false
+
+# Generate the text for the memory domain
+bwu::cat_neuropsych_results(data = data_memory, file = "_02-05_memory_text.qmd")
+```
+
+
+
+```{r}
+#| label: qtbl-memory
+#| dev: tikz
+#| fig-process: pdf2png
+#| include: false
+
+# Set the default engine for tikz to "xetex"
+options(tikzDefaultEngine = "xetex")
+
+ordering_list <- c(
+  "CVLT-3 Forced-Choice Recognition Hits",
+  "CVLT-3 Total Intrusions",
+  "CVLT-3 Total Repetitions",
+  "Delayed Memory Index",
+  "Designs I",
+  "Designs II",
+  "Figure Recall",
+  "Immediate Memory Index",
+  # "List B Correct",
+  # "List B Free Recall Correct",
+  "List Learning Immediate Recall",
+  "List Learning Long Delayed Recall",
+  "List Learning Short Delayed Recall",
+  "List Learning",
+  "List Memory Delay Effect",
+  "List Memory Interference Effect",
+  "List Memory Intrusions",
+  "List Memory Learning Effect",
+  "List Memory Repetitions",
+  "List Memory Total and Delayed Recall",
+  "List Memory Total Trials 1-5",
+  "List Recall",
+  "List Recognition",
+  "Logical Memory I",
+  "Logical Memory II",
+  "Long Delay Cued Recall",
+  "Long Delay Free Recall",
+  "Long-Delay Cued Recall",
+  "Long-Delay Free Recall",
+  "Long-Delay Recognition Discriminability",
+  "Long-Delay Recognition Response Bias",
+  "Memory Domain",
+  "Memory for Designs Content",
+  "Memory for Designs Delayed Content",
+  "Memory for Designs Delayed Spatial",
+  "Memory for Designs Delayed",
+  "Memory for Designs Spatial",
+  "Memory for Designs",
+  "Memory for Faces Delayed",
+  "Memory for Faces",
+  "NAB Memory Index",
+  "Narrative Memory Free and Cued Recall",
+  "Narrative Memory Free Recall",
+  "Narrative Memory Recall",
+  "Narrative Memory Recognition",
+  "Recognition Discriminability (d')",
+  # "Recognition Discriminability Nonparametric",
+  "ROCFT Delayed Recall",
+  "Sentence Repetition",
+  "Short Delay Cued Recall",
+  "Short Delay Free Recall",
+  "Short-Delay Cued Recall",
+  "Short-Delay Free Recall",
+  "Story Learning Delayed Recall",
+  "Story Learning Immediate Recall",
+  # "Story Learning Percent Retention",
+  "Story Memory",
+  "Story Recall",
+  "Total False Positives",
+  "Total Hits",
+  "Total Intrusions",
+  "Total Repetitions",
+  "Trial 1 Correct",
+  "Trial 1 Free Recall Correct",
+  "Trial 2 Correct",
+  "Trial 3 Correct",
+  "Trial 4 Correct",
+  "Trial 5 Correct",
+  "Trial 5 Free Recall Correct",
+  "Trials 1-4 Correct",
+  "Trials 1-5 Correct",
+  "Trials 1-5 Free Recall Correct",
+  "Visual Reproduction I",
+  "Visual Reproduction II",
+  "Word List Interference-Recall",
+  "Word List Interference-Repetition",
+  # NAB
+  "Memory Index (MEM)",
+  # "List Learning List A Trial 1 Immediate Recall",
+  # "List Learning List A Trial 2 Immediate Recall",
+  # "List Learning List A Trial 3 Immediate Recall",
+  "List Learning List A Immediate Recall",
+  # "List Learning List B Immediate Recall",
+  "List Learning List A Short Delayed Recall",
+  "List Learning List A Long Delayed Recall",
+  # "List Learning List A Percent Retention",
+  # "List Learning List A Long Delayed Forced-Choice Recognition",
+  # "List Learning List A Long Delayed Forced-Choice Recognition False Alarms",
+  "List Learning List A Discriminability Index",
+  # "List Learning List A Recall vs. Recognition Index",
+  # "List Learning Semantic Clusters",
+  # "List Learning Perseverations",
+  # "List Learning Intrusions",
+  # "Shape Learning Trial 1 Immediate Recognition",
+  # "Shape Learning Trial 2 Immediate Recognition",
+  # "Shape Learning Trial 3 Immediate Recognition",
+  "Shape Learning Immediate Recognition",
+  "Shape Learning Delayed Recognition",
+  # "Shape Learning Percent Retention",
+  # "Shape Learning Delayed Forced-Choice Recognition",
+  # "Shape Learning Delayed Forced-Choice Recognition False Alarms",
+  "Shape Learning Discriminability Index",
+  # "Story Learning Trial 1 Phrase Unit",
+  # "Story Learning Trial 2 Phrase Unit",
+  "Story Learning Phrase Unit Immediate Recall",
+  # "Story Learning Thematic Unit Immediate Recall",
+  # "Story Learning Trial 1 Thematic Unit",
+  # "Story Learning Trial 2 Thematic Unit",
+  "Story Learning Phrase Unit Delayed Recall",
+  # "Story Learning Thematic Unit Delayed Recall",
+  # "Story Learning Phrase Unit Percent Retention",
+  "Daily Living Memory Immediate Recall",
+  "Daily Living Memory Delayed Recall",
+  # "Daily Living Memory Retention",
+  "Daily Living Memory Delayed Recognition",
+  # "Daily Living Memory Recall vs. Recognition",
+  "Medication Instructions Immediate Recall",
+  "Medication Instructions Delayed Recall",
+  "Medication Instructions Delayed Recognition",
+  "Name/Address/Phone Immediate Recall",
+  "Name/Address/Phone Delayed Recall",
+  "Name/Address/Phone Delayed Recognition"
+)
+
+# Process the data
+data_memory_tbl <- data_memory |>
+  dplyr::filter(scale %in% ordering_list) |>
+  dplyr::mutate(scale = factor(scale, levels = ordering_list)) |>
+  dplyr::arrange(scale)
+
+# table arguments
+table_name <- "table_memory"
+vertical_padding <- 0
+multiline <- TRUE
+
+# footnotes
+fn_standard_score <- gt::md(
+  "Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]"
+)
+
+fn_scaled_score <- gt::md(
+  "Scaled score:  Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]"
+)
+
+fn_t_score <- gt::md("T-score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+
+fn_z_score <- gt::md(
+  "Score = z-score (Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰])"
+)
+
+source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
+
+# groupings
+# grp_memory <- list(
+#   scaled_score = c(
+#     "CVLT-3 Brief",
+#     "NEPSY-2",
+#     "CVLT-C",
+#     "CVLT-3",
+#     "RBANS Update Form A",
+#     "RBANS"
+#   ),
+#   standard_score = c(
+#     "CVLT-3",
+#     "CVLT-3 Brief",
+#     "NAB",
+#     "NAB-S",
+#     "CVLT-C",
+#     "RBANS Update Form A",
+#     "RBANS"
+#   ),
+#   t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB")
+# )
+
+grp_memory <- list(
+  standard_score = c("NAB"),
+  t_score = c("NAB")
+)
+
+# make `gt` table
+NeurotypR::tbl_gt2(
+  data = data_memory_tbl,
+  pheno = pheno,
+  table_name = table_name,
+  vertical_padding = vertical_padding,
+  # source_note = source_note,
+  fn_standard_score = fn_standard_score,
+  fn_t_score = fn_t_score,
+  # fn_scaled_score = fn_scaled_score,
+  grp_standard_score = grp_memory[["standard_score"]],
+  grp_t_score = grp_memory[["t_score"]],
+  # grp_scaled_score = grp_memory[["scaled_score"]],
+  dynamic_grp = grp_memory,
+  multiline = multiline
+)
+```
+
+
+
+```{r}
+#| label: fig-memory
+#| include: false
+#| fig-cap: "Learning and memory refer to the rate and ease with which new information (e.g., facts, stories, lists, faces, names) can be encoded, stored, and later recalled from long-term memory."
+
+# dotplot arguments
+x <- data_memory$z_mean_narrow
+y <- data_memory$narrow
+colors <- NULL
+return_plot <- TRUE
+filename <- "fig_memory.svg"
+
+# Make dotplot
+NeurotypR::dotplot2(
+  data = data_memory,
+  x = x,
+  y = y,
+  colors = colors,
+  return_plot = return_plot,
+  filename = filename,
+  na.rm = TRUE
+)
+```
+
+```{=typst}
+#let domain(title: none, file_qtbl, file_fig) = {
+  let font = (font: "Roboto Slab", size: 0.7em)
+  set text(..font)
+  pad(top: 0.5em)[]
+    grid(
+      columns: (50%, 50%),
+      gutter: 8pt,
+        figure([#image(file_qtbl)],
+          caption: figure.caption(position: top, [#title]),
+          kind: "qtbl",
+          supplement: [Table],
+          ),
+        figure([#image(file_fig, width: auto)],
+          caption: figure.caption(position: bottom,
+
+          [Learning and memory refer to the rate and ease with which new
+          information (e.g., facts, stories, lists, faces, names) can be
+          encoded, stored, and later recalled from long-term memory.]),
+
+          placement: none,
+          kind: "image",
+          supplement: [Figure],
+          gap: 0.5em,
+        ),
+      )
+  }
+```
+
+```{=typst}
+#let title = "Learning and Memory"
+#let file_qtbl = "table_memory.png"
+#let file_fig = "fig_memory.svg"
+#domain(
+  title: [#title Scores],
+  file_qtbl,
+  file_fig
+)
+```

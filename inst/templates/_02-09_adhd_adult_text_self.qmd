@@ -1,0 +1,17 @@
+<summary>
+
+- Self-reported Negative Self-Concept (i.e., poor social relationships, low self-esteem and self confidence) was Exceptionally High.
+
+Gorety's score on Inattention (INATTN) Index () was Exceptionally High.
+- CAARS-SR Problems with Self-Concept (i.e., poor social relationships, low self-esteem and self confidence) was Above Average
+#NAME?
+- Self-reported ADHD Inattentive Symptoms (i.e., behave in a manner consistent with the DSM-5 Inattentive Presentation of ADHD) was Above Average.
+
+- Self-reported Inattention/Executive Dysfunction (i.e., trouble concentrating, difficulty planning or completing tasks, forgetfulness, absent-mindedness, being disorganized) was Above Average.
+
+- Self-reported Total ADHD Symptoms (i.e., behave in a manner consistent with the DSM-5 diagnostic criteria for Combined Presentation of ADHD) was Above Average.
+
+#NAME?
+- Self-reported CAARS 2-ADHD Index (i.e., a composite indicator for identifying individuals 'at-risk' for ADHD) indicated a probability of 88% of having adult ADHD.
+
+</summary>

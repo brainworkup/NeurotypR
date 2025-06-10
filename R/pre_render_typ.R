@@ -15,17 +15,17 @@ summary_function <- function(files) {
 }
 
 # Example usage
-# files <- c(
-#   "_02-01_iq_text.qmd",
-#   "_02-02_academics_text.qmd",
-#   "_02-03_verbal_text.qmd",
-#   "_02-04_spatial_text.qmd",
-#   "_02-05_memory_text.qmd",
-#   "_02-06_executive_text.qmd",
-#   "_02-07_motor_text.qmd",
-#   "_02-09_adhd_child_text_parent.qmd",
-#   "_02-09_adhd_child_text_self.qmd",
-#   "_02-10_emotion_child_text_parent.qmd"
-# )
+files <- c(
+  "inst/templates/_02-01_iq_text.qmd",
+  "inst/templates/_02-02_academics_text.qmd",
+  "inst/templates/_02-03_verbal_text.qmd",
+  "inst/templates/_02-04_spatial_text.qmd",
+  "inst/templates/_02-05_memory_text.qmd",
+  "inst/templates/_02-06_executive_text.qmd"
+  # "inst/templates/_02-07_motor_text.qmd",
+  # "inst/templates/_02-09_adhd_child_text_parent.qmd",
+  # "inst/templates/_02-09_adhd_child_text_self.qmd",
+  # "inst/templates/_02-10_emotion_child_text_parent.qmd"
+)
 
-# summary <- summary_function(files)
+summary <- summary_function(files)

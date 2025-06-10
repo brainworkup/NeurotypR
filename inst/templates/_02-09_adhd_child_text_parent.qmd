@@ -1,0 +1,18 @@
+<summary>
+
+- Georgia's self-reported Organizing, prioritizing, and activating to work (parent rated) was Exceptionally High.
+- Georgia's self-reported Focus (Focusing, sustaining, and shifting attention to tasks (parent rated)) was Exceptionally High.
+- Georgia's self-reported Memory (Utilizing working memory and accessing recall (parent rated)) was Above Average.
+- Georgia's self-reported Overall Executive Function (General executive functioning in daily life (parent rated)) was Above Average.
+- Georgia's self-reported Effort (Regulating alertness, sustaining effort, and adjusting processing speed (parent rated)) was Above Average.
+- Georgia's self-reported Action (Monitoring and self-regulating action (parent rated)) was High Average.
+- Parent-reported ADHD Inattentive Symptoms (i.e., Items that are consistent with the DSM-5 Inattentive Presentation of ADHD) was High Average.
+
+"- Parent-reported Inattention/Executive Dysfunction (i.e., A scale including items related to having trouble paying attention and sustaining attention, as well as difficulty with other areas of Executive functioning such as planning, organizing, and time management) was High Average."
+- Harry's parent-reported Inhibition (i.e., control behavior or impulses, including thinking about consequences before acting, maintaining self-control, and thinking before speaking (parent rated)) was High Average.
+- Parent-reported Total ADHD Symptoms (i.e., All items from the Conners 4 DSM ADHD Inattentive and Hyperactive/Impulsive Symptom scales) was High Average.
+
+- Georgia's self-reported Emotion (Managing frustration and modulating emotions (parent rated)) was High Average.
+- Parent-reported ADHD Index (i.e., Scale composed of the 12 items that best differentiate youth with ADHD from those in the general population) indicated a probability of 74% of having ADHD, which in this context is considered to be  at risk for ADHD .
+
+</summary>
