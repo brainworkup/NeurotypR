@@ -94,8 +94,6 @@ patient <- Sys.getenv("PATIENT")
 #| label: data-load
 #| include: false
 
-# source("data.R")
-
 path_data <- here::here("data")
 path_csv <- here::here("data", "csv")
 NeurotypR::load_data(here::here(path_csv))

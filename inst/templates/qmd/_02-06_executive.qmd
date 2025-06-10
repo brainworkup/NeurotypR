@@ -18,7 +18,7 @@ pheno <- "executive"
 #| include: false
 
 # Read the CSV file into a data frame
-executive <- readr::read_csv("neurocog.csv")
+executive <- readr::read_csv("data/neurocog.csv")
 
 # Filter the data frame based on certain conditions
 # Keep only the rows where 'domain' equals 'domains' and 'z_mean_domain' is not NA
@@ -446,7 +446,6 @@ if (nrow(data_executive_tbl) > 0) {
   message("No executive function data available for table creation")
 }
 ```
-
 
 
 ```{r}
