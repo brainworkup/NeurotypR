@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from WAIS-5"
 params:
-  patient: Biggie
+  patient: Max
   test:
     label: "Test"
     value: wais5
@@ -22,7 +22,7 @@ params:
     label: "No file selected"
     value: file
     input: file
-  pages: [5, 7]
+  pages: [16]
   table1:
     label: "Verbal Comprehension (VCI) Subtests"
     value: [Similarities, Vocabulary]
@@ -204,21 +204,21 @@ test_name <- params$test_name
 pages <- params$pages
 # file <- file.path(file.choose())
 file <- file.path(params$file)
-# qs2::qd_save(file, paste0(test, "_path.rds"))
+qs2::qd_save(file, paste0(test, "_path.rds"))
 # file <- qs::qread(paste0(test, "_path.rds"))
 ```
 
 ## Extract areas with `tabulapdf`
 
 ```{r eval = FALSE}
-# f <- file.path("/Users/joey/reports/Biggie/pdf/Biggie_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
+# f <- file.path("/Users/joey/reports/Max/pdf/Max_adhd_ld_battery-2a4e56ea-524d-496f-a277-5d4f356a60ca.pdf")
 
 # f <- file.path(file.choose(""))
 
 # locate areas and extract
 extracted_areas <- tabulapdf::extract_areas(
-  file = f,
-  pages = c(5, 5, 5, 5, 5, 7),
+  file = file,
+  pages = c(16),
   method = "stream",
   output = "matrix"
 )
@@ -230,7 +230,7 @@ for (i in seq_along(extracted_areas)) {
 
 # Save the entire list to an R data file
 # qs2::qd_save(extracted_areas, file = "extracted_areas.rds")
-# areas <- qs::qread("~/Biggie/src/rmd/areas_wisc5.rds")
+# areas <- qs::qread("~/Max/src/rmd/areas_wisc5.rds")
 ```
 
 ## Locate areas
@@ -285,7 +285,6 @@ extracted_tables <- tabulapdf::extract_tables(
 qs2::qd_save(extracted_tables, file = "extracted_tables_wais5.rds")
 extracted_tables <- qs::qread("extracted_tables_wais5.rds")
 # Load the entire list from an R data file
-# load("extracted_tables.RData") # delete?
 ```
 
 # WAIS-V Subtest Scores (Tables 1-5)
@@ -296,7 +295,7 @@ extracted_tables <- qs::qread("extracted_tables_wais5.rds")
 # Assuming you have extracted_tables and params already defined
 
 # Use this because q-int didnt give PRI
-table1 <- readr::read_csv("wais4_1.csv")
+table1 <- readr::read_csv("wais5_1.csv")
 
 # Convert to data.frame
 # table1 <- as.data.frame(extracted_tables[[1]])
@@ -310,15 +309,22 @@ to_double <- c("raw_score", "score", "percentile")
 table1[to_double] <- lapply(table1[to_double], as.numeric)
 
 
-table1[, 1] <- (params$table1)
+# table1[, 1] <- (params$table1)
 table1 <- table1 |> dplyr::select(all_of(params$keep1))
+```
+
+## Lookup table
+
+```{r}
+# Load the lookup table
+
 ```
 
 ## Mutate columns
 
 ```{r mutate1, eval = params$eval_iq}
-test <- params$test
-test_name <- params$test_name
+# test <- params$test
+# test_name <- params$test_name
 table1 <- bwu::gpluck_make_columns(
   table1,
   range = "",
@@ -338,6 +344,10 @@ table1 <- bwu::gpluck_make_columns(
 ```
 
 ## Test score ranges
+
+```{r range1}
+table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")
+```
 
 ```{r range1, eval = params$eval_iq}
 table1 <- bwu::gpluck_make_score_ranges(table = table1, test_type = "npsych_test")

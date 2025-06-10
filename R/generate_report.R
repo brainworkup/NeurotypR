@@ -34,7 +34,7 @@ generate_report <- function(
   template_path <- system.file(
     "templates",
     paste0(template_name, ".qmd"),
-    package = "neuropsychreport"
+    package = "NeurotypR"
   )
 
   if (!file.exists(template_path)) {

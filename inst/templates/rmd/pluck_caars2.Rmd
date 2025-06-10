@@ -1,7 +1,7 @@
 ---
 title: "Pluck Tables from CAARS-2"
 params:
-  patient: Biggie
+  patient: Max
   test:
     label: "CAARS-2:"
     value: caars2_or
@@ -56,6 +56,7 @@ library(snakecase)
 library(tabulapdf)
 library(tidyverse)
 library(bwu)
+library(NeurotypR)
 ```
 
 ## Parameters
