@@ -43,6 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Core dependencies
 - Licensing and project files
 
-## References
+---
+
+### References
 - Future releases will be linked to GitHub releases
 - For detailed changes, refer to the git commit history

@@ -42,3 +42,4 @@
 ^nab\.test\.descriptions\.manual\.xlsx$
 ^inst/templates/qmd/\.quarto$
 ^/\.DS_Store$
+^R/domain_template\.R$
