@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Default Positron Dark",
+    "workbench.colorTheme": "Themer Future Pro Dark",
     "workbench.iconTheme": "catppuccin-mocha",
     "workbench.colorCustomizations": {
       "activityBar.activeBackground": "#dee2fc66",

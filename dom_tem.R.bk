@@ -46,24 +46,23 @@ get_neuropsych_scales <- function(
   custom_scales = NULL,
   return_all = FALSE
 ) {
+  
   # Source the scales from scales.R
   if (!exists("scales") || is.null(scales)) {
     # Try to load scales from the scales.R file
     scales_file <- system.file("R", "scales.R", package = "NeurotypR")
     if (file.exists(scales_file)) {
-      source(scales_file, local = environment())
+      source(scales_file, local = TRUE)
     } else {
       # Fallback: try to load from current directory
       if (file.exists("R/scales.R")) {
-        source("R/scales.R", local = environment())
+        source("R/scales.R", local = TRUE)
       } else {
-        stop(
-          "Cannot find scales.R file. Please ensure it exists in R/ directory."
-        )
+        stop("Cannot find scales.R file. Please ensure it exists in R/ directory.")
       }
     }
   }
-
+  
   # If return_all is TRUE, return all scales plus any custom scales
   if (return_all) {
     result_scales <- scales
@@ -72,35 +71,25 @@ get_neuropsych_scales <- function(
     }
     return(result_scales)
   }
-
+  
   # Start with all scales
   filtered_scales <- scales
-
+  
   # Filter by test pattern
   if (!is.null(test_pattern)) {
     test_matches <- character(0)
     for (pattern in test_pattern) {
-      matches <- grep(
-        pattern,
-        filtered_scales,
-        value = TRUE,
-        ignore.case = TRUE
-      )
+      matches <- grep(pattern, filtered_scales, value = TRUE, ignore.case = TRUE)
       test_matches <- c(test_matches, matches)
     }
     filtered_scales <- unique(test_matches)
   }
-
+  
   # Filter by domain pattern
   if (!is.null(domain_pattern)) {
     domain_matches <- character(0)
     for (pattern in domain_pattern) {
-      matches <- grep(
-        pattern,
-        filtered_scales,
-        value = TRUE,
-        ignore.case = TRUE
-      )
+      matches <- grep(pattern, filtered_scales, value = TRUE, ignore.case = TRUE)
       domain_matches <- c(domain_matches, matches)
     }
     if (!is.null(test_pattern)) {
@@ -111,66 +100,51 @@ get_neuropsych_scales <- function(
       filtered_scales <- unique(domain_matches)
     }
   }
-
+  
   # Exclude patterns
   if (!is.null(exclude_pattern)) {
     for (pattern in exclude_pattern) {
-      filtered_scales <- grep(
-        pattern,
-        filtered_scales,
-        value = TRUE,
-        invert = TRUE,
-        ignore.case = TRUE
-      )
+      filtered_scales <- grep(pattern, filtered_scales, value = TRUE, 
+                            invert = TRUE, ignore.case = TRUE)
     }
   }
-
+  
   # Filter by composite/subtest preferences
   if (!include_composites) {
     # Remove common composite indicators
     composite_patterns <- c("Index", "Composite", "Total", "Overall", "Domain")
     for (pattern in composite_patterns) {
-      filtered_scales <- grep(
-        pattern,
-        filtered_scales,
-        value = TRUE,
-        invert = TRUE,
-        ignore.case = TRUE
-      )
+      filtered_scales <- grep(pattern, filtered_scales, value = TRUE, 
+                            invert = TRUE, ignore.case = TRUE)
     }
   }
-
+  
   if (!include_subtest_scores) {
     # Keep only scales that appear to be composites or indices
     composite_patterns <- c("Index", "Composite", "Total", "Overall", "Domain")
     composite_matches <- character(0)
     for (pattern in composite_patterns) {
-      matches <- grep(
-        pattern,
-        filtered_scales,
-        value = TRUE,
-        ignore.case = TRUE
-      )
+      matches <- grep(pattern, filtered_scales, value = TRUE, ignore.case = TRUE)
       composite_matches <- c(composite_matches, matches)
     }
     filtered_scales <- unique(composite_matches)
   }
-
+  
   # Add custom scales
   if (!is.null(custom_scales)) {
     filtered_scales <- unique(c(filtered_scales, custom_scales))
   }
-
+  
   # Remove duplicates and sort
   filtered_scales <- unique(filtered_scales)
   filtered_scales <- sort(filtered_scales)
-
+  
   # Return empty character vector if no matches
   if (length(filtered_scales) == 0) {
     warning("No scales matched the specified criteria.")
     return(character(0))
   }
-
+  
   return(filtered_scales)
 }
 
@@ -781,207 +755,244 @@ get_domain_number <- function(pheno) {
   return(domain_num)
 }
 
-#' Get default scales for a given domain using imported scales from scales.R
+#' Get default scales for a given domain
 #'
 #' @param pheno Domain phenotype
 #' @return Vector of scale names
 #' @keywords internal
 get_default_scales <- function(pheno) {
-  # Use the get_neuropsych_scales function to dynamically filter scales
-  # based on domain-specific patterns from the imported scales.R file
-
-  if (pheno == "memory") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Memory",
-        "Recall",
-        "Recognition",
-        "Learning",
-        "CVLT",
-        "NAB"
-      ),
-      test_pattern = c("CVLT", "NAB", "WMS", "RBANS"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
+  # Default scales for executive function
   if (pheno == "executive") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Executive",
-        "Attention",
-        "Working Memory",
-        "Fluency",
-        "Switching",
-        "Inhibition"
-      ),
-      test_pattern = c("D-KEFS", "NEPSY", "NAB", "WAIS", "WISC", "TMT", "NIH"),
-      exclude_pattern = c("False Alarms")
+    return(c(
+      "Animal Coding",
+      "Arithmetic",
+      "Attention Domain",
+      "Attention Index (ATT)",
+      "Attention Index",
+      "Auditory Working Memory (AWMI)",
+      "Bug Search",
+      "Cancellation Random",
+      "Cancellation Structured",
+      "Cancellation",
+      "Categories",
+      "Category Fluency",
+      "Clock Drawing",
+      "Coding",
+      "Cognitive Proficiency (CPI)",
+      "Comprehension",
+      "CVLT-3 Total Intrusions",
+      "CVLT-3 Total Repetitions",
+      "D-KEFS Color Naming",
+      "D-KEFS Inhibition Total Errors",
+      "D-KEFS Inhibition",
+      "D-KEFS Switching Total Errors",
+      "D-KEFS Switching",
+      "D-KEFS Word Reading",
+      "Color Naming",
+      "Inhibition Total Errors",
+      "Inhibition",
+      "Switching Total Errors",
+      "Switching",
+      "Word Reading",
+      "Digit Span Backward",
+      "Digit Span Forward",
+      "Digit Span Sequencing",
+      "Digit Span",
+      "Digits Backward Longest Span",
+      "Digits Backward",
+      "Digits Forward Longest Span",
+      "Digits Forward",
+      "Dots",
+      "Driving Scenes",
+      "Executive Functions Domain",
+      "Executive Index",
+      "Executive Functions Index (EXE)",
+      "Judgment",
+      "Letter Fluency",
+      "Letter-Number Sequencing",
+      "List Memory Intrusions",
+      "List Memory Repetitions",
+      "Longest Digit Span Backward",
+      "Longest Digit Span Forward",
+      "Longest Digit Span Sequence",
+      "Longest Letter-Number Sequence",
+      "Mazes",
+      "NAB Attention Index",
+      "NAB Executive Functions Index",
+      "Executive Functions Index (EXE)",
+      "Numbers & Letters Part A Efficiency",
+      "Numbers & Letters Part A Errors",
+      "Numbers & Letters Part A Speed",
+      "Numbers & Letters Part B Efficiency",
+      "Numbers & Letters Part C Efficiency",
+      "Numbers & Letters Part D Disruption",
+      "Numbers & Letters Part D Efficiency",
+      "Orientation to Place",
+      "Orientation to Self",
+      "Orientation to Situation",
+      "Orientation to Time",
+      "Orientation",
+      "Picture Memory",
+      "Picture Span",
+      "Processing Speed (PSI)",
+      "Processing Speed",
+      "Psychomotor Speed",
+      "RBANS Coding",
+      "RBANS Digit Span",
+      "ROCFT Copy",
+      "Sentence Repetition",
+      "Similarities",
+      "Spatial Addition",
+      "Spatial Span",
+      "Statue-Body Movement",
+      "Statue-Eye Opening",
+      "Statue-Vocalization",
+      "Statue",
+      "Symbol Search",
+      "Symbol Span",
+      "TMT, Part A",
+      "TMT, Part B",
+      "Total Deviation Score",
+      "Unstructured Task",
+      "Word Generation Perseverations",
+      "Word Generation",
+      "Working Memory (WMI)",
+      "Working Memory",
+      "Zoo Locations",
+      "Writing Legibility",
+      "Writing Spelling",
+      "Writing Syntax",
+      "Writing Conveyance",
+      "List Learning Semantic Clusters",
+      "List Learning Perseverations",
+      "List Learning Intrusions",
+      "Figure Drawing Copy Organization",
+      "Figure Drawing Copy Fragmentation",
+      "Figure Drawing Copy Planning",
+      "Figure Drawing Immediate Recall Organization",
+      "Figure Drawing Immediate Recall Fragmentation",
+      "Figure Drawing Immediate Recall Planning"
     ))
   }
-
   if (pheno == "iq") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Full Scale",
-        "General",
-        "Total",
-        "Index",
-        "IQ",
-        "Intelligence",
-        "Reasoning",
-        "Comprehension"
-      ),
-      test_pattern = c("WAIS", "WISC", "WPPSI", "NAB", "RBANS", "TOPF"),
-      include_composites = TRUE,
-      include_subtest_scores = FALSE
+    return(c(
+      "Auditory Working Memory (AWMI)",
+      "Cognitive Proficiency (CPI)",
+      "Crystallized Knowledge",
+      "Fluid Reasoning (FRI)",
+      "Fluid Reasoning",
+      "Full Scale (FSIQ)",
+      "Full Scale IQ (FSIQ)",
+      "General Ability (GAI)",
+      "General Ability",
+      "General Intelligence",
+      "Global Neurocognitive Index (G)",
+      "NAB Attention Index",
+      "NAB Executive Functions Index",
+      "NAB Language Index",
+      "NAB Memory Index",
+      "NAB Spatial Index",
+      "NAB Total Index",
+      "Nonverbal (NVI)",
+      "Perceptual Reasoning (PRI)",
+      "Perceptual Reasoning",
+      "Processing Speed (PSI)",
+      "Processing Speed",
+      "RBANS Total Index",
+      "Test of Premorbid Functioning",
+      "TOPF Standard Score",
+      "Total NAB Index (T-NAB)",
+      "Verbal Comprehension (VCI)",
+      "Verbal Comprehension",
+      "Visual Perception/Construction",
+      "Visual Spatial (VSI)",
+      "Vocabulary Acquisition (VAI)",
+      "Word Reading",
+      "Working Memory (WMI)",
+      "Working Memory",
+      "Attention Index (ATT)",
+      "Language Index (LAN)",
+      "Spatial Index (SPT)",
+      "Memory Index (MEM)",
+      "Executive Functions Index (EXE)"
     ))
   }
 
   if (pheno == "academics") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Academic",
-        "Reading",
-        "Math",
-        "Writing",
-        "Spelling",
-        "Comprehension",
-        "Fluency"
-      ),
-      test_pattern = c("WIAT", "KTEA", "WJ", "TOWRE"),
-      exclude_pattern = c("False Alarms", "Error")
+    return(c(
+      "Academic Fluency Composite",
+      "Academic Language Readiness Index",
+      "Academic Skills Battery (ASB) Composite",
+      "Alphabet Writing Fluency",
+      "Associational Fluency",
+      "Basic Reading",
+      "Comprehension Composite",
+      "Decoding Composite",
+      "Decoding Fluency",
+      "Decoding",
+      "Dyslexia Index",
+      "Essay Composition",
+      "Expression Composite",
+      "Expressive Vocabulary",
+      "Letter & Word Recognition",
+      "Letter Naming Facility",
+      "Listening Comprehension",
+      "Math Composite",
+      "Math Computation",
+      "Math Concepts & Applications",
+      "Math Fluency-Addition",
+      "Math Fluency-Multiplication",
+      "Math Fluency-Subtraction",
+      "Math Fluency",
+      "Math Problem Solving",
+      "Mathematics",
+      "Nonsense Word Decoding",
+      "Numerical Operations",
+      "Object Naming Facility",
+      "Oral Discourse Comprehension",
+      "Oral Expression",
+      "Oral Fluency Composite",
+      "Oral Language Composite",
+      "Oral Reading Fluency",
+      "Oral Word Fluency",
+      "Orthographic Choice",
+      "Orthographic Fluency",
+      "Orthographic Processing Composite",
+      "Orthographic Processing Extended",
+      "Orthographic Processing",
+      "Phonemic Proficiency",
+      "Phonological Processing",
+      "Pseudoword Decoding",
+      "Reading Composite",
+      "Reading Comprehension",
+      "Reading Fluency Composite",
+      "Reading Fluency",
+      "Reading Index",
+      "Reading Understanding Composite",
+      "Reading Vocabulary",
+      "Reading",
+      "Receptive Vocabulary",
+      "Sentence Composition",
+      "Sentence Comprehension",
+      "Sentence Repetition",
+      "Sentence Writing Fluency",
+      "Silent Reading Fluency",
+      "Sound-Symbol Composite",
+      "Spelling",
+      "Total Achievement",
+      "Word Reading",
+      "Word Recognition Fluency",
+      "Writing Fluency",
+      "Written Expression",
+      "Written Language Composite"
     ))
   }
 
-  if (pheno == "verbal") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Verbal",
-        "Language",
-        "Vocabulary",
-        "Comprehension",
-        "Expression",
-        "Fluency"
-      ),
-      test_pattern = c("WAIS", "WISC", "NEPSY", "NAB", "CELF"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
+  # Add cases for other domains as needed
+  # ...
 
-  if (pheno == "spatial") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Spatial",
-        "Visual",
-        "Perceptual",
-        "Construction",
-        "Drawing",
-        "Copy"
-      ),
-      test_pattern = c("WAIS", "WISC", "NAB", "ROCFT", "Spatial"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  if (pheno == "motor") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Motor",
-        "Pegboard",
-        "Finger",
-        "Psychomotor",
-        "Speed",
-        "Dexterity"
-      ),
-      test_pattern = c("Pegboard", "Finger", "Motor", "NAB"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  if (pheno == "social") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Social",
-        "Emotion",
-        "Theory of Mind",
-        "Affect",
-        "Recognition"
-      ),
-      test_pattern = c("NEPSY", "Social", "Emotion", "Affect"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  if (pheno == "adhd_child" || pheno == "adhd_adult") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Attention",
-        "Executive",
-        "Working Memory",
-        "Processing Speed",
-        "Hyperactivity"
-      ),
-      test_pattern = c("ADHD", "Attention", "Conners", "BASC", "CBCL"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  if (pheno == "emotion_child" || pheno == "emotion_adult") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Emotion",
-        "Mood",
-        "Anxiety",
-        "Depression",
-        "Affect",
-        "Behavioral"
-      ),
-      test_pattern = c("BASC", "CBCL", "Beck", "Emotion", "Mood"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  if (pheno == "adaptive") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Adaptive",
-        "Daily Living",
-        "Communication",
-        "Socialization",
-        "Practical"
-      ),
-      test_pattern = c("Vineland", "ABAS", "Adaptive", "Daily Living"),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  if (pheno == "daily_living") {
-    return(get_neuropsych_scales(
-      domain_pattern = c(
-        "Daily Living",
-        "Practical",
-        "Independent Living",
-        "Self-Care",
-        "Functional"
-      ),
-      test_pattern = c(
-        "Daily Living",
-        "Practical",
-        "Independent",
-        "Functional"
-      ),
-      exclude_pattern = c("False Alarms", "Error")
-    ))
-  }
-
-  # Default fallback: return all scales if no domain match
-  warning(paste(
-    "No specific domain patterns found for:",
-    pheno,
-    ". Returning all available scales."
-  ))
-  return(get_neuropsych_scales(return_all = TRUE))
+  # Default to empty if no domain match
+  return(character(0))
 }
 
 #' Get domain groupings for a specific domain
