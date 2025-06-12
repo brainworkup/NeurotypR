@@ -360,27 +360,27 @@ fn_z_score <- gt::md(
 
 source_note <- gt::md("_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]")
 
-# groupings
-# grp_memory <- list(
-#   scaled_score = c(
-#     "CVLT-3 Brief",
-#     "NEPSY-2",
-#     "CVLT-C",
-#     "CVLT-3",
-#     "RBANS Update Form A",
-#     "RBANS"
-#   ),
-#   standard_score = c(
-#     "CVLT-3",
-#     "CVLT-3 Brief",
-#     "NAB",
-#     "NAB-S",
-#     "CVLT-C",
-#     "RBANS Update Form A",
-#     "RBANS"
-#   ),
-#   t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB")
-# )
+groupings
+grp_memory <- list(
+  scaled_score = c(
+    "CVLT-3 Brief",
+    "NEPSY-2",
+    "CVLT-C",
+    "CVLT-3",
+    "RBANS Update Form A",
+    "RBANS"
+  ),
+  standard_score = c(
+    "CVLT-3",
+    "CVLT-3 Brief",
+    "NAB",
+    "NAB-S",
+    "CVLT-C",
+    "RBANS Update Form A",
+    "RBANS"
+  ),
+  t_score = c("Rey Complex Figure", "NAB-S", "NAB Memory", "NAB")
+)
 
 grp_memory <- list(
   standard_score = c("NAB"),
