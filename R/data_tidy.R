@@ -90,10 +90,9 @@ read_and_combine_files <- function(files) {
 #' @rdname load_data
 #' @export
 load_data <- function(
-  file_path,
-  output_dir = here::here("data"),
-  return_data = FALSE
-) {
+    file_path,
+    output_dir = here::here("data"),
+    return_data = FALSE) {
   # Input validation
   if (missing(file_path)) {
     stop("Patient/file path must be specified.")

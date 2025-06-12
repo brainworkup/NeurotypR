@@ -6,10 +6,9 @@
 #' @param custom_settings List of custom settings
 #'
 create_report_config <- function(
-  patient_file,
-  template = "adult",
-  custom_settings = list()
-) {
+    patient_file,
+    template = "adult",
+    custom_settings = list()) {
   # Load base configuration
   config <- load_template_config(template)
 

@@ -33,30 +33,29 @@
 #' @export
 tbl_gt <-
   function(
-    data,
-    pheno = NULL,
-    table_name = NULL,
-    source_note = NULL,
-    names = NULL,
-    title = NULL,
-    tab_stubhead = NULL,
-    caption = NULL,
-    process_md = FALSE,
-    fn_scaled_score = NULL,
-    fn_standard_score = NULL,
-    fn_t_score = NULL,
-    fn_z_score = NULL,
-    fn_raw_score = NULL,
-    grp_scaled_score = NULL,
-    grp_standard_score = NULL,
-    grp_t_score = NULL,
-    grp_z_score = NULL,
-    grp_raw_score = NULL,
-    dynamic_grp = NULL,
-    vertical_padding = NULL,
-    multiline = TRUE,
-    ...
-  ) {
+      data,
+      pheno = NULL,
+      table_name = NULL,
+      source_note = NULL,
+      names = NULL,
+      title = NULL,
+      tab_stubhead = NULL,
+      caption = NULL,
+      process_md = FALSE,
+      fn_scaled_score = NULL,
+      fn_standard_score = NULL,
+      fn_t_score = NULL,
+      fn_z_score = NULL,
+      fn_raw_score = NULL,
+      grp_scaled_score = NULL,
+      grp_standard_score = NULL,
+      grp_t_score = NULL,
+      grp_z_score = NULL,
+      grp_raw_score = NULL,
+      dynamic_grp = NULL,
+      vertical_padding = NULL,
+      multiline = TRUE,
+      ...) {
     # Create data counts
     data_counts <- data |>
       dplyr::select(test_name, scale, score, percentile, range) |>
@@ -233,28 +232,27 @@ tbl_md_typ <- function(data, caption = NULL) {
 #' @importFrom tidyselect all_of
 #' @importFrom purrr set_names
 make_tibble <- function(
-  data,
-  domain,
-  columns = c(
-    "scale",
-    "score",
-    "percentile",
-    "range",
-    "subdomain",
-    "test_name"
-  ),
-  percentile = NULL,
-  round = 0,
-  names = c(
-    "Scale",
-    "Score",
-    "\u2030 Rank",
-    "Range",
-    "Subdomain",
-    "Test"
-  ),
-  ...
-) {
+    data,
+    domain,
+    columns = c(
+      "scale",
+      "score",
+      "percentile",
+      "range",
+      "subdomain",
+      "test_name"
+    ),
+    percentile = NULL,
+    round = 0,
+    names = c(
+      "Scale",
+      "Score",
+      "\u2030 Rank",
+      "Range",
+      "Subdomain",
+      "Test"
+    ),
+    ...) {
   # Filter data based on the phenotype of interest
   tibb <-
     dplyr::filter(data, domain == domain) |>

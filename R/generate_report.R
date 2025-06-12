@@ -15,11 +15,10 @@
 #' generate_report("data/neurocog.csv", output_dir = "output")
 #' }
 generate_report <- function(
-  data_file,
-  template_name = "report-template",
-  output_dir = "output",
-  output_format = "html"
-) {
+    data_file,
+    template_name = "report-template",
+    output_dir = "output",
+    output_format = "html") {
   # Validate inputs
   if (!file.exists(data_file)) {
     stop("Data file not found: ", data_file)

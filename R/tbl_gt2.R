@@ -30,28 +30,27 @@
 #' @export
 tbl_gt2 <-
   function(
-    data,
-    pheno = NULL,
-    source_note = NULL,
-    title = NULL,
-    tab_stubhead = NULL,
-    caption = NULL,
-    process_md = FALSE,
-    fn_scaled_score = NULL,
-    fn_standard_score = NULL,
-    fn_t_score = NULL,
-    fn_z_score = NULL,
-    fn_raw_score = NULL,
-    grp_scaled_score = NULL,
-    grp_standard_score = NULL,
-    grp_t_score = NULL,
-    grp_z_score = NULL,
-    grp_raw_score = NULL,
-    vertical_padding = NULL,
-    multiline = TRUE,
-    save_files = TRUE,
-    ...
-  ) {
+      data,
+      pheno = NULL,
+      source_note = NULL,
+      title = NULL,
+      tab_stubhead = NULL,
+      caption = NULL,
+      process_md = FALSE,
+      fn_scaled_score = NULL,
+      fn_standard_score = NULL,
+      fn_t_score = NULL,
+      fn_z_score = NULL,
+      fn_raw_score = NULL,
+      grp_scaled_score = NULL,
+      grp_standard_score = NULL,
+      grp_t_score = NULL,
+      grp_z_score = NULL,
+      grp_raw_score = NULL,
+      vertical_padding = NULL,
+      multiline = TRUE,
+      save_files = TRUE,
+      ...) {
     # Input validation
     required_cols <- c("test_name", "scale", "score", "percentile", "range")
     missing_cols <- setdiff(required_cols, names(data))

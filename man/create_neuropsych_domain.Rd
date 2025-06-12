@@ -31,7 +31,7 @@ create_neuropsych_domain(
 
 \item{narrow_plot_title}{Caption for narrow plot}
 
-\item{output_file}{Output filename (if NULL, uses pattern "\emph{02-XX}\link{pheno}.qmd")}
+\item{output_file}{Output filename (if NULL, uses pattern "_02-XX_pheno.qmd")}
 }
 \value{
 Invisibly returns TRUE if successful

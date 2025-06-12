@@ -7,9 +7,7 @@
 tbl_gt2(
   data,
   pheno = NULL,
-  table_name = NULL,
   source_note = NULL,
-  names = NULL,
   title = NULL,
   tab_stubhead = NULL,
   caption = NULL,
@@ -24,22 +22,18 @@ tbl_gt2(
   grp_t_score = NULL,
   grp_z_score = NULL,
   grp_raw_score = NULL,
-  dynamic_grp = NULL,
   vertical_padding = NULL,
   multiline = TRUE,
+  save_files = TRUE,
   ...
 )
 }
 \arguments{
-\item{data}{File or path to data.}
+\item{data}{Data frame containing neuropsychological test results.}
 
-\item{pheno}{Phenotype name.}
-
-\item{table_name}{Name of the table to be saved.}
+\item{pheno}{Phenotype name for file naming.}
 
 \item{source_note}{Source note to be added to the table.}
-
-\item{names}{Names of the columns.}
 
 \item{title}{Title of the table.}
 
@@ -47,7 +41,7 @@ tbl_gt2(
 
 \item{caption}{Caption of the table.}
 
-\item{process_md}{Process markdown.}
+\item{process_md}{Process markdown, Default = FALSE.}
 
 \item{fn_scaled_score}{Footnote for scaled score.}
 
@@ -69,16 +63,16 @@ tbl_gt2(
 
 \item{grp_raw_score}{Groups for raw scores.}
 
-\item{dynamic_grp}{Generalized grouping parameter.}
-
-\item{vertical_padding}{Vertical padding.}
+\item{vertical_padding}{Vertical padding scale.}
 
 \item{multiline}{Multiline footnotes, Default = TRUE.}
+
+\item{save_files}{Whether to save PNG and PDF files, Default = TRUE.}
 
 \item{...}{Additional arguments to be passed to the function.}
 }
 \value{
-A formatted table with domain counts.
+A formatted gt table object.
 }
 \description{
 Create a table of domain counts using dplyr and gt packages.

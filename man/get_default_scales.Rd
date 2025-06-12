@@ -2,7 +2,7 @@
 % Please edit documentation in R/domain_template.R
 \name{get_default_scales}
 \alias{get_default_scales}
-\title{Get default scales for a given domain}
+\title{Get default scales for a given domain using imported scales from scales.R}
 \usage{
 get_default_scales(pheno)
 }
@@ -13,6 +13,6 @@ get_default_scales(pheno)
 Vector of scale names
 }
 \description{
-Get default scales for a given domain
+Get default scales for a given domain using imported scales from scales.R
 }
 \keyword{internal}

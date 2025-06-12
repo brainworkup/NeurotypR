@@ -183,7 +183,7 @@ get_neuropsych_scales <- function(
 #' @param exclude_from_plots Vector of scales to exclude from plots
 #' @param subdomain_plot_title Caption for subdomain plot
 #' @param narrow_plot_title Caption for narrow plot
-#' @param output_file Output filename (if NULL, uses pattern "_02-XX_[pheno].qmd")
+#' @param output_file Output filename (if NULL, uses pattern "_02-XX_pheno.qmd")
 #'
 #' @return Invisibly returns TRUE if successful
 #' @export
@@ -376,7 +376,6 @@ generate_qmd_content <- function(
     pheno,
     ",\n",
     "  here::here(\"data\", paste0(pheno, \".csv\")),\n",
-    # "  paste0(pheno, \".csv\"),\n",
     "  na = \"\",\n",
     "  col_names = TRUE,\n",
     "  append = FALSE\n",
@@ -461,14 +460,16 @@ generate_qmd_content <- function(
     "multiline <- TRUE\n\n",
     "# footnotes\n",
     "fn_scaled_score <- gt::md(\n",
-    "  \"Scaled score: Mean = 10 [50th‰], SD ± 3 [16th‰, 84th‰]\"\n",
+    "  \"Scaled score: Mean = 10 [50th\\u2030], SD ± 3 [16th\\u2030, 84th\\u2030]\"\n",
     ")\n\n",
     "fn_standard_score <- gt::md(\n",
-    "  \"Standard score: Mean = 100 [50th‰], SD ± 15 [16th‰, 84th‰]\"\n",
+    "  \"Standard score: Mean = 100 [50th\\u2030], SD ± 15 [16th\\u2030, 84th\\u2030]\"\n",
     ")\n\n",
-    "fn_t_score <- gt::md(\"T score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]\")\n\n",
-    "fn_z_score <- gt::md(\"z-score: Mean = 0 [50th‰], SD ± 1 [16th‰, 84th‰]\")\n\n",
-    "source_note <- gt::md(\"_T_ score: Mean = 50 [50th‰], SD ± 10 [16th‰, 84th‰]\")\n\n",
+    "fn_t_score <- gt::md(\"T score: Mean = 50 [50th\\u2030], SD ± 10 [16th\\u2030, 84th\\u2030]\")\n\n",
+    "fn_z_score <- gt::md(\"z-score: Mean = 0 [50th\\u2030], SD ± 1 [16th\\u2030, 84th\\u2030]\")\n\n",
+    "source_note <- gt::md(\n",
+    "  \"_T_ score: Mean = 50 [50th\\u2030], SD ± 10 [16th\\u2030, 84th\\u2030]\"\n",
+    ")\n\n",
     "# groupings - get unique test names that actually exist in the data\n",
     "existing_test_names <- unique(data_executive_tbl$test_name)\n",
     "existing_test_names <- existing_test_names[!is.na(existing_test_names)]\n\n",
@@ -1029,11 +1030,11 @@ get_domain_groupings <- function(pheno) {
 
   # Default empty groupings
   return(
-    'list(
+    "list(
   scaled_score = character(0),
   standard_score = character(0),
   t_score = character(0)
-)'
+)"
   )
 }
 

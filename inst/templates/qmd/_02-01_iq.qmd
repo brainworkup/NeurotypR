@@ -344,7 +344,6 @@ NeurotypR::dotplot2(
 // The title is appended with ' Index Scores'
 #domain(title: [#title Scores], file_qtbl, file_fig)
 ```
-
 ```{=typst}
 // Define the title of the domain
 #let title = "General Cognitive Ability"

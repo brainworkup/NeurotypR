@@ -28,20 +28,19 @@
 #' @rdname dotplot
 #' @export
 dotplot <- function(
-  data,
-  x,
-  y,
-  linewidth = 0.5,
-  fill = x,
-  shape = 21,
-  point_size = 6,
-  line_color = "black",
-  colors = NULL,
-  theme = "fivethirtyeight",
-  return_plot = NULL,
-  filename = NULL,
-  ...
-) {
+    data,
+    x,
+    y,
+    linewidth = 0.5,
+    fill = x,
+    shape = 21,
+    point_size = 6,
+    line_color = "black",
+    colors = NULL,
+    theme = "fivethirtyeight",
+    return_plot = NULL,
+    filename = NULL,
+    ...) {
   # Check if required packages are installed
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     stop("Package 'ggplot2' must be installed to use this function.")
@@ -138,8 +137,7 @@ dotplot <- function(
 
   # Apply theme
   plot_object <- plot_object +
-    switch(
-      theme,
+    switch(theme,
       "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
       "minimal" = ggplot2::theme_minimal(),
       "classic" = ggplot2::theme_classic(),
@@ -203,15 +201,14 @@ Supported extensions are 'pdf', 'png', and 'svg'."
 #' @rdname drilldown
 #' @export
 drilldown <- function(
-  data,
-  patient,
-  neuro_domain = c(
-    "Neuropsychological Test Scores",
-    "Behavioral Rating Scales",
-    "Effort/Validity Test Scores"
-  ),
-  theme
-) {
+    data,
+    patient,
+    neuro_domain = c(
+      "Neuropsychological Test Scores",
+      "Behavioral Rating Scales",
+      "Effort/Validity Test Scores"
+    ),
+    theme) {
   # Check if required packages are installed
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("Package 'dplyr' must be installed to use this function.")
@@ -522,15 +519,14 @@ drilldown <- function(
 #' @rdname drilldown
 #' @export
 drilldown2 <- function(
-  data,
-  patient,
-  neuro_domain = c(
-    "Neuropsychological Test Scores",
-    "Behavioral Rating Scales",
-    "Effort/Validity Test Scores"
-  ),
-  theme
-) {
+    data,
+    patient,
+    neuro_domain = c(
+      "Neuropsychological Test Scores",
+      "Behavioral Rating Scales",
+      "Effort/Validity Test Scores"
+    ),
+    theme) {
   # Check if required packages are installed
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("Package 'dplyr' must be installed to use this function.")

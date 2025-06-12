@@ -20,11 +20,10 @@
 #' prepare_data(domains, pheno, scales)
 #' }
 prepare_data <- function(
-  domains,
-  pheno,
-  scales,
-  type = system.file("extdata", "neurocog.csv", package = "NeurotypR")
-) {
+    domains,
+    pheno,
+    scales,
+    type = system.file("extdata", "neurocog.csv", package = "NeurotypR")) {
   # Check if required arguments are provided
   if (missing(domains) || missing(pheno) || missing(scales)) {
     stop("All arguments (domains, pheno, scales) must be provided.")
@@ -162,14 +161,13 @@ prepare_data <- function(
 #' domain <- "example_domain"
 #' visualize_data(data, scales_to_keep, pheno, domain)
 visualize_data <- function(
-  data,
-  scales_to_keep,
-  pheno,
-  domain,
-  grp_pheno = NULL,
-  x = "x",
-  y = "y"
-) {
+    data,
+    scales_to_keep,
+    pheno,
+    domain,
+    grp_pheno = NULL,
+    x = "x",
+    y = "y") {
   # Check if required arguments are missing
   if (
     missing(data) ||

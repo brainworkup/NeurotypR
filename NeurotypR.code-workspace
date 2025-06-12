@@ -39,7 +39,10 @@
     "quarto.render.renderOnSave": true,
     "workbench.preferredHighContrastLightColorTheme": "Default High Contrast",
     "workbench.productIconTheme": "fluent-icons",
-    "nextflow.telemetry.enabled": false
+    "nextflow.telemetry.enabled": false,
+    "cSpell.words": [
+      "BASC"
+    ]
   },
   "extensions": {
     "recommendations": [

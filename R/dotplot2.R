@@ -28,20 +28,19 @@
 #' @rdname dotplot2
 #' @export
 dotplot2 <- function(
-  data,
-  x,
-  y,
-  linewidth = 0.5,
-  fill = x,
-  shape = 21,
-  point_size = 6,
-  line_color = "black",
-  colors = NULL,
-  theme = "fivethirtyeight",
-  return_plot = NULL,
-  filename = NULL,
-  ...
-) {
+    data,
+    x,
+    y,
+    linewidth = 0.5,
+    fill = x,
+    shape = 21,
+    point_size = 6,
+    line_color = "black",
+    colors = NULL,
+    theme = "fivethirtyeight",
+    return_plot = NULL,
+    filename = NULL,
+    ...) {
   # Define the color palette
   color_palette <- if (is.null(colors)) {
     c(
@@ -98,8 +97,7 @@ dotplot2 <- function(
 
   # Apply theme
   plot_object <- plot_object +
-    switch(
-      theme,
+    switch(theme,
       "fivethirtyeight" = ggthemes::theme_fivethirtyeight(),
       "minimal" = ggplot2::theme_minimal(),
       "classic" = ggplot2::theme_classic(),
