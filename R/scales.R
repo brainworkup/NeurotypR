@@ -1,26 +1,3 @@
-#' @name scales
-#' @docType data
-#' @title All Neuropsychological Test Scales Combined
-#' @description A comprehensive character vector containing all neuropsychological test scale names from all cognitive and behavioral domains. This is the main scales vector used by the `get_neuropsych_scales` function and includes scales from IQ, memory, academics, verbal, spatial, executive, motor, social, ADHD, emotional, adaptive, and daily living domains.
-#' @keywords data
-scales <- c(
-  scales_iq,
-  scales_academics,
-  scales_verbal,
-  scales_spatial,
-  scales_memory,
-  scales_executive,
-  motor_scales,
-  daily_living_scales,
-  adhd_adult_scales,
-  adhd_child_scales,
-  emotion_adult_scales,
-  emotion_child_scales,
-  social_scales,
-  adaptive_scales
-)
-
-
 #' Neuropsychological Test Scales
 #'
 #' This file contains character vectors of neuropsychological test scale names,
@@ -1147,4 +1124,26 @@ daily_living_scales <- c(
   "Name/Address/Phone Delayed Recall",
   "Name/Address/Phone Delayed Recognition",
   "Name/Address/Phone Immediate Recall"
+)
+
+#' @name scales
+#' @docType data
+#' @title All Neuropsychological Test Scales Combined
+#' @description A comprehensive character vector containing all neuropsychological test scale names from all cognitive and behavioral domains. This is the main scales vector used by the `get_neuropsych_scales` function and includes scales from IQ, memory, academics, verbal, spatial, executive, motor, social, ADHD, emotional, adaptive, and daily living domains.
+#' @keywords data
+scales <- c(
+  scales_iq,
+  scales_academics,
+  scales_verbal,
+  scales_spatial,
+  scales_memory,
+  scales_executive,
+  motor_scales,
+  daily_living_scales,
+  adhd_adult_scales,
+  adhd_child_scales,
+  emotion_adult_scales,
+  emotion_child_scales,
+  social_scales,
+  adaptive_scales
 )
