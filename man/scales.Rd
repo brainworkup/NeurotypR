@@ -3,12 +3,13 @@
 \docType{data}
 \name{scales}
 \alias{scales}
+\alias{scales_all}
 \title{All Neuropsychological Test Scales Combined}
 \format{
-An object of class \code{character} of length 853.
+An object of class \code{character} of length 849.
 }
 \usage{
-scales
+scales_all
 }
 \description{
 A comprehensive character vector containing all neuropsychological test scale names from all cognitive and behavioral domains. This is the main scales vector used by the \code{get_neuropsych_scales} function and includes scales from IQ, memory, academics, verbal, spatial, executive, motor, social, ADHD, emotional, adaptive, and daily living domains.

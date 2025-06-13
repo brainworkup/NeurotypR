@@ -283,8 +283,8 @@ generate_qmd_content <- function(
   domain,
   pheno,
   scales,
-  table_filters,
-  exclude_from_plots,
+  table_filters = NULL,
+  exclude_from_plots = NULL,
   subdomain_plot_title,
   narrow_plot_title
 ) {
@@ -443,26 +443,18 @@ generate_qmd_content <- function(
     "# Set the default engine for tikz to \"xetex\"\n",
     "options(tikzDefaultEngine = \"xetex\")\n\n",
     "# more filtering for tables\n",
-    if (!is.null(table_filters)) {
-      paste0(
+    eval(parse(
+      text = paste0(
         "data_",
         pheno,
-        "_tbl <-\n",
-        "  data_",
+        "_tbl <- data_",
         pheno,
         " |>\n",
-        "  dplyr::filter(\n",
-        "    scale %in%\n",
-        "      c(\n",
-        "        \"",
-        paste(table_filters, collapse = "\",\n        \""),
-        "\"\n",
-        "      )\n",
-        "  )\n\n"
+        "  dplyr::filter(scale %in% c(\"",
+        paste(table_filters, collapse = "\", \""),
+        "\"))"
       )
-    } else {
-      paste0("data_", pheno, "_tbl <- data_", pheno, "\n\n")
-    },
+    )),
     "# table arguments\n",
     "table_name <- paste0(\"table_\", pheno)\n",
     "vertical_padding <- 0\n",

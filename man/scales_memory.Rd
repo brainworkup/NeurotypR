@@ -5,7 +5,7 @@
 \alias{scales_memory}
 \title{Memory Scales}
 \format{
-An object of class \code{character} of length 139.
+An object of class \code{character} of length 135.
 }
 \usage{
 scales_memory
